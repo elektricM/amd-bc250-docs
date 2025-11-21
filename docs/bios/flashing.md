@@ -72,6 +72,36 @@ The ZIP contains:
 !!!info "BIOS Version"
     P3.00 is the recommended modded version. Your board may have P2.00, P4.00, or P5.00 stock - doesn't matter, flash to P3.00 modded.
 
+#### Available BIOS Versions
+
+**P3.00 Chipset Menu (Recommended for most users):**
+- Unlocks VRAM allocation, fan control, chipset settings
+- Most tested and stable by community
+- Download: [TuxThePenguin0 GitLab](https://gitlab.com/TuxThePenguin0/bc250-bios/)
+
+**P5.00_clv (Newer, Advanced Users Only):**
+- Contains many additional unlocked settings
+- Includes ReBAR (Resizable BAR) and other advanced options
+- Less tested, community reports "many settings you shouldn't touch"
+- Only use if you need specific advanced features
+- Shared in Discord #bc250-resources thread
+
+!!!warning "Stock BIOS Version Differences"
+    Stock BIOS versions (P2.00, P3.00, P4.00, P5.00) are functionally identical except:
+
+    - P5.00 has network (PXE) boot enabled by default
+    - P4.00 and earlier do not
+
+    "Robin" is the board's internal codename - all versions are for the same BC-250 hardware.
+
+#### Community BIOS Archives
+
+Complete stock BIOS packages with changelogs are available in the Discord server for reference:
+- Original ASRock engineering files
+- All stock versions (P1.00, P2.00, P3.00, P4.00, P5.00)
+- AfuLnx64 Linux flashing utility
+- Historical development context
+
 ### Step 2: Prepare USB Stick
 
 1. Format USB stick as **FAT32** (not exFAT or NTFS)
@@ -222,6 +252,22 @@ After flashing, configure these critical settings:
 - 12GB RAM / 4GB VRAM - Light gaming, more system RAM
 
 [Detailed VRAM guide →](vram.md)
+
+### Known Post-Flash Issues
+
+!!!warning "DisplayPort Audio Compatibility"
+    Some users report DisplayPort audio issues after flashing modded BIOS:
+
+    - Audio may be pitched down/slow ("slow motion" effect)
+    - Affects some older TVs/monitors, works fine on modern displays
+    - Passive DP-to-HDMI adapters work better than active ones
+    - Flashing back to stock may NOT resolve the issue
+
+    **Workarounds:**
+    - Use passive DP-to-HDMI adapter (not active)
+    - Try USB audio adapter
+    - Test with different display if possible
+    - Modern 4K HDR displays typically don't have this issue
 
 ---
 

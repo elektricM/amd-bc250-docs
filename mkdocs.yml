@@ -136,14 +136,23 @@ nav:
     - Kernel Configuration: linux/kernel.md
     - Mesa Installation: linux/mesa.md
 
+  - Drivers & Graphics:
+    - RADV Driver: drivers/radv.md
+    - Environment Variables: drivers/environment.md
+
   - System Configuration:
     - GPU Governor: system/governor.md
+    - Sensors & Monitoring: system/sensors.md
+    - Power Management: system/power.md
 
   - Gaming & Performance:
     - Game Compatibility: gaming/compatibility.md
 
   - Troubleshooting:
+    - Boot Problems: troubleshooting/boot.md
     - Display Issues: troubleshooting/display.md
+    - Performance Issues: troubleshooting/performance.md
+    - Stability Problems: troubleshooting/stability.md
 
   - Reference:
     - Quick Reference: reference/quick-reference.md

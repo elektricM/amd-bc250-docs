@@ -21,6 +21,223 @@ Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual confi
 3. **Adequate Cooling:** Arctic P12 Max or better
 4. **Quality PSU:** 250W+ on 12V rail
 
+---
+
+## GPU Frequency Range Kernel Patch
+
+The GPU frequency range kernel patch is a community-developed modification that extends the BC-250's GPU operating frequencies beyond the default software-imposed limits to match the actual hardware capabilities.
+
+**Created by:** ViRazY ([GitHub](https://github.com/Vinjul1704))
+
+### What the Patch Does
+
+**Frequency Range Extension:**
+- **Default range:** 1000 MHz - 2000 MHz
+- **Patched range:** 350 MHz - 2230 MHz
+- **Hardware limit:** 2230 MHz (actual silicon limit)
+
+**Voltage Range:**
+- **Default:** 700 mV - 1129 mV (unchanged in standard patch)
+- **Experimental extended patch:** 600 mV - 1300 mV (NOT RECOMMENDED)
+
+!!!warning "Use Standard Patch Only"
+    The extended voltage patch (600-1300 mV) is NOT recommended. The standard patch is sufficient for reaching 2230 MHz, and extended voltages risk hardware degradation.
+
+### Why It's Needed
+
+Without the patch, the BC-250's GPU performance is artificially limited:
+
+1. **Performance ceiling:** Stock 2000 MHz maximum prevents full potential
+2. **Power efficiency:** Cannot downclock below 1000 MHz for idle
+3. **Governor compatibility:** Cannot set frequencies outside 1000-2000 MHz range
+
+### Performance Gains
+
+**Gaming Performance:**
+- **Star Wars Battlefront 2:** 80-85 FPS → 120-130 FPS (+50%)
+- Users report "huge performance boost" across multiple titles
+- Maximum performance at 2230 MHz @ 1000-1060 mV
+
+**Power Efficiency:**
+- Idle downclocking to 350 MHz saves ~1-9W vs stock
+- Total system power can reach ~69W idle (vs ~78W stock)
+- Limited savings due to 700 mV floor being safe minimum
+
+### How to Obtain the Patch
+
+#### Pre-Patched Distributions (Easiest)
+
+1. **Bazzite** - Kernel pre-patched, no compilation needed
+   - Download: [Bazzite Kernel Releases](https://github.com/bazzite-org/kernel-bazzite/releases)
+
+2. **Arch Linux (AUR packages)**
+   - `linux-bazzite-bin` - Bazzite kernel for Arch
+   - `linux-lts-amd-bc250-headers` - BC-250 LTS kernel
+
+3. **PikaOS** - Includes GPU frequency patch by default
+
+#### Manual Download
+
+The patch file is available in the BC-250 Discord server:
+- **Forum thread:** `bc250-resources` → "Increased GPU frequency range kernel patch"
+- **File:** `linux-6.12-bc250-freq.mypatch` (639 bytes)
+
+### Manual Application
+
+#### Method 1: Linux-TKG (Recommended)
+
+```bash
+# Clone linux-tkg repository
+git clone https://github.com/Frogging-Family/linux-tkg.git
+cd linux-tkg
+
+# Create userpatches folder
+mkdir linux612-tkg-userpatches
+
+# Download and place patch
+# (Get linux-6.12-bc250-freq.mypatch from Discord)
+mv linux-6.12-bc250-freq.mypatch linux612-tkg-userpatches/
+
+# Compile kernel
+# Follow linux-tkg instructions
+# Press Y when asked to apply userpatches
+```
+
+**Benefits:**
+- Automatic patch application
+- Gaming-optimized tweaks included
+- Well-tested compilation process
+
+#### Method 2: AMDGPU Module Only (Fast Method)
+
+Instead of 3-hour full kernel build, compile just the amdgpu module in 3 minutes:
+
+**Trade-off:** Loads an out-of-tree module (taints kernel)
+
+**Process:**
+1. Download kernel source matching your running kernel
+2. Apply patch to cyan_skillfish driver files
+3. Build only amdgpu module
+4. Load patched module
+
+**Note:** The patch modifies only 3 values in the cyan_skillfish file.
+
+#### Method 3: Distribution-Specific
+
+**Fedora:**
+```bash
+# Follow Fedora's kernel patching guide
+# Or install Bazzite kernel RPMs directly
+```
+
+**Arch Linux:**
+```bash
+# Use AUR packages (recommended)
+yay -S linux-bazzite-bin
+# Or linux-lts-amd-bc250-headers
+
+# Or apply patch to PKGBUILD for custom builds
+```
+
+### Verifying the Patch
+
+Check if patch is applied:
+
+```bash
+cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
+```
+
+Expected output should show frequency range **350-2230 MHz**.
+
+### Troubleshooting: GPU Locked at 1500 MHz
+
+If GPU remains at 1500 MHz after installing patched kernel:
+
+1. **Verify patch applied:**
+   - Try setting frequencies in unpatched range (1000-2000 MHz) via governor
+   - If works: Patch NOT applied, rebuild kernel
+   - If doesn't work: Governor issue, not patch
+
+2. **Update governor configuration:**
+   ```bash
+   sudo nano /etc/oberon-config.yaml
+
+   # Update to use extended range
+   frequency:
+     min: 350    # Was 1000
+     max: 2230   # Was 2000
+
+   sudo systemctl restart oberon-governor
+   ```
+
+### Recommended Settings
+
+**Maximum Performance:**
+```yaml
+frequency:
+  min: 1000
+  max: 2230
+voltage:
+  min: 700
+  max: 1060    # Adjust based on stability (1000-1060 typical)
+```
+
+**Balanced Profile:**
+```yaml
+frequency:
+  min: 1000
+  max: 2000
+voltage:
+  min: 700
+  max: 1000
+```
+
+**Low Power Profile:**
+```yaml
+frequency:
+  min: 350     # Deep idle
+  max: 2000
+voltage:
+  min: 700     # Don't go below 700 mV
+  max: 1000
+```
+
+### Compatibility
+
+**Kernel Versions:**
+- **Tested:** 6.12 (original), 6.15, 6.16.x
+- **Expected:** Works on newer kernels (driver-level patch)
+
+**Distribution Support:**
+
+| Distribution | Status | Method |
+|--------------|--------|--------|
+| Bazzite | ✅ Pre-patched | Use stock kernel |
+| Arch (AUR) | ✅ Pre-patched | Install from AUR |
+| PikaOS | ✅ Pre-patched | Use stock kernel |
+| Fedora | ⚠️ Manual | linux-tkg or Bazzite RPM |
+| CachyOS | ⚠️ Manual | May be included in future |
+| Manjaro | ⚠️ Manual | No pre-built packages |
+| Debian | ⚠️ Manual | Patch kernel source |
+
+### Warnings
+
+!!!danger "Cooling Required at 2230 MHz"
+    2230 MHz @ 1050 mV generates significantly more heat than stock. Ensure high static pressure cooling (Arctic P12 Max or Noctua NF-A12x25). Temperature monitoring essential.
+
+!!!warning "Silicon Lottery"
+    Not all chips stable at 2000 MHz @ 1000 mV. Voltage requirements for 2230 MHz vary (1000-1060 mV typical). Test stability incrementally.
+
+!!!warning "PSU Requirements"
+    Maximum power draw can exceed 320W with full GPU load (Furmark). Ensure adequate PSU capacity. Games typically draw 220-250W max.
+
+**Do NOT:**
+- Use extended voltage patch (600-1300 mV) - unnecessary and risky
+- Go below 700 mV (unstable, minimal power savings)
+- Exceed 1129 mV without careful testing (hardware degradation risk)
+
+---
+
 ## Safe Overclocking Limits
 
 ### Community-Tested Safe Limits
