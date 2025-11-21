@@ -119,7 +119,6 @@ nav:
     - Power Requirements: hardware/power.md
     - Cooling Solutions: hardware/cooling.md
     - Display Connectors: hardware/display.md
-    - Pinouts & Connectors: hardware/pinouts.md
 
   - BIOS & Firmware:
     - BIOS Flashing Guide: bios/flashing.md
@@ -130,49 +129,20 @@ nav:
   - Linux Setup:
     - Distribution Guide: linux/distributions.md
     - Fedora Setup: linux/fedora.md
-    - Bazzite Setup: linux/bazzite.md
-    - CachyOS Setup: linux/cachyos.md
-    - Arch Linux Setup: linux/arch.md
-    - Debian Setup: linux/debian.md
     - Kernel Configuration: linux/kernel.md
     - Mesa Installation: linux/mesa.md
 
-  - Drivers & Graphics:
-    - RADV Driver: drivers/radv.md
-    - Environment Variables: drivers/environment.md
-    - Vulkan & OpenGL: drivers/apis.md
-    - Mesa Compilation: drivers/mesa-build.md
-
   - System Configuration:
     - GPU Governor: system/governor.md
-    - Performance Tuning: system/performance.md
-    - Sensors & Monitoring: system/sensors.md
-    - Power Management: system/power.md
 
   - Gaming & Performance:
     - Game Compatibility: gaming/compatibility.md
-    - Performance Tips: gaming/performance.md
-    - Benchmarks: gaming/benchmarks.md
-    - FSR & Scaling: gaming/scaling.md
 
   - Troubleshooting:
     - Display Issues: troubleshooting/display.md
-    - Boot Problems: troubleshooting/boot.md
-    - Performance Issues: troubleshooting/performance.md
-    - Stability Problems: troubleshooting/stability.md
-    - Common Fixes: troubleshooting/common-fixes.md
-
-  - Community Projects:
-    - Software Projects: community/software.md
-    - Case Designs: community/cases.md
-    - Hardware Mods: community/mods.md
-    - 3D Printing: community/3d-printing.md
 
   - Reference:
     - Quick Reference: reference/quick-reference.md
-    - Command Cheatsheet: reference/commands.md
-    - Verified Information: reference/verified.md
-    - FAQ: reference/faq.md
 
 # Extra
 extra:

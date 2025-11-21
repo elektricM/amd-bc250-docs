@@ -201,7 +201,7 @@ If board still doesn't display:
 - Reflash using USB method again
 - Or use hardware programmer (CH341A)
 
-[BIOS recovery guide →](bios-recovery.md)
+[BIOS recovery guide →](../bios/recovery.md)
 
 ---
 
@@ -554,7 +554,7 @@ vulkaninfo | grep deviceName
 - Use CH341A to reflash BIOS directly
 - Bypass potentially corrupted BIOS
 
-[BIOS recovery guide →](bios-recovery.md)
+[BIOS recovery guide →](../bios/recovery.md)
 
 ### If Display Works in Linux But Not Windows
 
@@ -586,4 +586,4 @@ A: Likely loose cable, bad adapter, or overheating. Check all connections and te
 - [BIOS Flashing](../bios/flashing.md)
 - [Linux Installation](../linux/distributions.md)
 - [Hardware Setup](../hardware/power.md)
-- [BIOS Recovery](bios-recovery.md)
+- [BIOS Recovery](../bios/recovery.md)

@@ -178,7 +178,7 @@ The board is bare PCB, so you'll want some kind of enclosure or mounting.
 - **DIY:** Standoffs + acrylic/wood sheet
 - **Rack mount:** Original use case (need compatible chassis)
 
-[Community case designs →](../community/README.md)
+See the BC250 Discord for community case designs and 3D printable options.
 
 ---
 
