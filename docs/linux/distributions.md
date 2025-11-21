@@ -121,12 +121,13 @@ systemctl reboot
 
 **Option 1: Arch + Migration (Recommended)**
 
-1. Install Arch Linux using `archinstall`
-2. Boot with `nomodeset` if needed
-3. Use CachyOS migration script from their documentation
-4. Install CachyOS LTS kernel during migration
-5. Install kernel manager: `pacman -S cachyos-kernel-manager`
-6. Select LTS kernel (6.12.x)
+1. Install Arch Linux following the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
+2. Use `linux-lts` kernel (6.12.x - 6.14.x)
+3. Boot with `nomodeset` if needed (remove after driver installation)
+4. Use CachyOS migration script from their documentation
+5. Install CachyOS LTS kernel during migration
+6. Install kernel manager: `pacman -S cachyos-kernel-manager`
+7. Select LTS kernel (6.12.x)
 
 **Option 2: Custom ISO (Advanced)**
 
@@ -177,9 +178,10 @@ cd bc250-arch
 
 **Option 2: Manual Installation**
 
+Follow the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide), then:
+
 ```bash
-# Install Arch normally using archinstall
-# Then install required packages:
+# Install required packages after base installation:
 pacman -S base-devel cmake git mesa vulkan-radeon
 
 # Install governor (see system/governor.md)
@@ -363,12 +365,13 @@ sudo apt update && sudo apt upgrade
 ### CachyOS (Performance)
 
 1. Download Arch ISO
-2. Install Arch using `archinstall`
-3. Boot Arch
-4. Run CachyOS migration script
-5. Install LTS kernel
-6. Configure system
-7. Install governor
+2. Install Arch following the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
+3. Use `linux-lts` kernel during installation
+4. Boot Arch
+5. Run CachyOS migration script
+6. Install CachyOS LTS kernel
+7. Configure system
+8. Install governor
 
 ## Common Issues by Distribution
 

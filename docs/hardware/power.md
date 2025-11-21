@@ -11,8 +11,8 @@ The BC-250 is a high-performance board that requires proper power delivery for s
 - **Voltage:** 12V DC
 - **Connector:** PCIe 8-pin (6+2 pin)
 - **TDP:** 220W (rated)
-- **Actual Power Draw:** 50-235W depending on workload
-- **Minimum PSU Recommendation:** 250W on 12V rail
+- **Actual Power Draw:** 70-235W depending on workload
+- **Minimum PSU Recommendation:** 300W on 12V rail
 
 !!!danger "Critical Warning"
     Always verify your PSU can deliver the required wattage on the 12V rail. Many budget PSUs cannot sustain their rated output, leading to system instability, crashes, or PSU failure.
@@ -40,28 +40,10 @@ Real-world power measurements from community testing:
 
 ## Recommended PSU Options
 
-### Option 1: Dell D220P-01 (Most Popular)
+!!!danger "Avoid Low-Wattage PSUs"
+    Dell D220P-01 and D250AD-00 PSUs are **NOT RECOMMENDED** despite appearing cheap. At 220W/250W, they are insufficient for the BC-250's peak loads and have been reported to "cut out or even break" under gaming loads. Minimum 300W on the 12V rail is required for reliable operation.
 
-**Specifications:**
-- **Model:** Dell D220P-01 / D250AD-00
-- **Output:** 12V @ 18A (216W)
-- **Form Factor:** Small brick-style
-- **Pros:** Cheap, compact, quiet
-- **Cons:** Proprietary connector (requires adapter or modification)
-
-**Where to Buy:**
-- eBay: Commonly available with offers accepted
-- Check eBay for current listings
-
-**Connection Method:**
-1. Short pin 16 to ground (pin 15) to turn PSU on
-2. Wire 12V output (pins 1-10) to PCIe 8-pin connector
-3. Wire ground (pins 11-15) to PCIe 8-pin connector
-
-!!!tip "Power-On Control"
-    The BC-250 has auto-power-on when 12V is applied. Alternatively, use the rear power button to manually start the board.
-
-### Option 2: Mean Well LOP-300-12
+### Option 1: Mean Well LOP-300-12
 
 **Specifications:**
 - **Model:** Mean Well LOP-300-12
@@ -79,7 +61,7 @@ Real-world power measurements from community testing:
 !!!warning "Wiring Required"
     This PSU has bare terminals. You'll need to crimp your own PCIe 8-pin connector.
 
-### Option 3: FlexATX PSU (500W)
+### Option 2: FlexATX PSU (500W)
 
 **Specifications:**
 - **Form Factor:** FlexATX (150mm x 81.5mm x 40.5mm)
@@ -95,7 +77,7 @@ Real-world power measurements from community testing:
 !!!success "Plug and Play"
     FlexATX PSUs have standard PCIe 8-pin connectors, making installation straightforward.
 
-### Option 4: Standard ATX PSU
+### Option 3: Standard ATX PSU
 
 **Specifications:**
 - **Form Factor:** ATX (150mm x 140mm x 86mm)
@@ -111,7 +93,7 @@ Real-world power measurements from community testing:
 !!!info "Using Existing PSU"
     If you have a spare ATX PSU, it will work fine. Use a standard PCIe 8-pin cable.
 
-### Option 5: Server PSU
+### Option 4: Server PSU
 
 **Specifications:**
 - **Form Factor:** Various (1U, 2U)
@@ -127,21 +109,8 @@ Real-world power measurements from community testing:
 !!!danger "Not Recommended for Desktop Use"
     Server PSUs use high-speed (10,000+ RPM) fans that sound like jet engines. Only suitable for rack-mounted or garage installations.
 
-### Option 6: 12V LED/Industrial PSU
-
-**Specifications:**
-- **Output:** 12V @ 30A (360W)
-- **Form Factor:** Enclosed metal box
-- **Pros:** Budget-friendly, fanless or quiet fan
-- **Cons:** Build quality varies, may lack protections
-
-**Considerations:**
-- Verify output is 12V DC (not AC)
-- Check amperage rating (need 20A minimum)
-- Look for short-circuit and over-current protection
-
-!!!warning "Quality Varies Widely"
-    Some LED PSUs are excellent, others are fire hazards. Research specific models before purchasing.
+!!!danger "LED PSUs Not Recommended"
+    12V LED/Industrial power supplies are **NOT RECOMMENDED** for the BC-250. They have unreliable ripple current and quality varies too widely to be safe. The risk of instability or component damage is too high.
 
 ## PSU Safety and Requirements
 
@@ -174,7 +143,7 @@ Required Wattage = 235W * 1.2 = 282W
 
 ### Cable Quality
 
-- **Use 18 AWG or thicker** wire for high current capacity
+- **Use 16 AWG minimum** wire for high current capacity (18 AWG has caused melted cables)
 - **Avoid adapters** (SATA-to-PCIe, Molex-to-PCIe) - these are fire hazards
 - **Check cable temperature** under load - warm cables indicate resistance issues
 - **Crimp properly** if making custom cables - poor crimps create hot spots
@@ -195,16 +164,21 @@ The BC-250 starts automatically when 12V power is applied.
 
 **Use Case:** Simple setups where PSU has an on/off switch
 
-### Method 2: Power Button
+### Method 2: Power Button (Soldering Required)
 
-The BC-250 has a 2-pin power button header on the rear of the board.
+The BC-250 does **NOT have a power button header**. To add an external power button, you must solder directly to the existing onboard power button.
 
 **Setup:**
-1. Short the power button pins to turn on
-2. Short again to turn off (soft shutdown)
-3. Hold for 5+ seconds for hard power-off
+1. Identify the onboard power button on the rear of the board
+2. Solder wires to both sides of the power button
+3. Connect to external momentary switch
+4. Short to turn on, short again for soft shutdown
+5. Hold for 5+ seconds for hard power-off
 
-**Use Case:** Builds with a case and external power button
+**Use Case:** Advanced builds with custom case integration
+
+!!!warning "Soldering Required"
+    This modification requires soldering skills. There is no power button header on the BC-250.
 
 ### Method 3: ATX PSU Control
 
@@ -216,8 +190,8 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 
 **Soft Power Control:**
 1. Leave PS_ON pin unconnected
-2. Use BC-250 power button header
-3. Connect power button header to PSU PS_ON signal
+2. Use external switch connected to PSU PS_ON signal
+3. Switch bridges PS_ON to ground when pressed
 
 !!!info "Remote Power On"
     Some users have successfully implemented Wake-on-LAN for remote power control.
@@ -298,7 +272,7 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 **Required Tools:**
 - Wire crimpers
 - PCIe 8-pin connector housing
-- 18 AWG wire (silicone insulation recommended)
+- 16 AWG wire minimum (silicone insulation recommended)
 - Pin removal tool (optional)
 
 **Steps:**
@@ -333,30 +307,10 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 
 **Wiring:**
 1. Connect switch between PSU PS_ON and GND
-2. OR connect to BC-250 power button header
-3. Test that short press powers on/off
+2. Test that short press powers on/off
+3. For BC-250 control, must solder to onboard button (no header available)
 
-## Power Efficiency and Cost
-
-### Energy Cost Calculations
-
-**Example: Gaming 4 hours/day**
-
-| Configuration | Power | Daily kWh | Monthly kWh | Cost/Month* |
-|---------------|-------|-----------|-------------|-------------|
-| Idle (no governor) | 95W | 1.90 | 57.0 | $7.41 |
-| Gaming (no governor) | 180W | 0.72 | 21.6 | $2.81 |
-| **Total (no governor)** | - | **2.62** | **78.6** | **$10.22** |
-| Idle (with governor) | 75W | 1.50 | 45.0 | $5.85 |
-| Gaming (with governor) | 180W | 0.72 | 21.6 | $2.81 |
-| **Total (with governor)** | - | **2.22** | **66.6** | **$8.66** |
-
-*Assuming $0.13/kWh (US average)
-
-!!!tip "Save Money with Governor"
-    Installing the GPU governor saves ~$1.50/month in electricity costs.
-
-### PSU Efficiency
+## PSU Efficiency
 
 **80 Plus Certification:**
 - **80 Plus Bronze:** 82-85% efficient at 50% load
@@ -369,35 +323,14 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 - Platinum PSU at 180W load: ~197W from wall
 - Savings: ~15W (varies with load)
 
-## Multi-Board Setups
-
-### Powering Multiple BC-250s
-
-For clusters (LLM inference, compute workloads), power considerations scale up:
-
-**Example: 12x BC-250 Cluster**
-
-| State | Per Board | Total (12x) | Daily Cost* |
-|-------|-----------|-------------|-------------|
-| Idle (no governor) | 85W | 1020W | $3.19 |
-| Idle (with governor) | 65W | 780W | $2.44 |
-| Full Load | 195W | 2340W | $7.30 |
-
-*Assuming $0.13/kWh, 24h runtime
-
-!!!warning "High Power Consumption"
-    A 12-board cluster consumes 780W-2340W. Ensure your electrical circuit can handle this load (15A circuit = 1800W max).
-
-**Power Distribution:**
-- **Option 1:** Individual PSUs per board
-- **Option 2:** Single high-wattage server PSU with breakout board
-- **Option 3:** Multiple PSUs with distribution board
+!!!info "PSU Efficiency Matters"
+    Higher efficiency PSUs waste less power as heat, reducing cooling requirements and long-term operating costs.
 
 ## Recommended PSU Summary
 
 | Use Case | Recommended PSU |
 |----------|-----------------|
-| **Budget Build** | Dell D220P-01 |
+| **Budget Build** | FlexATX 500W (secondhand) |
 | **Compact Build** | FlexATX 500W |
 | **Quality Build** | Mean Well LOP-300-12 |
 | **Reuse Existing** | ATX 400W+ |

@@ -37,10 +37,10 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 **Specifications:**
 - **Model:** Arctic P12 Max or P12 Pro
 - **Size:** 120mm x 25mm
-- **Speed:** Up to 3300 RPM
-- **Static Pressure:** 3.94 mm H2O (both models)
-- **Airflow:** 73.3 CFM
-- **Noise:** 52.5 dB(A) at max
+- **Speed:** Up to 3300 RPM (Max), 2100 RPM (Pro)
+- **Static Pressure:** 6.9 mm H2O (both models)
+- **Airflow:** 73.3 CFM (Max), 68.9 CFM (Pro)
+- **Noise:** 52.5 dB(A) at max (Max), 37.8 dB(A) at max (Pro)
 
 **Performance:**
 - GPU temps: 65-75°C during gaming

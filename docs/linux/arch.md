@@ -22,10 +22,10 @@ Both Arch Linux and Manjaro work excellently on the BC-250. Arch provides maximu
 ### Arch vs Manjaro
 
 **Arch Linux:**
-- Manual installation (archinstall helper available)
+- Manual installation following the Arch Wiki
 - Latest packages immediately
 - Maximum control, minimal bloat
-- Requires more Linux knowledge
+- Requires advanced Linux knowledge
 
 **Manjaro:**
 - GUI installer (Calamares)
@@ -57,80 +57,59 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 - Ethernet connection (for initial setup)
 - Passive DP-to-HDMI adapter (recommended)
 - Arch Linux ISO from [archlinux.org](https://archlinux.org/download/)
+- Familiarity with Linux command line
 
 ### Installation Steps
 
-1. **Create Bootable USB**
-   - Download Arch ISO
-   - Use balenaEtcher or Rufus to flash
+!!!info "Follow the Arch Wiki"
+    Arch Linux installation should be done following the official [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide). This ensures you understand the system you're building and can troubleshoot issues.
 
-2. **Boot from USB**
-   - Insert USB into BC-250
-   - Enter boot menu (F11 or F12)
-   - Select USB drive
+**Key BC-250 Specific Requirements:**
 
-3. **Run Arch Installer**
+1. **Kernel Selection**
+   - Install `linux-lts` package (6.12.x - 6.14.x)
+   - **AVOID:** Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU initialization failures)
+   - Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability
+
+2. **Boot Parameters**
+   - If black screen during installation, add `nomodeset` to kernel parameters
+   - **IMPORTANT:** Remove `nomodeset` after drivers are installed
+
+3. **Required Packages During Installation**
    ```bash
-   archinstall
+   # Base system
+   pacstrap -K /mnt base linux-lts linux-firmware
+
+   # Desktop environment (example with KDE)
+   pacstrap -K /mnt plasma-meta kde-applications-meta
+
+   # Graphics drivers (DO NOT install during archinstall, install after reboot)
+   # mesa vulkan-radeon xf86-video-amdgpu
+
+   # Network and basic utilities
+   pacstrap -K /mnt networkmanager git base-devel
    ```
 
-4. **Configure Installation**
+4. **Swap Configuration**
+   - Traditional swap partition recommended
+   - **WARNING:** Do NOT use ZRAM if using 512MB dynamic VRAM (conflicts)
 
-   **Localization:**
-   - Select language and keyboard layout
+5. **Bootloader**
+   - GRUB recommended for BC-250
+   - Configure with ability to edit boot parameters
 
-   **Mirror Selection:**
-   - Select Canada and United States regions (spacebar to select multiple)
+6. **Enable Multilib** (for 32-bit support and Steam)
+   - Edit `/etc/pacman.conf` before `pacstrap`
+   - Uncomment `[multilib]` section
 
-   **Disk Configuration:**
-   - Choose storage device
-   - Select "Best Effort" partitioning
-   - Filesystem: EXT4
-   - Separate /home: No
+**After Installation - First Boot:**
 
-   **Swap:**
-   - Enable ZRAM swap
-   - **Warning:** Do NOT use ZRAM if using 512MB dynamic VRAM (conflicts)
+1. If black screen, use `nomodeset`:
+   - At GRUB, press `e`
+   - Add `nomodeset` to kernel line
+   - Press Ctrl+X to boot
 
-   **Bootloader:**
-   - Install GRUB (recommended)
-
-   **User Account:**
-   - Create root password
-   - Create standard user with sudo
-
-   **Profile:**
-   - Choose "Desktop"
-   - DE: GNOME or KDE Plasma (both tested)
-   - Graphics: "AMD/ATI (Open Source)"
-
-   **Audio:**
-   - Select Pipewire
-
-   **Kernel:**
-   - **IMPORTANT:** Deselect default kernel
-   - **Select:** linux-lts
-   - **Version:** 6.12.x - 6.14.x
-
-   **Note on Kernel Versions:** Kernel 6.15.0-6.15.6 and 6.17.8+ cause GPU initialization failures. Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.
-
-   **Network:**
-   - Select NetworkManager
-
-   **Additional Repos:**
-   - Enable `multilib` (for Steam)
-   - Enable `testing` (for Mesa 25.1+)
-
-5. **Complete Installation**
-   - Review settings
-   - Confirm and install (15-30 minutes)
-   - Reboot when prompted
-
-6. **First Boot**
-   - If black screen, use `nomodeset`:
-     - At GRUB, press `e`
-     - Add `nomodeset` to kernel line
-     - Press Ctrl+X to boot
+2. Install Mesa and drivers (see Post-Installation section below)
 
 ---
 
