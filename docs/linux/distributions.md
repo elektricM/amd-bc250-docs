@@ -250,24 +250,52 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 - Works well with KDE + Wayland
 - Some games work better than on Fedora (e.g., MTG Arena)
 
-## NOT Recommended
+## Also Works Well
 
 ### Ubuntu
 
-- Packages too old by default
-- Can work with PPAs for Mesa 25.1.5
-- Less tested on BC-250
-- Governor available but not ideal
+**Status:** Works with updated Mesa
+- **Mesa:** 25.1.5 available via PPAs
+- **Kernel:** 6.12+ recommended
+- **Desktop:** GNOME by default
 
-### Fedora 41
+**Pros:**
+- Large user base
+- Extensive documentation
+- Long-term support (LTS) versions
 
-- Older than Fedora 42/43
-- Use latest Fedora instead
+**Cons:**
+- Requires adding PPAs for latest Mesa
+- Less tested on BC-250 than Fedora/Bazzite
+- May need manual configuration
+
+**Setup:**
+```bash
+# Add PPA for Mesa 25.1.5+
+sudo add-apt-repository ppa:kisak/kisak-mesa
+sudo apt update && sudo apt upgrade
+
+# Install governor (build from source)
+```
 
 ### SteamOS
 
-- Mesa version too old (~8 months behind)
-- Not recommended unless Valve updates
+**Status:** Now works - Mesa updated
+- **Base:** Arch-based immutable system
+- **Mesa:** Now includes 25.1+ in recent updates
+- **Desktop:** KDE Plasma with Steam Deck UI
+
+**Pros:**
+- Steam Deck experience
+- Gaming-optimized
+- Immutable system
+
+**Cons:**
+- Less flexible than standard distros
+- Valve's update schedule
+- Limited testing on BC-250
+
+**Note:** Previously not recommended due to old Mesa, but recent updates have addressed this issue.
 
 ### Kernel Compatibility
 

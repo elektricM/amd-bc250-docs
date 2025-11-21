@@ -32,13 +32,13 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 
 ## Recommended Cooling Solutions
 
-### Option 1: Arctic P12 Max (Most Popular)
+### Option 1: Arctic P12 Max / P12 Pro (Most Popular)
 
 **Specifications:**
-- **Model:** Arctic P12 Max
+- **Model:** Arctic P12 Max or P12 Pro
 - **Size:** 120mm x 25mm
 - **Speed:** Up to 3300 RPM
-- **Static Pressure:** 3.94 mm H2O
+- **Static Pressure:** 3.94 mm H2O (both models)
 - **Airflow:** 73.3 CFM
 - **Noise:** 52.5 dB(A) at max
 
@@ -53,7 +53,7 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 - Connect to PWM header for speed control
 
 !!!tip "Community Favorite"
-    The Arctic P12 Max is the most recommended fan by the community due to excellent static pressure at a low price.
+    Both Arctic P12 Max and P12 Pro are highly recommended by the community due to excellent static pressure at a low price. The P12 Pro is more readily available in most regions.
 
 ### Option 2: Arctic P14 PWM
 

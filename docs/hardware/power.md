@@ -28,7 +28,8 @@ Real-world power measurements from community testing:
 | Desktop / Light Use | 70-90W | Web browsing, media playback |
 | Gaming (Medium) | 120-150W | 1080p gaming, non-RT |
 | Gaming (Heavy) | 160-200W | Demanding AAA titles |
-| Cyberpunk 2077 (RT) | **235W** | Maximum observed in real gaming |
+| Cyberpunk 2077 (RT) | **235W** | Maximum observed (stock) |
+| Gaming (with GPU freq patch) | **250W+** | Can exceed 235W with kernel patch |
 | Furmark (Stock) | 250W | Stress test (unrealistic) |
 | Furmark (OC to 2230 MHz) | **320W** | Extreme stress test |
 
@@ -87,7 +88,7 @@ Real-world power measurements from community testing:
 - **Cons:** Fan can be loud
 
 **Recommended Models:**
-- FSP FSP500-50FGBBI (popular, 500W)
+- FSP FSP500-30AS (popular, 500W)
 - Metalfish 500W FlexATX (new, modular)
 - Enhance ENP-7660B (high quality, 600W)
 

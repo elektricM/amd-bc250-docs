@@ -24,7 +24,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Codename:** Cyan Skillfish (gfx1013)
 - **Base Frequency:** 1500 MHz (locked without governor)
 - **Maximum Frequency:** 2000-2230 MHz (with kernel patch and governor)
-- **Performance:** Comparable to RX 6600 / RTX 3060 Ti in gaming workloads
+- **Performance:** Comparable to RX 6600 / GTX 1660 Ti in gaming workloads
 
 !!!success "GPU Features"
     - Hardware ray tracing support (RDNA 2 RT cores)
@@ -54,7 +54,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 ### Board Dimensions
 
 - **Form Factor:** Custom mining board (non-standard)
-- **Length:** Approximately 200mm
+- **Length:** 340mm / 310mm (depending on measurement method)
 - **Width:** Approximately 115mm
 - **PCB Thickness:** Standard
 - **Weight:** ~400g (with heatsink)

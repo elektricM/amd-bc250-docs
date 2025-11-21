@@ -75,6 +75,8 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 ### Option 1: COPR (Fedora/Bazzite - Easiest)
 
+COPR repositories are available for easy installation on Fedora and Bazzite. This eliminates the need to compile from source.
+
 ```bash
 # Add COPR repository
 sudo dnf copr enable filippor/bazzite
@@ -88,6 +90,9 @@ sudo systemctl enable --now oberon-governor.service
 # Check status
 systemctl status oberon-governor
 ```
+
+!!!success "No Compilation Required"
+    Using COPR packages means you don't need to manually compile the governor from source. The package is pre-built and maintained.
 
 ### Option 2: Build from Source (All Distros)
 

@@ -66,7 +66,7 @@ Recommended Amps = 25A for safety margin
 
 **Budget Options:**
 
-1. **FSP FSP500-50UCB** (Flex ATX)
+1. **FSP FSP500-30AS** (Flex ATX)
    - 500W total, sufficient 12V rail
    - Compact form factor
    - ~$50-60 new, $10-30 on eBay

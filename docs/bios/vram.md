@@ -17,13 +17,13 @@ The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared betw
 
 **BIOS Setting:** UMA Frame Buffer Size = 512MB
 
-This is NOT actually 512MB VRAM. Instead, it enables **dynamic allocation** where memory moves between CPU and GPU as needed.
+**Important:** This "512MB" setting is NOT a limit - it enables **dynamic VRAM allocation** where the GPU can access nearly the full 16GB as needed.
 
 **How it works:**
-- System starts with ~15.5GB CPU RAM, ~512MB GPU VRAM
+- System starts with ~15.5GB CPU RAM, ~512MB minimum GPU VRAM
 - When GPU needs more VRAM, it automatically claims from system RAM
 - When GPU load drops, memory returns to system pool
-- Actual VRAM can grow to 10-12GB depending on load
+- Can allocate nearly full 16GB to VRAM when needed (up to ~14GB+ for GPU)
 
 **Pros:**
 - Most flexible
