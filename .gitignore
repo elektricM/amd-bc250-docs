@@ -29,16 +29,14 @@ env/
 *.swo
 *~
 
-# Discord exports (raw data - 50MB+)
-# Keep cleaned and parsed versions only
-discord-export/general/
-discord-export/text-channels/
-discord-export/reference/
+# Discord exports - not published for privacy reasons
+discord-export/
 
-# Keep these important files:
-# !discord-export/cleaned/
-# !discord-export/FORUM_THREADS_SUMMARY.md
-# !discord-export/all_channels_and_threads.txt
+# GitHub docs - cause build errors
+github-docs/
+
+# Scripts - internal tooling only
+scripts/
 
 # Environment variables
 .env
