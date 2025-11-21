@@ -1,17 +1,20 @@
 # AMD BC250 Documentation
 
-Community-driven documentation for the AMD BC250 board.
+**Comprehensive, community-driven documentation for the AMD BC250 board.**
 
-**Visit the documentation:** [https://elektricM.github.io/amd-bc250-docs/](https://elektricM.github.io/amd-bc250-docs/)
+📖 **Read the docs:** [https://elektricM.github.io/amd-bc250-docs/](https://elektricM.github.io/amd-bc250-docs/)
+
+✏️ **Contribute:** Found a solution? Add it to the docs so everyone can find it! See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## What's Included
 
-- Linux setup guides for multiple distributions
-- BIOS configuration and flashing procedures
-- Hardware specifications and requirements
-- Troubleshooting guides with verified solutions
-- Gaming compatibility database
-- Performance tuning and optimization
+- **Linux setup guides** for 7+ distributions (Fedora, Bazzite, CachyOS, Arch, Debian, etc.)
+- **BIOS flashing** and configuration (including GPU frequency patch)
+- **Hardware specs** - power requirements, cooling, display compatibility
+- **Troubleshooting** - boot issues, performance problems, stability fixes
+- **Gaming compatibility** - tested games, settings, FPS data
+- **Driver setup** - RADV configuration, environment variables
+- **System configuration** - GPU governor, sensors, power management
 
 ## Building Locally
 
@@ -37,7 +40,20 @@ Built from:
 
 ## Contributing
 
-Join the [BC250 Discord](https://discord.com/invite/uDvkhNpxRQ) or submit pull requests to improve the documentation.
+**Please contribute your knowledge!** Instead of posting solutions in Discord where they get lost, add them to the documentation:
+
+- **Easy way:** Click "Edit on GitHub" on any page and submit changes
+- **Report issues:** Found wrong info? [Open an issue](https://github.com/elektricM/amd-bc250-docs/issues)
+- **Full guide:** See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions
+
+**What we need:**
+- ✅ Tested hardware configurations
+- ✅ Game compatibility reports
+- ✅ Troubleshooting solutions you've found
+- ✅ Distribution-specific setup steps
+- ✅ Fixes for outdated information
+
+**Join Discord:** [https://discord.com/invite/uDvkhNpxRQ](https://discord.com/invite/uDvkhNpxRQ) - but please document your solutions here!
 
 ## License
 
