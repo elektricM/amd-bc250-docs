@@ -129,6 +129,10 @@ nav:
   - Linux Setup:
     - Distribution Guide: linux/distributions.md
     - Fedora Setup: linux/fedora.md
+    - Bazzite Setup: linux/bazzite.md
+    - CachyOS Setup: linux/cachyos.md
+    - Arch Linux Setup: linux/arch.md
+    - Debian Setup: linux/debian.md
     - Kernel Configuration: linux/kernel.md
     - Mesa Installation: linux/mesa.md
 
