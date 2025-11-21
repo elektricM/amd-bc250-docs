@@ -1,0 +1,2909 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects">
+      
+      
+        <meta name="author" content="BC250 Community">
+      
+      
+        <link rel="canonical" href="https://elektricM.github.io/amd-bc250-docs/hardware/cooling/">
+      
+      
+        <link rel="prev" href="../power/">
+      
+      
+        <link rel="next" href="../display/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Cooling Solutions - AMD BC250 Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cooling-solutions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AMD BC250 Documentation" class="md-header__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AMD BC250 Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cooling Solutions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AMD BC250 Documentation" class="md-nav__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    AMD BC250 Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stock-heatsink-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock Heatsink Limitations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stock Heatsink Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stock-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#temperature-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature Targets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Temperature Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safe-operating-temperatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Operating Temperatures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-cooling-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Cooling Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended Cooling Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-arctic-p12-max-most-popular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Arctic P12 Max (Most Popular)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-arctic-p14-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Arctic P14 PWM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-noctua-nf-a12x25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Noctua NF-A12x25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-4-dual-fan-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 4: Dual Fan Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-tower-cooler-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5: Tower Cooler Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heatsink-modifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heatsink Modifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heatsink Modifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-straightening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fin Straightening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fin-removalcutting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fin Removal/Cutting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thermal-paste-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal Paste Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-thermal-pad-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Thermal Pad Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fan-mounting-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Mounting Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fan Mounting Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-3d-printed-shroud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: 3D Printed Shroud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-direct-fan-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Direct Fan Mount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-cardboardfoam-shroud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Cardboard/Foam Shroud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fan-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fan Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pwm-control-with-nct6687" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PWM Control with nct6687
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coolercontrol-gui-fan-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CoolerControl (GUI Fan Curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-fan-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Fan Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-fan-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Fan Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-solutions-by-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling Solutions by Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-for-different-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling for Different Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cooling for Different Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gaming-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaming Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#silent-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Silent Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compact-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compact Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llmcompute-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM/Compute Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-cooling-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Cooling Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Cooling Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-temps-85c-during-gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Temps (&gt;85°C) During Gaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-crashes-after-30-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes After 30 Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fan-not-spinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Not Spinning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fan-speed-fluctuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Speed Fluctuations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS & Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BIOS & Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS Flashing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/vram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRAM Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/overclocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/fedora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kernel Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/mesa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaming & Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaming & Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gaming/compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/quick-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stock-heatsink-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock Heatsink Limitations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stock Heatsink Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stock-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#temperature-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature Targets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Temperature Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safe-operating-temperatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Operating Temperatures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-cooling-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Cooling Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended Cooling Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-arctic-p12-max-most-popular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Arctic P12 Max (Most Popular)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-arctic-p14-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Arctic P14 PWM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-noctua-nf-a12x25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Noctua NF-A12x25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-4-dual-fan-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 4: Dual Fan Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-tower-cooler-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5: Tower Cooler Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heatsink-modifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heatsink Modifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heatsink Modifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-straightening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fin Straightening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fin-removalcutting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fin Removal/Cutting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thermal-paste-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal Paste Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-thermal-pad-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Thermal Pad Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fan-mounting-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Mounting Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fan Mounting Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-3d-printed-shroud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: 3D Printed Shroud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-direct-fan-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Direct Fan Mount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-cardboardfoam-shroud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Cardboard/Foam Shroud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fan-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Control
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fan Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pwm-control-with-nct6687" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PWM Control with nct6687
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coolercontrol-gui-fan-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CoolerControl (GUI Fan Curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-fan-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Fan Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-fan-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Fan Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-solutions-by-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling Solutions by Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-for-different-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling for Different Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cooling for Different Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gaming-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaming Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#silent-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Silent Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compact-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compact Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llmcompute-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM/Compute Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-cooling-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Cooling Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Cooling Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-temps-85c-during-gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Temps (&gt;85°C) During Gaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-crashes-after-30-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes After 30 Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fan-not-spinning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Not Spinning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fan-speed-fluctuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fan Speed Fluctuations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cooling-solutions">Cooling Solutions<a class="headerlink" href="#cooling-solutions" title="Permanent link">&para;</a></h1>
+<p>The BC-250 requires active cooling for gaming and desktop use. This guide covers tested cooling solutions and best practices.</p>
+<h2 id="stock-heatsink-limitations">Stock Heatsink Limitations<a class="headerlink" href="#stock-heatsink-limitations" title="Permanent link">&para;</a></h2>
+<h3 id="stock-configuration">Stock Configuration<a class="headerlink" href="#stock-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Type:</strong> Passive aluminum fin stack heatsink</li>
+<li><strong>Fin Orientation:</strong> Vertical, front-to-back</li>
+<li><strong>Design Purpose:</strong> Rack-mounted passive or low-airflow cooling</li>
+<li><strong>Desktop Use:</strong> Inadequate without active airflow</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Stock Cooling Is Insufficient</p>
+<p>The stock heatsink alone will cause thermal throttling and system instability during gaming. Active cooling is <strong>required</strong>.</p>
+</div>
+<h2 id="temperature-targets">Temperature Targets<a class="headerlink" href="#temperature-targets" title="Permanent link">&para;</a></h2>
+<h3 id="safe-operating-temperatures">Safe Operating Temperatures<a class="headerlink" href="#safe-operating-temperatures" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Idle</th>
+<th>Light Load</th>
+<th>Gaming</th>
+<th>Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPU/APU Edge</td>
+<td>40-50°C</td>
+<td>50-60°C</td>
+<td>65-80°C</td>
+<td>90°C</td>
+</tr>
+<tr>
+<td>CPU (Tctl)</td>
+<td>45-55°C</td>
+<td>55-65°C</td>
+<td>70-85°C</td>
+<td>95°C</td>
+</tr>
+<tr>
+<td>Memory (underside)</td>
+<td>40-55°C</td>
+<td>50-65°C</td>
+<td>55-70°C</td>
+<td>80°C</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">Ideal Gaming Temps</p>
+<p>Aim for GPU temperatures of 70-80°C during gaming for optimal performance and longevity.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Thermal Throttling</p>
+<p>Above 85°C GPU temperature, the system may throttle performance. Above 90°C, instability and crashes can occur.</p>
+</div>
+<h2 id="recommended-cooling-solutions">Recommended Cooling Solutions<a class="headerlink" href="#recommended-cooling-solutions" title="Permanent link">&para;</a></h2>
+<h3 id="option-1-arctic-p12-max-most-popular">Option 1: Arctic P12 Max (Most Popular)<a class="headerlink" href="#option-1-arctic-p12-max-most-popular" title="Permanent link">&para;</a></h3>
+<p><strong>Specifications:</strong>
+- <strong>Model:</strong> Arctic P12 Max
+- <strong>Size:</strong> 120mm x 25mm
+- <strong>Speed:</strong> Up to 3300 RPM
+- <strong>Static Pressure:</strong> 3.94 mm H2O
+- <strong>Airflow:</strong> 73.3 CFM
+- <strong>Noise:</strong> 52.5 dB(A) at max</p>
+<p><strong>Performance:</strong>
+- GPU temps: 65-75°C during gaming
+- Excellent static pressure for fin arrays
+- Good price/performance ratio</p>
+<p><strong>Setup:</strong>
+- Mount directly over heatsink fins
+- Remove or cut center fins for better airflow
+- Connect to PWM header for speed control</p>
+<div class="admonition tip">
+<p class="admonition-title">Community Favorite</p>
+<p>The Arctic P12 Max is the most recommended fan by the community due to excellent static pressure at a low price.</p>
+</div>
+<h3 id="option-2-arctic-p14-pwm">Option 2: Arctic P14 PWM<a class="headerlink" href="#option-2-arctic-p14-pwm" title="Permanent link">&para;</a></h3>
+<p><strong>Specifications:</strong>
+- <strong>Model:</strong> Arctic P14 PWM
+- <strong>Size:</strong> 140mm x 25mm
+- <strong>Speed:</strong> Up to 1700 RPM
+- <strong>Static Pressure:</strong> 2.40 mm H2O
+- <strong>Airflow:</strong> 72.8 CFM
+- <strong>Noise:</strong> 38 dB(A) at max</p>
+<p><strong>Performance:</strong>
+- GPU temps: 70-80°C during gaming
+- Quieter than P12 Max
+- Requires larger mounting solution</p>
+<p><strong>Setup:</strong>
+- Mount with adapter or custom shroud
+- Covers more heatsink area than 120mm
+- Better for low-noise builds</p>
+<h3 id="option-3-noctua-nf-a12x25">Option 3: Noctua NF-A12x25<a class="headerlink" href="#option-3-noctua-nf-a12x25" title="Permanent link">&para;</a></h3>
+<p><strong>Specifications:</strong>
+- <strong>Model:</strong> Noctua NF-A12x25 PWM
+- <strong>Size:</strong> 120mm x 25mm
+- <strong>Speed:</strong> Up to 2000 RPM
+- <strong>Static Pressure:</strong> 2.34 mm H2O
+- <strong>Airflow:</strong> 60.1 CFM
+- <strong>Noise:</strong> 22.6 dB(A) at max</p>
+<p><strong>Performance:</strong>
+- GPU temps: 70-85°C during gaming
+- Exceptional build quality
+- Very quiet operation
+- Lower static pressure than Arctic P12 Max</p>
+<p><strong>Setup:</strong>
+- Mount directly over heatsink
+- Best for quiet builds
+- May need higher fan speed than Arctic</p>
+<div class="admonition info">
+<p class="admonition-title">Premium Choice</p>
+<p>Noctua fans are higher quality and quieter but cost 2-3x more than Arctic fans. Performance is similar with Arctic P12 Max.</p>
+</div>
+<h3 id="option-4-dual-fan-setup">Option 4: Dual Fan Setup<a class="headerlink" href="#option-4-dual-fan-setup" title="Permanent link">&para;</a></h3>
+<p><strong>Configuration:</strong>
+- <strong>Primary Fan:</strong> 120mm over center of heatsink
+- <strong>Secondary Fan:</strong> 120mm or 80mm for RAM/VRM cooling</p>
+<p><strong>Benefits:</strong>
+- Lower primary fan speeds = quieter
+- Better RAM cooling (memory gets hot!)
+- Improved overall system cooling
+- Redundancy if one fan fails</p>
+<p><strong>Recommended Combinations:</strong>
+- 2x Arctic P12 Max
+- Arctic P14 + Arctic P12
+- Noctua NF-A12x25 + 80mm fan</p>
+<p><strong>Wiring:</strong>
+- Use fan splitter cable for single PWM control
+- Or connect second fan to J4003 header</p>
+<h3 id="option-5-tower-cooler-conversion">Option 5: Tower Cooler Conversion<a class="headerlink" href="#option-5-tower-cooler-conversion" title="Permanent link">&para;</a></h3>
+<p>Some users have successfully mounted AM4 tower coolers:</p>
+<p><strong>Compatible Coolers:</strong>
+- Thermalright Peerless Assassin
+- Various AM4/AM5 coolers with custom mounting</p>
+<p><strong>Pros:</strong>
+- Excellent cooling performance
+- Quiet operation
+- Uses existing hardware</p>
+<p><strong>Cons:</strong>
+- Requires custom mounting solution
+- May block M.2 slot or other components
+- More complex installation</p>
+<div class="admonition warning">
+<p class="admonition-title">Advanced Modification</p>
+<p>Tower cooler conversions require fabricating custom mounting brackets. Not recommended for beginners.</p>
+</div>
+<h2 id="heatsink-modifications">Heatsink Modifications<a class="headerlink" href="#heatsink-modifications" title="Permanent link">&para;</a></h2>
+<h3 id="fin-straightening">Fin Straightening<a class="headerlink" href="#fin-straightening" title="Permanent link">&para;</a></h3>
+<p>The stock heatsink often has bent fins that impede airflow.</p>
+<p><strong>Tools Needed:</strong>
+- Flat-head screwdriver
+- Patience</p>
+<p><strong>Process:</strong>
+1. Gently straighten bent fins with screwdriver
+2. Work systematically through fin stack
+3. Avoid applying too much force (aluminum is soft)</p>
+<p><strong>Benefit:</strong> 5-10°C temperature improvement</p>
+<h3 id="fin-removalcutting">Fin Removal/Cutting<a class="headerlink" href="#fin-removalcutting" title="Permanent link">&para;</a></h3>
+<p>For better fan compatibility, some users remove the center fins.</p>
+<p><strong>Methods:</strong>
+- <strong>Dremel with cutoff wheel:</strong> Fast but messy
+- <strong>Hacksaw:</strong> More controlled
+- <strong>Nibbler tool:</strong> Clean cuts
+- <strong>Leave intact:</strong> Use fan shroud instead</p>
+<p><strong>Cutting Guide:</strong>
+1. Mark cut lines (usually center 120mm section)
+2. Use Dremel or hacksaw to cut fins
+3. File edges smooth
+4. Clean metal dust from board</p>
+<div class="admonition danger">
+<p class="admonition-title">Risk of Damage</p>
+<p>Cutting fins is irreversible. Metal shavings can short circuits. Cover the board during cutting and clean thoroughly after.</p>
+</div>
+<p><strong>Temperature Impact:</strong> 10-15°C improvement with proper fan placement</p>
+<h3 id="thermal-paste-replacement">Thermal Paste Replacement<a class="headerlink" href="#thermal-paste-replacement" title="Permanent link">&para;</a></h3>
+<p>The thermal paste on used BC-250 boards is often dried out.</p>
+<p><strong>Recommended Thermal Paste:</strong>
+- Arctic MX-4 (good value)
+- Arctic MX-6 (newer formula)
+- Thermal Grizzly Kryonaut (premium)
+- Noctua NT-H1 (reliable)
+- Thermalright TFX (budget option)</p>
+<p><strong>Application Method:</strong>
+1. Remove heatsink (4 screws)
+2. Clean old paste with isopropyl alcohol
+3. Apply small dot (pea-sized) of new paste to APU die
+4. Remount heatsink with even pressure
+5. Tighten screws in X pattern</p>
+<p><strong>Temperature Impact:</strong> 5-10°C improvement if old paste was dried</p>
+<div class="admonition tip">
+<p class="admonition-title">Use Quality Paste</p>
+<p>Avoid cheap thermal paste. Quality paste lasts years. PTM7950 phase-change material is also popular.</p>
+</div>
+<h3 id="memory-thermal-pad-replacement">Memory Thermal Pad Replacement<a class="headerlink" href="#memory-thermal-pad-replacement" title="Permanent link">&para;</a></h3>
+<p>GDDR6 memory chips on the underside can get very hot.</p>
+<p><strong>Symptoms of Hot Memory:</strong>
+- System crashes during extended gaming
+- Instability after 30-60 minutes
+- Memory errors</p>
+<p><strong>Solution:</strong>
+1. Remove board from case
+2. Remove old thermal pads (if present)
+3. Apply new thermal pads (1.5mm-2mm thick)
+4. Attach aluminum plate or heatsink to underside
+5. Optional: Add fan for active cooling</p>
+<p><strong>Thermal Pad Recommendations:</strong>
+- Thermalright Odyssey (high performance)
+- Arctic Thermal Pad (good value)
+- Gelid GP-Ultimate (premium)</p>
+<h2 id="fan-mounting-options">Fan Mounting Options<a class="headerlink" href="#fan-mounting-options" title="Permanent link">&para;</a></h2>
+<h3 id="option-1-3d-printed-shroud">Option 1: 3D Printed Shroud<a class="headerlink" href="#option-1-3d-printed-shroud" title="Permanent link">&para;</a></h3>
+<p>Many community-designed fan shrouds are available on Printables:</p>
+<p><strong>Popular Designs:</strong>
+- <a href="https://www.printables.com">BC-250 Fan Shroud by User1</a>
+- <a href="https://www.printables.com">Compact Console Case</a>
+- <a href="https://www.printables.com">Dual Fan Mount</a></p>
+<p><strong>Advantages:</strong>
+- Custom fit for board
+- Integrated mounting for fans
+- Can include case design
+- No modification to heatsink needed</p>
+<p><strong>Printing Requirements:</strong>
+- PLA or PETG filament
+- 0.2mm layer height
+- 20-30% infill</p>
+<h3 id="option-2-direct-fan-mount">Option 2: Direct Fan Mount<a class="headerlink" href="#option-2-direct-fan-mount" title="Permanent link">&para;</a></h3>
+<p>Mount fan directly to heatsink with screws or zip ties.</p>
+<p><strong>Zip Tie Method:</strong>
+1. Position fan over heatsink center
+2. Thread zip ties through fan mounting holes
+3. Loop around heatsink fins or board mounting points
+4. Tighten evenly
+5. Trim excess zip tie length</p>
+<p><strong>Screw Method (requires drilling):</strong>
+1. Mark screw positions
+2. Drill small holes in heatsink fins
+3. Use M3 or M4 screws with washers
+4. Don't overtighten (aluminum is soft)</p>
+<h3 id="option-3-cardboardfoam-shroud">Option 3: Cardboard/Foam Shroud<a class="headerlink" href="#option-3-cardboardfoam-shroud" title="Permanent link">&para;</a></h3>
+<p>Quick DIY solution using cardboard or foam board.</p>
+<p><strong>Materials:</strong>
+- Cardboard or foam core board
+- Hot glue or duct tape
+- Box cutter</p>
+<p><strong>Process:</strong>
+1. Cut cardboard to create air duct from fan to heatsink
+2. Glue/tape to create shroud around fan and heatsink
+3. Ensure no air gaps
+4. Mount fan to shroud</p>
+<p><strong>Pros:</strong> Free, fast, adjustable
+<strong>Cons:</strong> Not durable, not aesthetically pleasing</p>
+<h2 id="fan-control">Fan Control<a class="headerlink" href="#fan-control" title="Permanent link">&para;</a></h2>
+<h3 id="pwm-control-with-nct6687">PWM Control with nct6687<a class="headerlink" href="#pwm-control-with-nct6687" title="Permanent link">&para;</a></h3>
+<p>The BC-250 uses the NCT6686/6687 Super I/O chip for fan control.</p>
+<p><strong>Driver Installation:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Load kernel module</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;nct6687&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/modules-load.d/nct6687.conf
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Rebuild initramfs</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>sudo<span class="w"> </span>dracut<span class="w"> </span>--regenerate-all<span class="w"> </span>--force<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>sudo<span class="w"> </span>mkinitcpio<span class="w"> </span>-P<span class="w">  </span><span class="c1"># Arch</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>sudo<span class="w"> </span>update-initramfs<span class="w"> </span>-u<span class="w">  </span><span class="c1"># Debian/Ubuntu</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Reboot</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>sudo<span class="w"> </span>reboot
+</span></code></pre></div>
+<p><strong>Verify:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sensors
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Should show nct6687-isa-0a20 with fan speeds</span>
+</span></code></pre></div></p>
+<h3 id="coolercontrol-gui-fan-curves">CoolerControl (GUI Fan Curves)<a class="headerlink" href="#coolercontrol-gui-fan-curves" title="Permanent link">&para;</a></h3>
+<p>CoolerControl provides a GUI for creating custom fan curves.</p>
+<p><strong>Installation:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Bazzite</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ujust<span class="w"> </span>install-coolercontrol
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Fedora</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>copr<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>terra/terra
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>liquidctl<span class="w"> </span>coolercontrol
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Arch</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>yay<span class="w"> </span>-S<span class="w"> </span>coolercontrol
+</span></code></pre></div>
+<p><strong>Configuration:</strong>
+1. Launch CoolerControl
+2. Select BC-250 fan header
+3. Create custom curve (e.g., 30% at 50°C, 100% at 80°C)
+4. Apply and test</p>
+<h3 id="bios-fan-settings">BIOS Fan Settings<a class="headerlink" href="#bios-fan-settings" title="Permanent link">&para;</a></h3>
+<p>The BIOS offers three fan modes:</p>
+<p><strong>1. Default Mode:</strong>
+- Targets high temperatures
+- Fans run at 40% minimum
+- Not recommended (inadequate cooling)</p>
+<p><strong>2. Full Speed Mode:</strong>
+- Fans at 100% constantly
+- Simplest and safest option
+- Noisy but effective</p>
+<p><strong>3. Customize Mode:</strong>
+- Set custom temperature thresholds
+- Define fan speeds at each threshold
+- More granular than Default
+- Can conflict with OS-level control</p>
+<div class="admonition warning">
+<p class="admonition-title">BIOS vs OS Control</p>
+<p>Do not use both BIOS Customize mode and CoolerControl simultaneously. They will fight for control.</p>
+</div>
+<h3 id="manual-fan-control">Manual Fan Control<a class="headerlink" href="#manual-fan-control" title="Permanent link">&para;</a></h3>
+<p>Set fan speed manually (for testing):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Set fan 1 to 80% speed</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">echo</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/hwmon/hwmon*/pwm1
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Set to 100% (255 = full speed)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">echo</span><span class="w"> </span><span class="m">255</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/hwmon/hwmon*/pwm1
+</span></code></pre></div>
+<h2 id="cooling-solutions-by-budget">Cooling Solutions by Budget<a class="headerlink" href="#cooling-solutions-by-budget" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Budget</th>
+<th>Solution</th>
+<th>Expected Temps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Minimal</strong></td>
+<td>Single Arctic P12, zip tie mount, cardboard shroud</td>
+<td>75-85°C</td>
+</tr>
+<tr>
+<td><strong>Budget</strong></td>
+<td>Arctic P12 Max, 3D printed shroud, new thermal paste</td>
+<td>70-80°C</td>
+</tr>
+<tr>
+<td><strong>Standard</strong></td>
+<td>Dual Arctic P12, custom shroud, thermal paste + pads</td>
+<td>65-75°C</td>
+</tr>
+<tr>
+<td><strong>Premium</strong></td>
+<td>Noctua fans, aluminum case, PTM7950, RAM cooling</td>
+<td>60-70°C</td>
+</tr>
+<tr>
+<td><strong>Enthusiast</strong></td>
+<td>Tower cooler conversion, custom water cooling</td>
+<td>55-65°C</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cooling-for-different-use-cases">Cooling for Different Use Cases<a class="headerlink" href="#cooling-for-different-use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="gaming-build">Gaming Build<a class="headerlink" href="#gaming-build" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Requirement:</strong> 70-80°C sustained</li>
+<li><strong>Solution:</strong> Arctic P12 Max or P14, BIOS full speed or custom curve</li>
+</ul>
+<h3 id="silent-build">Silent Build<a class="headerlink" href="#silent-build" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Requirement:</strong> &lt;30 dB(A) noise</li>
+<li><strong>Solution:</strong> Noctua NF-A12x25, custom fan curve (max 60%)</li>
+<li><strong>Trade-off:</strong> Higher temps (75-85°C)</li>
+</ul>
+<h3 id="compact-build">Compact Build<a class="headerlink" href="#compact-build" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Requirement:</strong> Small form factor</li>
+<li><strong>Solution:</strong> Single 120mm fan, integrated case design</li>
+<li><strong>Challenge:</strong> Less cooling headroom</li>
+</ul>
+<h3 id="llmcompute-build">LLM/Compute Build<a class="headerlink" href="#llmcompute-build" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Requirement:</strong> 24/7 operation, reliability</li>
+<li><strong>Solution:</strong> Dual 120mm fans, full speed, focus on dust filtering</li>
+<li><strong>Note:</strong> Longevity over noise</li>
+</ul>
+<h2 id="troubleshooting-cooling-issues">Troubleshooting Cooling Issues<a class="headerlink" href="#troubleshooting-cooling-issues" title="Permanent link">&para;</a></h2>
+<h3 id="high-temps-85c-during-gaming">High Temps (&gt;85°C) During Gaming<a class="headerlink" href="#high-temps-85c-during-gaming" title="Permanent link">&para;</a></h3>
+<p><strong>Causes:</strong>
+- Insufficient fan speed
+- Poor fan placement
+- Dried thermal paste
+- Blocked airflow
+- High ambient temperature</p>
+<p><strong>Solutions:</strong>
+1. Increase fan speed to 80-100%
+2. Check fan is positioned over heatsink center
+3. Replace thermal paste
+4. Remove case panels for testing
+5. Ensure room temperature &lt;25°C</p>
+<h3 id="system-crashes-after-30-minutes">System Crashes After 30 Minutes<a class="headerlink" href="#system-crashes-after-30-minutes" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Stable initially, crashes later
+- Crashes during demanding games</p>
+<p><strong>Likely Cause:</strong> Memory overheating</p>
+<p><strong>Solutions:</strong>
+1. Add thermal pads to memory chips (underside)
+2. Add secondary fan for RAM cooling
+3. Reduce VRAM allocation (4GB -&gt; 512MB)
+4. Improve case airflow</p>
+<h3 id="fan-not-spinning">Fan Not Spinning<a class="headerlink" href="#fan-not-spinning" title="Permanent link">&para;</a></h3>
+<p><strong>Causes:</strong>
+- Fan not connected
+- Wrong header (use J1 or J4003)
+- Fan header disabled in BIOS
+- Faulty fan</p>
+<p><strong>Solutions:</strong>
+1. Check fan connector is firmly seated
+2. Verify fan works on another system
+3. Check BIOS fan settings
+4. Test with another fan</p>
+<h3 id="fan-speed-fluctuations">Fan Speed Fluctuations<a class="headerlink" href="#fan-speed-fluctuations" title="Permanent link">&para;</a></h3>
+<p><strong>Causes:</strong>
+- Aggressive fan curve
+- Temperature sensor fluctuations
+- Insufficient power</p>
+<p><strong>Solutions:</strong>
+1. Use smoother fan curve (longer intervals)
+2. Enable hysteresis in fan curve
+3. Check PSU can deliver power</p>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../specifications/">Hardware Specifications</a></li>
+<li><a href="../power/">Power Requirements</a></li>
+<li><a href="../../system/governor/">System Configuration</a></li>
+<li><a href="../../troubleshooting/display/">Troubleshooting Guide</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../power/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Power Requirements">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Power Requirements
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../display/" class="md-footer__link md-footer__link--next" aria-label="Next: Display Connectors">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Display Connectors
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 BC250 Community
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/mothenjoyer69/bc250-documentation" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/uDvkhNpxRQ" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "toc.follow", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
