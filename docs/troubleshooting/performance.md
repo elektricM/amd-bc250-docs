@@ -305,29 +305,35 @@ watch -n 1 cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percen
 ### Issue: Governor Not Installed
 See "GPU Locked at 1500MHz" section above.
 
-### Issue: Kernel Too New (6.15+)
+### Issue: Broken Kernel Version
 
 **Symptoms:**
 - Previously working setup suddenly has poor performance after kernel update
 - Random GPU crashes under load
 - System freezes during gaming
+- Running kernel 6.15.0-6.15.6 or 6.17.8+
 
 **Solution:**
 
-**Downgrade to Kernel 6.12-6.14 LTS**
+**Install Working Kernel**
 
-!!! danger "AVOID KERNEL 6.15+"
-    Kernel 6.15 and newer break GPU driver support. Stick to 6.12.x - 6.14.x LTS.
+!!! danger "AVOID BROKEN KERNEL VERSIONS"
+    Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support. Use 6.15.7-6.17.7 for best performance or 6.12.x-6.14.x LTS for stability.
 
 **Arch/Manjaro:**
 ```bash
-# Install LTS kernel
+# Option 1: Install working 6.15.7-6.17.7 kernel
+sudo pacman -S linux  # Check version is in working range
+# Option 2: Install LTS kernel for guaranteed stability
 sudo pacman -S linux-lts linux-lts-headers
 # Set as default in bootloader
 ```
 
 **CachyOS:**
 ```bash
+# Check version first
+paru -S linux-cachyos  # Ensure it's 6.15.7-6.17.7
+# Or for LTS stability:
 paru -S linux-cachyos-lts linux-cachyos-lts-headers
 ```
 
@@ -677,7 +683,7 @@ rpm-ostree rollback
 Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
-- [ ] Kernel 6.12.x - 6.14.x (NOT 6.15+)
+- [ ] Kernel 6.15.7-6.17.7 or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8+)
 - [ ] GPU governor installed and running (oberon or cyan-skillfish)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM

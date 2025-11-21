@@ -112,7 +112,7 @@ See [BIOS Flashing Guide](../bios/flashing.md).
    - **Select:** linux-lts
    - **Version:** 6.12.x - 6.14.x
 
-   **Note on Kernel 6.15:** Despite claims it's fixed, community reports indicate 6.15+ still causes problems. Use 6.12-6.14 LTS for stability.
+   **Note on Kernel Versions:** Kernel 6.15.0-6.15.6 and 6.17.8+ cause GPU initialization failures. Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.
 
    **Network:**
    - Select NetworkManager
@@ -396,7 +396,7 @@ sudo pacman -S protonup-qt
 **Solution 2: Check kernel**
 ```bash
 uname -r
-# If 6.15.x, downgrade to 6.14.x or 6.12.x LTS
+# If 6.15.0-6.15.6 or 6.17.8+, install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)
 ```
 
 ### GPU Not Detected / llvmpipe
@@ -425,13 +425,16 @@ dmesg | grep amdgpu
 
 **Alternative:** USB audio adapter
 
-### Screen Freezing (Kernel 6.15+)
+### Screen Freezing (Broken Kernel Versions)
 
-**Symptom:** Random freezes, kernel panics
+**Symptom:** Random freezes, kernel panics on kernels 6.15.0-6.15.6 or 6.17.8+
 
 **Solution:**
 ```bash
-# Downgrade to LTS
+# Option 1: Install working 6.15.7-6.17.7 range
+sudo pacman -S linux  # Check version is in working range
+# Or
+# Option 2: Install LTS for guaranteed stability
 sudo pacman -S linux-lts linux-lts-headers
 sudo pacman -R linux
 
@@ -439,7 +442,7 @@ sudo pacman -R linux
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo reboot
 
-# Hold kernel updates
+# Hold kernel updates if needed
 # Add to /etc/pacman.conf:
 IgnorePkg = linux
 ```

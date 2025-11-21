@@ -18,7 +18,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 **Status:** Highly recommended, most tested
 - **Desktop:** GNOME or KDE Plasma
-- **Kernel:** 6.14.x LTS (avoid 6.15+)
+- **Kernel:** 6.15.7-6.17.7 (recommended) or 6.12-6.14 LTS (stable)
 - **Mesa:** 25.1+ in mainline repos (Fedora 43)
 
 ### Pros
@@ -31,7 +31,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 ### Cons
 
-- Kernel 6.15+ breaks BC-250 (must stay on 6.14 or earlier)
+- Kernel 6.15.0-6.15.6 and 6.17.8+ break BC-250 (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
 - Some users report MTG Arena crashes specifically on Fedora
 - Auto-updates can break things if not careful
 
@@ -114,7 +114,7 @@ systemctl reboot
 
 - **Cannot install ISO directly** on BC-250
 - Must install Arch first, then migrate to CachyOS
-- Kernel 6.15+ causes panics (use LTS)
+- Kernel 6.15.0-6.15.6 and 6.17.8+ cause panics (use 6.15.7-6.17.7 or LTS)
 - More complex setup
 
 ### Installation Method
@@ -269,10 +269,10 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 - Mesa version too old (~8 months behind)
 - Not recommended unless Valve updates
 
-### Kernel 6.15+
+### Kernel Compatibility
 
-!!!danger "Avoid Kernel 6.15+"
-    Kernel 6.15 and newer cause kernel panics and GPU initialization failures on BC-250. **Always use 6.12-6.14 LTS kernels.**
+!!!danger "Avoid Broken Kernel Versions"
+    Kernel 6.15.0-6.15.6 and 6.17.8+ cause kernel panics and GPU initialization failures on BC-250. **Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.**
 
 ## Distribution Comparison Table
 
@@ -346,7 +346,7 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 
 ### Fedora
 
-- **Issue:** Kernel 6.15+ breaks GPU
+- **Issue:** Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU
 - **Solution:** Pin kernel to 6.14
 
 ### Bazzite

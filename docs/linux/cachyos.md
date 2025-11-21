@@ -5,7 +5,7 @@ CachyOS is an Arch-based Linux distribution optimized for performance, featuring
 **Status:** Works well with custom installation
 **Difficulty:** Advanced (requires custom ISO or migration)
 **Performance:** Best overall (BORE scheduler, optimized packages)
-**Kernel:** 6.12 LTS required (6.15+ causes issues)
+**Kernel:** 6.15.7-6.17.7 (recommended) or 6.12-6.14 LTS (stable)
 
 ---
 
@@ -24,7 +24,7 @@ CachyOS is an Arch-based Linux distribution optimized for performance, featuring
 
 - **Cannot install directly** - Standard ISO doesn't work on BC-250
 - **Requires custom build** - Must build LTS ISO or migrate from Arch
-- **Kernel 6.15+** causes panics (stick to 6.12-6.14 LTS)
+- **Kernel 6.15.0-6.15.6 and 6.17.8+** cause panics (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
 - **Advanced setup** - Not recommended for Linux beginners
 
 ---
@@ -347,18 +347,20 @@ sensors  # Expected: nct6687, GPU temp, fan speeds
 
 ---
 
-### Kernel 6.15+ Causes Panics
+### Broken Kernel Versions Cause Panics
 
-**Symptom:** Black screen, kernel panic, GPU initialization failure
+**Symptom:** Black screen, kernel panic, GPU initialization failure on 6.15.0-6.15.6 or 6.17.8+
 
-**Solution:** Stay on 6.12-6.14 LTS kernels
+**Solution:** Use working kernel versions (6.15.7-6.17.7 or 6.12-6.14 LTS)
 
 ```bash
-# If accidentally upgraded, remove:
-sudo pacman -R linux-cachyos  # if 6.15+
+# If on broken version, install working kernel:
+sudo pacman -S linux-cachyos  # Check version is 6.15.7-6.17.7
+# Or
+sudo pacman -S linux-lts  # For 6.12-6.14 LTS stability
 ```
 
-**Note:** Kernel 6.16 may fix BC-250 support
+**Note:** Kernels 6.15.7-6.17.7 work well. Avoid 6.15.0-6.15.6 and 6.17.8+
 
 ---
 

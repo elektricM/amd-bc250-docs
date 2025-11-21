@@ -110,7 +110,7 @@ The BC-250 requires Linux for GPU support. Windows has NO drivers.
 
 **Avoid:**
 
-- Kernel 6.15+ (GPU driver issues)
+- Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU driver issues)
 - SteamOS (Mesa too old)
 - Ubuntu (packages too old without PPAs)
 
