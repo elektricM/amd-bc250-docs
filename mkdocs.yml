@@ -1,11 +1,11 @@
 site_name: AMD BC250 Documentation
 site_description: Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects
 site_author: BC250 Community
-site_url: https://YOUR_GITHUB_USERNAME.github.io/amd-bc250-docs/
+site_url: https://elektricM.github.io/amd-bc250-docs/
 
 # Repository
 repo_name: amd-bc250-docs
-repo_url: https://github.com/YOUR_GITHUB_USERNAME/amd-bc250-docs
+repo_url: https://github.com/elektricM/amd-bc250-docs
 
 # Copyright
 copyright: Copyright &copy; 2024-2025 BC250 Community

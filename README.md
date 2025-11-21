@@ -8,7 +8,7 @@ The AMD BC250 is a compact motherboard built around AMD's "Cyan Skillfish" APU (
 
 ## Documentation
 
-Visit the documentation site: [https://YOUR_GITHUB_USERNAME.github.io/amd-bc250-docs/](https://YOUR_GITHUB_USERNAME.github.io/amd-bc250-docs/)
+Visit the documentation site: [https://elektricM.github.io/amd-bc250-docs/](https://elektricM.github.io/amd-bc250-docs/)
 
 ## Key Features
 
