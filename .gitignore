@@ -38,6 +38,13 @@ github-docs/
 # Scripts - internal tooling only
 scripts/
 
+# Internal project files
+CLAUDE.md
+PROJECT_STATUS.md
+COMPARISON.md
+PAGES_TO_ADD.md
+parsed-content/
+
 # Environment variables
 .env
 .env.local
