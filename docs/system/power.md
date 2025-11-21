@@ -651,27 +651,6 @@ opps:
 - BIOS update to enable dynamic VRAM clocking
 - Could save 10-20W at idle if implemented
 
-### Multi-Board Power Optimization
-
-**For Users Running Multiple BC-250s:**
-
-Power consumption scales linearly:
-- 1 board: 85W idle, 195W load
-- 12 boards: 1020W idle (85W × 12), 2340W load (195W × 12)
-
-**Optimization Strategies:**
-
-1. **Governor on all boards**: 20W savings per board = 240W total
-2. **Aggressive undervolting**: 10-20W savings per board = 120-240W total
-3. **Idle optimization**: Target 60W per board = 720W total idle
-
-**Power Budget Planning:**
-```
-12 boards × 85W idle = 1020W
-At $0.12/kWh: 1.02 kW × 24h × 30 days × $0.12 = $88/month idle
-With optimization (60W/board): $63/month = $25/month savings
-```
-
 ---
 
 ## Power Management Best Practices

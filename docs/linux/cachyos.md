@@ -144,15 +144,13 @@ Install Arch Linux first, then migrate to CachyOS repositories.
 **Steps:**
 
 1. **Install Arch Linux:**
-   ```bash
-   # Use archinstall for easier setup
-   archinstall
 
-   # Select:
-   # - Kernel: linux-lts
-   # - Desktop: KDE Plasma or GNOME
-   # - Bootloader: GRUB
-   ```
+   Follow the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
+
+   **Key selections:**
+   - Kernel: `linux-lts` (6.12.x - 6.14.x)
+   - Desktop: KDE Plasma or GNOME
+   - Bootloader: GRUB
 
 2. **Boot Arch** (may need nomodeset on first boot)
 
