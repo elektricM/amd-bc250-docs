@@ -220,7 +220,7 @@ sudo dnf install mangohud goverlay gamemode gamescope
 
 ## Optional: Hold Kernel Version
 
-Since kernel 6.15+ breaks BC-250, you may want to prevent automatic kernel updates:
+Since kernel 6.15.0-6.15.6 and 6.17.8+ break BC-250, you may want to prevent automatic kernel updates to broken versions:
 
 ```bash
 # Install versionlock plugin
@@ -276,18 +276,22 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 ## Fedora-Specific Issues
 
-### Kernel 6.15+ Auto-Update
+### Kernel Auto-Update to Broken Version
 
 **Symptom:** System breaks after update
-**Cause:** Kernel 6.15 breaks BC-250
+**Cause:** Kernel 6.15.0-6.15.6 or 6.17.8+ breaks BC-250
 
 **Solution:**
 ```bash
 # Boot into rescue mode or older kernel
-# Remove 6.15 kernel
-sudo dnf remove kernel-6.15\*
+# Remove broken kernel (example for 6.15.5)
+sudo dnf remove kernel-6.15.5\*
+# Or for 6.17.8+
+sudo dnf remove kernel-6.17.8\* kernel-6.17.9\*
 
-# Install specific 6.14 kernel
+# Install working kernel
+sudo dnf install kernel-6.16.5-104  # Working 6.15.7-6.17.7 range
+# Or LTS for stability
 sudo dnf install kernel-6.14.4-104
 
 # Lock kernel version (see above)

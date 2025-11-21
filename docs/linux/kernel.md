@@ -6,30 +6,36 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 
 ### Recommended Kernels
 
-**Working and Stable:**
-- **6.12.x LTS** - Highly recommended
+**Best Compatibility:**
+- **6.15.7 - 6.17.7** - Full BC-250 support, best performance
+- **6.16.x** - All versions work well
+
+**Stable Fallback:**
+- **6.12.x LTS** - Older but reliable
 - **6.13.x** - Stable
-- **6.14.x LTS** - Most tested, recommended
+- **6.14.x LTS** - Well-tested
 
 **Confirmed Working Versions:**
-- 6.12.43-1-lts (Arch Linux)
-- 6.14.4-104 (Fedora)
-- 6.14.11-xanmod (Debian)
+- 6.16.5 (Fedora 42/43)
+- 6.15.11-1-lts (Arch Linux)
+- 6.17.4 (CachyOS)
 
-!!!success "Use LTS Kernels"
-    Long Term Support (LTS) kernels provide the best stability for BC-250. Stick to 6.12 or 6.14 LTS.
+!!!success "Current Recommendation"
+    Use kernels **6.15.7 through 6.17.7** for the best BC-250 experience. Kernel support was significantly improved starting with 6.15.7.
 
 ### Broken Kernels
 
-!!!danger "Avoid Kernel 6.15+"
-    Kernel 6.15 and newer versions cause critical issues on BC-250:
+!!!danger "Avoid These Kernel Versions"
+    - **6.15.0 - 6.15.6:** GPU initialization fails
+    - **6.17.8 and newer:** GPU driver broken again
 
+    These versions cause:
     - Kernel panics on boot
     - GPU fails to initialize
     - `amdgpu: Failed to get gpu_info firmware` error
     - Black screen after boot
 
-**Known Issues with 6.15:**
+**Known Error Messages:**
 ```
 [drm:amdgpu_discovery_init [amdgpu]] *ERROR* amdgpu_discovery_init failed
 amdgpu 0000:01:00.0: amdgpu: Fatal error during GPU init
@@ -239,13 +245,16 @@ sudo apt-mark unhold linux-image-6.14.11-amd64
 
 ### Removing Broken Kernel
 
-If kernel 6.15+ was installed and causes issues:
+If kernel 6.15.0-6.15.6 or 6.17.8+ was installed and causes issues:
 
 **Fedora:**
 ```bash
-# Boot into older kernel from GRUB menu
-# Remove 6.15 kernel
-sudo dnf remove kernel-6.15\*
+# Boot into working kernel from GRUB menu
+# Remove broken kernel (example: 6.17.8)
+sudo dnf remove kernel-6.17.8\*
+
+# Or remove all 6.17.8+ kernels
+sudo dnf remove 'kernel-6.17.[8-9]*' 'kernel-6.17.1[0-9]*'
 
 # Verify removal
 dnf list installed kernel
@@ -253,12 +262,14 @@ dnf list installed kernel
 
 **Arch Linux:**
 ```bash
-# Boot into LTS kernel
+# Boot into working kernel
 # Remove problematic kernel
-sudo pacman -R linux
+sudo pacman -R linux  # if on broken version
 
-# Keep only LTS
-sudo pacman -S linux-lts
+# Install known-good kernel
+sudo pacman -S linux-lts  # 6.12 or 6.14 LTS
+# or
+sudo pacman -S linux  # check version is 6.15.7-6.17.7
 ```
 
 ## Kernel Patches for BC-250
@@ -359,10 +370,10 @@ glxinfo | grep "OpenGL renderer"
 - System crashes during boot
 - Kernel panic message
 
-**Most Common Cause:** Kernel 6.15+
+**Most Common Cause:** Kernel 6.15.0-6.15.6 or 6.17.8+
 
 **Solution:**
-1. Boot into older kernel (hold Shift, select previous kernel)
+1. Boot into working kernel (hold Shift, select previous kernel)
 2. Remove problematic kernel version
 3. Lock kernel version to prevent auto-update
 
@@ -370,12 +381,16 @@ glxinfo | grep "OpenGL renderer"
 
 | Kernel Version | Status | Notes |
 |---------------|--------|-------|
-| 6.10.x | ⚠️ Works | `amdgpu.sg_display=0` not needed |
+| 6.10.x | ⚠️ Works | `amdgpu.sg_display=0` required |
 | 6.11.x | ✅ Good | Mesa 25.1+ required |
-| 6.12.x LTS | ✅ **Recommended** | Most stable |
+| 6.12.x LTS | ✅ Good | Stable fallback |
 | 6.13.x | ✅ Good | Stable |
-| 6.14.x LTS | ✅ **Recommended** | Most tested |
-| 6.15.x+ | ❌ **Broken** | GPU init fails, avoid! |
+| 6.14.x LTS | ✅ Good | Well-tested |
+| 6.15.0-6.15.6 | ❌ **Broken** | GPU init fails |
+| 6.15.7-6.15.x | ✅ **Recommended** | Kernel support fixed |
+| 6.16.x | ✅ **Recommended** | Full compatibility |
+| 6.17.0-6.17.7 | ✅ **Recommended** | Best support |
+| 6.17.8+ | ❌ **Broken** | GPU driver broken again |
 
 ## See Also
 

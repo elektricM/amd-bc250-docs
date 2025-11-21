@@ -20,7 +20,7 @@ Display problems are the #1 issue new BC-250 users encounter. This guide covers 
 2. BIOS settings not applied (CMOS not cleared)
 3. Incompatible display adapter (active DP-HDMI)
 4. IOMMU enabled in BIOS
-5. Kernel 6.15+ driver issues
+5. Broken kernel version (6.15.0-6.15.6 or 6.17.8+) driver issues
 
 ---
 
@@ -136,18 +136,20 @@ Check kernel version:
 uname -r
 ```
 
-If kernel is 6.15 or higher:
+If kernel is 6.15.0-6.15.6 or 6.17.8+:
 ```bash
-# Downgrade to 6.12-6.14
+# Install working kernel
 # Fedora:
+sudo dnf install kernel-6.16.5-*  # or any 6.15.7-6.17.7 version
+# Or for LTS stability:
 sudo dnf install kernel-6.14.x
 
-# Update GRUB to use older kernel as default
+# Update GRUB to use working kernel as default
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
-!!!danger "Kernel 6.15+ Breaks GPU"
-    Kernel 6.15+ has driver incompatibility with BC-250. Always use 6.12-6.14 LTS.
+!!!danger "Broken Kernel Versions"
+    Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250. Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.
 
 ---
 
@@ -413,29 +415,29 @@ dmesg | grep -i iommu
 
 ## Kernel-Specific Display Issues
 
-### Kernel 6.15+ No Display
+### Broken Kernel Versions - No Display
 
 **Problem:**
-- Upgraded kernel to 6.15+
+- Upgraded kernel to 6.15.0-6.15.6 or 6.17.8+
 - Now no display after boot
 
 **Cause:**
-Kernel 6.15+ has driver incompatibility with BC-250.
+Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250.
 
 **Solution:**
 
-Boot older kernel:
+Boot working kernel:
 1. At GRUB, select "Advanced options"
-2. Select kernel 6.14 or earlier
+2. Select kernel in 6.15.7-6.17.7 range (if available) or 6.12-6.14 LTS
 3. Boot
 
-Make older kernel default:
+Make working kernel default:
 ```bash
 # Fedora:
-sudo grubby --set-default /boot/vmlinuz-6.14.x
+sudo grubby --set-default /boot/vmlinuz-6.16.x  # or 6.14.x for LTS
 
-# Or remove 6.15 kernel entirely
-sudo dnf remove kernel-6.15.x
+# Or remove broken kernel entirely
+sudo dnf remove kernel-6.15.5\* kernel-6.17.8\*  # example versions
 ```
 
 ### Kernel 6.10+ and sg_display Parameter
@@ -566,7 +568,7 @@ vulkaninfo | grep deviceName
 ## FAQ
 
 **Q: Display worked yesterday, now doesn't. What changed?**
-A: Check if kernel updated (`uname -r`). If now on 6.15+, boot older kernel.
+A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8+, boot working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS).
 
 **Q: Can I use HDMI directly?**
 A: No, board only has DisplayPort. Must use DP cable or adapter.

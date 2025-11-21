@@ -390,7 +390,7 @@ Check anti-cheat compatibility: [areweanticheatyet.com](https://areweanticheatye
 5. **Monitor Temps:** Keep GPU < 85°C for stability
 6. **Adequate VRAM:** Use 4GB split for AAA games
 7. **Disable Mitigations:** `mitigations=off` for +10-15% FPS
-8. **Optimize Kernel:** Use 6.12-6.14 LTS, avoid 6.15+
+8. **Optimize Kernel:** Use 6.15.7-6.17.7 or 6.12-6.14 LTS, avoid 6.15.0-6.15.6 and 6.17.8+
 
 ## See Also
 

@@ -174,7 +174,7 @@ sudo apt install linux-xanmod-lts-x64v3
 
 **Confirmed working:** 6.14.11 Xanmod kernel
 
-**Important:** Avoid kernel 6.15+, stick to 6.12-6.14 range.
+**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8+. Use 6.15.7-6.17.7 for best performance or stick to 6.12-6.14 LTS for stability.
 
 ---
 
@@ -343,7 +343,7 @@ vulkaninfo | grep deviceName
 
 # Kernel version
 uname -r
-# Expected: 6.12.x or 6.14.x (avoid 6.15+)
+# Expected: 6.15.7-6.17.7 (best) or 6.12.x-6.14.x LTS (stable)
 ```
 
 ### Check Governor
@@ -381,13 +381,14 @@ sensors
 - Install from experimental repository
 - Verify with `apt policy mesa-vulkan-drivers`
 
-### Kernel 6.15+ Issues
+### Kernel Compatibility Issues
 
-**Symptom:** GPU initialization failures, black screens
+**Symptom:** GPU initialization failures, black screens on 6.15.0-6.15.6 or 6.17.8+
 
 **Solution:**
-- Use 6.12-6.14 LTS kernels
-- Avoid 6.15+ until BC-250 support confirmed
+- Use 6.15.7-6.17.7 for best performance
+- Or use 6.12-6.14 LTS kernels for guaranteed stability
+- Avoid 6.15.0-6.15.6 and 6.17.8+ (known broken)
 
 ### Audio Issues
 

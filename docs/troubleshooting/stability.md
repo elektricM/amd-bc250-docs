@@ -8,7 +8,7 @@ This guide addresses system crashes, freezes, random reboots, and instability is
 
 Before diving into specific issues, check these common causes:
 
-1. **Kernel version**: Are you running kernel 6.15+? (Known to cause GPU crashes)
+1. **Kernel version**: Are you running kernel 6.15.0-6.15.6 or 6.17.8+? (Known to cause GPU crashes)
 2. **BIOS settings**: Did you clear CMOS after flashing BIOS?
 3. **VRAM allocation**: Are you using 512MB dynamic with ZRAM enabled?
 4. **IOMMU**: Is it disabled in BIOS?
@@ -34,9 +34,9 @@ Before diving into specific issues, check these common causes:
    ```bash
    uname -r
    ```
-   - **AVOID kernel 6.15+** - Known to cause random GPU crashes under load
-   - **Recommended**: 6.12.x - 6.14.x LTS kernels
-   - If on 6.15+, downgrade immediately
+   - **AVOID kernel 6.15.0-6.15.6 and 6.17.8+** - Known to cause random GPU crashes under load
+   - **Recommended**: 6.15.7-6.17.7 (best performance) or 6.12.x-6.14.x LTS (stable)
+   - If on broken version, install working kernel immediately
 
 2. **Verify governor voltage stability**
    - Run benchmark: `vkmark` or `superposition`
@@ -212,19 +212,21 @@ Before diving into specific issues, check these common causes:
 
 ## Kernel Panics
 
-### Kernel 6.15+ GPU Driver Failures
+### Broken Kernel Versions - GPU Driver Failures
 
-**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load
+**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8+
 
-**Critical issue**: Kernel 6.15+ breaks GPU driver support for BC-250
+**Critical issue**: Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support for BC-250
 
 **Solution**:
 
-1. **Downgrade to kernel 6.12-6.14**
+1. **Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)**
 
    **Arch/Manjaro**:
    ```bash
-   # Install LTS kernel
+   # Option 1: Install working 6.15.7-6.17.7 kernel
+   sudo pacman -S linux  # Check version is in working range
+   # Option 2: Install LTS kernel for guaranteed stability
    sudo pacman -S linux-lts linux-lts-headers
 
    # Set as default in bootloader
@@ -648,8 +650,8 @@ journalctl -f | grep -i "error\|fail\|crash\|amdgpu"
 ## Common Error Messages
 
 ### "GPU reset failed"
-- **Cause**: Kernel 6.15+, overclocking instability, or GPU crash
-- **Fix**: Downgrade kernel, reduce frequency/increase voltage
+- **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8+, overclocking instability, or GPU crash
+- **Fix**: Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS), reduce frequency/increase voltage
 
 ### "Out of memory"
 - **Cause**: VRAM exhausted, BIOS settings not applied, ZRAM conflict
@@ -710,7 +712,7 @@ Silicon lottery is real - some boards are less stable than others.
 1. **Check thermal paste every 6 months** (or use PTM7950)
 2. **Clean heatsink fins** from dust buildup
 3. **Verify fan operation** regularly
-4. **Monitor kernel updates** (avoid 6.15+)
+4. **Monitor kernel updates** (avoid 6.15.0-6.15.6 and 6.17.8+)
 5. **Back up working configurations** (BIOS settings, governor config)
 
 ### Documentation
@@ -783,7 +785,7 @@ If problems persist after trying these solutions:
 
 | Problem | Most Likely Fix |
 |---------|----------------|
-| Random GPU crashes | Downgrade from kernel 6.15+ to 6.14 or lower |
+| Random GPU crashes | Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS) |
 | BIOS settings not sticking | Clear CMOS after flashing |
 | Games crashing with ZRAM | Disable ZRAM or use fixed VRAM allocation |
 | General instability | Disable IOMMU in BIOS |

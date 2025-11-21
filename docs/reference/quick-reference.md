@@ -44,8 +44,8 @@ Fast answers to common questions. For detailed information, see the full documen
 
 ### Kernel Requirements
 
-- **Use:** Kernel 6.12.x - 6.14.x LTS
-- **Avoid:** Kernel 6.15+ (GPU initialization fails)
+- **Use:** Kernel 6.15.7 - 6.17.7 (best) or 6.12.x - 6.14.x LTS (stable)
+- **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU initialization fails)
 - **Boot parameter:** `nomodeset` during install, remove after drivers installed
 
 ### Kernel Parameters
@@ -332,7 +332,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 1. VRAM allocation (try 10GB/6GB fixed if using 512MB dynamic with ZRAM)
 2. Disable ZRAM: `sudo systemctl disable zram-swap`
 3. Update Mesa to latest
-4. Check kernel version (avoid 6.15+)
+4. Check kernel version (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
 
 ### High Temperatures
 
@@ -352,7 +352,7 @@ RADV_DEBUG=nohiz,nocompute %command%
     1. **Always clear CMOS after USB BIOS flash**
     2. **Disable IOMMU in BIOS** (causes display issues)
     3. **Use nomodeset during install, remove after drivers installed**
-    4. **Avoid kernel 6.15+** (GPU driver fails)
+    4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8+** (GPU driver fails)
     5. **700mV minimum voltage** (crashes below this)
     6. **980 MHz is unstable** (skip this frequency)
     7. **Active DP-HDMI adapters break audio**
