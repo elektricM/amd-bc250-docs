@@ -1,0 +1,2940 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects">
+      
+      
+        <meta name="author" content="BC250 Community">
+      
+      
+        <link rel="canonical" href="https://elektricM.github.io/amd-bc250-docs/troubleshooting/display/">
+      
+      
+        <link rel="prev" href="../../gaming/compatibility/">
+      
+      
+        <link rel="next" href="../../reference/quick-reference/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Display Issues - AMD BC250 Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#display-no-signal-issues" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AMD BC250 Documentation" class="md-header__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AMD BC250 Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Display Issues
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AMD BC250 Documentation" class="md-nav__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    AMD BC250 Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS & Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BIOS & Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS Flashing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/vram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRAM Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/overclocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/fedora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kernel Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/mesa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaming & Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaming & Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gaming/compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display During Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display During Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-black-screen-when-booting-installer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Black Screen When Booting Installer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-after-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display After Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display After Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-boots-but-black-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Boots But Black Screen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-works-in-bios-fails-in-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Works in BIOS, Fails in OS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Works in BIOS, Fails in OS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-can-access-bios-but-not-boot-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Can Access BIOS But Not Boot OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-after-bios-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display After BIOS Flash
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display After BIOS Flash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-flashed-bios-now-no-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Flashed BIOS, Now No Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermittent-black-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermittent Black Screens
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermittent Black Screens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-display-works-then-randomly-goes-black" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Display Works, Then Randomly Goes Black
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-flickering-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Flickering / Artifacts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Flickering / Artifacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-image-has-visual-glitches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Image Has Visual Glitches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-works-but-no-bios-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Works But No BIOS Menu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Works But No BIOS Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-cant-access-bios-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Can't Access BIOS Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-case-active-vs-passive-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special Case: Active vs Passive Adapters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Special Case: Active vs Passive Adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues-with-active-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Issues with Active Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iommu-related-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IOMMU Related Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IOMMU Related Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-display-fails-with-certain-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Display Fails with Certain Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-specific-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel-Specific Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel-Specific Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-615-no-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel 6.15+ No Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-610-and-sg_display-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel 6.10+ and sg_display Parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-level-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware-Level Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware-Level Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dead-display-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dead Display Port
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnostic Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-display-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Display Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-gpu-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check GPU Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-mesadriver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Mesa/Driver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovery Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-completely-unable-to-get-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Completely Unable to Get Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-display-works-in-linux-but-not-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Display Works in Linux But Not Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAQ
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/quick-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display During Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display During Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-black-screen-when-booting-installer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Black Screen When Booting Installer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-after-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display After Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display After Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-boots-but-black-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Boots But Black Screen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-works-in-bios-fails-in-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Works in BIOS, Fails in OS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Works in BIOS, Fails in OS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-can-access-bios-but-not-boot-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Can Access BIOS But Not Boot OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-display-after-bios-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Display After BIOS Flash
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="No Display After BIOS Flash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-flashed-bios-now-no-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Flashed BIOS, Now No Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermittent-black-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermittent Black Screens
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermittent Black Screens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-display-works-then-randomly-goes-black" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Display Works, Then Randomly Goes Black
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-flickering-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Flickering / Artifacts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Flickering / Artifacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-image-has-visual-glitches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Image Has Visual Glitches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-works-but-no-bios-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Works But No BIOS Menu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display Works But No BIOS Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-cant-access-bios-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Can't Access BIOS Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-case-active-vs-passive-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special Case: Active vs Passive Adapters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Special Case: Active vs Passive Adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues-with-active-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Issues with Active Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iommu-related-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IOMMU Related Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IOMMU Related Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-display-fails-with-certain-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Display Fails with Certain Adapters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-specific-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel-Specific Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel-Specific Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-615-no-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel 6.15+ No Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel-610-and-sg_display-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel 6.10+ and sg_display Parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-level-display-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware-Level Display Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware-Level Display Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dead-display-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dead Display Port
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnostic Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-display-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Display Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-gpu-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check GPU Initialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-mesadriver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Mesa/Driver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Procedures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovery Procedures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-completely-unable-to-get-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Completely Unable to Get Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-display-works-in-linux-but-not-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Display Works in Linux But Not Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAQ
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="display-no-signal-issues">Display &amp; No Signal Issues<a class="headerlink" href="#display-no-signal-issues" title="Permanent link">&para;</a></h1>
+<p>Display problems are the #1 issue new BC-250 users encounter. This guide covers all known display-related issues and their solutions.</p>
+<hr />
+<h2 id="quick-diagnosis">Quick Diagnosis<a class="headerlink" href="#quick-diagnosis" title="Permanent link">&para;</a></h2>
+<p><strong>Symptoms checklist:</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Complete black screen, no signal</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Display works in BIOS but not in OS</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Display flickers or goes black intermittently</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Display works on first boot, fails after reboot</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> No display after BIOS flash</li>
+</ul>
+<p><strong>Most common causes:</strong></p>
+<ol>
+<li>Missing GPU drivers + no nomodeset</li>
+<li>BIOS settings not applied (CMOS not cleared)</li>
+<li>Incompatible display adapter (active DP-HDMI)</li>
+<li>IOMMU enabled in BIOS</li>
+<li>Kernel 6.15+ driver issues</li>
+</ol>
+<hr />
+<h2 id="no-display-during-installation">No Display During Installation<a class="headerlink" href="#no-display-during-installation" title="Permanent link">&para;</a></h2>
+<h3 id="problem-black-screen-when-booting-installer">Problem: Black Screen When Booting Installer<a class="headerlink" href="#problem-black-screen-when-booting-installer" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- USB boots, but screen goes black
+- No installer appears
+- Monitor shows "No Signal"</p>
+<p><strong>Cause:</strong>
+Installer doesn't have BC-250 GPU drivers. Linux framebuffer (KMS) attempts to initialize GPU and fails.</p>
+<p><strong>Solution: Use nomodeset</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Fedora: Use Basic Graphics Mode</p>
+<p>In Fedora installer boot menu, select "Troubleshooting" → "Install in Basic Graphics Mode". This enables nomodeset automatically.</p>
+</div>
+<p><strong>Manual method (any distro):</strong></p>
+<ol>
+<li>At GRUB boot menu, press <strong>e</strong> to edit</li>
+<li>Find line starting with <code>linux</code> or <code>linuxefi</code></li>
+<li>Go to end of that line</li>
+<li>Add a space, then type: <code>nomodeset</code></li>
+<li>Press <strong>Ctrl+X</strong> to boot</li>
+</ol>
+<p>Example:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Before:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>linux<span class="w"> </span>/vmlinuz<span class="w"> </span><span class="nv">root</span><span class="o">=</span>live:CDLABEL<span class="o">=</span>Fedora<span class="w"> </span>quiet
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># After:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>linux<span class="w"> </span>/vmlinuz<span class="w"> </span><span class="nv">root</span><span class="o">=</span>live:CDLABEL<span class="o">=</span>Fedora<span class="w"> </span>quiet<span class="w"> </span>nomodeset
+</span></code></pre></div></p>
+<p><strong>What nomodeset does:</strong>
+- Disables kernel mode setting (KMS)
+- Forces fallback to VESA/UEFI framebuffer
+- Allows display without GPU drivers
+- Enables installation to proceed</p>
+<div class="admonition warning">
+<p class="admonition-title">Must Remove After Install</p>
+<p>Once Mesa drivers are installed, nomodeset MUST be removed or GPU acceleration won't work.</p>
+</div>
+<hr />
+<h2 id="no-display-after-installation">No Display After Installation<a class="headerlink" href="#no-display-after-installation" title="Permanent link">&para;</a></h2>
+<h3 id="problem-boots-but-black-screen">Problem: Boots But Black Screen<a class="headerlink" href="#problem-boots-but-black-screen" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Installation completed successfully
+- System boots (fan spins, LED lights up)
+- But display shows nothing</p>
+<p><strong>Cause:</strong>
+Same as installer - no GPU drivers yet.</p>
+<p><strong>Solution:</strong></p>
+<p><strong>Option 1: Boot with nomodeset (temporary fix)</strong></p>
+<ol>
+<li>At GRUB boot menu (shows briefly), press <strong>e</strong></li>
+<li>Find <code>linux</code> line</li>
+<li>Add <code>nomodeset</code> at end</li>
+<li>Press <strong>Ctrl+X</strong> to boot</li>
+<li>Install drivers (see <a href="../../linux/distributions/">driver installation guide</a>)</li>
+<li>Remove nomodeset from GRUB permanently</li>
+</ol>
+<p><strong>Option 2: Install drivers from recovery mode</strong></p>
+<p>Some distros offer recovery/safe mode that includes basic display drivers.</p>
+<p><strong>Permanent fix:</strong></p>
+<p>After booting with nomodeset:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Install drivers (distro-specific)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Fedora:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>curl<span class="w"> </span>-s<span class="w"> </span>https://raw.githubusercontent.com/mothenjoyer69/bc250-documentation/refs/heads/main/fedora-setup.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Then remove nomodeset:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/grub
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Remove &#39;nomodeset&#39; from GRUB_CMDLINE_LINUX_DEFAULT</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>sudo<span class="w"> </span>reboot
+</span></code></pre></div>
+<hr />
+<h2 id="display-works-in-bios-fails-in-os">Display Works in BIOS, Fails in OS<a class="headerlink" href="#display-works-in-bios-fails-in-os" title="Permanent link">&para;</a></h2>
+<h3 id="problem-can-access-bios-but-not-boot-os">Problem: Can Access BIOS But Not Boot OS<a class="headerlink" href="#problem-can-access-bios-but-not-boot-os" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- BIOS menu displays fine
+- Boot process starts
+- Screen goes black when OS loads</p>
+<p><strong>Cause:</strong>
+OS tries to initialize GPU with KMS, fails because drivers missing or incompatible.</p>
+<p><strong>Solution:</strong>
+Add nomodeset to kernel parameters (same as above sections).</p>
+<p><strong>If drivers ARE installed:</strong></p>
+<p>Check kernel version:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uname<span class="w"> </span>-r
+</span></code></pre></div></p>
+<p>If kernel is 6.15 or higher:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Downgrade to 6.12-6.14</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Fedora:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-6.14.x
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Update GRUB to use older kernel as default</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+</span></code></pre></div></p>
+<div class="admonition danger">
+<p class="admonition-title">Kernel 6.15+ Breaks GPU</p>
+<p>Kernel 6.15+ has driver incompatibility with BC-250. Always use 6.12-6.14 LTS.</p>
+</div>
+<hr />
+<h2 id="no-display-after-bios-flash">No Display After BIOS Flash<a class="headerlink" href="#no-display-after-bios-flash" title="Permanent link">&para;</a></h2>
+<h3 id="problem-flashed-bios-now-no-display">Problem: Flashed BIOS, Now No Display<a class="headerlink" href="#problem-flashed-bios-now-no-display" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- USB BIOS flash appeared successful
+- Board powers on (fan spins)
+- No display at all, not even BIOS</p>
+<p><strong>Causes:</strong>
+1. CMOS not cleared (most common)
+2. BIOS flash corrupted
+3. Display adapter incompatibility
+4. IOMMU enabled by default in new BIOS</p>
+<p><strong>Solutions (in order of likelihood):</strong></p>
+<p><strong>1. Clear CMOS (fixes 90% of cases)</strong></p>
+<div class="admonition success">
+<p class="admonition-title">This Usually Fixes It</p>
+<p>Most "bricked after flash" boards are just waiting for CMOS clear.</p>
+</div>
+<p>Method A: Remove battery
+1. Power off, unplug everything
+2. Remove CR2032 CMOS battery
+3. Wait 60 seconds (or press power button 5 times with battery out)
+4. Replace battery
+5. Plug back in, power on</p>
+<p>Method B: Use CMOS jumper
+1. Power off, unplug
+2. Locate CMOS clear jumper (check board pinout)
+3. Move jumper to clear position
+4. Wait 10 seconds
+5. Return jumper to normal position
+6. Power on</p>
+<p><strong>2. Try Different Display Adapter</strong></p>
+<ul>
+<li>If using active DP-HDMI adapter, try passive</li>
+<li>If using passive, try native DP cable</li>
+<li>Try different monitor if possible</li>
+</ul>
+<p><strong>3. Reflash BIOS</strong></p>
+<p>If board still doesn't display:
+- BIOS may be corrupted
+- Reflash using USB method again
+- Or use hardware programmer (CH341A)</p>
+<p><a href="../../bios/recovery/">BIOS recovery guide →</a></p>
+<hr />
+<h2 id="intermittent-black-screens">Intermittent Black Screens<a class="headerlink" href="#intermittent-black-screens" title="Permanent link">&para;</a></h2>
+<h3 id="problem-display-works-then-randomly-goes-black">Problem: Display Works, Then Randomly Goes Black<a class="headerlink" href="#problem-display-works-then-randomly-goes-black" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Display works initially
+- Goes black during gaming or after some time
+- Requires reboot to restore</p>
+<p><strong>Possible causes:</strong></p>
+<p><strong>1. Overheating</strong></p>
+<p>Check temperatures:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sensors
+</span></code></pre></div></p>
+<p>If GPU &gt;90°C:
+- Improve cooling (better fans, straighten fins)
+- Lower clock speeds in governor config
+- Increase fan speed</p>
+<p><strong>2. Unstable Overclock</strong></p>
+<p>If using custom governor settings:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Edit /etc/oberon-config.yaml</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Reduce max_frequency or increase voltage</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>oberon-governor
+</span></code></pre></div>
+<p><strong>3. Power Supply Issues</strong></p>
+<ul>
+<li>Insufficient wattage (need 300W+)</li>
+<li>Bad 8-pin connection</li>
+<li>Voltage sag under load</li>
+</ul>
+<p>Test with lower power limit:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Limit max frequency to reduce power draw</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Edit /etc/oberon-config.yaml</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>max_frequency:<span class="w"> </span><span class="m">1500</span>
+</span></code></pre></div></p>
+<p><strong>4. Display Adapter Overheating</strong></p>
+<p>Some active adapters overheat and fail.
+- Switch to passive adapter
+- Ensure adapter has airflow</p>
+<hr />
+<h2 id="display-flickering-artifacts">Display Flickering / Artifacts<a class="headerlink" href="#display-flickering-artifacts" title="Permanent link">&para;</a></h2>
+<h3 id="problem-image-has-visual-glitches">Problem: Image Has Visual Glitches<a class="headerlink" href="#problem-image-has-visual-glitches" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Screen flickers
+- Colored artifacts
+- Horizontal lines
+- Partial display corruption</p>
+<p><strong>Causes &amp; Solutions:</strong></p>
+<p><strong>1. Bad Display Cable</strong>
+- Try different DP or HDMI cable
+- Ensure cable supports your resolution/refresh rate</p>
+<p><strong>2. Refresh Rate Too High</strong>
+- Some passive adapters limited to 60Hz
+- Reduce refresh rate in display settings:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># KDE: System Settings → Display</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># GNOME: Settings → Displays</span>
+</span></code></pre></div></p>
+<p><strong>3. VRAM Allocation Issues</strong></p>
+<p>If using fixed VRAM allocation and seeing artifacts:
+- May need more VRAM
+- Switch from 4GB to 6GB or 8GB VRAM in BIOS</p>
+<p><strong>4. Unstable GPU Overclock</strong></p>
+<p>Reduce frequency or increase voltage in governor config.</p>
+<hr />
+<h2 id="display-works-but-no-bios-menu">Display Works But No BIOS Menu<a class="headerlink" href="#display-works-but-no-bios-menu" title="Permanent link">&para;</a></h2>
+<h3 id="problem-cant-access-bios-setup">Problem: Can't Access BIOS Setup<a class="headerlink" href="#problem-cant-access-bios-setup" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Display shows boot process
+- Can't enter BIOS menu
+- Del/F2 keys don't work</p>
+<p><strong>Solutions:</strong></p>
+<p><strong>1. Press Del EARLIER</strong>
+- Start pressing Del immediately when powering on
+- Some boards have very short window</p>
+<p><strong>2. Try Different Keys</strong>
+- Del (most common)
+- F2
+- F12
+- Esc</p>
+<p><strong>3. Boot Too Fast</strong>
+- Add delay to GRUB timeout
+- Or hold Shift during boot for GRUB menu
+- Then reboot from GRUB to BIOS</p>
+<p><strong>4. Display Adapter Issue</strong>
+- Some adapters don't initialize fast enough for BIOS
+- Try different adapter
+- Try native DP cable</p>
+<p><strong>5. Keyboard Not Detected</strong>
+- Try different USB port
+- Try USB 2.0 instead of 3.0
+- Ensure keyboard plugged in before power on</p>
+<hr />
+<h2 id="special-case-active-vs-passive-adapters">Special Case: Active vs Passive Adapters<a class="headerlink" href="#special-case-active-vs-passive-adapters" title="Permanent link">&para;</a></h2>
+<h3 id="understanding-the-difference">Understanding the Difference<a class="headerlink" href="#understanding-the-difference" title="Permanent link">&para;</a></h3>
+<p><strong>Passive DP-to-HDMI adapters:</strong>
+- Simple physical connector conversion
+- No power needed
+- Limited to 1080p60 or 1440p60 typically
+- Audio works properly
+- Cost: $5-10</p>
+<p><strong>Active DP-to-HDMI adapters:</strong>
+- Contains electronics/chip for signal conversion
+- Powered from DP port
+- Supports 4K60Hz, 4K120Hz
+- <strong>Audio does NOT work on BC-250</strong>
+- Cost: $15-30</p>
+<h3 id="known-issues-with-active-adapters">Known Issues with Active Adapters<a class="headerlink" href="#known-issues-with-active-adapters" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Audio Broken on Active Adapters</p>
+<p>Active DP-HDMI adapters consistently break audio on BC-250. Video works, audio doesn't.</p>
+</div>
+<p><strong>Why:</strong> Active adapters re-encode the signal. BC-250's DP audio implementation is non-standard, and active adapters can't properly decode it.</p>
+<p><strong>Workarounds:</strong>
+1. Use passive adapter (best solution)
+2. Use USB DAC for audio
+3. Use native DP monitor
+4. Use USB-C headphones</p>
+<h3 id="recommended-adapters">Recommended Adapters<a class="headerlink" href="#recommended-adapters" title="Permanent link">&para;</a></h3>
+<p><strong>Passive adapters that work:</strong>
+- Amazon Basics DP to HDMI adapter
+- Cable Matters DP to HDMI adapter
+- Most cheap unbranded passive adapters</p>
+<p><strong>Avoid:</strong>
+- Any adapter advertising "4K120" or "8K"
+- Adapters with USB power ports
+- Adapters with status LEDs (usually active)</p>
+<hr />
+<h2 id="iommu-related-display-issues">IOMMU Related Display Issues<a class="headerlink" href="#iommu-related-display-issues" title="Permanent link">&para;</a></h2>
+<h3 id="problem-display-fails-with-certain-adapters">Problem: Display Fails with Certain Adapters<a class="headerlink" href="#problem-display-fails-with-certain-adapters" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Works with some display adapters, not others
+- Random "no signal" issues
+- Display works initially then fails</p>
+<p><strong>Cause:</strong>
+IOMMU (AMD's virtualization feature) can interfere with display output on some adapters.</p>
+<p><strong>Solution:</strong></p>
+<p>Disable IOMMU in BIOS:</p>
+<ol>
+<li>Enter BIOS setup (Del during boot)</li>
+<li>Navigate to Advanced or Chipset menu</li>
+<li>Find "IOMMU" or "AMD IOMMU"</li>
+<li>Set to <strong>Disabled</strong></li>
+<li>Save and exit</li>
+</ol>
+<p>Verify disabled in OS:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>iommu
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># Should show &quot;AMD-Vi: AMD IOMMU disabled&quot;</span>
+</span></code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">When to Enable IOMMU</p>
+<p>Only enable IOMMU if you're doing GPU passthrough for virtualization. For normal use, keep it disabled.</p>
+</div>
+<hr />
+<h2 id="kernel-specific-display-issues">Kernel-Specific Display Issues<a class="headerlink" href="#kernel-specific-display-issues" title="Permanent link">&para;</a></h2>
+<h3 id="kernel-615-no-display">Kernel 6.15+ No Display<a class="headerlink" href="#kernel-615-no-display" title="Permanent link">&para;</a></h3>
+<p><strong>Problem:</strong>
+- Upgraded kernel to 6.15+
+- Now no display after boot</p>
+<p><strong>Cause:</strong>
+Kernel 6.15+ has driver incompatibility with BC-250.</p>
+<p><strong>Solution:</strong></p>
+<p>Boot older kernel:
+1. At GRUB, select "Advanced options"
+2. Select kernel 6.14 or earlier
+3. Boot</p>
+<p>Make older kernel default:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Fedora:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--set-default<span class="w"> </span>/boot/vmlinuz-6.14.x
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Or remove 6.15 kernel entirely</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>kernel-6.15.x
+</span></code></pre></div></p>
+<h3 id="kernel-610-and-sg_display-parameter">Kernel 6.10+ and sg_display Parameter<a class="headerlink" href="#kernel-610-and-sg_display-parameter" title="Permanent link">&para;</a></h3>
+<p><strong>Note:</strong> Kernel 6.10+ doesn't need <code>amdgpu.sg_display=0</code> parameter</p>
+<p>If you have this in your GRUB config and kernel ≥6.10, you can remove it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/grub
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># Remove amdgpu.sg_display=0</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+</span></code></pre></div>
+<hr />
+<h2 id="hardware-level-display-issues">Hardware-Level Display Issues<a class="headerlink" href="#hardware-level-display-issues" title="Permanent link">&para;</a></h2>
+<h3 id="dead-display-port">Dead Display Port<a class="headerlink" href="#dead-display-port" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Never had display working
+- Tried everything above
+- Multiple adapters don't work</p>
+<p><strong>Diagnosis:</strong></p>
+<ol>
+<li><strong>Verify board powers on:</strong></li>
+<li>Fan spins</li>
+<li>LED lights</li>
+<li>
+<p>Gets warm</p>
+</li>
+<li>
+<p><strong>Test on different monitor</strong></p>
+</li>
+<li>
+<p><strong>Try all four display port lanes:</strong></p>
+</li>
+<li>Some DP ports are actually DP++ (dual mode)</li>
+<li>Try different orientation/pins</li>
+</ol>
+<p><strong>If truly dead:</strong></p>
+<p>This is rare but possible. Board may have damaged DP controller.</p>
+<p><strong>Options:</strong>
+- Return to seller (if recently purchased)
+- Use board for headless compute
+- Hardware repair (advanced)</p>
+<hr />
+<h2 id="diagnostic-commands">Diagnostic Commands<a class="headerlink" href="#diagnostic-commands" title="Permanent link">&para;</a></h2>
+<h3 id="check-display-connection">Check Display Connection<a class="headerlink" href="#check-display-connection" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># List displays detected</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>xrandr
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Should show:</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># DisplayPort-0 connected ...</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Check DRM</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>ls<span class="w"> </span>/sys/class/drm/
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># Should show card0, card0-DP-1, etc.</span>
+</span></code></pre></div>
+<h3 id="check-gpu-initialization">Check GPU Initialization<a class="headerlink" href="#check-gpu-initialization" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Check GPU detected</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>VGA
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Should show: AMD Radeon Graphics</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Check driver loaded</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Should show amdgpu module</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Check for errors</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>amdgpu
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># Look for errors or failures</span>
+</span></code></pre></div>
+<h3 id="check-mesadriver">Check Mesa/Driver<a class="headerlink" href="#check-mesadriver" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Mesa version</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL version&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Should be Mesa 25.1+</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Vulkan</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>vulkaninfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>deviceName
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Should show: AMD Radeon Graphics (RADV GFX1013)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="recovery-procedures">Recovery Procedures<a class="headerlink" href="#recovery-procedures" title="Permanent link">&para;</a></h2>
+<h3 id="if-completely-unable-to-get-display">If Completely Unable to Get Display<a class="headerlink" href="#if-completely-unable-to-get-display" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1: Verify hardware</strong>
+- Power supply working? (8-pin firmly connected)
+- Fans spinning?
+- LED lights on?</p>
+<p><strong>Step 2: Clear CMOS</strong>
+- Remove battery 60 seconds
+- Press power button 5 times while battery out
+- Replace, power on</p>
+<p><strong>Step 3: Reflash BIOS</strong>
+- Create bootable USB with modded BIOS
+- Flash again
+- Clear CMOS again</p>
+<p><strong>Step 4: Hardware programmer</strong>
+- Use CH341A to reflash BIOS directly
+- Bypass potentially corrupted BIOS</p>
+<p><a href="../../bios/recovery/">BIOS recovery guide →</a></p>
+<h3 id="if-display-works-in-linux-but-not-windows">If Display Works in Linux But Not Windows<a class="headerlink" href="#if-display-works-in-linux-but-not-windows" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">No Windows Drivers</p>
+<p>BC-250 has NO Windows GPU drivers. Display will only work in BIOS and Linux. This is expected and cannot be fixed.</p>
+</div>
+<hr />
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<p><strong>Q: Display worked yesterday, now doesn't. What changed?</strong>
+A: Check if kernel updated (<code>uname -r</code>). If now on 6.15+, boot older kernel.</p>
+<p><strong>Q: Can I use HDMI directly?</strong>
+A: No, board only has DisplayPort. Must use DP cable or adapter.</p>
+<p><strong>Q: Will USB-C to HDMI work?</strong>
+A: No, board doesn't have USB-C DisplayPort alt mode. Use the DP port.</p>
+<p><strong>Q: Why does BIOS show but Linux doesn't?</strong>
+A: BIOS uses UEFI framebuffer. Linux tries to use GPU drivers which may be missing or broken.</p>
+<p><strong>Q: Display sometimes works, sometimes doesn't?</strong>
+A: Likely loose cable, bad adapter, or overheating. Check all connections and temps.</p>
+<hr />
+<p><strong>Related Guides:</strong>
+- <a href="../../bios/flashing/">BIOS Flashing</a>
+- <a href="../../linux/distributions/">Linux Installation</a>
+- <a href="../../hardware/power/">Hardware Setup</a>
+- <a href="../../bios/recovery/">BIOS Recovery</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../gaming/compatibility/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Game Compatibility">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Game Compatibility
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../reference/quick-reference/" class="md-footer__link md-footer__link--next" aria-label="Next: Quick Reference">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Quick Reference
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 BC250 Community
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/mothenjoyer69/bc250-documentation" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/uDvkhNpxRQ" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "toc.follow", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

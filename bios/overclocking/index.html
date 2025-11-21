@@ -1,0 +1,2902 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects">
+      
+      
+        <meta name="author" content="BC250 Community">
+      
+      
+        <link rel="canonical" href="https://elektricM.github.io/amd-bc250-docs/bios/overclocking/">
+      
+      
+        <link rel="prev" href="../vram/">
+      
+      
+        <link rel="next" href="../recovery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Overclocking - AMD BC250 Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bios-overclocking-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AMD BC250 Documentation" class="md-header__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AMD BC250 Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overclocking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AMD BC250 Documentation" class="md-nav__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    AMD BC250 Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS & Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BIOS & Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS Flashing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRAM Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overclocking-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overclocking Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-can-be-overclocked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Can Be Overclocked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-overclocking-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Overclocking Limits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Safe Overclocking Limits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#community-tested-safe-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community-Tested Safe Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-unstable-frequencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Unstable Frequencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-overclocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Overclocking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual Overclocking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-via-sysfs-temporary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Via sysfs (Temporary)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-via-governor-config-permanent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Via Governor Config (Permanent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-cyan-skillfish-governor-multi-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Cyan-Skillfish Governor (Multi-Point)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Stability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Stability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stress-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stress Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Gains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Gains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-vs-power-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance vs Power Trade-Off
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voltage-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undervolting-for-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undervolting for Efficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overvolting-for-higher-clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overvolting for Higher Clocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cooling Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature-targets-by-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature Targets by Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improving-cooling-for-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improving Cooling for Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-supply-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Supply Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Supply Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-requirements-by-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Requirements by Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#furmark-power-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Furmark Power Draw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overclocking-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-overclocking-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Overclocking Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Overclocking Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-crashes-immediately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes Immediately
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crashes-after-10-30-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crashes After 10-30 Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-worse-after-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Worse After Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governor-not-applying-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governor Not Applying Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-multiple-voltage-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced: Multiple Voltage Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/fedora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kernel Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/mesa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaming & Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaming & Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gaming/compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/quick-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overclocking-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overclocking Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-can-be-overclocked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Can Be Overclocked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-overclocking-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Overclocking Limits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Safe Overclocking Limits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#community-tested-safe-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community-Tested Safe Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-unstable-frequencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Unstable Frequencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-overclocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Overclocking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual Overclocking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-via-sysfs-temporary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Via sysfs (Temporary)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-via-governor-config-permanent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Via Governor Config (Permanent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-cyan-skillfish-governor-multi-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: Cyan-Skillfish Governor (Multi-Point)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Stability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Stability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stress-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stress Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signs-of-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signs of Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Gains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Gains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-vs-power-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance vs Power Trade-Off
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voltage-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Tuning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undervolting-for-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undervolting for Efficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overvolting-for-higher-clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overvolting for Higher Clocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cooling-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooling Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cooling Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#temperature-targets-by-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature Targets by Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improving-cooling-for-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improving Cooling for Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-supply-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Supply Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power Supply Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-requirements-by-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Requirements by Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#furmark-power-draw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Furmark Power Draw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overclocking-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-overclocking-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Overclocking Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Overclocking Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-crashes-immediately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes Immediately
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crashes-after-10-30-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crashes After 10-30 Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-worse-after-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Worse After Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governor-not-applying-overclock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governor Not Applying Overclock
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-multiple-voltage-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced: Multiple Voltage Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="bios-overclocking-guide">BIOS Overclocking Guide<a class="headerlink" href="#bios-overclocking-guide" title="Permanent link">&para;</a></h1>
+<p>Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual configuration.</p>
+<div class="admonition danger">
+<p class="admonition-title">Advanced Users Only</p>
+<p>Overclocking can cause system instability, crashes, and potential hardware damage. Only proceed if you understand the risks.</p>
+</div>
+<h2 id="overclocking-overview">Overclocking Overview<a class="headerlink" href="#overclocking-overview" title="Permanent link">&para;</a></h2>
+<h3 id="what-can-be-overclocked">What Can Be Overclocked<a class="headerlink" href="#what-can-be-overclocked" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>GPU Frequency:</strong> 1500 MHz (locked) → 2000-2230 MHz (with governor/kernel patch)</li>
+<li><strong>GPU Voltage:</strong> 700-1100 mV</li>
+<li><strong>Memory:</strong> Not user-adjustable (GDDR6 runs at fixed speed)</li>
+</ul>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Kernel Patch:</strong> Extended frequency range (350-2230 MHz)</li>
+<li>OR use distribution with patch included (Bazzite, PikaOS)</li>
+<li><strong>GPU Governor:</strong> For automatic frequency scaling</li>
+<li><strong>Adequate Cooling:</strong> Arctic P12 Max or better</li>
+<li><strong>Quality PSU:</strong> 250W+ on 12V rail</li>
+</ol>
+<h2 id="safe-overclocking-limits">Safe Overclocking Limits<a class="headerlink" href="#safe-overclocking-limits" title="Permanent link">&para;</a></h2>
+<h3 id="community-tested-safe-limits">Community-Tested Safe Limits<a class="headerlink" href="#community-tested-safe-limits" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Frequency</th>
+<th>Voltage</th>
+<th>Stability</th>
+<th>Power Draw</th>
+<th>Cooling Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000 MHz</td>
+<td>1000 mV</td>
+<td>✅ Safe (all boards)</td>
+<td>190-200W</td>
+<td>Stock + fan</td>
+</tr>
+<tr>
+<td>2100 MHz</td>
+<td>1025 mV</td>
+<td>✅ Good (most boards)</td>
+<td>200-210W</td>
+<td>Arctic P12</td>
+</tr>
+<tr>
+<td>2175 MHz</td>
+<td>1025 mV</td>
+<td>⚠️ Some boards</td>
+<td>210-220W</td>
+<td>Arctic P12 Max</td>
+</tr>
+<tr>
+<td>2230 MHz</td>
+<td>1035-1050 mV</td>
+<td>⚠️ Best boards only</td>
+<td>220-235W</td>
+<td>Dual fans</td>
+</tr>
+<tr>
+<td>2230 MHz</td>
+<td>1085 mV</td>
+<td>⚠️ High risk</td>
+<td>250W+</td>
+<td>Excellent cooling</td>
+</tr>
+</tbody>
+</table>
+<h3 id="known-unstable-frequencies">Known Unstable Frequencies<a class="headerlink" href="#known-unstable-frequencies" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">980 MHz Instability</p>
+<p><strong>980 MHz is unstable</strong> across all boards tested. Avoid this frequency.</p>
+</div>
+<h2 id="manual-overclocking">Manual Overclocking<a class="headerlink" href="#manual-overclocking" title="Permanent link">&para;</a></h2>
+<h3 id="method-1-via-sysfs-temporary">Method 1: Via sysfs (Temporary)<a class="headerlink" href="#method-1-via-sysfs-temporary" title="Permanent link">&para;</a></h3>
+<p><strong>Test frequencies before making permanent:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># View current frequency/voltage table</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cat<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Set voltage and frequency</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Format: vc &lt;level&gt; &lt;frequency_MHz&gt; &lt;voltage_mV&gt;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vc 0 2100 1025&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Commit changes</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Verify</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>cat<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span></code></pre></div>
+<p><strong>Test with benchmark:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Run Unigine Superposition or game for 30+ minutes</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Monitor temperatures and stability</span>
+</span></code></pre></div></p>
+<h3 id="method-2-via-governor-config-permanent">Method 2: Via Governor Config (Permanent)<a class="headerlink" href="#method-2-via-governor-config-permanent" title="Permanent link">&para;</a></h3>
+<p><strong>Edit governor config:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/oberon-config.yaml
+</span></code></pre></div></p>
+<p><strong>Safe overclock example:</strong>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">opps</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">frequency</span><span class="p">:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w">    </span><span class="c1"># 1000 MHz idle</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2100</span><span class="w">    </span><span class="c1"># 2100 MHz load</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">voltage</span><span class="p">:</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span><span class="w">     </span><span class="c1"># 700 mV idle</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1025</span><span class="w">    </span><span class="c1"># 1025 mV load</span>
+</span></code></pre></div></p>
+<p><strong>Aggressive overclock example:</strong>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">opps</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">frequency</span><span class="p">:</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2175</span><span class="w">    </span><span class="c1"># 2175 MHz load</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">voltage</span><span class="p">:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1050</span><span class="w">    </span><span class="c1"># Higher voltage for stability</span>
+</span></code></pre></div></p>
+<p><strong>Apply changes:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>oberon-governor
+</span></code></pre></div></p>
+<h3 id="method-3-cyan-skillfish-governor-multi-point">Method 3: Cyan-Skillfish Governor (Multi-Point)<a class="headerlink" href="#method-3-cyan-skillfish-governor-multi-point" title="Permanent link">&para;</a></h3>
+<p><strong>Edit config:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/cyan-skillfish-governor/config.toml
+</span></code></pre></div></p>
+<p><strong>Multi-voltage point configuration:</strong>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">safe-points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="mi">700</span><span class="p">],</span><span class="w">   </span><span class="c1"># 1000 MHz @ 700 mV</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="p">[</span><span class="mi">1500</span><span class="p">,</span><span class="w"> </span><span class="mi">900</span><span class="p">],</span><span class="w">   </span><span class="c1"># 1500 MHz @ 900 mV</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p">[</span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">],</span><span class="w">  </span><span class="c1"># 2000 MHz @ 1000 mV</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="p">[</span><span class="mi">2100</span><span class="p">,</span><span class="w"> </span><span class="mi">1025</span><span class="p">],</span><span class="w">  </span><span class="c1"># 2100 MHz @ 1025 mV</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">[</span><span class="mi">2175</span><span class="p">,</span><span class="w"> </span><span class="mi">1050</span><span class="p">],</span><span class="w">  </span><span class="c1"># 2175 MHz @ 1050 mV (overclock)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">]</span>
+</span></code></pre></div></p>
+<p><strong>Restart governor:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>cyan-skillfish-governor
+</span></code></pre></div></p>
+<h2 id="testing-stability">Testing Stability<a class="headerlink" href="#testing-stability" title="Permanent link">&para;</a></h2>
+<h3 id="stress-testing">Stress Testing<a class="headerlink" href="#stress-testing" title="Permanent link">&para;</a></h3>
+<p><strong>1. Unigine Superposition (Recommended):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Download from: https://benchmark.unigine.com/superposition</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Run benchmark</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 1080p Extreme preset</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># Loop for 30+ minutes</span>
+</span></code></pre></div></p>
+<p><strong>2. Gaming Stress Test:</strong>
+- Run demanding game for 60+ minutes
+- Test different scenarios (loading screens, open world, combat)</p>
+<p><strong>3. Monitor During Testing:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Watch sensors</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>sensors
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Check for:</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># - GPU temp &lt; 85°C (&lt; 80°C better)</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1"># - No crashes or artifacts</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># - Stable frame rates</span>
+</span></code></pre></div></p>
+<h3 id="signs-of-instability">Signs of Instability<a class="headerlink" href="#signs-of-instability" title="Permanent link">&para;</a></h3>
+<p><strong>Reduce frequency or increase voltage if:</strong>
+- System crashes/freezes
+- Visual artifacts (flickering, black textures, corrupted graphics)
+- Performance degradation
+- GPU temp &gt; 90°C</p>
+<h2 id="performance-gains">Performance Gains<a class="headerlink" href="#performance-gains" title="Permanent link">&para;</a></h2>
+<h3 id="benchmark-results">Benchmark Results<a class="headerlink" href="#benchmark-results" title="Permanent link">&para;</a></h3>
+<p><strong>Unigine Superposition (1080p Extreme):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Score</th>
+<th>FPS</th>
+<th>GPU Temp</th>
+<th>Power</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock 2000 MHz @ 1000mV</td>
+<td>3888</td>
+<td>~57</td>
+<td>76°C</td>
+<td>190W</td>
+</tr>
+<tr>
+<td>Patch 2230 MHz @ 1035mV</td>
+<td>4118</td>
+<td>~60</td>
+<td>86°C</td>
+<td>235W</td>
+</tr>
+<tr>
+<td>Gain</td>
+<td>+230</td>
+<td>+3</td>
+<td>+10°C</td>
+<td>+45W</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cyberpunk 2077 (1080p High):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>FPS</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock 2000 MHz</td>
+<td>57.66</td>
+<td>Without overlay</td>
+</tr>
+<tr>
+<td>OC 2220 MHz</td>
+<td>60.82</td>
+<td>+5.5% performance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-vs-power-trade-off">Performance vs Power Trade-Off<a class="headerlink" href="#performance-vs-power-trade-off" title="Permanent link">&para;</a></h3>
+<p><strong>Analysis:</strong>
+- 2000 MHz → 2230 MHz: +11.5% frequency
+- Performance gain: +5-6% (not linear due to other bottlenecks)
+- Power increase: +20-25%
+- Temperature increase: +10°C</p>
+<p><strong>Conclusion:</strong> Diminishing returns above 2100 MHz for most users</p>
+<h2 id="voltage-tuning">Voltage Tuning<a class="headerlink" href="#voltage-tuning" title="Permanent link">&para;</a></h2>
+<h3 id="undervolting-for-efficiency">Undervolting for Efficiency<a class="headerlink" href="#undervolting-for-efficiency" title="Permanent link">&para;</a></h3>
+<p><strong>Goal:</strong> Reduce voltage while maintaining frequency</p>
+<p><strong>Process:</strong>
+1. Start at stock frequency (2000 MHz @ 1000mV)
+2. Reduce voltage by 25mV (to 975mV)
+3. Test stability
+4. If stable, reduce another 25mV
+5. If crashes, increase by 25mV
+6. Find minimum stable voltage</p>
+<p><strong>Example Results:</strong>
+- Some boards stable at 2000 MHz @ 950mV (-50mV)
+- Reduces power by ~10-15W
+- Lowers temperature by 5-7°C</p>
+<h3 id="overvolting-for-higher-clocks">Overvolting for Higher Clocks<a class="headerlink" href="#overvolting-for-higher-clocks" title="Permanent link">&para;</a></h3>
+<p><strong>Use Case:</strong> Pushing beyond 2100 MHz</p>
+<p><strong>Caution:</strong>
+- Higher voltage = more heat and power
+- Diminishing stability gains above 1050mV
+- Risk of hardware degradation</p>
+<p><strong>Safe limits:</strong>
+- <strong>Maximum recommended:</strong> 1085mV
+- <strong>Absolute maximum:</strong> 1100mV (high risk)</p>
+<h2 id="cooling-requirements">Cooling Requirements<a class="headerlink" href="#cooling-requirements" title="Permanent link">&para;</a></h2>
+<h3 id="temperature-targets-by-overclock">Temperature Targets by Overclock<a class="headerlink" href="#temperature-targets-by-overclock" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Overclock Level</th>
+<th>Max Temp</th>
+<th>Recommended Cooling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock (2000 MHz)</td>
+<td>76°C</td>
+<td>Single Arctic P12</td>
+</tr>
+<tr>
+<td>Light OC (2100 MHz)</td>
+<td>80°C</td>
+<td>Arctic P12 Max</td>
+</tr>
+<tr>
+<td>Medium OC (2175 MHz)</td>
+<td>85°C</td>
+<td>Dual fans or Arctic P12 Max</td>
+</tr>
+<tr>
+<td>Heavy OC (2230 MHz)</td>
+<td>90°C</td>
+<td>Dual high-performance fans</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Thermal Throttling</p>
+<p>Above 85°C, performance may be reduced. Above 90°C, system instability is likely.</p>
+</div>
+<h3 id="improving-cooling-for-overclock">Improving Cooling for Overclock<a class="headerlink" href="#improving-cooling-for-overclock" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Upgrade fan:</strong> Arctic P12 Max (highest static pressure)</li>
+<li><strong>Add second fan:</strong> For VRM/memory cooling</li>
+<li><strong>Improve airflow:</strong> Remove case panels for testing</li>
+<li><strong>Replace thermal paste:</strong> Quality paste (Arctic MX-6, Kryonaut)</li>
+<li><strong>Straighten fins:</strong> Improve heatsink airflow</li>
+<li><strong>Add thermal pads:</strong> Cool memory chips on underside</li>
+</ol>
+<h2 id="power-supply-considerations">Power Supply Considerations<a class="headerlink" href="#power-supply-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="power-requirements-by-overclock">Power Requirements by Overclock<a class="headerlink" href="#power-requirements-by-overclock" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Overclock</th>
+<th>Typical Power</th>
+<th>Peak Power</th>
+<th>PSU Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock 2000 MHz</td>
+<td>190W</td>
+<td>200W</td>
+<td>220W+</td>
+</tr>
+<tr>
+<td>2100 MHz</td>
+<td>200W</td>
+<td>215W</td>
+<td>250W+</td>
+</tr>
+<tr>
+<td>2175 MHz</td>
+<td>210W</td>
+<td>230W</td>
+<td>270W+</td>
+</tr>
+<tr>
+<td>2230 MHz</td>
+<td>220W</td>
+<td>250W</td>
+<td>300W+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">PSU Overload</p>
+<p>Inadequate PSU will trigger over-current protection, causing crashes under load.</p>
+</div>
+<h3 id="furmark-power-draw">Furmark Power Draw<a class="headerlink" href="#furmark-power-draw" title="Permanent link">&para;</a></h3>
+<p><strong>Unrealistic stress test:</strong>
+- Stock: 250W
+- OC 2230 MHz @ 1085mV: <strong>320W</strong></p>
+<p><strong>Note:</strong> No game reaches Furmark power levels. Use game testing.</p>
+<h2 id="overclocking-checklist">Overclocking Checklist<a class="headerlink" href="#overclocking-checklist" title="Permanent link">&para;</a></h2>
+<p>Before overclocking:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> BIOS flashed and configured (VRAM split set)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Kernel 6.12-6.14 LTS (with frequency patch if needed)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mesa 25.1.3+ installed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> GPU governor installed and running</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Adequate cooling (Arctic P12 Max minimum)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> PSU rated for 250W+ on 12V rail</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Thermal monitoring set up (<code>sensors</code>)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Backup of current config</li>
+</ul>
+<p>During overclocking:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Increase frequency in 50-100 MHz steps</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Test stability for 30+ minutes per step</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Monitor temperatures (&lt; 85°C target)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Monitor power draw</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check for visual artifacts</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Verify no performance degradation</li>
+</ul>
+<h2 id="troubleshooting-overclocking-issues">Troubleshooting Overclocking Issues<a class="headerlink" href="#troubleshooting-overclocking-issues" title="Permanent link">&para;</a></h2>
+<h3 id="system-crashes-immediately">System Crashes Immediately<a class="headerlink" href="#system-crashes-immediately" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Voltage too low for frequency</p>
+<p><strong>Solution:</strong>
+- Increase voltage by 25-50mV
+- OR reduce frequency by 50-100 MHz</p>
+<h3 id="crashes-after-10-30-minutes">Crashes After 10-30 Minutes<a class="headerlink" href="#crashes-after-10-30-minutes" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Thermal throttling or marginal stability</p>
+<p><strong>Solutions:</strong>
+1. Check temperatures (should be &lt; 85°C)
+2. Improve cooling
+3. Increase voltage slightly
+4. Reduce frequency</p>
+<h3 id="visual-artifacts">Visual Artifacts<a class="headerlink" href="#visual-artifacts" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Black textures
+- Flickering
+- Corrupted graphics</p>
+<p><strong>Causes:</strong>
+- Memory clock too high (not adjustable)
+- Unstable frequency/voltage
+- Overheating</p>
+<p><strong>Solutions:</strong>
+- Reduce GPU frequency
+- Add RADV_DEBUG=nohiz to environment
+- Check cooling</p>
+<h3 id="performance-worse-after-overclock">Performance Worse After Overclock<a class="headerlink" href="#performance-worse-after-overclock" title="Permanent link">&para;</a></h3>
+<p><strong>Possible Causes:</strong>
+1. Thermal throttling (too hot)
+2. Power limit hit (PSU insufficient)
+3. Hitting frequency that triggers instability</p>
+<p><strong>Solutions:</strong>
+- Check temperatures
+- Verify PSU wattage
+- Try different frequency (avoid 980 MHz range)</p>
+<h3 id="governor-not-applying-overclock">Governor Not Applying Overclock<a class="headerlink" href="#governor-not-applying-overclock" title="Permanent link">&para;</a></h3>
+<p><strong>Check:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Verify governor running</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>oberon-governor
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Check config loaded</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>cat<span class="w"> </span>/etc/oberon-config.yaml
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Restart governor</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>oberon-governor
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Check applied settings</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>cat<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span></code></pre></div></p>
+<h2 id="advanced-multiple-voltage-points">Advanced: Multiple Voltage Points<a class="headerlink" href="#advanced-multiple-voltage-points" title="Permanent link">&para;</a></h2>
+<p>For Cyan-Skillfish Governor or manual tuning:</p>
+<p><strong>Create voltage curve:</strong></p>
+<ol>
+<li>
+<p>Test each frequency point:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Test 1500 MHz</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vc 0 1500 875&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Run benchmark, find minimum stable voltage</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Test 1750 MHz</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;vc 0 1750 950&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Run benchmark, find minimum stable voltage</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># Repeat for 2000, 2100, 2175, 2230 MHz</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Record stable voltage for each frequency</p>
+</li>
+<li>Add to governor config</li>
+</ol>
+<p><strong>Benefits:</strong>
+- More efficient (lower voltage at mid frequencies)
+- Better temperature management
+- Smoother frequency transitions</p>
+<p><strong>Time Investment:</strong>
+- Testing each frequency point thoroughly
+- Recording stable voltages
+- Validating with benchmarks</p>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../system/governor/">GPU Governor Setup</a></li>
+<li><a href="../../hardware/cooling/">Cooling Solutions</a></li>
+<li><a href="../../hardware/power/">Power Requirements</a></li>
+<li><a href="../recovery/">BIOS Recovery</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../vram/" class="md-footer__link md-footer__link--prev" aria-label="Previous: VRAM Configuration">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                VRAM Configuration
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../recovery/" class="md-footer__link md-footer__link--next" aria-label="Next: Recovery">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Recovery
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 BC250 Community
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/mothenjoyer69/bc250-documentation" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/uDvkhNpxRQ" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "toc.follow", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
