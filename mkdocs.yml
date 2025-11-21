@@ -6,6 +6,7 @@ site_url: https://elektricM.github.io/amd-bc250-docs/
 # Repository
 repo_name: amd-bc250-docs
 repo_url: https://github.com/elektricM/amd-bc250-docs
+edit_uri: edit/main/docs/
 
 # Copyright
 copyright: Copyright &copy; 2024-2025 BC250 Community
@@ -51,6 +52,8 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
+    - content.action.edit
+    - content.action.view
 
   icon:
     repo: fontawesome/brands/github
@@ -108,6 +111,7 @@ markdown_extensions:
 # Navigation
 nav:
   - Home: index.md
+  - 📝 Contribute: contribute.md
 
   - Getting Started:
     - Introduction: getting-started/introduction.md
@@ -156,8 +160,6 @@ nav:
 
   - Reference:
     - Quick Reference: reference/quick-reference.md
-
-  - 📝 Contribute: contribute.md
 
 # Extra
 extra:
