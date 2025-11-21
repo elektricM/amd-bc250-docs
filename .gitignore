@@ -1,0 +1,48 @@
+# MkDocs build output
+site/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Discord exports (raw data - 50MB+)
+# Keep cleaned and parsed versions only
+discord-export/general/
+discord-export/text-channels/
+discord-export/reference/
+
+# Keep these important files:
+# !discord-export/cleaned/
+# !discord-export/FORUM_THREADS_SUMMARY.md
+# !discord-export/all_channels_and_threads.txt
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log

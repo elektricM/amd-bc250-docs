@@ -1,0 +1,191 @@
+site_name: AMD BC250 Documentation
+site_description: Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects
+site_author: BC250 Community
+site_url: https://YOUR_GITHUB_USERNAME.github.io/amd-bc250-docs/
+
+# Repository
+repo_name: amd-bc250-docs
+repo_url: https://github.com/YOUR_GITHUB_USERNAME/amd-bc250-docs
+
+# Copyright
+copyright: Copyright &copy; 2024-2025 BC250 Community
+
+# Theme
+theme:
+  name: material
+  palette:
+    # Palette toggle for automatic light/dark mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/chip
+
+# Plugins
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - tags
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Navigation
+nav:
+  - Home: index.md
+
+  - Getting Started:
+    - Introduction: getting-started/introduction.md
+    - Quick Start: getting-started/quick-start.md
+    - Prerequisites: getting-started/prerequisites.md
+
+  - Hardware:
+    - Specifications: hardware/specifications.md
+    - Power Requirements: hardware/power.md
+    - Cooling Solutions: hardware/cooling.md
+    - Display Connectors: hardware/display.md
+    - Pinouts & Connectors: hardware/pinouts.md
+
+  - BIOS & Firmware:
+    - BIOS Flashing Guide: bios/flashing.md
+    - VRAM Configuration: bios/vram.md
+    - Overclocking: bios/overclocking.md
+    - Recovery: bios/recovery.md
+
+  - Linux Setup:
+    - Distribution Guide: linux/distributions.md
+    - Fedora Setup: linux/fedora.md
+    - Bazzite Setup: linux/bazzite.md
+    - CachyOS Setup: linux/cachyos.md
+    - Arch Linux Setup: linux/arch.md
+    - Debian Setup: linux/debian.md
+    - Kernel Configuration: linux/kernel.md
+    - Mesa Installation: linux/mesa.md
+
+  - Drivers & Graphics:
+    - RADV Driver: drivers/radv.md
+    - Environment Variables: drivers/environment.md
+    - Vulkan & OpenGL: drivers/apis.md
+    - Mesa Compilation: drivers/mesa-build.md
+
+  - System Configuration:
+    - GPU Governor: system/governor.md
+    - Performance Tuning: system/performance.md
+    - Sensors & Monitoring: system/sensors.md
+    - Power Management: system/power.md
+
+  - Gaming & Performance:
+    - Game Compatibility: gaming/compatibility.md
+    - Performance Tips: gaming/performance.md
+    - Benchmarks: gaming/benchmarks.md
+    - FSR & Scaling: gaming/scaling.md
+
+  - Troubleshooting:
+    - Display Issues: troubleshooting/display.md
+    - Boot Problems: troubleshooting/boot.md
+    - Performance Issues: troubleshooting/performance.md
+    - Stability Problems: troubleshooting/stability.md
+    - Common Fixes: troubleshooting/common-fixes.md
+
+  - Community Projects:
+    - Software Projects: community/software.md
+    - Case Designs: community/cases.md
+    - Hardware Mods: community/mods.md
+    - 3D Printing: community/3d-printing.md
+
+  - Reference:
+    - Quick Reference: reference/quick-reference.md
+    - Command Cheatsheet: reference/commands.md
+    - Verified Information: reference/verified.md
+    - FAQ: reference/faq.md
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mothenjoyer69/bc250-documentation
+    - icon: fontawesome/brands/discord
+      link: https://discord.com/invite/uDvkhNpxRQ
+
+  version:
+    provider: mike
+
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
