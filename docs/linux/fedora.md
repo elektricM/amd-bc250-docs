@@ -52,16 +52,20 @@ Fedora is the most recommended distribution for BC-250, offering:
 !!!warning "Black Screen Issue"
     If you get a black screen, the installer is trying to use the GPU before drivers are loaded.
 
-### Step 2: Select Basic Graphics Mode
+### Step 2: Select Boot Mode
 
-**Critical Step:**
+**For Fedora 42/43 with working kernels (6.15.7-6.17.7):**
+
+You can try the standard "Install Fedora" option. If it boots successfully, no need for basic graphics mode.
+
+**If you get a black screen:**
 
 1. At GRUB menu, select **"Troubleshooting"**
 2. Choose **"Install Fedora Workstation in basic graphics mode"**
 3. This enables `nomodeset` automatically
 
-!!!danger "Must Use Basic Graphics Mode"
-    Do NOT use the standard "Install Fedora" option. You will get a black screen.
+!!!info "Nomodeset May Not Be Required"
+    On Fedora 42/43 with working kernel versions (6.15.7-6.17.7), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
 
 ### Step 3: Complete Installation
 
@@ -103,11 +107,14 @@ dnf list mesa-\*
 
 ### Step 4: Install GPU Governor
 
-**Option 1: COPR (Easiest)**
+**Option 1: COPR (Easiest - No Compilation Required)**
+
+COPR repositories provide pre-built packages for Fedora, eliminating the need to compile from source.
 
 ```bash
 sudo dnf copr enable filippor/bazzite
 sudo dnf install oberon-governor
+sudo systemctl enable --now oberon-governor.service
 ```
 
 **Option 2: Build from Source**

@@ -4,7 +4,7 @@ Community-tested games with performance data and known issues for the BC-250.
 
 ## Performance Overview
 
-The BC-250 delivers solid 1080p gaming performance, comparable to an RX 6600 or RTX 3060 Ti.
+The BC-250 delivers solid 1080p gaming performance, comparable to an RX 6600 or GTX 1660 Ti.
 
 **Typical Performance:**
 - **1080p High Settings:** 60-100+ FPS in most titles

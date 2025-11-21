@@ -32,7 +32,7 @@ Minimum requirements:
 **Recommended PSUs:**
 
 - **Budget:** Flex ATX 500W
-- **Compact:** FSP500-50FGBBI
+- **Compact:** FSP500-30AS
 - **Ultra-compact:** MeanWell LOP-300-12 (bare PCB, requires knowledge)
 - **Full ATX:** Any 400W+ ATX PSU you have lying around
 
@@ -50,7 +50,7 @@ The stock heatsink is passive and designed for rack-mount chassis airflow. You M
 
 **Best fans (by community testing):**
 
-1. **Arctic P12 Max** - Best value, 6.9 mmH2O static pressure
+1. **Arctic P12 Max / P12 Pro** - Best value, 6.9 mmH2O static pressure (P12 Pro more readily available)
 2. **Noctua NF-A12x25** - Premium option, quieter
 3. **Arctic P14 Max** - Larger option if you have space
 
@@ -107,12 +107,12 @@ The BC-250 requires Linux for GPU support. Windows has NO drivers.
 - CachyOS (best performance, harder setup)
 - Manjaro
 - Arch Linux (for advanced users)
+- Ubuntu (with Mesa 25.1.5+ PPA)
+- SteamOS (now has updated Mesa)
 
 **Avoid:**
 
 - Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU driver issues)
-- SteamOS (Mesa too old)
-- Ubuntu (packages too old without PPAs)
 
 [Full distribution comparison →](../linux/distributions.md)
 
