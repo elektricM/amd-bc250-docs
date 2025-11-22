@@ -37,7 +37,7 @@ Fast answers to common questions. For detailed information, see the full documen
 | Setting | Value | Why |
 |---------|-------|-----|
 | UMA Frame Buffer Size | 512MB | Dynamic VRAM allocation |
-| IOMMU | Disabled | Prevents display issues |
+| IOMMU | **MUST be Disabled** | IOMMU is broken - causes display failures and crashes |
 | Fan Control | Customize | Stock is too aggressive or too quiet |
 
 [BIOS guide →](../bios/flashing.md)
@@ -350,7 +350,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 
 !!!danger "Critical Warnings"
     1. **Always clear CMOS after USB BIOS flash**
-    2. **Disable IOMMU in BIOS** (causes display issues)
+    2. **Disable IOMMU in BIOS** (IOMMU is broken - MUST disable)
     3. **Use nomodeset during install, remove after drivers installed**
     4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8+** (GPU driver fails)
     5. **700mV minimum voltage** (crashes below this)

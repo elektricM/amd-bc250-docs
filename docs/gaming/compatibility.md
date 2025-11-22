@@ -111,8 +111,8 @@ The BC-250 delivers solid 1080p gaming performance, comparable to an RX 6600 or 
 
 ### Fortnite
 
-**Status:** Not tested/reported
-**Expected:** Should run well at 1080p
+!!! failure "Does Not Work"
+    Fortnite uses Easy Anti-Cheat which does not support Linux. **Cannot run on BC-250.**
 
 ### Apex Legends
 

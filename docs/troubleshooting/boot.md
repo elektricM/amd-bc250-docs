@@ -218,8 +218,8 @@ dmesg | grep -i iommu
 # Should show: "AMD-Vi: AMD IOMMU disabled"
 ```
 
-!!!info "When IOMMU is Needed"
-    Only enable IOMMU if doing GPU passthrough for virtualization. For normal desktop/gaming use, keep disabled.
+!!! danger "IOMMU is Broken on BC-250"
+    IOMMU is broken on BC-250 and causes display issues, black screens, and system instability. **ALWAYS keep it disabled**. Even for virtualization, IOMMU does not work reliably on this board.
 
 #### 2. VRAM Allocation Not Applied
 
@@ -619,14 +619,14 @@ Certain BIOS settings can cause boot problems:
 
 ### IOMMU (AMD-Vi)
 
-**Recommendation:** **DISABLED** for normal use
+**Recommendation:** **MUST BE DISABLED** (IOMMU is broken on BC-250)
 
 **Location:** Advanced → AMD CBS → NBIO → IOMMU
 
 **Why disable:**
-- Causes display adapter conflicts
-- Boot hangs with certain hardware
-- Not needed unless doing GPU passthrough
+- **IOMMU is broken on BC-250**
+- Causes display failures, black screens, and crashes
+- Does not work reliably even for virtualization/GPU passthrough
 
 ### VRAM Allocation
 

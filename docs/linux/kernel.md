@@ -84,8 +84,11 @@ For maximum GPU memory access (14.5-14.75GB):
 
 ```bash
 # Add to kernel parameters
-amd_iommu=on amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
 ```
+
+!!! danger "Do NOT Enable IOMMU"
+    **NEVER use `amd_iommu=on`** - IOMMU is broken on BC-250 and causes crashes and display failures. The memory parameters above work WITHOUT enabling IOMMU.
 
 **Purpose:**
 - Allows GPU to access more system RAM

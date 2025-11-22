@@ -230,7 +230,7 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 
 **Status:** Works out-of-box
 - **Base:** Arch Linux (user-friendly)
-- **Desktop:** KDE Plasma recommended
+- **Desktop:** KDE Plasma or GNOME (GNOME more stable)
 - **Kernel:** 6.14+
 
 ### Pros
@@ -243,7 +243,7 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 
 ### Cons
 
-- Some boot issues for certain users (IOMMU-related)
+- Some boot issues for certain users (ensure IOMMU is disabled)
 - Less tested than Fedora/Bazzite
 - Delayed package updates compared to Arch
 
@@ -317,13 +317,14 @@ sudo apt update && sudo apt upgrade
 
 ## Desktop Environment Recommendations
 
-### GNOME
+### GNOME (Recommended for Stability)
 
 **Works on:** Fedora, Bazzite, Arch, Debian
 - Modern, clean interface
 - Good Wayland support
 - Resource-efficient
-- Some users report issues (test carefully)
+- **Most stable choice for BC-250**
+- No known major issues
 
 ### KDE Plasma
 
@@ -331,8 +332,8 @@ sudo apt update && sudo apt upgrade
 - Highly customizable
 - Wayland support improving (Plasma 6+)
 - Feature-rich
-- Generally stable on BC-250
-- **Most tested and recommended**
+- **Historical issues:** Had Qt RDSEED bug crashes (fixed as of mid-2025)
+- **Current status:** Works now, but GNOME has better track record
 
 ### Cinnamon
 

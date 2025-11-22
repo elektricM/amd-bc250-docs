@@ -353,9 +353,12 @@ uname -r
 - Weird performance issues
 - System hangs
 
+!!! danger "IOMMU is Broken on BC-250"
+    IOMMU **MUST be disabled** in BIOS. It is broken on BC-250 and causes crashes, display failures, and instability.
+
 **Solution:**
 
-Disable IOMMU in BIOS, or add kernel parameter:
+Disable IOMMU in BIOS (required), or add kernel parameter as backup:
 ```bash
 amd_iommu=off
 ```
