@@ -80,7 +80,7 @@ CachyOS can now be installed directly on the BC-250 using the standard ISO.
 6. **Reboot and enjoy**
 
 !!! warning "If Installation ISO Doesn't Boot"
-    If you have issues with the standard ISO (black screen, GPU panic), the installer may have reverted to a broken kernel version. See the [Legacy Installation Method](#legacy-installation-method) below or try [Arch Migration](#arch-migration).
+    If you have issues with the standard ISO (black screen, GPU panic), the installer may have reverted to a broken kernel version. See the [Legacy Installation Method](#legacy-installation-method) below or try the [Arch Migration](#arch-migration-alternative-method) method.
 
 ---
 
@@ -287,7 +287,7 @@ CachyOS repos include CPU-optimized builds of packages.
 
 ### GPU Frequency Patch
 
-Increases GPU range from 1000-2000MHz to 350-2230MHz. See [GPU Frequency Patch Guide](../bios/gpu-frequency-patch.md) for details.
+Increases GPU range from 1000-2000MHz to 350-2230MHz. See [Overclocking Guide](../bios/overclocking.md) for details on GPU frequency modifications.
 
 **Quick install:**
 ```bash
