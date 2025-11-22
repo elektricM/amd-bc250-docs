@@ -160,9 +160,10 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### IOMMU Issues
 
-- **IOMMU:** Does not work reliably
+- **IOMMU:** **Broken on BC-250 - MUST be disabled**
+- **Impact:** Causes display failures, black screens, and system crashes
 - **Virtualization:** GPU passthrough not possible
-- **Workaround:** Disable IOMMU in BIOS and kernel parameters
+- **Required:** Always disable IOMMU in BIOS
 
 #### Memory Architecture
 

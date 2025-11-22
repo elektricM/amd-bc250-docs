@@ -1,11 +1,14 @@
 # CachyOS Setup Guide
 
-CachyOS is an Arch-based Linux distribution optimized for performance, featuring the BORE scheduler and CPU-optimized packages. While it offers the best performance among tested distributions, installation on the BC-250 requires special steps due to kernel compatibility.
+CachyOS is an Arch-based Linux distribution optimized for performance, featuring the BORE scheduler and CPU-optimized packages. It offers the best performance among tested distributions for the BC-250.
 
-**Status:** Works well with custom installation
-**Difficulty:** Advanced (requires custom ISO or migration)
+**Status:** Works out-of-box (as of late 2025)
+**Difficulty:** Intermediate (Arch-based, but has installer)
 **Performance:** Best overall (BORE scheduler, optimized packages)
-**Kernel:** 6.15.7-6.17.7 (recommended) or 6.12-6.14 LTS (stable)
+**Kernel:** Ships with compatible kernels by default
+
+!!! success "Updated November 2025"
+    CachyOS now ships with compatible kernels by default. The complex custom ISO build procedures from earlier guides are **no longer needed**. Simply download the standard ISO and install normally.
 
 ---
 
@@ -13,133 +16,77 @@ CachyOS is an Arch-based Linux distribution optimized for performance, featuring
 
 ### Advantages
 
-- **Best gaming performance** - BORE scheduler improves frame times
-- **Optimized packages** - x86-64-v3/v4 CPU optimizations
+- **Best gaming performance** - BORE scheduler improves frame times and latency
+- **Optimized packages** - x86-64-v3/v4 CPU optimizations for faster execution
 - **Mesa 25.1+** included by default
 - **Kernel Manager GUI** - Easy kernel management and patching
-- **Rolling release** - Latest packages
-- **Active development** - Regular updates
+- **Rolling release** - Latest packages and drivers
+- **Active development** - Regular updates and optimizations
 
 ### Considerations
 
-- **Cannot install directly** - Standard ISO doesn't work on BC-250
-- **Requires custom build** - Must build LTS ISO or migrate from Arch
-- **Kernel 6.15.0-6.15.6 and 6.17.8+** cause panics (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
-- **Advanced setup** - Not recommended for Linux beginners
+- **Rolling release** - Requires occasional maintenance
+- **Arch-based** - More advanced than Fedora/Bazzite
+- **Package availability** - AUR may be needed for some software
+- **Not beginner-friendly** - Recommended for users comfortable with Linux
 
 ---
 
-## Installation Methods
+## Installation
 
-Choose based on your experience level and available resources.
+### Standard Installation (Recommended)
 
-### Method 1: Custom ISO Build (Recommended)
-
-**Updated Status (August 2025):** CachyOS switched to LTS kernel by default in their ISO, so this method may no longer be necessary. Try the standard ISO first.
+CachyOS can now be installed directly on the BC-250 using the standard ISO.
 
 **Requirements:**
-- Another PC or laptop (any Linux distro)
 - 8GB+ USB drive
 - Internet connection
-- 30-60 minutes
+- 15-30 minutes
 
 **Steps:**
 
-1. **Prepare build environment** (on another PC):
-   ```bash
-   sudo pacman -S archiso git
-   ```
+1. **Download CachyOS ISO:**
+   - Visit [cachyos.org](https://cachyos.org/)
+   - Download latest ISO (KDE or GNOME edition)
 
-2. **Clone CachyOS Live ISO repository:**
+2. **Create bootable USB:**
    ```bash
-   git clone https://github.com/CachyOS/CachyOS-Live-ISO
-   cd CachyOS-Live-ISO
-   ```
-
-3. **Replace standard kernel with LTS:**
-   ```bash
-   grep -rl 'linux-cachyos' ./ | xargs sed -i 's/linux\-cachyos/linux\-cachyos\-lts/g'
-   ```
-
-4. **Build ISO:**
-   ```bash
-   # Follow build instructions from repository
-   # Build takes 20-40 minutes
-   ```
-
-5. **Flash ISO to USB:**
-   ```bash
-   sudo dd if=/path/to/cachyos.iso of=/dev/sdX status=progress conv=sync && sync
+   # Linux
+   sudo dd if=cachyos.iso of=/dev/sdX status=progress conv=sync && sync
    # Replace /dev/sdX with your USB drive (check with lsblk)
+
+   # Or use Ventoy, balenaEtcher, Rufus, etc.
    ```
 
-6. **Install CachyOS on BC-250:**
-   - Boot custom ISO
-   - Go through installation normally
-   - Choose GRUB as bootloader
-   - **DO NOT reboot when installation finishes**
+3. **Boot BC-250 from USB:**
+   - Insert USB into BC-250
+   - Power on and select USB in boot menu
 
-7. **Post-installation LTS kernel setup:**
+4. **Run installer:**
+   - Launch CachyOS installer from live environment
+   - Follow installation wizard:
+     - **Partitioning:** Auto or manual (GPT, EFI partition)
+     - **Desktop:** KDE Plasma or GNOME
+     - **Bootloader:** GRUB (recommended)
+     - **Kernel:** Default selection (should be compatible)
+
+5. **Verify kernel version:**
    ```bash
-   # After installation, open terminal
-   sudo mount /dev/nvme0n1p2 /mnt
-   sudo mount /dev/nvme0n1p1 /mnt/boot/efi
-
-   # Chroot into system
-   sudo chroot /mnt
-
-   # Install LTS kernel
-   paru -S linux-cachyos-lts linux-cachyos-lts-headers
-
-   # Exit and unmount
-   exit
-   sudo umount -R /mnt
-
-   # Now reboot
-   sudo reboot
-   ```
-
-8. **Verify LTS kernel:**
-   ```bash
+   # After installation completes
    uname -r
-   # Should show: 6.12.x-lts
+   # Should show compatible version (6.12-6.14 LTS or 6.15.7-6.17.7)
    ```
+
+6. **Reboot and enjoy**
+
+!!! warning "If Installation ISO Doesn't Boot"
+    If you have issues with the standard ISO (black screen, GPU panic), the installer may have reverted to a broken kernel version. See the [Legacy Installation Method](#legacy-installation-method) below or try [Arch Migration](#arch-migration).
 
 ---
 
-### Method 2: Install on Another PC (Easiest)
+### Arch Migration (Alternative Method)
 
-Bypass BC-250 compatibility issues entirely.
-
-**Requirements:**
-- BC-250 SSD/NVMe drive
-- Another PC with SATA/NVMe slot or USB adapter
-- Standard CachyOS ISO
-
-**Steps:**
-
-1. Remove storage drive from BC-250
-2. Install in another PC:
-   - Connect BC-250's drive to another PC
-   - Boot CachyOS ISO
-   - Install CachyOS to the BC-250 drive
-3. Switch to LTS kernel:
-   ```bash
-   # Method A: CachyOS Kernel Manager (GUI)
-   cachyos-kernel-manager
-   # Select "linux-cachyos-lts" and install
-
-   # Method B: Command line
-   sudo pacman -S linux-cachyos-lts linux-cachyos-lts-headers
-   sudo grub-mkconfig -o /boot/grub/grub.cfg
-   ```
-4. Install drive back into BC-250 and boot
-
----
-
-### Method 3: Arch Migration (Most Control)
-
-Install Arch Linux first, then migrate to CachyOS repositories.
+Install Arch Linux first, then migrate to CachyOS repositories for optimized packages.
 
 **Steps:**
 
@@ -148,11 +95,11 @@ Install Arch Linux first, then migrate to CachyOS repositories.
    Follow the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
 
    **Key selections:**
-   - Kernel: `linux-lts` (6.12.x - 6.14.x)
+   - Kernel: `linux-lts` (6.12.x - 6.14.x) or `linux` (verify version is 6.15.7-6.17.7)
    - Desktop: KDE Plasma or GNOME
    - Bootloader: GRUB
 
-2. **Boot Arch** (may need nomodeset on first boot)
+2. **Boot into Arch Linux**
 
 3. **Run CachyOS migration script:**
    ```bash
@@ -161,29 +108,51 @@ Install Arch Linux first, then migrate to CachyOS repositories.
    cd cachyos-repo
    sudo ./cachyos-repo.sh
 
-   # Select x86-64-v3 optimization
+   # Select x86-64-v3 optimization (best compatibility for Zen 2)
+   # Or x86-64-v4 for maximum performance (verify CPU support)
    ```
 
-4. **Install CachyOS LTS kernel:**
+4. **Install CachyOS kernel (optional):**
    ```bash
+   # For LTS stability
    sudo pacman -S linux-cachyos-lts linux-cachyos-lts-headers
+
+   # Or for latest features (verify version is compatible)
+   sudo pacman -S linux-cachyos linux-cachyos-headers
+
+   # Update GRUB
    sudo grub-mkconfig -o /boot/grub/grub.cfg
    sudo reboot
    ```
 
 5. **Verify:**
    ```bash
-   uname -r  # Should show 6.12.x-1-lts
+   uname -r  # Check kernel version
+   pacman -Sl cachyos  # Should show CachyOS packages
    ```
 
 ---
 
 ## Post-Installation Setup
 
-### Install Oberon Governor
+### Install GPU Governor
 
-GPU is locked at 1500MHz without governor.
+GPU is locked at 1500MHz without governor. CachyOS has COPR packages available.
 
+**Method 1: Install from COPR (Easiest)**
+```bash
+# Add CachyOS extra repos if not already enabled
+# Install oberon-governor
+sudo pacman -S oberon-governor
+
+# Enable and start
+sudo systemctl enable --now oberon-governor.service
+
+# Verify
+systemctl status oberon-governor
+```
+
+**Method 2: Build from source**
 ```bash
 # Install dependencies
 sudo pacman -S base-devel cmake git
@@ -197,13 +166,9 @@ sudo make install
 
 # Enable and start
 sudo systemctl enable --now oberon-governor.service
-
-# Verify
-systemctl status oberon-governor
 ```
 
-**Check it's working:**
-
+**Verify it's working:**
 ```bash
 cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies, * moves based on load
@@ -236,11 +201,11 @@ sensors
 # Edit GRUB
 sudo nano /etc/default/grub
 
-# Basic configuration:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
+# For kernels 6.10+, amdgpu.sg_display=0 not needed
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 
-# With performance boost:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
+# With performance boost (disables security mitigations):
+GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
 
 # Update GRUB
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -264,33 +229,73 @@ sudo pacman -S protonup-qt
 
 ---
 
+### Legacy Installation Method
+
+!!! warning "Only If Standard ISO Fails"
+    This method is **only needed if** the standard CachyOS ISO doesn't boot (black screen, GPU panic). Most users should use the [Standard Installation](#standard-installation-recommended) above.
+
+This was the original installation method when CachyOS shipped with broken kernel 6.15.0-6.15.6. It may still be useful if CachyOS reverts to incompatible kernel versions.
+
+**Option A: Install on Another PC**
+1. Remove BC-250's storage drive
+2. Install drive in another PC (use SATA/NVMe adapter if needed)
+3. Boot CachyOS ISO and install to BC-250's drive
+4. Install compatible kernel before removing:
+   ```bash
+   sudo pacman -S linux-cachyos-lts linux-cachyos-lts-headers
+   sudo grub-mkconfig -o /boot/grub/grub.cfg
+   ```
+5. Install drive back in BC-250
+
+**Option B: Custom ISO Build**
+1. On another Linux PC:
+   ```bash
+   sudo pacman -S archiso git
+   git clone https://github.com/CachyOS/CachyOS-Live-ISO
+   cd CachyOS-Live-ISO
+   # Replace standard kernel with LTS
+   grep -rl 'linux-cachyos' ./ | xargs sed -i 's/linux\-cachyos/linux\-cachyos\-lts/g'
+   # Build ISO (follow repo instructions, takes 20-40 min)
+   ```
+2. Flash custom ISO to USB and install normally
+
+---
+
 ## Performance Optimizations
 
 ### BORE Scheduler
 
-Already enabled in CachyOS kernel - no configuration needed. Provides better gaming performance and lower latency.
+Already enabled in CachyOS kernel - no configuration needed. Provides better gaming performance and lower latency compared to standard CFS scheduler.
+
+**Benefits:**
+- Improved frame time consistency
+- Lower input latency
+- Better multi-tasking during gaming
 
 ### Optimized Packages
 
-```bash
-# During repo setup, select v3 for best compatibility
-# v4 is faster but requires newer CPUs (Zen2 supports v3)
-```
+CachyOS repos include CPU-optimized builds of packages.
+
+**During CachyOS migration script:**
+- Select **x86-64-v3** for best compatibility (Zen 2 fully supports v3)
+- Select **x86-64-v4** for maximum performance (verify your CPU supports AVX-512)
+
+**Performance gains:**
+- ~5-10% better FPS in some games vs stock packages
+- Faster compilation, compression, encoding
+- More responsive desktop
 
 ### GPU Frequency Patch
 
-Increases GPU range from 1000-2000MHz to 350-2230MHz.
+Increases GPU range from 1000-2000MHz to 350-2230MHz. See [GPU Frequency Patch Guide](../bios/gpu-frequency-patch.md) for details.
 
-**Method 1: CachyOS Kernel Manager**
-- Download BC-250 GPU frequency patch
-- Use Kernel Manager GUI to apply
-- Rename from .mypatch to .patch if needed
-
-**Method 2: Manual compilation**
-- Place patch in kernel source
-- Compile with CachyOS optimizations
-- ~8 minutes with modprobed-db
-- ~45 minutes full compile
+**Quick install:**
+```bash
+# Use CachyOS Kernel Manager GUI
+cachyos-kernel-manager
+# Download and apply BC-250 GPU frequency patch
+# Rebuild kernel with patch (8-45 minutes depending on method)
+```
 
 ---
 
@@ -303,7 +308,7 @@ yay -S coolercontrol
 # Enable service
 sudo systemctl enable --now coolercontrold
 
-# Set custom fan curves
+# Launch GUI to set custom fan curves
 coolercontrol
 ```
 
@@ -313,7 +318,7 @@ coolercontrol
 
 ```bash
 # 1. Check kernel
-uname -r  # Expected: 6.12.x-1-lts
+uname -r  # Expected: 6.12.x-lts or 6.15.7-6.17.7
 
 # 2. Check Mesa
 glxinfo | grep "OpenGL version"  # Expected: Mesa 25.1.x+
@@ -345,54 +350,60 @@ sensors  # Expected: nct6687, GPU temp, fan speeds
 
 ---
 
-### Broken Kernel Versions Cause Panics
+### Kernel Compatibility
 
-**Symptom:** Black screen, kernel panic, GPU initialization failure on 6.15.0-6.15.6 or 6.17.8+
+**Compatible kernels:**
+- **6.12.x - 6.14.x LTS** - Most stable, recommended
+- **6.15.7 - 6.17.7** - Works well, newer features
 
-**Solution:** Use working kernel versions (6.15.7-6.17.7 or 6.12-6.14 LTS)
+**Broken kernels (avoid):**
+- **6.15.0 - 6.15.6** - GPU initialization failures, kernel panics
+- **6.17.8+** - GPU driver issues
 
+If you accidentally install a broken kernel:
 ```bash
-# If on broken version, install working kernel:
-sudo pacman -S linux-cachyos  # Check version is 6.15.7-6.17.7
+# Install working kernel
+sudo pacman -S linux-cachyos-lts linux-cachyos-lts-headers
 # Or
-sudo pacman -S linux-lts  # For 6.12-6.14 LTS stability
+sudo pacman -S linux-lts linux-lts-headers
+
+# Update GRUB
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo reboot
 ```
 
-**Note:** Kernels 6.15.7-6.17.7 work well. Avoid 6.15.0-6.15.6 and 6.17.8+
+---
+
+## Why Choose CachyOS for BC-250?
+
+**Performance:**
+- **BORE scheduler** improves frame times and reduces latency
+- **Optimized packages** (x86-64-v3/v4) provide 5-10% better FPS in some games
+- **Latest Mesa** and kernel updates for best GPU performance
+- More responsive desktop feel compared to other distros
+
+**Advanced Features:**
+- **Kernel Manager GUI** for easy kernel patching (including BC-250 GPU frequency patch)
+- **Rolling release** always has latest drivers and features
+- **Arch-based** access to AUR packages and Arch Wiki
+
+**Trade-offs:**
+- More complex than Fedora/Bazzite (Arch-based)
+- Rolling release requires occasional maintenance
+- Better suited for users comfortable with Linux
 
 ---
 
-### Standard ISO Boots to Black Screen
+## Summary
 
-**Symptom:** CachyOS standard ISO shows black screen
+CachyOS now works well on BC-250 with standard installation. The complex custom ISO builds from earlier guides are **no longer needed** in most cases. Simply download the standard ISO, install normally, and enjoy the performance benefits of BORE scheduler and optimized packages.
 
-**Cause:** Non-LTS kernel doesn't support BC-250
-
-**Solution:** Use custom LTS ISO build (Method 1)
-
----
-
-## Why CachyOS for Performance?
-
-**BORE Scheduler Benefits:**
-- Better frame time consistency
-- Lower input latency
-- Improved multi-tasking during gaming
-
-**Optimized Packages:**
-- x86-64-v3 builds use AVX2 instructions
-- Faster execution across system
-- Particularly noticeable in compilation, compression
-
-**Performance Comparison:**
-- ~5-10% better FPS vs Fedora in some games
-- More responsive desktop feel
-- Faster package operations
-
-**Trade-off:**
-- Harder setup vs Fedora/Bazzite
-- More maintenance (rolling release)
-- Requires kernel knowledge
+**Quick Start:**
+1. Download CachyOS ISO from [cachyos.org](https://cachyos.org/)
+2. Install normally (follow installer wizard)
+3. Verify compatible kernel is installed (6.12-6.14 LTS or 6.15.7-6.17.7)
+4. Install oberon-governor for GPU frequency scaling
+5. Configure sensors, install gaming tools, enjoy
 
 ---
 
@@ -400,13 +411,13 @@ sudo pacman -S linux-lts  # For 6.12-6.14 LTS stability
 
 - **CachyOS Website:** [cachyos.org](https://cachyos.org/)
 - **CachyOS Wiki:** [wiki.cachyos.org](https://wiki.cachyos.org/)
-- **Live ISO Repo:** [CachyOS-Live-ISO](https://github.com/CachyOS/CachyOS-Live-ISO)
+- **CachyOS GitHub:** [github.com/CachyOS](https://github.com/CachyOS)
 - **Oberon Governor:** [GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
 
 ---
 
 **Related Guides:**
-- [Arch Linux Setup](arch.md)
-- [Fedora Setup](fedora.md)
-- [Bazzite Setup](bazzite.md)
-- [GPU Governor](../system/governor.md)
+- [Arch Linux Setup](arch.md) - For manual Arch installation
+- [Fedora Setup](fedora.md) - Easier alternative for beginners
+- [Bazzite Setup](bazzite.md) - Gaming-focused alternative
+- [GPU Governor](../system/governor.md) - Essential for BC-250 performance

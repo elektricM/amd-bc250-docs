@@ -174,7 +174,7 @@ inxi -Fxxxz
 | LLM inference (13-30B) | 8GB fixed | Needs guaranteed VRAM |
 | Stable Diffusion (SD1.5) | 512MB dynamic | ~4GB VRAM sufficient |
 | Stable Diffusion (SDXL) | 6GB+ fixed | ~7GB VRAM needed |
-| Training small models | 8GB fixed | Memory-intensive |
+| Stable Diffusion training (experimental) | 8GB fixed | Memory-intensive, limited ROCm support |
 
 ---
 

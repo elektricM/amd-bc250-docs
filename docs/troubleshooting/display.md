@@ -390,7 +390,7 @@ Reduce frequency or increase voltage in governor config.
 - Display works initially then fails
 
 **Cause:**
-IOMMU (AMD's virtualization feature) can interfere with display output on some adapters.
+IOMMU is broken on BC-250 and **MUST be disabled**. It causes display failures, black screens, and system instability.
 
 **Solution:**
 
@@ -408,8 +408,8 @@ dmesg | grep -i iommu
 # Should show "AMD-Vi: AMD IOMMU disabled"
 ```
 
-!!!info "When to Enable IOMMU"
-    Only enable IOMMU if you're doing GPU passthrough for virtualization. For normal use, keep it disabled.
+!!! danger "IOMMU is Broken on BC-250"
+    IOMMU is broken on BC-250 and causes display issues, black screens, and system instability. **ALWAYS keep it disabled**. Even for virtualization, IOMMU does not work reliably on this board.
 
 ---
 

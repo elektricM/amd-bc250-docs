@@ -63,7 +63,7 @@ Before installing, ensure BIOS is configured:
 1. Flash modified BIOS (P3.00 recommended)
 2. Set VRAM allocation (512MB dynamic recommended)
 3. Configure fan speeds
-4. Disable IOMMU
+4. **Disable IOMMU** (IOMMU is broken - MUST disable)
 
 See [BIOS Flashing Guide](../bios/flashing.md).
 

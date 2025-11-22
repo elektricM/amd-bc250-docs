@@ -29,7 +29,7 @@ Boot into BIOS (Del key during startup) and configure:
 
 - **VRAM Split:** 512MB (Dynamic)
 - **Fan Control:** Full Speed (for testing) or Customize
-- **IOMMU:** Disabled
+- **IOMMU:** **Disabled** (MUST disable - IOMMU is broken)
 - **Boot Mode:** UEFI
 
 [VRAM configuration guide →](../bios/vram.md)
