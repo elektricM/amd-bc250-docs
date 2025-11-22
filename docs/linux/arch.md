@@ -1,6 +1,6 @@
 # Arch Linux and Manjaro Setup Guide
 
-<img src="https://cdn.simpleicons.org/archlinux" alt="Arch Linux" height="60"/>
+<img src="https://cdn.simpleicons.org/archlinux" alt="Arch Linux" width="48"/>
 
 Both Arch Linux and Manjaro work excellently on the BC-250. Arch provides maximum control and latest packages, while Manjaro offers easier installation with good hardware detection.
 
