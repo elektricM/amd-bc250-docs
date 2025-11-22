@@ -60,15 +60,17 @@ aplay -l
 
 ### Adapter Types
 
-**Passive Adapters (Not Recommended):**
-- **Audio:** Usually works
-- **Issues:** Compatibility problems common
-- **Use Case:** Testing only
+**Passive Adapters (Recommended):**
+- **Audio:** Usually works reliably
+- **Cost:** Inexpensive ($5-10)
+- **Use Case:** Most users, TV connections
+- **Note:** DP 1.2 max (1440p @60Hz, some support 1440p @165Hz)
 
-**Active Adapters (Recommended for 4K):**
-- **Audio:** Can have issues
-- **Benefits:** Better signal quality, higher resolutions
-- **Use Case:** 4K displays
+**Active Adapters (Use with Caution):**
+- **Audio:** Often broken or unreliable
+- **Cost:** More expensive ($15-30)
+- **Use Case:** Only if you need 4K @120Hz+
+- **Issues:** Audio compatibility problems common
 
 ### Known Issues with Adapters
 

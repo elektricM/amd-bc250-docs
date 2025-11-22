@@ -63,11 +63,14 @@ There are two ways to flash the BIOS:
 Get the latest modded BIOS from:
 [https://gitlab.com/TuxThePenguin0/bc250-bios/](https://gitlab.com/TuxThePenguin0/bc250-bios/)
 
-The ZIP contains:
+Download the `.ROM` file directly from GitLab.
 
-- `BC250_3.00_CHIPSETMENU.ROM` - The modded BIOS file
-- Flashing utility (Windows executable)
-- Instructions
+!!!info "Flashing Utility (Separate Download)"
+    The BIOS flashing utility is available in the Discord server forum thread "BIOS update/flasher program". The GitLab link above only provides the BIOS ROM file itself.
+
+What you'll need:
+- `BC250_3.00_CHIPSETMENU.ROM` - From GitLab link above
+- BIOS flashing utility - From Discord forum (includes PDF instructions)
 
 !!!info "BIOS Version"
     P3.00 is the recommended modded version. Your board may have P2.00, P4.00, or P5.00 stock - doesn't matter, flash to P3.00 modded.
@@ -115,10 +118,10 @@ Complete stock BIOS packages with changelogs are available in the Discord server
 
 **If using Windows:**
 
-1. Extract flashing utility from ZIP
-2. Run as administrator
+1. Download flashing utility from Discord forum
+2. Extract and run as administrator
 3. Select BIOS file
-4. Follow prompts
+4. Follow instructions in included PDF
 
 **If using Command Line Method:**
 
@@ -356,19 +359,6 @@ Community members have uploaded stock BIOS dumps:
 - Stock P5.00: Available in community archives
 
 Join Discord server (link in GitHub) for assistance.
-
----
-
-## Advanced: Custom BIOS Modifications
-
-Some users create custom BIOS mods using tools like:
-
-- **AMIBCP** - Edit AMI BIOS setup options
-- **UEFITool** - Extract and modify UEFI modules
-- **Smokeless UMAF** - Unlock hidden AMD settings
-
-!!!warning "Advanced Users Only"
-    Custom BIOS modification can permanently brick your board. Only attempt if you have hardware programmer and know what you're doing.
 
 ---
 
