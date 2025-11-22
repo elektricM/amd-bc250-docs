@@ -1,6 +1,6 @@
 # Debian and PikaOS Setup Guide
 
-<img src="https://www.debian.org/logos/openlogo-nd-100.png" alt="Debian" height="60"/>
+<img src="https://cdn.simpleicons.org/debian" alt="Debian" height="60"/>
 
 Debian and PikaOS offer stable, low-power options for the BC-250. While requiring more setup than other distributions, they provide excellent stability and lower idle power consumption.
 
