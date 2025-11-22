@@ -1,6 +1,6 @@
 # Bazzite Setup Guide
 
-<img src="https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/Bazzite_Tagline.svg" alt="Bazzite" height="60"/>
+<img src="https://cdn.simpleicons.org/bazzite" alt="Bazzite" height="60"/>
 
 Bazzite is a gaming-focused Linux distribution based on Fedora that provides an excellent out-of-the-box experience for the BC-250. Built on Fedora Atomic (immutable system), it offers SteamDeck-like functionality with enhanced stability.
 

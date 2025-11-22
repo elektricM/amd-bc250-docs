@@ -1,6 +1,6 @@
 # Fedora Complete Setup Guide
 
-<img src="https://fedoraproject.org/assets/images/fedora-workstation-logo.png" alt="Fedora Workstation" height="60"/>
+<img src="https://cdn.simpleicons.org/fedora" alt="Fedora Workstation" height="60"/>
 
 Step-by-step guide to installing and configuring Fedora on the BC-250.
 
