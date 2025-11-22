@@ -77,9 +77,10 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 COPR repositories are available for easy installation on Fedora and Bazzite. This eliminates the need to compile from source.
 
+**For Oberon Governor (Recommended):**
 ```bash
-# Add COPR repository
-sudo dnf copr enable filippor/bazzite
+# Add mothenjoyer69's COPR repository
+sudo dnf copr enable @exotic-soc/oberon-governor
 
 # Install governor
 sudo dnf install oberon-governor
@@ -91,8 +92,23 @@ sudo systemctl enable --now oberon-governor.service
 systemctl status oberon-governor
 ```
 
+**For Cyan-Skillfish Governor:**
+```bash
+# Add filippor's COPR repository
+sudo dnf copr enable filippor/bazzite
+
+# Install cyan-skillfish-governor
+sudo dnf install cyan-skillfish-governor
+
+# Enable and start service
+sudo systemctl enable --now cyan-skillfish-governor.service
+```
+
 !!!success "No Compilation Required"
-    Using COPR packages means you don't need to manually compile the governor from source. The package is pre-built and maintained.
+    Using COPR packages means you don't need to manually compile the governor from source. The packages are pre-built and maintained.
+
+!!!warning "COPR Package Issues"
+    Some users report core dumps with filippor's oberon-governor package. Use @exotic-soc/oberon-governor for Oberon, or filippor/bazzite for cyan-skillfish-governor instead.
 
 ### Option 2: Build from Source (All Distros)
 

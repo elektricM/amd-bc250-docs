@@ -49,7 +49,7 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 
 **Setup:**
 - Mount directly over heatsink fins
-- Remove or cut center fins for better airflow
+- Use 3D printed shroud or zip ties
 - Connect to PWM header for speed control
 
 !!!tip "Community Favorite"
@@ -145,39 +145,35 @@ Some users have successfully mounted AM4 tower coolers:
 
 ### Fin Straightening
 
-The stock heatsink often has bent fins that impede airflow.
-
-**Tools Needed:**
-- Flat-head screwdriver
-- Patience
+The stock heatsink often has bent fins that impede airflow. Carefully straightening bent fins can improve airflow.
 
 **Process:**
-1. Gently straighten bent fins with screwdriver
-2. Work systematically through fin stack
-3. Avoid applying too much force (aluminum is soft)
+- Work systematically through fin stack
+- Be gentle - aluminum is very soft and bends easily
+- Avoid forcing fins apart with tools
 
-**Benefit:** 5-10°C temperature improvement
+**Benefit:** 5-10°C temperature improvement if many fins are bent
 
-### Fin Removal/Cutting
+### Fin Removal (Optional)
 
-For better fan compatibility, some users remove the center fins.
+Some users remove center fins to improve fan contact with the heatsink.
 
-**Methods:**
-- **Dremel with cutoff wheel:** Fast but messy
-- **Hacksaw:** More controlled
-- **Nibbler tool:** Clean cuts
-- **Leave intact:** Use fan shroud instead
+!!!danger "High Risk Modification"
+    Fin removal is **IRREVERSIBLE** and can damage your board if done incorrectly. Only attempt if absolutely necessary.
 
-**Cutting Guide:**
-1. Mark cut lines (usually center 120mm section)
-2. Use Dremel or hacksaw to cut fins
-3. File edges smooth
-4. Clean metal dust from board
+**Recommended Method:**
+- **Manual removal by pulling/tearing:** Fins can be cleanly pulled apart by hand
+- **MUST remove heatsink from board first** - never modify while attached!
+- Work slowly and carefully to avoid bending adjacent fins
 
-!!!danger "Risk of Damage"
-    Cutting fins is irreversible. Metal shavings can short circuits. Cover the board during cutting and clean thoroughly after.
+**NOT Recommended:**
+- Dremel cutting (creates dangerous metal shavings)
+- Hacksaw cutting (imprecise, messy)
+- Any method that creates metal debris near the board
 
-**Temperature Impact:** 10-15°C improvement with proper fan placement
+**Alternative:** Use a 3D printed fan shroud instead - no heatsink modification needed.
+
+**Temperature Impact:** 10-15°C improvement, but similar gains possible with proper fan shroud
 
 ### Thermal Paste Replacement
 
@@ -247,7 +243,7 @@ Many community-designed fan shrouds are available on Printables:
 
 ### Option 2: Direct Fan Mount
 
-Mount fan directly to heatsink with screws or zip ties.
+Mount fan directly using zip ties.
 
 **Zip Tie Method:**
 1. Position fan over heatsink center
@@ -256,11 +252,8 @@ Mount fan directly to heatsink with screws or zip ties.
 4. Tighten evenly
 5. Trim excess zip tie length
 
-**Screw Method (requires drilling):**
-1. Mark screw positions
-2. Drill small holes in heatsink fins
-3. Use M3 or M4 screws with washers
-4. Don't overtighten (aluminum is soft)
+!!!warning "Do Not Screw Into Heatsink"
+    Do not drill holes in the heatsink fins to screw fans directly. The aluminum is soft and the fins are thin - this can damage the heatsink and reduce cooling efficiency. Use zip ties or a 3D printed shroud instead.
 
 ### Option 3: Cardboard/Foam Shroud
 
