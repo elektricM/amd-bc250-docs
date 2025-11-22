@@ -1,6 +1,6 @@
 # CachyOS Setup Guide
 
-<img src="https://cdn.simpleicons.org/cachyos" alt="CachyOS" height="60"/>
+<img src="https://raw.githubusercontent.com/CachyOS/calamares-config/master/etc/calamares/branding/cachyos/logo.png" alt="CachyOS" width="48"/>
 
 CachyOS is an Arch-based Linux distribution optimized for performance, featuring the BORE scheduler and CPU-optimized packages. It offers the best performance among tested distributions for the BC-250.
 
