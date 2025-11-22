@@ -55,8 +55,14 @@ Boot into BIOS (Del key during startup) and configure:
 Run the automated setup script:
 
 ```bash
-# For Fedora
-curl -s https://raw.githubusercontent.com/mothenjoyer69/bc250-documentation/refs/heads/main/fedora-setup.sh | sh
+# For Fedora 42/43
+# Mesa 25.1+ is included in Fedora 43 repos - no additional setup needed
+sudo dnf update
+
+# Install governor from COPR
+sudo dnf copr enable @exotic-soc/oberon-governor
+sudo dnf install oberon-governor
+sudo systemctl enable --now oberon-governor.service
 ```
 
 ```bash
@@ -66,9 +72,9 @@ curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/head
 
 This installs:
 
-- Mesa 25.1+ drivers
+- Mesa 25.1+ drivers (already in Fedora 43+ / Bazzite)
 - Oberon GPU governor (required for performance)
-- Sensor drivers
+- Sensor drivers (lm-sensors package)
 - System optimizations
 
 **Difficulty:** Easy

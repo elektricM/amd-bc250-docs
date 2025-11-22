@@ -102,8 +102,14 @@ After booting with nomodeset:
 
 ```bash
 # Install drivers (distro-specific)
-# Fedora:
-curl -s https://raw.githubusercontent.com/mothenjoyer69/bc250-documentation/refs/heads/main/fedora-setup.sh | sh
+# Fedora 42/43 - Mesa 25.1+ included in repos:
+sudo dnf update
+sudo dnf install mesa-vulkan-drivers mesa-dri-drivers
+
+# Install GPU governor
+sudo dnf copr enable @exotic-soc/oberon-governor
+sudo dnf install oberon-governor
+sudo systemctl enable --now oberon-governor.service
 
 # Then remove nomodeset:
 sudo nano /etc/default/grub

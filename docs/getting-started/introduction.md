@@ -103,6 +103,6 @@ Some boards have minor heatsink variations (number of connecting tabs on fin top
 
 **Community Resources:**
 
-- [GitHub Documentation](https://github.com/mothenjoyer69/bc250-documentation)
+- [GitHub Documentation](https://github.com/elektricM/amd-bc250-docs)
 - [BIOS Repository](https://gitlab.com/TuxThePenguin0/bc250-bios/)
 - Discord Server (1000+ members, link in GitHub)

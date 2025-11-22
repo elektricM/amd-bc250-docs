@@ -24,10 +24,10 @@ Minimum requirements:
 
 **Power draw by use case:**
 
-- Idle: 50-80W
+- Idle: 70-85W (with governor), 85-105W (without governor)
 - Light gaming: 100-150W
 - Heavy gaming: 150-200W
-- Maximum load (RT on): Up to 235W
+- Maximum load (RT on): Up to 235W (can exceed 250W+ with GPU frequency patch)
 
 **Recommended PSUs:**
 
