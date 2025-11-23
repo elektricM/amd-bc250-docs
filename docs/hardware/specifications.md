@@ -79,7 +79,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### Storage
 
-- **M.2 Slot:** 1x M.2 2280 slot (PCIe Gen 3 x2)
+- **M.2 Slot:** 1x M.2 2280 slot (PCIe Gen 2 x2)
 - **Speed:** ~1 GB/s maximum
 - **USB:** 1x USB 3.0 port (Type-A)
 - **USB Speed:** ~480 MB/s (SATA speed equivalent)

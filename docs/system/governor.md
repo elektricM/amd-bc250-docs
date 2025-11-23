@@ -210,10 +210,14 @@ sudo systemctl restart oberon-governor
 **Config File:** `/etc/oberon-config.yaml`
 
 **Advanced Multi-Step Configuration:**
+
+!!!warning "Requires Kernel Patch"
+    The 350 MHz minimum frequency requires the GPU frequency range kernel patch. Without the patch, the governor will crash with `std::__ios_failure`. Use `min: 1000` on stock kernels.
+
 ```yaml
 opps:
   frequency:
-    min: 350     # Lower minimum for better idle power
+    min: 350     # Requires kernel patch! Use 1000 on stock kernel
     max: 2175    # Overclocked maximum
   voltage:
     min: 700
@@ -519,7 +523,7 @@ sudo systemctl restart oberon-governor
 ```
 
 **Known Limits:**
-- **980 MHz:** Unstable (known issue, avoid)
+- **1000 MHz:** Minimum safe frequency on stock kernel
 - **2000 MHz @ 1000mV:** Safe for all boards
 - **2175 MHz @ 1025mV:** Safe for most boards
 - **2230 MHz:** Maximum with kernel patch, requires cooling
