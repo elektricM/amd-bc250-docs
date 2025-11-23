@@ -1,19 +1,28 @@
 # BIOS Flashing Guide
 
-Flashing the modded BIOS is essential for unlocking the BC-250's full potential. It enables dynamic VRAM allocation, overclocking, better fan control, and access to advanced chipset settings.
+Flashing the modded BIOS is essential for unlocking the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
 
-!!!danger "Critical First Step"
-    ALWAYS clear CMOS after USB-based BIOS flashing. Settings will not stick properly otherwise, causing mysterious boot failures and RAM issues.
+!!!danger "Critical: Clear CMOS"
+    **ALWAYS** clear CMOS after flashing. While the board may post without it, settings (especially VRAM allocation) will not stick properly unless the CMOS is cleared, leading to confusion and "mysterious" bugs.
 
 ## Why Flash the BIOS?
 
-The stock BIOS has limited configuration options. The modded BIOS unlocks:
+While the stock BIOS includes standard features like fan control, the modded BIOS specifically unlocks:
 
 - **Dynamic VRAM allocation** (512MB setting that auto-allocates between CPU/GPU)
 - **Custom VRAM splits** beyond the stock 8GB/8GB and 12GB/4GB options
-- **Chipset menu** access for advanced settings
-- **Fan control** improvements
-- **Overclocking options** (though GPU frequency is mainly controlled by governor)
+- **Chipset menu** access for advanced configuration options
+
+*Note: Actual overclocking is generally not performed via the BIOS on this platform, and fan control is available on both stock and modded versions.*
+
+### Available Modded Versions
+
+There are two main versions of the modded BIOS floating around the community:
+
+*   **P3.00 Chipset Menu (Recommended):** This is the community standard. It is the most stable and tested version. It successfully unlocks VRAM allocation and chipset settings without introducing unnecessary instability.
+*   **P5.00_clv:** Based on a newer stock code base. It specifically unlocks **Everything**—every hidden menu and setting available. This includes experimental options like ReBAR (Resizable BAR). However, because it exposes critical debug and chipset settings, it is very easy to brick the board if you change the wrong thing. **Stick to P3.00 unless you are an advanced user who knows exactly what they are doing.**
+
+---
 
 ## Flashing Methods
 
@@ -44,190 +53,211 @@ There are two ways to flash the BIOS:
 - Slower process
 
 !!!tip "Recommendation"
-    Start with USB method. Only get hardware programmer if USB flash fails or you want a backup option.
+    While USB flashing is convenient, owning a CH347 programmer before you start is highly recommended as a safety net. If USB flashing fails, the board is unusable until you use a hardware programmer.
 
 ---
 
-## USB Flashing Method
+## Method 1: USB Flashing (EFI Shell Method)
 
-### What You Need
+This is the standard way to flash the BC-250. It uses the internal EFI Shell rather than a Windows application.
 
-- BC-250 board (with working stock BIOS)
-- USB stick (any size, FAT32 formatted)
-- Modded BIOS files
-- PC to prepare USB stick
-- DisplayPort cable or adapter (to access BIOS menu)
+### Prerequisites
+*   **USB Stick:** formatted to **FAT32** (Max 32GB recommended).
+*   **BC-250 Board:** Must be in working order.
+*   **Display:** Direct DisplayPort connection is highly recommended.
+    *   *Warning:* Active/Passive HDMI adapters can cause black screens in the BIOS menu.
 
-### Step 1: Download BIOS Files
+### Step 1: Download Files
 
-Get the latest modded BIOS from:
-[https://gitlab.com/TuxThePenguin0/bc250-bios/](https://gitlab.com/TuxThePenguin0/bc250-bios/)
+You need two things: the **Flashing Tools** (EFI shell utilities) and the **Modded BIOS File** itself.
 
-Download the `.ROM` file directly from GitLab.
+1.  **Download the Flashing Tools (EFI Kit):**
+    *   [**Click here to download (4U12G BIOS Update.zip)**](https://github.com/kenavru/BC-250/raw/refs/heads/main/4U12G%20BIOS%20Update.zip)
+    *   *This zip contains the essential `AfuEfix64.efi` and `Flash.nsh` scripts.*
+    *   **Note:** This zip also contains a **Stock P5.00 BIOS**. Do not use this file if you intend to flash the modded version.
 
-!!!info "Flashing Utility (Separate Download)"
-    The BIOS flashing utility is available in the Discord server forum thread "BIOS update/flasher program". The GitLab link above only provides the BIOS ROM file itself.
+2.  **Download the Modded BIOS ROM:**
+    *   [**TuxThePenguin0 GitLab**](https://gitlab.com/TuxThePenguin0/bc250-bios/)
+    *   Download the recommended version (**BC250_3.00_CHIPSETMENU.ROM**).
 
-What you'll need:
-- `BC250_3.00_CHIPSETMENU.ROM` - From GitLab link above
-- BIOS flashing utility - From Discord forum (includes PDF instructions)
+### Stock BIOS Sources (For Recovery/Reversion)
+If you need to revert to stock or recover a board, stock files can be found here:
+*   **Stock P5.00:** Included in the flashing tool ZIP linked above.
+*   **Stock P3.00:** Available from user **Segfault**.
+*   **Other Versions:** The community **Discord** archives contain various other stock versions (P2.00, etc.).
 
-!!!info "BIOS Version"
-    P3.00 is the recommended modded version. Your board may have P2.00, P4.00, or P5.00 stock - doesn't matter, flash to P3.00 modded.
+### Step 2: Prepare the USB Stick
 
-#### Available BIOS Versions
+1.  Format your USB stick to **FAT32**.
+2.  **Extract the Tools:** Unzip the contents of `4U12G BIOS Update.zip`, and copy the contents of `BIOS EFI` to the **root** of the USB stick.
+3.  **Save the Stock BIOS:** Move the `Robin5.00` file somewhere safe (this is stock P5.00).
+4.  **Copy the Modded BIOS:** Place your downloaded modded BIOS file (e.g., `BC250_3.00_CHIPSETMENU.ROM`) onto the root of the USB stick.
+5.  **Rename/Configure:**
+    *   **Rename your modded BIOS file** to `Robin5.00` (remove the `.ROM` extension).
+    *   *Alternatively, edit `Flash.nsh` to match your filename.*
 
-**P3.00 Chipset Menu (Recommended for most users):**
-- Unlocks VRAM allocation, fan control, chipset settings
-- Most tested and stable by community
-- Download: [TuxThePenguin0 GitLab](https://gitlab.com/TuxThePenguin0/bc250-bios/)
+    **Your USB Root should typically contain:**
 
-**P5.00_clv (Newer, Advanced Users Only):**
-- Contains many additional unlocked settings
-- Includes ReBAR (Resizable BAR) and other advanced options
-- Less tested, community reports "many settings you shouldn't touch"
-- Only use if you need specific advanced features
-- Shared in Discord #bc250-resources thread
+    *   `AfuEfix64.efi`
+    *   `Flash.nsh`
+    *   `amdvbflash.efi`
+    *   `Robin5.00` (Your renamed modded BIOS file)
+    *   `EFI` (folder)
 
-!!!warning "Stock BIOS Version Differences"
-    Stock BIOS versions (P2.00, P3.00, P4.00, P5.00) are functionally identical except:
+### Step 3: Boot to EFI Shell
 
-    - P5.00 has network (PXE) boot enabled by default
-    - P4.00 and earlier do not
+The easiest way to boot the tool is to force the board to look for the USB stick automatically.
 
-    "Robin" is the board's internal codename - all versions are for the same BC-250 hardware.
+1.  **Unplug all Drives and SSDs.**
+    *   If no OS drive is detected, the BC-250 will automatically default to the EFI Shell/USB stick.
+2.  Insert the USB stick.
+3.  Power on the BC-250.
+4.  The system should bypass the standard boot order and load directly into the EFI Shell (Yellow text on black background).
 
-#### Community BIOS Archives
+### Step 4: Execute the Flash
 
-Complete stock BIOS packages with changelogs are available in the Discord server for reference:
-- Original ASRock engineering files
-- All stock versions (P1.00, P2.00, P3.00, P4.00, P5.00)
-- AfuLnx64 Linux flashing utility
-- Historical development context
+Once you are at the yellow `Shell>` prompt, follow this exact sequence:
 
-### Step 2: Prepare USB Stick
+1.  Type `blk0:` and press **Enter**.
+    *   **Ensure you add a space after the colon**
+    *   *This selects your USB drive.*
+2.  Type `Flash.nsh` and press **Enter**.
+    *   *This executes the flashing script.*
+3.  **WAIT.** You will see the AMI Firmware Update Utility run.
+    *   *Do not touch the keyboard.*
+    *   *Do not power off.*
+    *   *If the process appears to hang during the flash, wait at least 15 minutes. Powering off while writing will brick the board.*
+4.  The system will reboot automatically (or ask you to reboot) when finished.
 
-1. Format USB stick as **FAT32** (not exFAT or NTFS)
-2. Copy BIOS file to root directory
-3. **Rename file to:** `robin5.00` (no file extension)
+### Step 5: Power Down & Remove USB
 
-!!!warning "File Name Critical"
-    The file MUST be named exactly `robin5.00` (no .ROM extension). The bootloader looks for this specific name.
+Once the flashing process finishes and the system attempts to reboot:
 
-### Step 3: Flash Using Utility
+1.  **Power off the BC-250 immediately.**
+2.  **Remove the USB stick.**
+    *   *This prevents the system from accidentally booting back into the EFI shell or attempting to flash again.*
 
-**If using Windows:**
+### Step 6: The Critical CMOS Clear
 
-1. Download flashing utility from Discord forum
-2. Extract and run as administrator
-3. Select BIOS file
-4. Follow instructions in included PDF
-
-**If using Command Line Method:**
-
-1. Copy renamed file to USB root
-2. Boot BC-250 with USB inserted
-3. Access boot menu (usually F11 or F12)
-4. Select USB device
-5. Flashing starts automatically
-
-The process takes 2-5 minutes. **Do not power off during flashing.**
-
-### Step 4: Clear CMOS (CRITICAL)
-
-!!!danger "Do Not Skip This Step"
-    Failing to clear CMOS is the #1 cause of "BIOS settings won't stick" issues. The board will appear to work but RAM allocation won't apply properly.
+**Do not skip this.**
 
 **Option A: Remove Battery (Recommended)**
 
-1. Power off and unplug board
-2. Locate CMOS battery (CR2032 coin cell)
-3. Remove battery for 30 seconds
-4. Reinsert battery
-5. Power on
+1.  **Remove the CMOS Battery** (CR2032) for at least 60 seconds.
+2.  (Optional) Press the power button a few times while unplugged to discharge capacitors.
+3.  Reinsert battery.
 
 **Option B: Use CMOS Jumper**
 
-1. Power off and unplug board
-2. Locate CMOS clear jumper (check pinout diagram)
-3. Move jumper to clear position for 10 seconds
-4. Return jumper to normal position
-5. Power on
+1.  **Locate CMOS clear jumper**
+2.  Move jumper to clear position for 20 seconds
+3.  Return jumper to normal position.
+4.  Power on.
 
-### Step 5: Configure BIOS
+### Step 7: BIOS Configuration
 
-On first boot after flashing:
-
-1. Press **Del** repeatedly during boot to enter BIOS
-2. Navigate to **Chipset Configuration**
-3. Find **UMA Frame Buffer Size**
-4. Set to **512MB** (or desired fixed allocation)
-5. Optional: Set fan curves, disable unused ports
-6. **Save and Exit** (F10)
-
-!!!tip "BIOS Navigation"
-    Use arrow keys to navigate, Enter to select, F10 to save. Mouse doesn't work in BIOS.
+1.  Power on and spam **Del** to enter BIOS.
+2.  Navigate to: **Chipset** → **GFX Configuration**.
+3.  Set **Integrated Graphics Controller** to **Forces**.
+4.  Set **UMA Mode** to **UMA_SPECIFIED**.
+5.  Set **UMA Frame Buffer Size** to **512MB** (Recommended) or your preferred fixed size.
+6.  Navigate to: **Advanced** → **CPU Configuration**.
+7.  Set **IOMMU** to **Disabled**.
+8.  Press **F10** to Save and Exit.
 
 ---
 
-## Hardware Programmer Method
+## Method 2: Hardware Programmer (Recovery & Backup)
 
-### What You Need
+This method writes directly to the SPI flash chip, bypassing the CPU. It is the **only** way to unbrick a board that will not POST.
 
-- **CH341A or CH347 programmer** ($10-30 on AliExpress/Amazon)
-- **SOP8 test clip** (usually included with programmer)
-- **USB cable** (usually included)
-- **Another PC** to run flashing software
+**Credits:** Massive thanks to **Segfault** for the reverse engineering, pinout documentation, and maintaining the repository of modified firmware images.
 
-### BIOS Chip Location
+### Critical Warnings
 
-The BIOS chip is located near the M.2 slot:
+1.  **The 5V Trap:**
+    *   **Do NOT use black-PCB CH341A programmers** (commonly found on Amazon/AliExpress). They often output **5V logic** even when set to 3.3V mode.
+    *   The BC-250 BIOS chip operates at **3.3V**. Using 5V logic can fry the chip or the connected chipset.
+2.  **Identify the Correct Chip (Don't Brick the SuperIO):**
+    *   The board has *two* flash chips. Flashing the wrong one will brick the SuperIO controller (fan control/sensors).
+    *   **✅ TARGET:** `BIOS_A1` (16MB capacity). Usually Winbond or Macronix.
+    *   **❌ AVOID:** `SIO1_R` (512KB capacity). This is a small Macronix chip nearby. **Do not touch this.**
 
-- **Chip Model:** MX25L12835F or MX25L12873F (128Mb/16MB)
-- **Package:** SOP8
-- **Position:** Near PCIe slot, marked "BIOS" on some boards
+### 1. Tools & Hardware
 
-### Flashing Steps
+*   **Programmer:**
+    *   **WCH CH347** (Recommended - Native 3.3V, fast).
+    *   **Raspberry Pi Pico** (Excellent 3.3V alternative using `serprog` firmware).
+    *   *Avoid standard CH341A unless you have verified 3.3V logic levels.*
+*   **Connection:** Female-to-Female DuPont wires (for J4004 header) or an SOP8 Test Clip.
 
-1. **Download flashrom:**
-   ```bash
-   # Linux
-   sudo apt install flashrom  # Debian/Ubuntu
-   sudo dnf install flashrom  # Fedora
+### 2. Chip Identification & Pinout
 
-   # macOS
-   brew install flashrom
-   ```
+**Target Chip (`BIOS_A1`):**
+*   **Likely Model:** Winbond **W25Q128JVSQ** (128M-bit / 16MB)
+    *   *Note: Some community docs typo this as "25Q168". The correct density code for 16MB is 128.*
+*   **Alternative Model:** Macronix **MX25L12835F** (found on some batches).
+*   **Location:** Component `BIOS_A1`, near the PCIe slot/M.2 area.
 
-2. **Connect programmer:**
-   - Power off BC-250
-   - Attach SOP8 clip to BIOS chip (pin 1 indicator aligns)
-   - Connect programmer to PC via USB
+**Programming Header (`J4004`):**
+The board features a 2.54mm header specifically for flashing. This is safer than a clip.
 
-3. **Backup original BIOS (recommended):**
-   ```bash
-   sudo flashrom -p ch341a_spi -r backup.bin
-   # Read twice and compare to verify
-   sudo flashrom -p ch341a_spi -r backup2.bin
-   diff backup.bin backup2.bin  # Should be identical
-   ```
+**J4004 Pinout:**
 
-4. **Write new BIOS:**
-   ```bash
-   sudo flashrom -p ch341a_spi -w BC250_3.00_CHIPSETMENU.ROM
-   ```
+| Pin | Function | | Function | Pin |
+| :-: | :-: | :-: | :-: | :-: |
+| **2** | **GND** | `[` `]` | **VCC (3.3V)** | **1** |
+| **4** | **SCLK** | `[` `]` | **CS** | **3** |
+| **6** | **MOSI** | `[` `]` | **MISO** | **5** |
+| **8** | *(UNK)* | `[` `]` | *(UNK)* | **7** |
 
-5. **Verify write:**
-   ```bash
-   sudo flashrom -p ch341a_spi -v BC250_3.00_CHIPSETMENU.ROM
-   ```
+*   **Orientation:** Pin 1 (VCC) is marked by the arrow `>` or a square pad on the PCB.
+*   **Note:** Pins 7 & 8 are grounded via 10kΩ resistors and are unused for flashing.
 
-6. **Disconnect and test:**
-   - Remove clip
-   - Clear CMOS (same as USB method)
-   - Power on
+### 3. Flashing Process
 
----
+**Prerequisites:**
+*   **Unplug the PSU from the wall.**
+*   Press the power button several times to discharge capacitors.
+*   **ALWAYS** create a backup.
+
+#### Software Steps (Linux/Flashrom)
+
+1.  **Install Flashrom:**
+    ```bash
+    sudo apt install flashrom
+    ```
+2.  **Test Connection & Identify Chip:**
+    ```bash
+    # Replace 'ch347_spi' with your programmer (e.g., 'serprog' for Pi Pico)
+    sudo flashrom -p ch347_spi
+    ```
+    *   *If it detects "Winbond W25Q128..." or "Macronix MX25L128...":* **Success.** You are on the right chip.
+    *   *If it detects "Macronix MX25L4005..." (512KB):* **STOP.** You are attached to the SuperIO chip. Move to the other chip.
+3.  **Backup (Essential):**
+    ```bash
+    sudo flashrom -p ch347_spi -r backup_stock.bin
+    # Verify backup integrity
+    sudo flashrom -p ch347_spi -r backup_verify.bin
+    diff backup_stock.bin backup_verify.bin
+    ```
+4.  **Flash Firmware:**
+    ```bash
+    sudo flashrom -p ch347_spi -w BC250_3.00_CHIPSETMENU.ROM
+    ```
+
+### 4. Post-Flash Configuration
+
+1.  Enter BIOS → **Chipset** → **GFX Configuration**.
+2.  Set **Integrated Graphics Controller** to **Forces**.
+3.  Set **UMA Mode** to **UMA_SPECIFIED**.
+4.  Set **UMA Frame Buffer Size** to **512M**.
+5.  Navigate to: **Advanced** → **CPU Configuration**.
+6.  Set **IOMMU** to **Disabled**.
+
+
+!!!warning "Safety Notice"
+    The modded BIOS exposes many settings that are untested. Changing random voltages, timings, or unknown chipset options can permanently damage the board. **If you don't know what it does, do not touch it.**
 
 ## Post-Flash Configuration
 
@@ -239,7 +269,6 @@ After flashing, configure these critical settings:
 |---------|----------|-------------------|
 | UMA Frame Buffer Size | Chipset → UMA | 512MB |
 | IOMMU | Advanced → IOMMU | Disabled |
-| Fan Control | H/W Monitor → Fan Control | Customize (50-100%) |
 | Boot Mode | Boot → Boot Mode | UEFI |
 
 ### VRAM Allocation Options
@@ -247,7 +276,6 @@ After flashing, configure these critical settings:
 **512MB (Dynamic) - Recommended:**
 - Automatically allocates between CPU and GPU
 - Best for general use
-- May conflict with ZRAM in some games (use fixed instead)
 
 **Fixed Allocations:**
 - 10GB RAM / 6GB VRAM - Good for AAA games
@@ -256,22 +284,6 @@ After flashing, configure these critical settings:
 
 [Detailed VRAM guide →](vram.md)
 
-### Known Post-Flash Issues
-
-!!!warning "DisplayPort Audio Compatibility"
-    Some users report DisplayPort audio issues after flashing modded BIOS:
-
-    - Audio may be pitched down/slow ("slow motion" effect)
-    - Affects some older TVs/monitors, works fine on modern displays
-    - Passive DP-to-HDMI adapters work better than active ones
-    - Flashing back to stock may NOT resolve the issue
-
-    **Workarounds:**
-    - Use passive DP-to-HDMI adapter (not active)
-    - Try USB audio adapter
-    - Test with different display if possible
-    - Modern 4K HDR displays typically don't have this issue
-
 ---
 
 ## Troubleshooting
@@ -279,32 +291,45 @@ After flashing, configure these critical settings:
 ### USB Flash Failed / No Response
 
 **Symptoms:**
+
 - USB boot doesn't start
-- Flashing hangs
 
 **Solutions:**
+
 1. Verify USB is FAT32 formatted
-2. Check file is named exactly `robin5.00`
+2. Check file is named exactly `Robin5.00`
 3. Try different USB stick
 4. Ensure file is in root directory (not in folder)
 5. Try different USB port
 
+### Flash Hangs
+
+**Symptoms:**
+- Progress bar freezes or system becomes unresponsive.
+
+**Solutions:**
+
+*   **Hangs before utility starts:** You can reboot safely.
+*   **Hangs during flash:** Do **NOT** reboot. Wait 15 minutes.
+
 ### Board Won't Boot After Flash
 
 **Symptoms:**
+
 - No display
 - Power on but nothing happens
 - Fan spins but no boot
 
 **Solutions:**
+
 1. **Clear CMOS again** (most common fix)
 2. Check power connections (8-pin firmly seated)
 3. Try hardware programmer recovery
-4. Reseat RAM (some boards have removable RAM)
 
 ### BIOS Settings Don't Stick
 
 **Symptoms:**
+
 - Set 512MB but system still shows 8GB/8GB split
 - Settings reset after reboot
 - Changes don't apply
@@ -312,7 +337,7 @@ After flashing, configure these critical settings:
 **Solution:**
 Clear CMOS properly. This is almost always the cause.
 
-1. Remove CMOS battery for 60 seconds (not just 10)
+1. Remove CMOS battery for 60 seconds
 2. With battery removed, press power button 5 times (discharges capacitors)
 3. Reinsert battery
 4. Boot and reconfigure
@@ -320,19 +345,21 @@ Clear CMOS properly. This is almost always the cause.
 ### Display Shows But BIOS Menu Won't Appear
 
 **Symptoms:**
+
 - Board boots to black screen
 - No BIOS logo
 - Can't access BIOS setup
 
 **Solutions:**
+
 1. Try different display cable/adapter
 2. Spam **Del** key earlier (right when powering on)
-3. Try **F2** or **F12** instead
-4. Check monitor is set to correct input
+3. Check monitor is set to correct input
 
 ### Accidentally Flashed Wrong File
 
 **Recovery:**
+
 1. If board still boots: Flash correct file via USB
 2. If board doesn't boot: Use hardware programmer with backup BIOS
 
@@ -342,21 +369,13 @@ Clear CMOS properly. This is almost always the cause.
 
 ### If USB Flash Bricked the Board
 
-1. Order CH341A programmer
+1. Order CH347 programmer
 2. While waiting, verify it's actually bricked:
    - Check all power connections
    - Try clearing CMOS again
    - Test with different display adapter
 3. When programmer arrives, follow hardware method above
 4. Flash known-good BIOS file
-
-### If No Backup BIOS Available
-
-Community members have uploaded stock BIOS dumps:
-
-- Stock P2.00: Available in Discord #bc250-resources
-- Stock P3.00: Available on GitLab
-- Stock P5.00: Available in community archives
 
 Join Discord server (link in GitHub) for assistance.
 
@@ -385,25 +404,31 @@ sudo dmidecode -t bios
 ## FAQ
 
 **Q: Can I flash without clearing CMOS?**
-A: Technically yes, but you'll have weird issues. Always clear CMOS.
+
+A: Technically yes, but you may have weird issues. Clearing CMOS is recommended.
 
 **Q: Will this void my warranty?**
+
 A: These boards are sold "as-is" with no warranty anyway.
 
 **Q: Can I revert to stock BIOS?**
+
 A: Yes, flash your backup or download stock BIOS and flash it.
 
 **Q: Do I need to reflash when updating Linux?**
+
 A: No, BIOS is independent of OS.
 
 **Q: What if power fails during USB flash?**
-A: Board may be bricked. Recover using hardware programmer.
+
+A: The board may be bricked, and may require a hardware flash to recover.
 
 **Q: Can I flash from Linux?**
+
 A: The USB method requires booting the BC-250 itself. Hardware programmer works from any OS running flashrom.
 
 ---
 
 **Next Steps:**
 - [VRAM Configuration Guide](vram.md)
-- [Recovery Guide](recovery.md)
+- [Overclocking Guide](overclocking.md)
