@@ -151,7 +151,7 @@ The backplate gets hot (GDDR6 chips underneath).
 
 **M.2 NVMe SSD**
 
-The board has one M.2 2280 slot (PCIe Gen 3 x4).
+The board has one M.2 2280 slot (PCIe Gen 2 x2).
 
 - **Minimum:** 256GB for OS + a few games
 - **Recommended:** 1TB for comfortable gaming library

@@ -250,11 +250,6 @@ voltage:
 | 2230 MHz | 1035-1050 mV | ⚠️ Best boards only | 220-235W | Dual fans |
 | 2230 MHz | 1085 mV | ⚠️ High risk | 250W+ | Excellent cooling |
 
-### Known Unstable Frequencies
-
-!!!warning "980 MHz Instability"
-    **980 MHz is unstable** across all boards tested. Avoid this frequency.
-
 ## Manual Overclocking
 
 ### Method 1: Via sysfs (Temporary)
@@ -550,7 +545,7 @@ During overclocking:
 **Solutions:**
 - Check temperatures
 - Verify PSU wattage
-- Try different frequency (avoid 980 MHz range)
+- Try different frequency
 
 ### Governor Not Applying Overclock
 

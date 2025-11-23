@@ -354,8 +354,7 @@ RADV_DEBUG=nohiz,nocompute %command%
     3. **Use nomodeset during install, remove after drivers installed**
     4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8+** (GPU driver fails)
     5. **700mV minimum voltage** (crashes below this)
-    6. **980 MHz is unstable** (skip this frequency)
-    7. **Active DP-HDMI adapters break audio**
+    6. **Active DP-HDMI adapters break audio**
 
 ---
 
