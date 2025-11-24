@@ -146,10 +146,12 @@ sudo dracut --regenerate-all --force
 sudo nano /etc/default/grub
 
 # Find: GRUB_CMDLINE_LINUX_DEFAULT="nomodeset quiet"
-# Change to: GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
+# Change to: GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 
 # Optional: Add mitigations=off for performance boost
-# GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
+
+# Note: amdgpu.sg_display=0 is only needed for kernels < 6.10
 
 # Save (Ctrl+O, Enter, Ctrl+X)
 
@@ -159,8 +161,8 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 !!!info "Kernel Parameters Explained"
     - `quiet` - Reduces boot messages
-    - `amdgpu.sg_display=0` - Required for BC-250 GPU (kernel < 6.10)
     - `mitigations=off` - Disables CPU security mitigations (+18 FPS in Cyberpunk 2077)
+    - `amdgpu.sg_display=0` - Only needed for kernels < 6.10 (not required on Fedora 42/43)
 
 ### Step 7: Reboot
 
@@ -346,9 +348,9 @@ sudo sysctl -p
 
 ### GNOME
 
-- Some users report issues (test carefully)
+- Most stable desktop environment for BC-250
 - Wayland generally stable
-- Falls back to X11 if issues
+- Recommended for reliability
 
 ## See Also
 

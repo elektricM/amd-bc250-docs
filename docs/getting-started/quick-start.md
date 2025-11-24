@@ -14,10 +14,10 @@ Get your BC-250 up and running with this fast-track checklist.
 
 1. Download modded BIOS from [bc250-bios repository](https://gitlab.com/TuxThePenguin0/bc250-bios/)
 2. Format USB stick as FAT32
-3. Rename BIOS file to `robin5.00`
+3. Rename BIOS file to `Robin5.00` (capital R)
 4. Copy to USB root directory
 5. Use included flashing utility
-6. **CRITICAL:** Clear CMOS after flashing (remove battery 30 seconds)
+6. **CRITICAL:** Clear CMOS after flashing (remove battery 60 seconds)
 
 **Difficulty:** Easy
 

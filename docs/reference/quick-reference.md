@@ -110,7 +110,8 @@ amdgpu.sg_display=0
 
 **Doesn't work:**
 - Windows (no GPU drivers)
-- SteamOS (Mesa too old)
+
+**Note:** SteamOS now works after Mesa updates
 
 ### Driver Versions
 

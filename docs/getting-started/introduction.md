@@ -41,7 +41,7 @@ With proper Linux setup, the BC-250 delivers performance comparable to:
 
 **Other limitations:**
 
-- No native audio over DisplayPort (workarounds available)
+- Audio over DisplayPort can be unreliable with some adapters (passive adapters usually work)
 - No built-in WiFi/Bluetooth (USB adapters work)
 - Limited instruction set (some AVX features missing)
 - High idle power consumption (~50-80W without optimization)
