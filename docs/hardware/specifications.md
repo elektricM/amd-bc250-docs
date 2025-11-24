@@ -43,9 +43,9 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 !!!warning "Memory Split Required"
     The 16GB is shared between CPU and GPU. You must configure the split in BIOS:
 
-    - **512MB GPU / 15.5GB CPU:** Recommended for desktop/light gaming
-    - **4GB GPU / 12GB CPU:** Recommended for modern games
-    - **Dynamic allocation:** Available but can cause issues with some applications
+    - **512MB (Dynamic):** Recommended for most users - GPU can access up to ~14GB+ as needed
+    - **6GB GPU / 10GB CPU:** Best for AAA gaming if ZRAM conflicts occur
+    - **8GB GPU / 8GB CPU:** Balanced split for compute workloads
 
 [See VRAM Configuration Guide](../bios/vram.md) for detailed setup instructions.
 
@@ -96,7 +96,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### Other Headers
 
-- **Power Button:** 2-pin header (rear of board)
+- **Power Button:** Onboard button only (no header - soldering required for external switch)
 - **Debug Header:** 20-pin AMD HDT1 debug connector
 - **SPI Flash:** Header for BIOS flashing
 - **Super I/O:** NCT6686/6687 chip for sensors and fan control

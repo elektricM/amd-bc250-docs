@@ -35,7 +35,7 @@ Guide to recovering from a bad BIOS flash or corrupted BIOS on the BC-250.
 2. Unplug power cable
 3. Locate CMOS battery (small coin cell on board)
 4. Remove CMOS battery
-5. Wait 30 seconds
+5. Wait 60 seconds
 6. Reinsert CMOS battery
 7. Reconnect power
 8. Boot and reconfigure BIOS
@@ -58,7 +58,7 @@ Guide to recovering from a bad BIOS flash or corrupted BIOS on the BC-250.
 
 **Requirements:**
 - USB flash drive (FAT32 formatted)
-- Correct BIOS file (P3.00 Segfault mod recommended)
+- Correct BIOS file (BC250_3.00_CHIPSETMENU recommended)
 - Flasher program
 
 **Steps:**
@@ -273,7 +273,7 @@ sudo flashrom -p ch341a_spi -v backup_$(date +%Y%m%d).bin
 **Solution:**
 1. Acquire hardware programmer (CH347T recommended)
 2. Connect clip to SPI flash chip
-3. Flash correct BIOS file (P3.00 Segfault mod)
+3. Flash correct BIOS file (BC250_3.00_CHIPSETMENU)
 4. Verify flash successful
 5. Clear CMOS
 6. Boot and configure
@@ -298,7 +298,7 @@ sudo flashrom -p ch341a_spi -v backup_$(date +%Y%m%d).bin
 - Board unstable or won't boot
 
 **Solution:**
-1. Flash back to known-good BIOS (P3.00 Segfault mod)
+1. Flash back to known-good BIOS (BC250_3.00_CHIPSETMENU)
 2. Use hardware programmer if board won't boot
 3. Stick to community-tested BIOS versions
 
@@ -306,15 +306,15 @@ sudo flashrom -p ch341a_spi -v backup_$(date +%Y%m%d).bin
 
 ### Recommended BIOS
 
-**P3.00 Segfault Modified BIOS:**
+**BC250_3.00_CHIPSETMENU (Recommended):**
 - Unlocks dynamic VRAM allocation
-- Exposes overclocking options
+- Exposes chipset menu and overclocking options
 - Most tested and stable
-- Available in BC-250 community resources
+- Available from [bc250-bios repository](https://gitlab.com/TuxThePenguin0/bc250-bios/)
 
 **File naming:**
-- May be named `P3.00_mod.bin` or similar
-- Verify file hash against community-provided checksums
+- Named `BC250_3.00_CHIPSETMENU.ROM`
+- Rename to `Robin5.00` before flashing via USB
 
 ### Stock BIOS
 

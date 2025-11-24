@@ -44,7 +44,7 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 
 ### Hardware Requirements
 
-- Minimum 90W PSU (120W+ recommended)
+- 300W+ PSU on 12V rail (250W minimum)
 - 2x 120mm high static pressure fans
 - DisplayPort cable or passive DP-to-HDMI adapter
 - USB drive (8GB+) for installation media
