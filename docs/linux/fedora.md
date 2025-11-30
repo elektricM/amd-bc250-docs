@@ -109,15 +109,17 @@ dnf list mesa-\*
 
 ### Step 4: Install GPU Governor
 
-**Option 1: COPR (Easiest - No Compilation Required)**
-
-COPR repositories provide pre-built packages for Fedora, eliminating the need to compile from source.
+**Option 1: COPR (Recommended)**
 
 ```bash
-sudo dnf copr enable filippor/bazzite
+# Use the exotic-soc COPR - this is the working package
+sudo dnf copr enable @exotic-soc/oberon-governor
 sudo dnf install oberon-governor
 sudo systemctl enable --now oberon-governor.service
 ```
+
+!!!danger "Do NOT use filippor/bazzite for oberon-governor"
+    The `filippor/bazzite` oberon-governor package causes crashes on kernel 6.17+ with `std::__ios_failure` errors. Always use `@exotic-soc/oberon-governor` instead.
 
 **Option 2: Build from Source**
 
