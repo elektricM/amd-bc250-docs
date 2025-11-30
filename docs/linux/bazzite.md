@@ -200,6 +200,18 @@ frequency:
 
 Then restart: `sudo systemctl restart oberon-governor`
 
+### Disable CPU Mitigations (Optional)
+
+For additional gaming performance, disable CPU security mitigations:
+
+```bash
+rpm-ostree kargs --append-if-missing="mitigations=off"
+systemctl reboot
+```
+
+!!!warning "Security Trade-off"
+    This disables Spectre/Meltdown mitigations for improved performance (+18 FPS in some games). Only recommended for dedicated gaming systems. See [Kernel Configuration](kernel.md#performance-parameters-optional) for details.
+
 ---
 
 ## Post-Installation Configuration
