@@ -107,8 +107,15 @@ sudo systemctl enable --now cyan-skillfish-governor.service
 !!!success "No Compilation Required"
     Using COPR packages means you don't need to manually compile the governor from source. The packages are pre-built and maintained.
 
-!!!warning "COPR Package Issues"
-    Some users report core dumps with filippor's oberon-governor package. Use @exotic-soc/oberon-governor for Oberon, or filippor/bazzite for cyan-skillfish-governor instead.
+!!!danger "COPR Package Issues - Critical"
+    The `filippor:bazzite` oberon-governor package causes **core dumps** on newer kernels (6.17+). The error manifests as:
+    ```
+    terminate called after throwing an instance of 'std::__ios_failure'
+      what():  basic_ios::clear: iostream error
+    ```
+    This happens because the package tries to write to `pp_od_clk_voltage` with commands the kernel rejects.
+
+    **Use `@exotic-soc/oberon-governor` instead** - this is the working package that properly handles the BC-250's sysfs interface.
 
 ### Option 2: Build from Source (All Distros)
 
@@ -381,6 +388,7 @@ Some users report governor doesn't activate until GPU is used:
 1. Governor not running
 2. Config file missing/incorrect
 3. Governor binary not installed
+4. Wrong COPR package installed (filippor vs exotic-soc)
 
 **Debug:**
 ```bash
@@ -395,6 +403,47 @@ sudo oberon-governor
 
 # Check for errors
 ```
+
+### Governor Crashes with iostream Error
+
+**Symptoms:**
+```
+terminate called after throwing an instance of 'std::__ios_failure'
+  what():  basic_ios::clear: iostream error
+Aborted
+```
+
+**Cause:** Wrong COPR package. The `filippor:bazzite` oberon-governor package is incompatible with kernel 6.17+.
+
+**Solution:**
+```bash
+# Remove broken package
+sudo dnf remove oberon-governor
+
+# Disable broken COPR
+sudo dnf copr disable filippor/bazzite
+
+# Add working COPR
+sudo dnf copr enable @exotic-soc/oberon-governor
+
+# Install working package
+sudo dnf install oberon-governor
+
+# Enable and start
+sudo systemctl enable --now oberon-governor.service
+
+# Verify it's running
+systemctl status oberon-governor
+```
+
+**Verify fix:**
+```bash
+# Should show 1000 MHz at idle (not stuck at 1500 MHz)
+cat /sys/class/drm/card1/device/pp_dpm_sclk
+```
+
+!!!note "GPU Card Number"
+    Your GPU may be `card0` or `card1` depending on system configuration. Check with `ls /sys/class/drm/` to find the correct card.
 
 ### System Crashes with Governor
 

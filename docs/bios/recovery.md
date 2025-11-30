@@ -350,16 +350,12 @@ Get-FileHash P3.00_mod.bin -Algorithm SHA256
 ### Where to Get Help
 
 1. **BC-250 Discord Server**
-   - #bios-help channel
+   - Ask in the main chat channels
    - Experienced users can guide recovery
 
 2. **GitHub Repositories**
    - BC-250 documentation repos
    - BIOS files and flasher tools
-
-3. **Reddit**
-   - r/BC250 (if exists)
-   - r/sffpc (general SFF PC help)
 
 ### Hardware Programmer Sources
 
@@ -392,7 +388,6 @@ If all recovery methods fail:
 3. **Replace BIOS Chip:**
    - Last resort: desolder and replace SPI flash chip
    - Requires soldering skills
-   - Pre-programmed chips available
 
 ## Success Recovery Stories
 
