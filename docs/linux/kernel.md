@@ -65,10 +65,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
 
 ### Performance Parameters (Optional)
 
-```bash
-# For maximum gaming performance
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
-```
+Disabling CPU security mitigations provides a noticeable performance boost for gaming:
 
 **Performance Impact of `mitigations=off`:**
 - +18 FPS in Cyberpunk 2077 (60 → 78 FPS at 1080p high settings)
@@ -76,7 +73,30 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
 - **Security trade-off:** Disables CPU vulnerability mitigations
 
 !!!warning "Security vs Performance"
-    `mitigations=off` improves performance but reduces security. Only use on gaming-only systems, not for systems handling sensitive data.
+    `mitigations=off` improves performance but reduces security. Only use on dedicated gaming systems, not for systems handling sensitive data.
+
+**Fedora/Arch/Debian (GRUB-based):**
+```bash
+# Edit GRUB config
+sudo nano /etc/default/grub
+
+# Add mitigations=off to GRUB_CMDLINE_LINUX_DEFAULT:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
+
+# Update GRUB
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg  # Fedora
+sudo update-grub                              # Debian/Ubuntu
+sudo grub-mkconfig -o /boot/grub/grub.cfg    # Arch
+
+# Reboot
+sudo reboot
+```
+
+**Bazzite/Fedora Atomic (rpm-ostree):**
+```bash
+rpm-ostree kargs --append-if-missing="mitigations=off"
+systemctl reboot
+```
 
 ### Memory Allocation Parameters (Advanced)
 
