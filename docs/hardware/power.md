@@ -130,7 +130,12 @@ Required Wattage = 235W * 1.2 = 282W
 
 ### Connector Requirements
 
-**PCIe 8-pin (6+2 pin) Pinout:**
+**J1000 - PCIe 8-pin (6+2 pin) Pinout:**
+
+```
+[ GND GND GND GND ]
+[ 12V 12V 12V GND ]
+```
 
 | Pin | Function |
 |-----|----------|
@@ -138,8 +143,28 @@ Required Wattage = 235W * 1.2 = 282W
 | 4-6 | Ground |
 | 7-8 | Ground (sense pins) |
 
+This is the standard power connector and is perfectly suitable for powering the BC-250.
+
 !!!info "Using 6-pin Connector"
     Some users report success with 6-pin connectors (missing pins 7-8), but this is **not recommended**. The missing sense pins can cause compatibility issues.
+
+**J2000 and J2001 - Alternative Power Connectors:**
+
+These connectors are compatible with 8-pin Molex Micro-Fit connectors ([444280801](https://www.molex.com/en-us/products/part-detail/444280801)):
+
+```
+   v                     v
+[ LED1 12V 12V 12V ]  [ 12V 12V 12V GND ]
+[ LED2 GND GND GND ]  [ GND GND GND PGD ]
+```
+
+| Pin | Purpose |
+|-----|---------|
+| `PGD` | `PGOOD` - 5V when PSU2 is connected to rack chassis |
+| `LED1` | Active-low LED output - mirrors green backplane LED |
+| `LED2` | Active-low LED output - mirrors red backplane LED |
+
+If powering the BC-250 from these connectors, use both J2000 and J2001 for redundancy.
 
 ### Cable Quality
 

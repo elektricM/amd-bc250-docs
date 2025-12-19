@@ -150,13 +150,13 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### No Video Encode/Decode
 
-- **VCN (Video Core Next):** Disabled in hardware or firmware
+- **VCN (Video Core Next):** Disabled - missing required firmware
 - **Hardware Encoding:** Not available
 - **Hardware Decoding:** Not available
 - **Software Fallback:** CPU decoding works but is power-hungry
 
 !!!failure "No VCN Support"
-    There is no way to enable hardware video encoding/decoding. The silicon may have been binned without working VCN, or it's disabled in SMU firmware.
+    Hardware video encode/decode will not work because the required VCN firmware is missing. This is unlikely to change any time soon, as Sony are the ones blocking its release. Software decoding via CPU is the only option.
 
 #### IOMMU Issues
 
