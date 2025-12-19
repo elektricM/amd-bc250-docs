@@ -120,6 +120,7 @@ nav:
 
   - Hardware:
     - Specifications: hardware/specifications.md
+    - Pinouts: hardware/pinouts.md
     - Power Requirements: hardware/power.md
     - Cooling Solutions: hardware/cooling.md
     - Display Connectors: hardware/display.md
