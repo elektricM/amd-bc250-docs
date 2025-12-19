@@ -56,7 +56,7 @@ Fedora is the most recommended distribution for BC-250, offering:
 
 ### Step 2: Select Boot Mode
 
-**For Fedora 42/43 with working kernels (6.15.7-6.17.7):**
+**For Fedora 42/43 with working kernels (6.15.7-6.17.7 or 6.17.11+):**
 
 You can try the standard "Install Fedora" option. If it boots successfully, no need for basic graphics mode.
 
@@ -67,7 +67,7 @@ You can try the standard "Install Fedora" option. If it boots successfully, no n
 3. This enables `nomodeset` automatically
 
 !!!info "Nomodeset May Not Be Required"
-    On Fedora 42/43 with working kernel versions (6.15.7-6.17.7), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
+    On Fedora 42/43 with working kernel versions (6.15.7-6.17.7 or 6.17.11+), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
 
 ### Step 3: Complete Installation
 
@@ -233,7 +233,7 @@ sudo dnf install mangohud goverlay gamemode gamescope
 
 ## Optional: Hold Kernel Version
 
-Since kernel 6.15.0-6.15.6 and 6.17.8+ break BC-250, you may want to prevent automatic kernel updates to broken versions:
+Since kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break BC-250, you may want to prevent automatic kernel updates to broken versions (note: 6.17.11+ is fixed):
 
 ```bash
 # Install versionlock plugin
@@ -292,22 +292,21 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 ### Kernel Auto-Update to Broken Version
 
 **Symptom:** System breaks after update
-**Cause:** Kernel 6.15.0-6.15.6 or 6.17.8+ breaks BC-250
+**Cause:** Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10 breaks BC-250 (6.17.11+ is fixed)
 
 **Solution:**
 ```bash
 # Boot into rescue mode or older kernel
 # Remove broken kernel (example for 6.15.5)
 sudo dnf remove kernel-6.15.5\*
-# Or for 6.17.8+
-sudo dnf remove kernel-6.17.8\* kernel-6.17.9\*
+# Or for 6.17.8-6.17.10 range
+sudo dnf remove kernel-6.17.9\*
 
-# Install working kernel
-sudo dnf install kernel-6.16.5-104  # Working 6.15.7-6.17.7 range
-# Or LTS for stability
+# Upgrade to latest kernel (6.17.11+ has the fix)
+sudo dnf upgrade kernel
+
+# Or install LTS for stability
 sudo dnf install kernel-6.14.4-104
-
-# Lock kernel version (see above)
 ```
 
 ### MTG Arena Crashes on Fedora

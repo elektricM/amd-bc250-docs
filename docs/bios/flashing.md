@@ -431,4 +431,4 @@ A: The USB method requires booting the BC-250 itself. Hardware programmer works 
 
 **Next Steps:**
 - [VRAM Configuration Guide](vram.md)
-- [Overclocking Guide](overclocking.md)
+- [Recovery Guide](recovery.md)

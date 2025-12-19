@@ -9,6 +9,7 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 **Best Compatibility:**
 - **6.15.7 - 6.17.7** - Full BC-250 support, best performance
 - **6.16.x** - All versions work well
+- **6.17.11+** - Kernel fix applied, works well
 
 **Stable Fallback:**
 - **6.12.x LTS** - Older but reliable
@@ -21,13 +22,13 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 - 6.17.4 (CachyOS)
 
 !!!success "Current Recommendation"
-    Use kernels **6.15.7 through 6.17.7** for the best BC-250 experience. Kernel support was significantly improved starting with 6.15.7.
+    Use kernels **6.15.7 through 6.17.7** or **6.17.11+** for the best BC-250 experience. Fedora's latest kernel (6.17.11) includes the fix.
 
 ### Broken Kernels
 
 !!!danger "Avoid These Kernel Versions"
     - **6.15.0 - 6.15.6:** GPU initialization fails
-    - **6.17.8 and newer:** GPU driver broken again
+    - **6.17.8 - 6.17.10:** GPU driver broken (fixed in 6.17.11)
 
     These versions cause:
     - Kernel panics on boot
@@ -268,16 +269,16 @@ sudo apt-mark unhold linux-image-6.14.11-amd64
 
 ### Removing Broken Kernel
 
-If kernel 6.15.0-6.15.6 or 6.17.8+ was installed and causes issues:
+If kernel 6.15.0-6.15.6 or 6.17.8-6.17.10 was installed and causes issues:
 
 **Fedora:**
 ```bash
 # Boot into working kernel from GRUB menu
-# Remove broken kernel (example: 6.17.8)
-sudo dnf remove kernel-6.17.8\*
+# Remove broken kernel (example: 6.17.9)
+sudo dnf remove kernel-6.17.9\*
 
-# Or remove all 6.17.8+ kernels
-sudo dnf remove 'kernel-6.17.[8-9]*' 'kernel-6.17.1[0-9]*'
+# Or remove broken 6.17.8-6.17.10 kernels
+sudo dnf remove 'kernel-6.17.[8-9]*' 'kernel-6.17.10*'
 
 # Verify removal
 dnf list installed kernel
@@ -393,7 +394,7 @@ glxinfo | grep "OpenGL renderer"
 - System crashes during boot
 - Kernel panic message
 
-**Most Common Cause:** Kernel 6.15.0-6.15.6 or 6.17.8+
+**Most Common Cause:** Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10
 
 **Solution:**
 1. Boot into working kernel (hold Shift, select previous kernel)
@@ -413,7 +414,8 @@ glxinfo | grep "OpenGL renderer"
 | 6.15.7-6.15.x | ✅ **Recommended** | Kernel support fixed |
 | 6.16.x | ✅ **Recommended** | Full compatibility |
 | 6.17.0-6.17.7 | ✅ **Recommended** | Best support |
-| 6.17.8+ | ❌ **Broken** | GPU driver broken again |
+| 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
+| 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
 
 ## See Also
 
