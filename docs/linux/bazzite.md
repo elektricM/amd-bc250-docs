@@ -281,6 +281,17 @@ systemctl reboot
 
 ## Known Issues & Solutions
 
+### Screen Freezes When Loading Levels On Newer Games
+
+**Symptom:** Screen freezes indefinitely when loading in levels on newer games
+
+**Cause:** CMOS clear didn't happen after flashing the BIOS
+
+**Solution:**
+- Clear the CMOS
+   - Confirm it worked by verifying that the time/clock in the BIOS was reset and shows the wrong value
+- Reapply the BIOS settings changes, such as the VRAM allocation
+
 ### Governor Voltage Instability
 
 **Symptom:** Graphics artifacts, crashes, black screens
