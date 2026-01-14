@@ -157,13 +157,14 @@ Once the flashing process finishes and the system attempts to reboot:
 ### Step 7: BIOS Configuration
 
 1.  Power on and spam **Del** to enter BIOS.
-2.  Navigate to: **Chipset** → **GFX Configuration**.
-3.  Set **Integrated Graphics Controller** to **Forces**.
-4.  Set **UMA Mode** to **UMA_SPECIFIED**.
-5.  Set **UMA Frame Buffer Size** to **512MB** (Recommended) or your preferred fixed size.
-6.  Navigate to: **Advanced** → **CPU Configuration**.
-7.  Set **IOMMU** to **Disabled**.
-8.  Press **F10** to Save and Exit.
+2.  Verify CMOS was cleared. The time/clock should be wrong. If not repeat Step 6 (The Critical CMOS Clear).
+3.  Navigate to: **Chipset** → **GFX Configuration**.
+4.  Set **Integrated Graphics Controller** to **Forces**.
+5.  Set **UMA Mode** to **UMA_SPECIFIED**.
+6.  Set **UMA Frame Buffer Size** to **512MB** (Recommended) or your preferred fixed size.
+7.  Navigate to: **Advanced** → **CPU Configuration**.
+8.  Set **IOMMU** to **Disabled**.
+9.  Press **F10** to Save and Exit.
 
 ---
 
