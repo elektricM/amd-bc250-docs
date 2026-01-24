@@ -174,6 +174,7 @@ sudo systemctl enable --now oberon-governor.service
 ```bash
 cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies, * moves based on load
+# Note: Your GPU may be card1 instead - check /sys/class/drm/ if card0 doesn't work
 ```
 
 ---
