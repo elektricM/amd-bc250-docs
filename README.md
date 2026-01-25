@@ -53,7 +53,7 @@ Built from:
 - ✅ Distribution-specific setup steps
 - ✅ Fixes for outdated information
 
-**Join Discord:** [https://discord.com/invite/uDvkhNpxRQ](https://discord.com/invite/uDvkhNpxRQ) - but please document your solutions here!
+**Join Discord:** [https://discord.gg/8eZfFWhczz](https://discord.gg/8eZfFWhczz) - but please document your solutions here!
 
 ## License
 
