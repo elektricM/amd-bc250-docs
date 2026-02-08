@@ -693,6 +693,15 @@ Certain BIOS settings can cause boot problems:
 - Check mounting standoffs not shorting traces
 - Look for bent capacitors touching heatsink
 
+#### 5. Windows installed on NVMe SSD
+Having a Windows installation on the SSD has been known to prevent boot altogether. To resolve:
+- Remove the SSD from the BC250
+- Use an SSD to USB adapter to connect the drive externally on the BC250
+- Use a Linux installation on a USB stick to boot the BC250
+- Use a partition management tool to delete all partitions from the SSD
+- Create a single large partition of type Ext4
+- Reinstall the SSD onto the BC250
+
 ---
 
 ## Diagnostic Commands
