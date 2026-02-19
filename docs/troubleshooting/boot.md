@@ -693,6 +693,26 @@ Certain BIOS settings can cause boot problems:
 - Check mounting standoffs not shorting traces
 - Look for bent capacitors touching heatsink
 
+#### 5. NVMe SSD with Windows Partitions
+If your NVMe SSD previously had Windows installed, it may completely prevent the board from booting.
+
+**Symptoms:**
+- Board shows no response at all
+- No BIOS, no display, nothing
+- Works fine without the SSD installed
+
+**Solution:**
+1. Remove the SSD from the BC-250
+2. Connect it to another computer via USB adapter
+3. Wipe all partitions (especially Windows EFI and recovery partitions)
+4. Reinstall in BC-250
+
+```bash
+# On another Linux system, wipe the drive:
+sudo wipefs -a /dev/sdX  # Replace sdX with your SSD
+# Or use GParted to delete all partitions
+```
+
 ---
 
 ## Diagnostic Commands
@@ -837,6 +857,7 @@ If USB method fails:
 
 | Symptom | Most Likely Cause | Quick Fix |
 |---------|-------------------|-----------|
+| No response with NVMe installed | Windows partitions on SSD | Wipe SSD partitions |
 | Black screen during install | No drivers | Add `nomodeset` |
 | Black screen after install | Drivers not installed | Boot with `nomodeset`, install Mesa |
 | Boots but no GRUB | GRUB timeout 0 | Hold Shift during boot |
