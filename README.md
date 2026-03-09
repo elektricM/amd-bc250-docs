@@ -1,5 +1,11 @@
 # AMD BC250 Documentation
 
+[![Documentation](https://img.shields.io/badge/docs-live-blue.svg)](https://elektricM.github.io/amd-bc250-docs/)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Code License: MIT](https://img.shields.io/badge/Code%20License-MIT-yellow.svg)](LICENSE)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Discord](https://img.shields.io/discord/1320414880956571719?color=7289da&label=Discord&logo=discord)](https://discord.gg/8eZfFWhczz)
+
 **Comprehensive, community-driven documentation for the AMD BC250 board.**
 
 📖 **Read the docs:** [https://elektricM.github.io/amd-bc250-docs/](https://elektricM.github.io/amd-bc250-docs/)
