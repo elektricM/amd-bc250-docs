@@ -225,10 +225,14 @@ GDDR6 memory chips on the underside can get very hot.
 
 Many community-designed fan shrouds are available on Printables:
 
-**Popular Designs:**
-- [BC-250 Fan Shroud by User1](https://www.printables.com)
-- [Compact Console Case](https://www.printables.com)
-- [Dual Fan Mount](https://www.printables.com)
+**Popular Designs (GitHub):**
+- [BC-250 Sleeve Adapter](https://github.com/onemorecap/bc-250-sleeve-adapter) - 120mm fan adapter for desktop use
+- [BC-250 Shell Case](https://github.com/onemorecap/bc-250-shell-case) - Full enclosure design
+- [BC-250 Custom Case](https://github.com/isaacalvex/BC-250-Custom-Case) - Alternative case design
+- [BC250 Case by Jardon](https://github.com/jardon/bc250-case) - Compact case design
+
+**Search for more on Printables:**
+- [Search "BC-250" on Printables](https://www.printables.com/search/models?q=BC-250) - Community uploads new designs regularly
 
 **Advantages:**
 - Custom fit for board
