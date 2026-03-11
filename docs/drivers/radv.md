@@ -343,7 +343,13 @@ RADV_DEBUG=nohiz ./game
 
 # If that doesn't help, try nocompute as well
 RADV_DEBUG=nocompute,nohiz ./game
+
+# If nohiz doesn't fix black squares, force ACO backend
+RADV_DEBUG=aco AMD_DEBUG=aco ./game
 ```
+
+!!!tip "ACO Backend for Persistent Black Squares"
+    Some users on custom/patched kernels (e.g. Vietnam rebase, deck-patched) report that `RADV_DEBUG=nohiz` alone doesn't resolve black square artifacts. Forcing the ACO shader compiler backend with `RADV_DEBUG=aco AMD_DEBUG=aco` has been reported to eliminate these glitches entirely.
 
 ### Compute Queue Issues
 
