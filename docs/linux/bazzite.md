@@ -46,8 +46,12 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 
 - 300W+ PSU on 12V rail (250W minimum)
 - 2x 120mm high static pressure fans
+- **Active cooling on backplate (80mm+ fan minimum)** - VRAM has no temperature sensor and will overheat without it
 - DisplayPort cable or passive DP-to-HDMI adapter
 - USB drive (8GB+) for installation media
+
+!!!danger "Backplate Active Cooling Required"
+    Active cooling backplate solution is critical. Confirmed critical by multiple Feb 2026 sources; strong community consensus on necessity. No VRAM temperature sensor exists on BC-250 - you cannot monitor backplate VRAM thermals.
 
 ---
 
@@ -102,8 +106,8 @@ If automated script doesn't work:
 # Add COPR repository
 sudo dnf copr enable filippor/bazzite
 
-# Install governor
-rpm-ostree install oberon-governor
+# Install governor (use cyan-skillfish-governor-tt)
+rpm-ostree install cyan-skillfish-governor-tt
 
 # Reboot to apply
 systemctl reboot
@@ -111,6 +115,12 @@ systemctl reboot
 # Enable service after reboot
 sudo systemctl enable --now oberon-governor.service
 ```
+
+!!!info "SMU Governor as Emerging Alternative"
+    The SMU governor (`cyan-skillfish-governor-smu`) is an emerging alternative that works on CachyOS without requiring kernel patches. Monitor community feedback for stability updates.
+
+!!!warning "GPU Card Naming Issue"
+    The governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration if frequency scaling doesn't work.
 
 ### Voltage Configuration
 

@@ -7,22 +7,25 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 ### Recommended Kernels
 
 **Best Compatibility:**
-- **6.15.7 - 6.17.7** - Full BC-250 support, best performance
-- **6.16.x** - All versions work well
+- **6.18.x LTS** - RECOMMENDED (CachyOS 6.18.0 reports 5-10% faster than 6.17)
 - **6.17.11+** - Kernel fix applied, works well
+- **6.16.x** - All versions work well
+- **6.15.7 - 6.17.7** - Full BC-250 support
 
 **Stable Fallback:**
 - **6.12.x LTS** - Older but reliable
 - **6.13.x** - Stable
 - **6.14.x LTS** - Well-tested
 
-**Confirmed Working Versions:**
+**Confirmed Working Versions (Jan-Feb 2026):**
+- **6.18.3** - Confirmed working (CachyOS, Debian sid, Ubuntu xanmod)
+- **6.18.0** - Confirmed working (CachyOS - 5-10% performance improvement over 6.17)
+- 6.17.11+ - Confirmed working (Fedora, Dec 2025)
 - 6.16.5 (Fedora 42/43)
 - 6.15.11-1-lts (Arch Linux)
-- 6.17.4 (CachyOS)
 
 !!!success "Current Recommendation"
-    Use kernels **6.15.7 through 6.17.7** or **6.17.11+** for the best BC-250 experience. Fedora's latest kernel (6.17.11) includes the fix.
+    Use kernel **6.18.x LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well. **6.19.x** is the current stable branch.
 
 ### Broken Kernels
 
@@ -194,6 +197,30 @@ To test parameters without permanently changing configuration:
 3. Find line starting with `linux` or `linuxefi`
 4. Add parameters to end of line
 5. Press **Ctrl+X** to boot with modified parameters
+
+## GPU Frequency & Voltage Management (Advanced)
+
+The cyan-skillfish-governor tools enable manual GPU frequency and voltage tuning on supported systems.
+
+**Installation (Fedora/Bazzite):**
+```bash
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-tt
+```
+
+**Important:** After installation, verify the governor is targeting the correct GPU device:
+
+- Check which card is BC-250: `ls -la /sys/class/drm/ | grep card`
+- The governor may target card0 or card1 depending on your system
+- If governor settings don't apply, you may need to manually specify the correct card in configuration
+
+**Emerging Alternative — SMU Governor:**
+
+Some distributions (notably CachyOS) support `cyan-skillfish-governor-smu` as an alternative that works without kernel patches.
+
+**Note:** GPU frequency management is optional and intended for advanced users. Default clocks are stable for most workloads.
+
+For detailed setup instructions, see the [GPU Governor Setup guide](../system/governor.md).
 
 ## Kernel Management
 
@@ -413,9 +440,11 @@ glxinfo | grep "OpenGL renderer"
 | 6.15.0-6.15.6 | ❌ **Broken** | GPU init fails |
 | 6.15.7-6.15.x | ✅ **Recommended** | Kernel support fixed |
 | 6.16.x | ✅ **Recommended** | Full compatibility |
-| 6.17.0-6.17.7 | ✅ **Recommended** | Best support |
+| 6.17.0-6.17.7 | ✅ **Recommended** | Good support |
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
+| 6.18.x LTS | ✅ **Best** | 5-10% faster than 6.17 (CachyOS Jan 2026) |
+| 6.19.x | ✅ **Current Stable** | Latest stable branch |
 
 ## See Also
 

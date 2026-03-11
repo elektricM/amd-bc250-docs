@@ -4,21 +4,32 @@ This guide covers all environment variables for BC-250 graphics configuration, p
 
 ## Critical Environment Variables
 
+!!!warning "IMPORTANT: RADV_DEBUG is an ENVIRONMENT VARIABLE, NOT a kernel argument"
+    Do NOT add it to kernel parameters (grub, /etc/default/grub, etc.).
+
+    Set RADV_DEBUG only via:
+    - Steam launch options: `RADV_DEBUG=nohiz %command%`
+    - Shell: `export RADV_DEBUG=nohiz` before launching
+    - /etc/environment (system-wide)
+    - Per-application wrappers
+
 ### RADV_DEBUG=nocompute
 
-**Status:** Required for most games (Mesa < 25.1)
+**Status:** DEPRECATED on Mesa 25.1+
 
-The most important environment variable for BC-250 gaming. Forces games to use the graphics queue instead of the broken compute queue.
+The compute queue issue is resolved upstream. Only use if running Mesa 25.0 or earlier.
 
-**What it does:**
-The BC-250's compute queue has hardware issues that cause graphical artifacts and rendering problems. This variable forces all workloads through the graphics queue instead.
+For Mesa 25.1 and newer, use RADV_DEBUG=nohiz instead for Game Mode stability.
+
+**What it did:**
+The BC-250's compute queue had hardware issues that caused graphical artifacts and rendering problems. This variable forced all workloads through the graphics queue instead.
 
 **When to use:**
 
-- Always set for gaming on Mesa versions before 25.1
-- May not be needed on Mesa 25.1+ due to [MR #33116](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) which disables the compute-only queue by default
+- Only needed on Mesa 25.0 or earlier
+- **Not needed on Mesa 25.1+** - compute queue issue is fixed
 
-**How to set:**
+**How to set (if needed for old Mesa):**
 
 ```bash
 # Steam launch options

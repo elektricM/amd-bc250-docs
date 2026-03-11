@@ -14,6 +14,17 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 !!!danger "Stock Cooling Is Insufficient"
     The stock heatsink alone will cause thermal throttling and system instability during gaming. Active cooling is **required**.
 
+!!!danger "Backplate VRAM Cooling Required"
+    The BC-250 has VRAM chips mounted on the backplate that reach dangerous temperatures without active cooling. **The board has no VRAM temperature sensor** - overheating is silent and causes visual corruption, artifacts, and instability.
+
+    **Critical requirements:**
+
+    - The board must NEVER run horizontally without airflow over the backplate
+    - Dual-sided cooling (front heatsink + rear airflow) is strongly recommended
+    - Passive backplate cooling alone is insufficient for gaming or intensive workloads
+    - **Visual symptom:** Pixel artifacts on screen indicate VRAM overheating
+    - **Long-term impact:** Running without backplate cooling causes VRAM damage and warped backplates
+
 ## Temperature Targets
 
 ### Safe Operating Temperatures
@@ -99,26 +110,29 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 !!!info "Premium Choice"
     Noctua fans are higher quality and quieter but cost 2-3x more than Arctic fans. Performance is similar with Arctic P12 Max.
 
-### Option 4: Dual Fan Setup
+### Option 4: Dual Fan Setup (Critical for VRAM Cooling)
 
 **Configuration:**
-- **Primary Fan:** 120mm over center of heatsink
-- **Secondary Fan:** 120mm or 80mm for RAM/VRM cooling
+- **Primary Fan:** 120mm over center of heatsink (main GPU/APU cooling)
+- **Secondary Fan:** 80-120mm for backplate VRAM cooling (REQUIRED)
 
 **Benefits:**
 - Lower primary fan speeds = quieter
-- Better RAM cooling (memory gets hot!)
+- **Critical for backplate VRAM cooling** - rear VRAM can throttle or fail without active rear airflow
 - Improved overall system cooling
 - Redundancy if one fan fails
 
 **Recommended Combinations:**
-- 2x Arctic P12 Max
+- 2x Arctic P12 Max (one front, one rear)
 - Arctic P14 + Arctic P12
-- Noctua NF-A12x25 + 80mm fan
+- Noctua NF-A12x25 + 80mm rear fan
 
 **Wiring:**
 - Use fan splitter cable for single PWM control
 - Or connect second fan to J4003 header
+
+!!!success "Best Practice for Stability"
+    Dual fan setups are strongly recommended for gaming and intensive workloads. Backplate VRAM cooling is the primary thermal concern for long-term stability.
 
 ### Option 5: Tower Cooler Conversion
 
@@ -140,6 +154,36 @@ Some users have successfully mounted AM4 tower coolers:
 
 !!!warning "Advanced Modification"
     Tower cooler conversions require fabricating custom mounting brackets. Not recommended for beginners.
+
+## Backplate VRAM Cooling Solutions
+
+The VRAM chips on the backplate require active cooling. This section covers verified community methods.
+
+### Recommended Methods
+
+**1. Thermal Pads on VRAM (Recommended):**
+- Apply 2mm thermal pads directly on backplate VRAM chips
+- Preferred over thermal adhesive (better conductivity, removable)
+- Attach aluminum heatsink or plate if available
+- Works well when combined with rear airflow
+
+**2. Rear Case Airflow:**
+- Install or open case vents behind backplate
+- Use positive case pressure to force air over VRAM
+- Position intake fans to direct airflow across backplate
+- Ensure no obstructions blocking backplate area
+
+**3. Secondary Fan (Most Effective):**
+- Mount 80mm fan with spacers positioned to blow directly over backplate
+- Fan can be mounted inside case pointed at backplate
+- Ideal: 80mm fan at 50-100% speed continuously
+- Can use J4003 header or fan splitter
+
+!!!success "Best Practice"
+    Combine thermal pads + rear airflow for optimal backplate temperatures. At minimum, ensure active airflow over the backplate surface.
+
+!!!warning "Conductive Materials Caution"
+    When working with backplate cooling, avoid conductive thermal paste or pads that could short components. Use only non-conductive materials rated for electronics.
 
 ## Heatsink Modifications
 

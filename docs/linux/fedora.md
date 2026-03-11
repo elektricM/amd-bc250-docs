@@ -56,7 +56,7 @@ Fedora is the most recommended distribution for BC-250, offering:
 
 ### Step 2: Select Boot Mode
 
-**For Fedora 42/43 with working kernels (6.15.7-6.17.7 or 6.17.11+):**
+**For Fedora 42/43 with working kernels (6.17.11+, 6.18.3+ or later):**
 
 You can try the standard "Install Fedora" option. If it boots successfully, no need for basic graphics mode.
 
@@ -67,7 +67,13 @@ You can try the standard "Install Fedora" option. If it boots successfully, no n
 3. This enables `nomodeset` automatically
 
 !!!info "Nomodeset May Not Be Required"
-    On Fedora 42/43 with working kernel versions (6.15.7-6.17.7 or 6.17.11+), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
+    On Fedora 42/43 with working kernel versions (6.17.11+, 6.18.3+ or later), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
+
+!!!info "Recommended Kernel Versions"
+    - Kernel 6.18.3 or later: CONFIRMED stable (Jan 2026+)
+    - Kernel 6.17.11+: Working (Dec 2025+)
+    - Kernels 6.17.8–6.17.10: Known broken, avoid
+    - Note: Unpatched kernels have 1000–2000 MHz frequency limits. Custom kernel compilation or distro patches (e.g., CachyOS) unlock higher ranges.
 
 ### Step 3: Complete Installation
 
@@ -112,14 +118,17 @@ dnf list mesa-\*
 **Option 1: COPR (Recommended)**
 
 ```bash
-# Use the exotic-soc COPR - this is the working package
-sudo dnf copr enable @exotic-soc/oberon-governor
-sudo dnf install oberon-governor
+# Use filippor/bazzite COPR with cyan-skillfish-governor-tt
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-tt
 sudo systemctl enable --now oberon-governor.service
 ```
 
-!!!danger "Do NOT use filippor/bazzite for oberon-governor"
-    The `filippor/bazzite` oberon-governor package causes crashes on kernel 6.17+ with `std::__ios_failure` errors. Always use `@exotic-soc/oberon-governor` instead.
+!!!info "Governor Package Update"
+    The `filippor/bazzite` COPR now provides `cyan-skillfish-governor-tt` (Skillfish-TT optimized), which is confirmed stable as of Dec 2025. This is now the community default (Jan 2026+).
+
+!!!info "Alternative COPR Option"
+    You can also use `@exotic-soc/oberon-governor` for the original oberon-governor package if preferred.
 
 **Option 2: Build from Source**
 
@@ -233,7 +242,7 @@ sudo dnf install mangohud goverlay gamemode gamescope
 
 ## Optional: Hold Kernel Version
 
-Since kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break BC-250, you may want to prevent automatic kernel updates to broken versions (note: 6.17.11+ is fixed):
+Since kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250, you may want to prevent automatic kernel updates to broken versions. Note: 6.17.11+, 6.18.3+ are confirmed working:
 
 ```bash
 # Install versionlock plugin

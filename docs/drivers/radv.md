@@ -38,13 +38,13 @@ The BC-250 **only works on Linux** for gaming and desktop use. There is no Windo
 
 BC-250 support was added upstream in Mesa 25.1.0. **Do not use older versions** - they will not work properly or at all.
 
-### Recommended: Mesa 25.1.3+
+### Recommended: Mesa 25.2.4+
 
-For stability and performance, use Mesa 25.1.3 or newer:
+For stability and performance, use Mesa 25.2.4 or newer:
 
 - **25.1.0** - Initial BC-250 support
-- **25.1.3** - Improved stability
-- **25.1.5+** - Best tested version, recommended
+- **25.1.3+** - Minimum recommended
+- **25.2.4** - Confirmed working (Bazzite Feb 2026), current stable target
 
 ### What Changed in Mesa 25.1?
 

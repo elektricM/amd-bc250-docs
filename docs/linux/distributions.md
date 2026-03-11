@@ -18,7 +18,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 **Status:** Highly recommended, most tested
 - **Desktop:** GNOME or KDE Plasma
-- **Kernel:** 6.15.7-6.17.7 (recommended) or 6.12-6.14 LTS (stable)
+- **Kernel:** 6.18.3 or later (confirmed stable Jan 2026+), 6.17.11+ working (Dec 2025+), or 6.12-6.14 LTS (stable)
 - **Mesa:** 25.1+ in mainline repos (Fedora 43)
 
 ### Pros
@@ -31,9 +31,12 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 ### Cons
 
-- Kernel 6.15.0-6.15.6 and 6.17.8+ break BC-250 (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
+- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250 (use 6.17.11+, 6.18.x, or 6.12-6.14 LTS)
 - Some users report MTG Arena crashes specifically on Fedora
 - Auto-updates can break things if not careful
+
+!!!info "Governor Installation Command Updated"
+    Use `sudo dnf copr enable filippor/bazzite && sudo dnf install cyan-skillfish-governor-tt` (confirmed Dec 2025).
 
 ### Setup Resources
 
@@ -112,10 +115,13 @@ systemctl reboot
 
 ### Cons
 
-- **Cannot install ISO directly** on BC-250
-- Must install Arch first, then migrate to CachyOS
-- Kernel 6.15.0-6.15.6 and 6.17.8+ cause panics (use 6.15.7-6.17.7 or LTS)
+- May need Arch migration if standard ISO fails
+- SMU governor now available via AUR packages without requiring a pre-patched kernel
+- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause panics (use 6.17.11+, 6.18.x, or LTS)
 - More complex setup
+
+!!!success "SMU Governor Alternative"
+    Install the cyan-skillfish-governor-smu or cyan-skillfish-governor-tt package from AUR. Kernel patches are no longer required; the governor controls frequency/voltage directly.
 
 ### Installation Method
 
@@ -302,7 +308,10 @@ sudo apt update && sudo apt upgrade
 ### Kernel Compatibility
 
 !!!danger "Avoid Broken Kernel Versions"
-    Kernel 6.15.0-6.15.6 and 6.17.8+ cause kernel panics and GPU initialization failures on BC-250. **Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.**
+    Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause kernel panics and GPU initialization failures on BC-250. **Use 6.17.11+, 6.18.x for best performance or 6.12-6.14 LTS for stability.**
+
+!!!warning "GPU Stability Testing"
+    CLI stress tests (Furmark, etc.) may not catch GPU instability reliably. BC-250 design causes full system crashes at unstable voltages without artifacting first. Users attempting frequency tuning need this warning to prevent data loss. Incremental tuning with small voltage steps is required; always save work frequently when testing.
 
 ## Distribution Comparison Table
 
