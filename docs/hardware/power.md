@@ -134,14 +134,13 @@ Required Wattage = 235W * 1.2 = 282W
 
 ```
 [ GND GND GND GND ]
-[ 12V 12V 12V GND ]
+[ GND 12V 12V 12V ]
 ```
 
 | Pin | Function |
 |-----|----------|
-| 1-3 | 12V |
-| 4-6 | Ground |
-| 7-8 | Ground (sense pins) |
+| 1-3 (bottom) | Ground, 12V, 12V, 12V |
+| 5-8 (top) | Ground x4 |
 
 This is the standard power connector and is perfectly suitable for powering the BC-250.
 
