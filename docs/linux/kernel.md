@@ -7,28 +7,22 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 ### Recommended Kernels
 
 **Best Compatibility:**
-- **6.17.11+** - Fix applied, works well
-- **6.18.x LTS** - Confirmed working (current recommended)
-- **6.19.x** - Current stable, works well
-
-**Also Working:**
-- **6.15.7 - 6.17.7** - Full BC-250 support
+- **6.15.7 - 6.17.7** - Full BC-250 support, best performance
 - **6.16.x** - All versions work well
+- **6.17.11+** - Kernel fix applied, works well
 
 **Stable Fallback:**
 - **6.12.x LTS** - Older but reliable
+- **6.13.x** - Stable
 - **6.14.x LTS** - Well-tested
 
 **Confirmed Working Versions:**
-- 6.19.6 (current stable)
-- 6.18.3 (Ubuntu 26.04, xanmod)
-- 6.18.16 (LTS)
 - 6.16.5 (Fedora 42/43)
 - 6.15.11-1-lts (Arch Linux)
 - 6.17.4 (CachyOS)
 
 !!!success "Current Recommendation"
-    Use **6.18.x LTS** or **6.19.x** for the best BC-250 experience. Avoid 6.17.8–6.17.10 (broken, fixed in 6.17.11).
+    Use kernels **6.15.7 through 6.17.7** or **6.17.11+** for the best BC-250 experience. Fedora's latest kernel (6.17.11) includes the fix.
 
 ### Broken Kernels
 
