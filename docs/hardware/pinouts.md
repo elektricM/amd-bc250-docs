@@ -148,7 +148,7 @@ Standard 8-pin PCIe power connector:
 
 ```
 [ GND GND GND GND ]
-[ 12V 12V 12V GND ]
+[ GND 12V 12V 12V ]
 ```
 
 ### J2000 and J2001
