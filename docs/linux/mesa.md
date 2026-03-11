@@ -14,11 +14,15 @@ Mesa provides the OpenGL and Vulkan drivers (RADV) required for BC-250 GPU suppo
 
 ### Recommended Version
 
-**Mesa 25.1.3+ recommended for stability**
+**Mesa 25.2.4+ recommended for stability**
 
-- Bug fixes and performance improvements
+- Bug fixes and performance improvements over 25.1
 - Better compatibility
-- Mesa 25.1.5+ even better
+- Mesa 25.2.4 confirmed working on Bazzite (Feb 2026)
+- Mesa 25.1.3+ is minimum, but 25.2.x is the validated stable target
+
+!!!info "Mesa and Governor Independence"
+    The cyan-skillfish-governor tool works independently of Mesa version and kernel version. Mesa 25.1+ is specifically required for GPU 3D acceleration (OpenGL/Vulkan), not for power management or fan control. These are separate concerns.
 
 !!!success "Upstream Support"
     As of Mesa 25.1, BC-250 support is included upstream. No custom patches or compilation needed!
@@ -82,6 +86,9 @@ glxinfo | grep "OpenGL version"
 
 ### Debian
 
+!!!warning "Debian/Linux Mint Mesa Availability"
+    **Debian stable/testing & Linux Mint:** Mesa 25.1+ may not be available in standard package repositories. Consider using `debian-experimental`, backports, or compiling from source if your distro is pinned to older versions.
+
 **Mesa 25.1.3+ available in experimental:**
 
 ```bash
@@ -97,6 +104,9 @@ sudo apt install -t experimental mesa-vulkan-drivers libgl1-mesa-dri mesa-utils
 # Verify
 glxinfo | grep "OpenGL version"
 ```
+
+!!!info "Debian sid (Jan 2026)"
+    Mesa 26 + kernel 6.18.3 confirmed working on Debian sid as of January 2026.
 
 !!!warning "Experimental Repo"
     Debian experimental packages may have dependencies on other experimental packages. Use with caution.
@@ -116,6 +126,9 @@ sudo apt upgrade
 # Verify
 glxinfo | grep "OpenGL version"
 ```
+
+!!!info "Ubuntu PPA Verification"
+    Before using the Kisak PPA, verify it provides Mesa 25.1+. Check PPA status or test installation before relying on it for BC-250 support.
 
 ### Bazzite
 
@@ -449,9 +462,10 @@ sudo dnf versionlock add mesa\*
 | < 25.0 | ❌ No | No gfx1013 support |
 | 25.0.x | ⚠️ Experimental | Early support, buggy |
 | 25.1.0 | ✅ Yes | First official support |
-| 25.1.3+ | ✅ Recommended | Stable, bug fixes |
-| 25.1.5+ | ✅ Best | Latest improvements |
-| 25.2+ | ✅ Good | Ongoing development |
+| 25.1.3+ | ✅ Minimum | Stable, bug fixes |
+| 25.1.5+ | ✅ Good | Improvements over 25.1.3 |
+| 25.2.4+ | ✅ **Recommended** | Current stable (Feb 2026) |
+| 26.x | ✅ Latest | Available on Debian sid/Ubuntu 26.04 daily |
 
 ## See Also
 

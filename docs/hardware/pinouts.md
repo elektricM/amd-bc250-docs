@@ -142,6 +142,34 @@ Fan 1 signals correspond to `CPU_FAN1` tachometer and PWM pins.
 
 ## Power Connectors
 
+## Power Supply Control
+
+!!!danger "No Native ATX Power Control"
+    The BC-250 does not include native ATX 24-pin or PS_ON control circuitry. Standard ATX power supplies require manual activation.
+
+### Manual PS_ON Control
+
+To use a standard ATX PSU, you must manually bridge the PS_ON signal (green wire, typically pin 16 on 24-pin ATX) to ground (black wire). This can be accomplished with:
+
+- A momentary push button
+- A latching button
+- A relay circuit
+
+Without this bridge, the PSU will not power on.
+
+### PSU Fan Control Issue
+
+Standard ATX PSUs without motherboard control will run fans at 100% speed continuously because the BC-250 cannot provide tachometer feedback. Solutions include:
+
+- Use a PSU with dedicated control board (e.g., relay circuit tied to 3.3V or 12V rail)
+- Accept full-speed fan operation
+
+**Recommended BIOS Setting:** Set AUTO_PWRON1 to pins 1-2 (auto power-on) when using any external PSU control solution.
+
+### TPMS1 3.3V Power Rail
+
+The 3.3V pin on TPMS1 (pin 9) is active only when the board is powered on, making it suitable for relay or control circuit applications that need to detect system power state.
+
 ### J1000 (PCIe 8-pin)
 
 Standard 8-pin PCIe power connector:
@@ -151,14 +179,21 @@ Standard 8-pin PCIe power connector:
 [ GND 12V 12V 12V ]
 ```
 
+**Recommended wire gauge:** 16AWG minimum for reliable power delivery.
+
+**Current capacity:** Each MiniFit Jr contact can handle 9A (up to 13A for industrial-grade contacts). With three 12V pins, this connector can safely supply up to 324W (9A × 3 × 12V), or up to 468W with industrial-grade contacts.
+
+For overclocking or high-power applications, consider supplementing J1000 with power from J2000/J2001 or soldering directly to the board.
+
 ### J2000 and J2001
 
 Alternative power connectors compatible with Molex Micro-Fit BMI [444280801](https://www.molex.com/en-us/products/part-detail/444280801):
 
 ```
+        J2000                J2001
    v                     v
-[ LED1 12V 12V 12V ]  [ 12V 12V 12V GND ]
-[ LED2 GND GND GND ]  [ GND GND GND PGD ]
+[ LED1 12V 12V 12V ]  [ 12V 12V 12V PGD ]
+[ LED2 GND GND GND ]  [ GND GND GND GND ]
 ```
 
 | Pin | Purpose |

@@ -2,8 +2,14 @@
 
 Flashing the modded BIOS is essential for unlocking the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
 
+!!!danger "Hardware Safety: GPU Power Connector"
+    Ensure the 8-pin PCIe power connector is wired correctly BEFORE attempting to flash.
+    - Verify pinout matches your PSU diagram (12V vs GND positions)
+    - Reversed polarity can permanently damage the board
+    - If unsure, verify with community Discord before powering on
+
 !!!danger "Critical: Clear CMOS"
-    **ALWAYS** clear CMOS after flashing. While the board may post without it, settings (especially VRAM allocation) will not stick properly unless the CMOS is cleared, leading to confusion and "mysterious" bugs.
+    Clearing CMOS after flashing resets to default settings and ensures VRAM allocation settings apply correctly. While some users report successful flashes without clearing, it is strongly recommended as best practice.
 
 ## Why Flash the BIOS?
 
@@ -21,6 +27,9 @@ There are two main versions of the modded BIOS floating around the community:
 
 *   **P3.00 Chipset Menu (Recommended):** This is the community standard. It is the most stable and tested version. It successfully unlocks VRAM allocation and chipset settings without introducing unnecessary instability.
 *   **P5.00_clv:** Based on a newer stock code base. It specifically unlocks **Everything**—every hidden menu and setting available. This includes experimental options like ReBAR (Resizable BAR). However, because it exposes critical debug and chipset settings, it is very easy to brick the board if you change the wrong thing. **Stick to P3.00 unless you are an advanced user who knows exactly what they are doing.**
+
+!!!info "P5.00_clv Source Credibility"
+    Note: P5.00_clv is community-maintained. Verify availability in the official repository before flashing. If only available as a community attachment, exercise caution and test on a non-critical system first.
 
 ---
 

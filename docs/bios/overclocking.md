@@ -13,13 +13,28 @@ Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual confi
 - **GPU Voltage:** 700-1100 mV
 - **Memory:** Not user-adjustable (GDDR6 runs at fixed speed)
 
+### Temperature Monitoring
+
+- **GPU Temperature:** Monitored via k10temp-pci-00c3 (tctl)
+- **VRAM Temperature:** No sensor available - active backplate cooling required for stability
+
 ### Requirements
 
 1. **Kernel Patch:** Extended frequency range (350-2230 MHz)
    - OR use distribution with patch included (Bazzite, PikaOS)
 2. **GPU Governor:** For automatic frequency scaling
-3. **Adequate Cooling:** Arctic P12 Max or better
-4. **Quality PSU:** 250W+ on 12V rail
+3. **Main heatsink:** Arctic P12 Max or equivalent
+4. **Backplate:** Dedicated 80mm+ fan (required for VRAM stability)
+5. **Active cooling on backplate (80mm+ fan minimum)** - VRAM has no temperature sensor and will overheat without it
+6. **Quality PSU:** 250W+ on 12V rail
+
+!!!danger "Backplate Active Cooling Required"
+    Active cooling on the backplate is CRITICAL for BC-250 stability. Without it:
+    - VRAM overheating causes visual artifacts (pixel corruption on screen)
+    - Frequency scaling becomes unstable and unreliable
+    - Undervolt variations increase thermal throttling
+
+    Ensure active airflow (fan or equivalent) directly cooling the backplate before proceeding with frequency scaling diagnostics.
 
 ---
 

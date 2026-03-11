@@ -6,8 +6,8 @@ Both Arch Linux and Manjaro work excellently on the BC-250. Arch provides maximu
 
 **Status:** Both fully working
 **Difficulty:** Arch (Advanced), Manjaro (Intermediate)
-**Mesa:** 25.1+ in official repos
-**Kernel:** 6.12-6.14 LTS recommended
+**Mesa:** 25.1+ in official repos with upstream BC-250 support. Mesa 26 (development/git) available and confirmed working on Debian sid and Ubuntu 26.04 daily as of Jan 2026.
+**Kernel:** Kernels 6.18.x and 6.17.11+ are confirmed stable. Avoid 6.17.8–6.17.10 and 6.15.0–6.15.6 (known broken). LTS kernels (6.12–6.14) remain supported for stability.
 
 ---
 
@@ -69,9 +69,10 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 **Key BC-250 Specific Requirements:**
 
 1. **Kernel Selection**
-   - Install `linux-lts` package (6.12.x - 6.14.x)
-   - **AVOID:** Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU initialization failures)
-   - Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability
+   - Install `linux-lts` package (6.12.x - 6.14.x) for stability
+   - **Recommended:** Kernels 6.18.x and 6.17.11+ are confirmed stable
+   - **AVOID:** Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (GPU initialization failures)
+   - LTS kernels (6.12-6.14) remain supported for stability
 
 2. **Boot Parameters**
    - If black screen during installation, add `nomodeset` to kernel parameters
@@ -94,7 +95,7 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 
 4. **Swap Configuration**
    - Traditional swap partition recommended
-   - **WARNING:** Do NOT use ZRAM if using 512MB dynamic VRAM (conflicts)
+   - **Note:** ZRAM compatibility depends on swap configuration; users running ZRAM successfully with proper swap settings (2026). Only relevant for 512MB dynamic VRAM users experiencing issues.
 
 5. **Bootloader**
    - GRUB recommended for BC-250
@@ -112,6 +113,8 @@ See [BIOS Flashing Guide](../bios/flashing.md).
    - Press Ctrl+X to boot
 
 2. Install Mesa and drivers (see Post-Installation section below)
+
+3. **Backplate Cooling:** Active cooling on backplate is strongly recommended. No VRAM temperature sensor exists — passive cooling alone insufficient for sustained loads. Multiple 2026 reports confirm thermal throttling without active cooling solution.
 
 ---
 
@@ -239,7 +242,7 @@ sudo reboot
 
 ```bash
 glxinfo | grep "OpenGL version"
-# Expected: Mesa 25.1.X
+# Expected: Mesa 25.1.X+ (Mesa 26 also confirmed working)
 ```
 
 ### Check Vulkan Driver
@@ -377,7 +380,7 @@ sudo pacman -S protonup-qt
 **Solution 2: Check kernel**
 ```bash
 uname -r
-# If 6.15.0-6.15.6 or 6.17.8+, install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)
+# If 6.15.0-6.15.6 or 6.17.8–6.17.10, install working kernel (6.17.11+, 6.18.x, or 6.12-6.14 LTS)
 ```
 
 ### GPU Not Detected / llvmpipe
@@ -408,12 +411,12 @@ dmesg | grep amdgpu
 
 ### Screen Freezing (Broken Kernel Versions)
 
-**Symptom:** Random freezes, kernel panics on kernels 6.15.0-6.15.6 or 6.17.8+
+**Symptom:** Random freezes, kernel panics on kernels 6.15.0-6.15.6 or 6.17.8–6.17.10
 
 **Solution:**
 ```bash
-# Option 1: Install working 6.15.7-6.17.7 range
-sudo pacman -S linux  # Check version is in working range
+# Option 1: Install confirmed stable kernel (6.17.11+, 6.18.x)
+sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
 # Or
 # Option 2: Install LTS for guaranteed stability
 sudo pacman -S linux-lts linux-lts-headers

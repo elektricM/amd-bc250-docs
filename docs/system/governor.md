@@ -97,25 +97,34 @@ systemctl status oberon-governor
 # Add filippor's COPR repository
 sudo dnf copr enable filippor/bazzite
 
-# Install cyan-skillfish-governor
-sudo dnf install cyan-skillfish-governor
+# Install cyan-skillfish-governor-tt (note the -tt suffix)
+sudo dnf install cyan-skillfish-governor-tt
 
 # Enable and start service
 sudo systemctl enable --now cyan-skillfish-governor.service
 ```
 
+!!!warning "Important: Verify GPU Device Targeting"
+    After installation, verify the governor is targeting the correct GPU device:
+
+    - Check which card is BC-250: `ls -la /sys/class/drm/ | grep card`
+    - The governor may target card0 or card1 depending on your system
+    - If governor settings don't apply, you may need to manually specify the correct card in configuration
+
+!!!info "Alternative: SMU Governor (Kernel-Patch Free)"
+    **Emerging Alternative:** If kernel patching is not feasible, use the SMU-based cyan-skillfish-governor instead. It manages clock speeds through SMU firmware calls and does not require kernel modifications.
+
+    Available on: AUR (`cyan-skillfish-governor-smu`), COPR, .deb, .rpm, Nix
+
+    Some distributions (notably CachyOS) support `cyan-skillfish-governor-smu` as an alternative that works without kernel patches.
+
 !!!success "No Compilation Required"
     Using COPR packages means you don't need to manually compile the governor from source. The packages are pre-built and maintained.
 
-!!!danger "COPR Package Issues - Critical"
-    The `filippor:bazzite` oberon-governor package causes **core dumps** on newer kernels (6.17+). The error manifests as:
-    ```
-    terminate called after throwing an instance of 'std::__ios_failure'
-      what():  basic_ios::clear: iostream error
-    ```
-    This happens because the package tries to write to `pp_od_clk_voltage` with commands the kernel rejects.
+!!!info "COPR Package Status"
+    The `filippor/bazzite` COPR provides `cyan-skillfish-governor-tt` which is confirmed working as of Dec 2025–Mar 2026.
 
-    **Use `@exotic-soc/oberon-governor` instead** - this is the working package that properly handles the BC-250's sysfs interface.
+    **Use `@exotic-soc/oberon-governor`** for the original Oberon governor - this is the working package that properly handles the BC-250's sysfs interface.
 
 ### Option 2: Build from Source (All Distros)
 
@@ -164,12 +173,14 @@ systemctl status oberon-governor
 **Fedora:**
 ```bash
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor
+sudo dnf install cyan-skillfish-governor-tt
 ```
 
 **Arch:**
 ```bash
 yay -S cyan-skillfish-governor
+# Or for SMU version:
+yay -S cyan-skillfish-governor-smu
 ```
 
 **Debian/Ubuntu:**

@@ -23,9 +23,12 @@ Debian and PikaOS offer stable, low-power options for the BC-250. While requirin
 
 **Considerations:**
 - Requires Testing or Sid (Stable too old)
-- Mesa 25.1+ only in experimental repos
+- Mesa 25.1+ only in experimental repos (upstream BC-250 support standard since 25.1)
 - More manual configuration needed
 - Kernel selection critical
+
+!!!info "Pre-built Debian Image Available"
+    A pre-built Debian image exists with kernel 6.18.3, Mesa 26, and GPU patches pre-applied. This significantly reduces setup complexity for new users. Check community resources for access.
 
 ### PikaOS
 
@@ -62,10 +65,10 @@ Debian and PikaOS offer stable, low-power options for the BC-250. While requirin
 
 Before installing, ensure BIOS is configured:
 
-1. Flash modified BIOS (P3.00 recommended)
+1. Flash modified BIOS (P3.00 or later recommended. P5.00_clv exists but may cause ReBAR/USB issues; test before relying on it.)
 2. Set VRAM allocation (512MB dynamic recommended)
 3. Configure fan speeds
-4. **Disable IOMMU** (IOMMU is broken - MUST disable)
+4. **Disable IOMMU if experiencing stability issues** (not universal, but can help)
 
 See [BIOS Flashing Guide](../bios/flashing.md).
 
@@ -147,8 +150,11 @@ Verify installation:
 
 ```bash
 glxinfo | grep "OpenGL version"
-# Should show: Mesa 25.1.X or higher
+# Should show: Mesa 25.1.X or higher (Mesa 26 confirmed working Jan 2026)
 ```
+
+!!!warning "Mesa 25.1+ Availability on Debian"
+    Debian stable/testing & Linux Mint: Mesa 25.1+ may not be available in standard package repositories. Consider using debian-experimental, backports, or compiling from source if your distro is pinned to older versions.
 
 ---
 
@@ -174,9 +180,9 @@ sudo apt update
 sudo apt install linux-xanmod-lts-x64v3
 ```
 
-**Confirmed working:** 6.14.11 Xanmod kernel
+**Confirmed working:** 6.18.3 tested Jan 2026
 
-**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8+. Use 6.15.7-6.17.7 for best performance or stick to 6.12-6.14 LTS for stability.
+**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.17.11+ or 6.18.x for best performance, or stick to 6.12-6.14 LTS for stability.
 
 ---
 
@@ -345,7 +351,7 @@ vulkaninfo | grep deviceName
 
 # Kernel version
 uname -r
-# Expected: 6.15.7-6.17.7 (best) or 6.12.x-6.14.x LTS (stable)
+# Expected: 6.17.11+, 6.18.x (best) or 6.12.x-6.14.x LTS (stable)
 ```
 
 ### Check Governor
@@ -385,12 +391,12 @@ sensors
 
 ### Kernel Compatibility Issues
 
-**Symptom:** GPU initialization failures, black screens on 6.15.0-6.15.6 or 6.17.8+
+**Symptom:** GPU initialization failures, black screens on 6.15.0-6.15.6 or 6.17.8–6.17.10
 
 **Solution:**
-- Use 6.15.7-6.17.7 for best performance
+- Use 6.17.11+, 6.18.x for best performance
 - Or use 6.12-6.14 LTS kernels for guaranteed stability
-- Avoid 6.15.0-6.15.6 and 6.17.8+ (known broken)
+- Avoid 6.15.0-6.15.6 and 6.17.8–6.17.10 (known broken)
 
 ### Audio Issues
 

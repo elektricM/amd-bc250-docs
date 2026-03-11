@@ -32,6 +32,9 @@ Boot into BIOS (Del key during startup) and configure:
 - **IOMMU:** **Disabled** (MUST disable - IOMMU is broken)
 - **Boot Mode:** UEFI
 
+!!!danger "Backplate Active Cooling Required"
+    The VRAM chips on the backplate have no temperature sensor and will overheat under load, causing graphical glitches and instability. Install an 80mm fan on the backplate before gaming or intensive workloads. Passive cooling is insufficient.
+
 [VRAM configuration guide →](../bios/vram.md)
 
 ### Step 3: Install Linux
@@ -59,11 +62,17 @@ Run the automated setup script:
 # Mesa 25.1+ is included in Fedora 43 repos - no additional setup needed
 sudo dnf update
 
-# Install governor from COPR
-sudo dnf copr enable @exotic-soc/oberon-governor
-sudo dnf install oberon-governor
+# Install governor from COPR (updated Dec 2025)
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-tt
 sudo systemctl enable --now oberon-governor.service
 ```
+
+!!!info "SMU Governor as Emerging Alternative"
+    The SMU governor is an emerging alternative that works on CachyOS without requiring a kernel patch. Monitor community feedback for stability updates.
+
+!!!warning "Governor Device Targeting"
+    **Known Issue:** Governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration.
 
 ```bash
 # For Bazzite
