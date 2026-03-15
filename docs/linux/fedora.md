@@ -197,7 +197,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check governor running
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 # Should show: active (running)
 
 # Check sensors
