@@ -121,7 +121,7 @@ dnf list mesa-\*
 # Use filippor/bazzite COPR with cyan-skillfish-governor-tt
 sudo dnf copr enable filippor/bazzite
 sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt
 ```
 
 !!!info "Governor Package Update"
