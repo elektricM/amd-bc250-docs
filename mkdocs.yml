@@ -110,7 +110,7 @@ markdown_extensions:
 # Navigation
 nav:
   - Home: index.md
-  - 📝 Contribute: contribute.md
+  - Contribute: contribute.md
 
   - Getting Started:
     - Introduction: getting-started/introduction.md
@@ -157,6 +157,9 @@ nav:
     - Display Issues: troubleshooting/display.md
     - Performance Issues: troubleshooting/performance.md
     - Stability Problems: troubleshooting/stability.md
+
+  - Community:
+    - Cases & Enclosures: community/cases.md
 
   - Reference:
     - Quick Reference: reference/quick-reference.md
