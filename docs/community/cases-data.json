@@ -71,7 +71,7 @@
   },
   {
     "id": "kacikor-bc-250-case-internal-psu-2-140mm",
-    "name": "BC-250 Case Internal PSU 2×140mm",
+    "name": "BC-250 Case Internal PSU 2\u00d7140mm",
     "author": "Kacikor",
     "psu_family": "lop",
     "psu_label": "LOP-400-12",
@@ -95,7 +95,7 @@
     "psu_label": "LOP 12V",
     "availability": "public",
     "section": "MeanWell LOP",
-    "description": "Push-pull case that preserves stock heatsink fins — no fin removal required. Internal MeanWell LOP 12V PSU. FreeCAD source files included.",
+    "description": "Push-pull case that preserves stock heatsink fins \u2014 no fin removal required. Internal MeanWell LOP 12V PSU. FreeCAD source files included.",
     "links": {
       "makerworld": "https://makerworld.com/en/models/2505974"
     },
@@ -191,7 +191,7 @@
   },
   {
     "id": "nexgen-3d-lop-300-flexatx-bracket",
-    "name": "LOP-300 → FlexATX bracket",
+    "name": "LOP-300 \u2192 FlexATX bracket",
     "author": "NexGen-3D",
     "psu_family": "lop",
     "psu_label": "LOP-300-12",
@@ -397,7 +397,7 @@
   },
   {
     "id": "gekko3622-slim-console-dual-fan-top-mount",
-    "name": "Slim Console — dual fan top mount",
+    "name": "Slim Console \u2014 dual fan top mount",
     "author": "gekko3622",
     "psu_family": "flexatx",
     "psu_label": "FlexATX (Arthrimus)",
@@ -414,7 +414,7 @@
   },
   {
     "id": "owee456-slim-console-front-panel-2-40mm",
-    "name": "Slim Console — front panel 2×40mm",
+    "name": "Slim Console \u2014 front panel 2\u00d740mm",
     "author": "Owee456",
     "psu_family": "flexatx",
     "psu_label": "FlexATX (Arthrimus)",
@@ -431,7 +431,7 @@
   },
   {
     "id": "tkxxth-slim-console-double-fan-mod",
-    "name": "Slim Console — double fan mod",
+    "name": "Slim Console \u2014 double fan mod",
     "author": "TKXXTH",
     "psu_family": "flexatx",
     "psu_label": "FlexATX (Arthrimus)",
@@ -448,7 +448,7 @@
   },
   {
     "id": "community-slim-console-on-off-switch-apevia",
-    "name": "Slim Console — On/Off Switch + Apevia",
+    "name": "Slim Console \u2014 On/Off Switch + Apevia",
     "author": "community",
     "psu_family": "flexatx",
     "psu_label": "FlexATX (Arthrimus)",
@@ -686,7 +686,7 @@
   },
   {
     "id": "hrumque-bc250-amd-case-v3-flexatx",
-    "name": "BC250 AMD case v3 — FlexATX",
+    "name": "BC250 AMD case v3 \u2014 FlexATX",
     "author": "Hrumque",
     "psu_family": "flexatx",
     "psu_label": "FlexATX",
@@ -810,7 +810,7 @@
   },
   {
     "id": "nexgen-3d-nexgen3d-pro-liquid-cooled",
-    "name": "NexGen3D Pro — Liquid Cooled",
+    "name": "NexGen3D Pro \u2014 Liquid Cooled",
     "author": "NexGen-3D",
     "psu_family": "flexatx",
     "psu_label": "FlexATX",
@@ -967,11 +967,11 @@
     "id": "yannichaboyer-steamboat-case-for-bc250",
     "name": "Steamboat Case for BC250",
     "author": "yannichaboyer",
-    "psu_family": "flexatx",
-    "psu_label": "FlexATX",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
     "availability": "public",
-    "section": "FlexATX",
-    "description": "Push-pull case with dual 120mm fans, compatible with both stock and opened heatsink fins. Uses FlexATX PSU. Nicknamed Steamboat.",
+    "section": "MeanWell LOP",
+    "description": "Push-pull case with dual 120mm fans, compatible with both stock and opened heatsink fins. Uses MeanWell LOP-300-12 PSU. Nicknamed Steamboat.",
     "links": {
       "makerworld": "https://makerworld.com/en/models/2431616",
       "reddit": "https://reddit.com/r/BC250Gaming/comments/1raqo8h/"
@@ -1108,7 +1108,7 @@
     "psu_label": "FlexATX",
     "availability": "public",
     "section": "FlexATX",
-    "description": "Top cover providing dual 120mm fan mounts for the BC-250. No internal PSU — requires external power supply.",
+    "description": "Top cover providing dual 120mm fan mounts for the BC-250. No internal PSU \u2014 requires external power supply.",
     "links": {
       "printables": "https://www.printables.com/model/1514874"
     },
@@ -1136,7 +1136,7 @@
   },
   {
     "id": "mrlarva-tv-7304454-asrock-bc-250-steam-machine-v2",
-    "name": "TV-7304454 — ASRock BC-250 Steam Machine v2",
+    "name": "TV-7304454 \u2014 ASRock BC-250 Steam Machine v2",
     "author": "MrLarva",
     "psu_family": "flexatx",
     "psu_label": "FlexATX",
@@ -1510,26 +1510,25 @@
     "is_remix": false
   },
   {
-    "id": "hrumque-bc250-amd-case-v3-hp-hdd-usb-hub",
-    "name": "BC250 AMD case v3 HP + HDD + USB hub",
-    "author": "Hrumque",
+    "id": "isaacalvex-bc250-custom-case-hp-psu",
+    "name": "AMD BC-250 Custom Case (HP PSU)",
+    "author": "isaacalvex",
     "psu_family": "hp-server",
     "psu_label": "HP Server PSU",
     "availability": "public",
     "section": "HP Server PSU",
-    "description": "Version 3 with HP server PSU, adding 2.5-inch HDD bay and USB hub. Printed in ASA and PETG. Superseded by V4.",
+    "description": "Custom case designed for HP server PSU.",
     "links": {
-      "printables": "https://www.printables.com/model/1580750",
-      "makerworld": "https://makerworld.com/en/models/2326706"
+      "thingiverse": "https://www.thingiverse.com/thing:7262228"
     },
-    "printables_id": "1580750",
-    "makerworld_id": "2326706",
-    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USdcc0203ee33f36/design/fd7b59a9ce778779.jpg",
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
     "is_remix": false
   },
   {
     "id": "arthrimus-arthrimus-slim-hp-hstns-pr28-edition",
-    "name": "Arthrimus Slim — HP HSTNS-PR28 edition",
+    "name": "Arthrimus Slim \u2014 HP HSTNS-PR28 edition",
     "author": "Arthrimus",
     "psu_family": "hp-server",
     "psu_label": "HP Server PSU",
@@ -1546,7 +1545,7 @@
   },
   {
     "id": "arthrimus-arthrimus-slim-dell-d750e-edition",
-    "name": "Arthrimus Slim — Dell D750e edition",
+    "name": "Arthrimus Slim \u2014 Dell D750e edition",
     "author": "Arthrimus",
     "psu_family": "hp-server",
     "psu_label": "HP Server PSU",
@@ -1631,7 +1630,7 @@
   },
   {
     "id": "kawaiiturd-8-3l-compact-4-cluster-tower",
-    "name": "8.3L compact 4×cluster tower",
+    "name": "8.3L compact 4\u00d7cluster tower",
     "author": "KawaiiTurd",
     "psu_family": "server-1f",
     "psu_label": "Server PSU 1F",
@@ -1705,7 +1704,7 @@
     "psu_label": "Liquid/AIO",
     "availability": "public",
     "section": "Liquid/AIO",
-    "description": "Sturdy 240mm AIO liquid cooler mount for the BC-250. Tested with Thermalright Aqua Elite V4 and MSI MAG Coreliquid A15. Not a full case — cooling bracket only.",
+    "description": "Sturdy 240mm AIO liquid cooler mount for the BC-250. Tested with Thermalright Aqua Elite V4 and MSI MAG Coreliquid A15. Not a full case \u2014 cooling bracket only.",
     "links": {
       "printables": "https://www.printables.com/model/1554003"
     },
@@ -1802,7 +1801,7 @@
   {
     "id": "jo-o-bc-250-on-ps3-fat-case",
     "name": "BC-250 on PS3 fat case",
-    "author": "João",
+    "author": "Jo\u00e3o",
     "psu_family": "ps3",
     "psu_label": "PS3 PSU",
     "availability": "discord",
