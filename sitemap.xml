@@ -2,82 +2,138 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/contribute/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/bios/flashing/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/bios/overclocking/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/bios/recovery/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/bios/vram/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/community/cases/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/drivers/environment/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/drivers/radv/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/gaming/compatibility/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/getting-started/introduction/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/getting-started/prerequisites/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/getting-started/quick-start/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/hardware/cooling/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/hardware/display/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/hardware/pinouts/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/hardware/power/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/hardware/specifications/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/linux/arch/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/linux/bazzite/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/linux/cachyos/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/linux/debian/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/linux/distributions/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/linux/fedora/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/linux/kernel/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/linux/mesa/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/reference/quick-reference/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/system/governor/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/system/power/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/system/sensors/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/troubleshooting/boot/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
     <url>
          <loc>https://elektricM.github.io/amd-bc250-docs/troubleshooting/display/</loc>
-         <lastmod>2025-11-21</lastmod>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/troubleshooting/performance/</loc>
+         <lastmod>2026-03-16</lastmod>
+    </url>
+    <url>
+         <loc>https://elektricM.github.io/amd-bc250-docs/troubleshooting/stability/</loc>
+         <lastmod>2026-03-16</lastmod>
     </url>
 </urlset>

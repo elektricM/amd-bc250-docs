@@ -1,0 +1,2483 @@
+[
+  {
+    "id": "onemorecap-shell-case",
+    "name": "Shell Case",
+    "author": "onemorecap",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Snap-on 3D-printed sleeve adapter for the BC-250 with internal MeanWell LOP-300-12 PSU. Friction-fit design with heated inserts, minimal post-processing. STEP source available on GitHub.",
+    "links": {
+      "printables": "https://www.printables.com/model/1228207",
+      "makerworld": "https://makerworld.com/en/models/1206445",
+      "github": "https://github.com/onemorecap/bc-250-sleeve-adapter"
+    },
+    "printables_id": "1228207",
+    "makerworld_id": "1206445",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/DSM00000001206445/design/2025-03-13_2edb1cdf32e8c.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "munkee915-shell-case-w-40mm-ssd-fan",
+    "name": "Shell Case w/ 40mm SSD Fan",
+    "author": "Munkee915",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Remix of the onemorecap Shell Case adding a 40mm fan to move air over the SSD. Uses MeanWell LOP-300-12 PSU.",
+    "links": {
+      "printables": "https://www.printables.com/model/1568074"
+    },
+    "printables_id": "1568074",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/929f8659-8a2c-4450-9efb-b54e5846d541/images/11815055_863f77c8-af93-49ce-94f2-8a8517d1f613_bbf76e72-1c17-4b37-8158-3d367505872f/pxl_20260123_2009574162.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "janjd-noctua-push-pull-mod",
+    "name": "Noctua Push Pull Mod",
+    "author": "Janjd",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Remix of the onemorecap Shell Case replacing the single high-RPM fan with dual Noctua NF-F12 PWM fans in push-pull configuration for quieter cooling. Uses MeanWell LOP-300-12 PSU.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2354123"
+    },
+    "printables_id": null,
+    "makerworld_id": "2354123",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USd408fa9f541a18/design/733a9c7006dee0d9.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "weskmods-amd-bc-250-pitman-case",
+    "name": "AMD BC-250 \"Pitman\" Case",
+    "author": "WeskMods",
+    "psu_family": "lop",
+    "psu_label": "LOP",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Custom shell with multiple gaming-themed front panels. PETG recommended for hot zones near the PSU. Includes BOM spreadsheet. Uses MeanWell LOP PSU.",
+    "links": {
+      "printables": "https://www.printables.com/model/1570248"
+    },
+    "printables_id": "1570248",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/14909331-39d6-4823-85d6-720824ab62b3/images/11829847_8017e2ca-fd32-4f3e-8240-136451fbd159_b0fb9a5a-b7e2-4d5f-a304-46d9a78ddff1/bc-250-pitman-gallery-front.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "kacikor-bc-250-case-internal-psu-2-140mm",
+    "name": "BC-250 Case Internal PSU 2×140mm",
+    "author": "Kacikor",
+    "psu_family": "lop",
+    "psu_label": "LOP-400-12",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Fully enclosed case with dual 140mm push/pull fans, IEC C14 power inlet, and no heatsink fin removal required. Uses MeanWell LOP-400-12 PSU. Includes detailed assembly guide.",
+    "links": {
+      "printables": "https://www.printables.com/model/1599644",
+      "makerworld": "https://makerworld.com/en/models/2400574"
+    },
+    "printables_id": "1599644",
+    "makerworld_id": "2400574",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US2310061d181a85/design/16fc9bc86a42a7d1.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "penzoiders-push-pull-internal-12v-psu",
+    "name": "Push Pull Internal 12V PSU",
+    "author": "penzoiders",
+    "psu_family": "lop",
+    "psu_label": "LOP 12V",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Push-pull case that preserves stock heatsink fins — no fin removal required. Internal MeanWell LOP 12V PSU. FreeCAD source files included.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2505974"
+    },
+    "printables_id": null,
+    "makerworld_id": "2505974",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USb7d688bfa42398/design/b1692d59461ea7df.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "mrroze-ultra-thin-amd-bc-250-custom-case",
+    "name": "Ultra-Thin AMD BC-250 Custom Case",
+    "author": "MrRoze",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "public",
+    "section": "MeanWell LOP",
+    "description": "Ultra-thin enclosure measuring 354x193x48mm with MeanWell LOP-300-12 PSU. Printed in ASA with 13 M3 heat-set inserts and dual slim fans for low-profile cooling. Beta release.",
+    "links": {
+      "printables": "https://www.printables.com/model/1626501"
+    },
+    "printables_id": "1626501",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/3b8a7141-d5bf-49e0-8523-4a15abdebc98/images/12245578_5eb2f5e8-70f1-4933-9a39-af9fcee39928_121598d2-227a-402e-93bd-c17464ba1d06/amd-bc-250-2.png",
+    "is_remix": false
+  },
+  {
+    "id": "bonecracker86-custom-aio-geometric-case",
+    "name": "Custom AIO Geometric Case",
+    "author": "bonecracker86",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "request",
+    "section": "MeanWell LOP",
+    "description": "Custom geometric case with Thermalright 240mm AIO liquid cooler. White PETG with blue triangle accents. Uses MeanWell LOP-300-12 PSU. Files available on request.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1ra9rkw/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/kjmyas0h6qkg1.jpg?width=2048&format=pjpg&auto=webp&s=e971b8456762d6c1ac25b21816387d0d471949ca",
+    "is_remix": false
+  },
+  {
+    "id": "ddinghoya-korean-turtle-battleship-case",
+    "name": "Korean Turtle Battleship Case",
+    "author": "DDinghoya",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "3D-printed case modeled after a traditional Korean turtle battleship (Geobukseon). Features three decorative grill variants with traditional patterns. Designed in Tinkercad. Uses MeanWell LOP-300-12 PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1471158953453817929"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "coati-another-bc250-case-project",
+    "name": "Another BC250 Case Project",
+    "author": "Coati",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "Remix of the Shell Case with improved airflow backplate and central tunnel design. Brutalist/dieselpunk aesthetic, designed in Plasticity. Uses MeanWell LOP-300-12 PSU with Arctic P12 Pro fan. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1462419652037709968"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  },
+  {
+    "id": "cagedmeat-bc-250-full-mod",
+    "name": "Bc-250 full mod",
+    "author": "CagedMeat",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "Work in progress. Open-frame build using 1020/10 Series T-slot aluminum extrusions (700mm x 4) with a 240mm AIO liquid cooler. Uses MeanWell LOP-300-12 PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1476623782671286545"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "nexgen-3d-lop-300-flexatx-bracket",
+    "name": "LOP-300 → FlexATX bracket",
+    "author": "NexGen-3D",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "3D-printed bracket that adapts a MeanWell LOP-300 PSU to mount inside a Flex ATX case. STL shared on the NexGen3D Discord thread.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1438796089950998579"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "icyblocky272-lop-300-mount-pour-arthrimus-slim",
+    "name": "LOP-300 mount pour Arthrimus slim",
+    "author": "icyblocky272",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "LOP-300 PSU mount bracket specifically designed for the Arthrimus Slim Console case. Download available on Discord.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1451202863438102548"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "imeden-shell-case-120mm-fan-mod",
+    "name": "Shell Case 120mm fan mod",
+    "author": "imeden",
+    "psu_family": "lop",
+    "psu_label": "LOP-300-12",
+    "availability": "discord",
+    "section": "MeanWell LOP",
+    "description": "Shell Case mod replacing the stock fan setup with a 120mm fan mount plus airflow helper. Uses MeanWell LOP-300-12 PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1350050438694567967"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "targz-bc250-lrs-350-12-psu-case",
+    "name": "BC250 LRS-350-12 PSU Case",
+    "author": "TARGZ",
+    "psu_family": "lrs",
+    "psu_label": "LRS-350-12",
+    "availability": "public",
+    "section": "MeanWell LRS/UHP",
+    "description": "3D-printed case for the MeanWell LRS-350-12 open-frame PSU. Base design later remixed by LarryBoyG for an Xbox One X style vertical build.",
+    "links": {
+      "printables": "https://www.printables.com/model/1543979"
+    },
+    "printables_id": "1543979",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/f96107fa-585a-4f45-8562-4d33a1aabdde/images/11763972_dd235655-1700-426f-b0e2-fb466b327609_2f1d332a-705b-46a4-ae3b-be4ec4689ac7/20260117_235240.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "c4kew4lk-bc250-slim-case",
+    "name": "BC250 slim case",
+    "author": "C4kew4lk",
+    "psu_family": "lrs",
+    "psu_label": "UHP-350-12",
+    "availability": "public",
+    "section": "MeanWell LRS/UHP",
+    "description": "Compact slim case with MeanWell UHP-350-12 enclosed passive PSU, cooled by 3x 40mm fans.",
+    "links": {
+      "printables": "https://www.printables.com/model/1504664"
+    },
+    "printables_id": "1504664",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/2709106b-8994-4b7b-b8b0-e84398b149bc/images/11336960_7a056eb3-5f2b-432d-8760-ee529fb06bb1_c97159ff-0dd6-4657-8e20-a6a998fe108c/img_20251205_204146.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "larryboyg-xbox-onex-style-case",
+    "name": "Xbox OneX style case",
+    "author": "LarryBoyG",
+    "psu_family": "lrs",
+    "psu_label": "LRS-350-12",
+    "availability": "discord",
+    "section": "MeanWell LRS/UHP",
+    "description": "Remix of the TARGZ LRS-350-12 case redesigned for vertical orientation with an AMD Wraith Prism tower cooler. Uses MeanWell LRS-350-12 PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1462566517567656119"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  },
+  {
+    "id": "str477-maple-wood-case",
+    "name": "Maple Wood Case",
+    "author": "str477",
+    "psu_family": "lrs",
+    "psu_label": "MeanWell 350W",
+    "availability": "discord",
+    "section": "MeanWell LRS/UHP",
+    "description": "Handmade case built from solid maple wood. Uses a MeanWell 350W PSU with plans for dual Noctua fan upgrade.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1468798053480923397"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "larryboyg-steam-machine-completed",
+    "name": "Steam Machine Completed!",
+    "author": "LarryBoyG",
+    "psu_family": "lrs",
+    "psu_label": "LRS-350-12",
+    "availability": "unpublished",
+    "section": "MeanWell LRS/UHP",
+    "description": "Completed build of the Xbox One X style remix with MeanWell LRS-350-12 PSU and vertical tower cooler configuration.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1qdmgh4/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/efdpl2ex6jdg1.jpg?width=4284&format=pjpg&auto=webp&s=65aa2b814311124ac078a3bc0a2e179db54aaeb4",
+    "is_remix": true
+  },
+  {
+    "id": "inadecvatebutsober-wip-lrs-350-12-chassis",
+    "name": "WIP LRS-350-12 chassis",
+    "author": "InadecvateButSober",
+    "psu_family": "lrs",
+    "psu_label": "LRS-350-12",
+    "availability": "wip",
+    "section": "MeanWell LRS/UHP",
+    "description": "Work in progress. Compact chassis with dual 40mm 6500rpm fans and MeanWell LRS-350-12 PSU.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1r007xj/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/fuw3u39uyfig1.png?width=1645&format=png&auto=webp&s=92db9a4367d453eaf99ab3a41c1915504a4e618f",
+    "is_remix": false
+  },
+  {
+    "id": "63ratsinatrenchcoat-wip-lrs-350-12-case",
+    "name": "WIP LRS-350-12 case",
+    "author": "63RatsInATrenchCoat",
+    "psu_family": "lrs",
+    "psu_label": "LRS-350-12",
+    "availability": "wip",
+    "section": "MeanWell LRS/UHP",
+    "description": "Work in progress. Features a ducted 120mm fan and custom heatsink (12x15x2cm). Uses MeanWell LRS-350-12 PSU.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1r18vco/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/wd44bjfbnpig1.png?width=728&format=png&auto=webp&s=6559fe615f6bf9135146d54ecb42b0ee8a2c40f2",
+    "is_remix": false
+  },
+  {
+    "id": "arthrimus-amd-bc-250-console-style-case-v1",
+    "name": "AMD BC-250 Console Style Case v1",
+    "author": "Arthrimus",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Two-piece interlocking console-style case for the BC-250 with FlexATX PSU. Printable on a 220x220x240mm bed. Supports single or dual 120mm/140mm fans.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7165679",
+      "makerworld": "https://makerworld.com/ko/models/2097988-bc250?from=search#profileId-2367553",
+      "github": "https://github.com/ThomasToka/MarlinFirmware/releases/tag/MARLIN-E3S1PROFORK-BYTT-v037"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/23/8c/d2/02/c2/large_display_BC250_Case_6.png",
+    "is_remix": false
+  },
+  {
+    "id": "arthrimus-amd-bc-250-slim-console-style-case",
+    "name": "AMD BC-250 Slim Console Style Case",
+    "author": "Arthrimus",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Slim console-style case housing the BC-250 and a FlexATX PSU, with optional server PSU support (HP HSTNS-PR28, Dell D750e) via adapter PCBs in development. Best thermal performance with the restricted 120mm fan shroud. Multiple community remixes available.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7172528"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/c3/9e/2c/05/4d/featured_preview_PXL_20251016_040757729.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "gekko3622-slim-console-dual-fan-top-mount",
+    "name": "Slim Console — dual fan top mount",
+    "author": "gekko3622",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "discord",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Custom dual fan top-mount bracket for the Arthrimus Slim Console. Printed in wood PLA for a natural exterior finish.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1434615295355388066"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "owee456-slim-console-front-panel-2-40mm",
+    "name": "Slim Console — front panel 2×40mm",
+    "author": "Owee456",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "discord",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Front panel mod for the Arthrimus Slim Console adding dual 40mm intake fans.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1444131857028485263"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "tkxxth-slim-console-double-fan-mod",
+    "name": "Slim Console — double fan mod",
+    "author": "TKXXTH",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus Slim Console adding dual 120mm fan support.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7214884"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/0d/c0/3b/7d/cc/featured_preview_2XFAN_120MM.png",
+    "is_remix": true
+  },
+  {
+    "id": "community-slim-console-on-off-switch-apevia",
+    "name": "Slim Console — On/Off Switch + Apevia",
+    "author": "community",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus Slim Console with enlarged PSU area for Apevia ITX Flex ATX PSU and added front-panel on/off power switch.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7274042"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/cb/88/20/2d/54/featured_preview_Front_Left.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "isaacalvex-custom-case-flex-psu",
+    "name": "CUSTOM CASE (FLEX PSU)",
+    "author": "isaacalvex",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus case with custom side panels, USB 3.0 hub, and status LED. Uses FlexATX PSU.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7201620"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/df/c4/3e/d9/86/large_display_WhatsApp_Image_2025-11-15_at_13.15.45.jpeg",
+    "is_remix": false
+  },
+  {
+    "id": "isaacalvex-custom-case-hp-power-supply",
+    "name": "CUSTOM CASE (HP POWER SUPPLY)",
+    "author": "isaacalvex",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus case adapted for HP server PSU with custom side panels, USB 3.0 hub, and status LED.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7262228"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/21/57/84/4b/a9/featured_preview_CASE_BC250_1.jpeg",
+    "is_remix": true
+  },
+  {
+    "id": "kennman5000-console-style-case-remix",
+    "name": "Console Style Case remix",
+    "author": "kennman5000",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus Console Style Case with widened PSU slot, reinforced screw mounting, and relocated power button to the rear.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7287847"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/58/2e/1d/95/19/featured_preview_printed_2.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "blessednoob-front-panel-edit-w-atx-button",
+    "name": "Front Panel Edit w/ ATX button",
+    "author": "BlessedNoob",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus case front panel adding an ATX 24-pin PSU power on/off switch. Front panel piece only.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7309665"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  },
+  {
+    "id": "community-custom-front-panel-frente-custom",
+    "name": "Custom front panel FRENTE CUSTOM",
+    "author": "community",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Alternative front panel remix for the Arthrimus/isaacalvex Console Style Case, redesigned to match the side panel aesthetics.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7216806"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/06/45/14/02/6e/card_preview_WhatsApp_Image_2025-11-15_at_13.15.45.jpeg",
+    "is_remix": true
+  },
+  {
+    "id": "hoodyracoon-slim-console-remix-external-usb-hub",
+    "name": "Slim Console remix (external/USB hub)",
+    "author": "hoodyRacoon",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "public",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Remix of the Arthrimus Slim Console using an external PSU, repurposing the FlexATX bay for a USB hub, WiFi adapter, and Bluetooth dongle.",
+    "links": {
+      "gdrive": "https://drive.google.com/drive/folders/12tBc1_Is6aH86Ojc1jvyqojz5OB2n5Nz"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  },
+  {
+    "id": "arthrimus-psu-adapter-pcb-dell-d750e",
+    "name": "PSU Adapter PCB (Dell D750e)",
+    "author": "Arthrimus",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "wip",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Custom PCB for controlling a Dell D750e server PSU with the Arthrimus Slim Console. V1 functional, V2 in fabrication. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1422440093016133694"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "arthrimus-psu-adapter-pcb-hp-hstns-pr28",
+    "name": "PSU Adapter PCB (HP HSTNS-PR28)",
+    "author": "Arthrimus",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX (Arthrimus)",
+    "availability": "wip",
+    "section": "FlexATX (Arthrimus)",
+    "description": "Custom PCB for controlling an HP HSTNS-PR28 server PSU with the Arthrimus Slim Console. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1435463086612938904"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "chriszf-minimal-case-toolless",
+    "name": "Minimal Case (Toolless)",
+    "author": "chriszf",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Compact toolless case for the BC-250 with FlexATX PSU (FSP500-30AS tested). Supports vertical orientation.",
+    "links": {
+      "printables": "https://www.printables.com/model/1423572"
+    },
+    "printables_id": "1423572",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/38fba237-ea14-4344-82a5-c96bea99b909/images/10737769_265c7ef2-723c-4078-a30f-03ffdad497f3_2570806f-48c8-4bf9-8077-33cdd1ba0bc9/pxl_20250923_211955534.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "joshu-sonawane-bc-250-case-remixed",
+    "name": "BC-250 case remixed",
+    "author": "Joshu Sonawane",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Case supporting dual 120mm fans with FlexATX PSU. Extra clearance for backplate heatsink modifications.",
+    "links": {
+      "printables": "https://www.printables.com/model/1539422"
+    },
+    "printables_id": "1539422",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/c50b71bc-c4d5-49c5-ae63-342c06d30162/images/11607854_ef5bdc2f-ca3b-4ba9-b257-eadcb73e5212_0344ef14-8af6-4b18-bb4b-58e6f1817759/img_1959.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "r0mn-adt-ut3g-egpu-inspired",
+    "name": "ADT UT3G eGPU Inspired",
+    "author": "R0mn",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Case originally designed for a GPU enclosure, modified to fit the BC-250. Requires 220mm minimum print bed. Uses FlexATX PSU.",
+    "links": {
+      "printables": "https://www.printables.com/model/1539301"
+    },
+    "printables_id": "1539301",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/e4ee13e5-358a-43a9-ab62-8ea5d6e3719a/images/11617865_3c6c1d8b-8384-4ebd-8b3d-98ba902d6d0f_2ae8f2dd-236c-4348-b951-84b9eb1313d4/bc250-case-0088-explode-01.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "sebastiengau-gadget-minimalist-bc-250-case",
+    "name": "Minimalist BC-250 Case",
+    "author": "SebastienGau (Gadget)",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Minimal, easy-to-print case with two airflow variants: side-blowing or back-to-front. Fits 2-3x 120mm fans, no brass inserts or support material needed. Uses FlexATX PSU (Suoumwa 400W tested).",
+    "links": {
+      "printables": "https://www.printables.com/model/1581724"
+    },
+    "printables_id": "1581724",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/fb37ebba-b3db-4b93-af6d-4045fd60f307/images/11961048_622da189-0434-4a99-9851-0d6c839043ba_76740c30-bc1a-4cd1-b0a6-461193d1e011/pxl_20260207_132933746.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "hrumque-bc-250-case-v4-flexatx-hp-server",
+    "name": "BC-250 case V4 (FlexATX + HP Server)",
+    "author": "Hrumque",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Multi-PSU case supporting both FlexATX and HP Server PSUs. Requires opened heatsink fins for proper cooling. Compatible with 16/19/20/22mm power buttons. Final version of the Hrumque case series.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2481620"
+    },
+    "printables_id": null,
+    "makerworld_id": "2481620",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US422ddb877f963c/design/ebb50f24106359eb.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "hrumque-bc250-amd-case-v3-flexatx",
+    "name": "BC250 AMD case v3 — FlexATX",
+    "author": "Hrumque",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Version 3 of the Hrumque case series for FlexATX PSU. Superseded by the V4 which adds HP server PSU support.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2370798"
+    },
+    "printables_id": null,
+    "makerworld_id": "2370798",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USb098aacd90a92/design/fdef8de6b5b38cbc.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "jerich0-bc-250-minimal-case",
+    "name": "BC-250 Minimal case",
+    "author": "Jerich0",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Minimal case designed to avoid drastic heatsink modifications. Uses an Arctic S120 fan and FlexATX PSU.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2265796"
+    },
+    "printables_id": null,
+    "makerworld_id": "2265796",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USa25c8a82ac69b6/design/2026-01-18_5f3f3a4dcd14a8.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "got-fork-bc-250-case-flex-a1-mini",
+    "name": "BC 250 case flex A1 mini",
+    "author": "got_fork",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Compact case printable on a BambuLab A1 Mini (220mm bed). No heatsink fin modification needed. Uses FlexATX PSU with 16mm latch power button. V2.1 adds fuzzy skin print profile.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2287878"
+    },
+    "printables_id": null,
+    "makerworld_id": "2287878",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USc75be38506a8e6/design/f5be2ac0ff373081.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "mtsquar3d-bc-250-steam-machine-slim-console",
+    "name": "BC-250 Steam Machine Slim Console",
+    "author": "MTSquar3D",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Slim console case updated for Apevia Flex ATX PSU. Includes custom accessories: vRAM fan kit, SSD caddy, and magnetic dust filter.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2232434",
+      "thingiverse": "https://www.thingiverse.com/thing:7271946"
+    },
+    "printables_id": null,
+    "makerworld_id": "2232434",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US6540ba659cf104/design/2026-01-11_16b8823fa5476.png",
+    "is_remix": false
+  },
+  {
+    "id": "pocket-adventures-asrock-amd-bc-250-steam-machine",
+    "name": "ASRock AMD BC-250 \"Steam Machine\"",
+    "author": "Pocket Adventures",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Console-style case with dual 120mm fans and FlexATX PSU. Flexible design accommodating various PSU sizes.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2350219"
+    },
+    "printables_id": null,
+    "makerworld_id": "2350219",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USe7dabad76877bc/design/1d67da96059b75a5.png",
+    "is_remix": false
+  },
+  {
+    "id": "mrlarva-asrock-bc-250-steam-machine-by-mrlarva",
+    "name": "ASRock BC-250 \"Steam Machine\" by MrLarva",
+    "author": "MrLarva",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Remix of the Arthrimus v1 case for the BC-250 with FlexATX PSU. Achieves 37C idle temperatures. Available on Printables, MakerWorld, and Thingiverse.",
+    "links": {
+      "printables": "https://www.printables.com/model/1618501",
+      "makerworld": "https://makerworld.com/en/models/2453965",
+      "thingiverse": "https://www.thingiverse.com/thing:7278235"
+    },
+    "printables_id": "1618501",
+    "makerworld_id": "2453965",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USb7b041335db7a0/design/e683e24368e30607.png",
+    "is_remix": true
+  },
+  {
+    "id": "nexgen-3d-nexgen3d-diy-steam-machine-v3",
+    "name": "NexGen3D DIY Steam Machine v3",
+    "author": "NexGen-3D",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Budget-friendly Steam Machine build supporting multiple PSUs (FlexATX, MeanWell LOP via bracket). Interchangeable themed front panels. GitHub source and active community support.",
+    "links": {
+      "printables": "https://www.printables.com/model/1499974",
+      "github": "https://github.com/NexGen-3D-Printing/SteamMachine",
+      "reddit": "https://www.reddit.com/r/BC250Gaming/s/nCV339E9m6"
+    },
+    "printables_id": "1499974",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/fa661465-630c-4ca9-9bd9-9ec05aa944ba/images/11465944_00aa4ddd-5e56-4dba-b332-8ce95174d913_efbc454d-a4c8-4885-9bde-d6cff534b9d0/img_20251220_122217_198.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "nexgen-3d-nexgen3d-pro-liquid-cooled",
+    "name": "NexGen3D Pro — Liquid Cooled",
+    "author": "NexGen-3D",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Liquid-cooled edition of the NexGen3D case with 240mm AIO support, ARGB lighting, and multi-PSU compatibility. Improved version of the original NexGen3D design.",
+    "links": {
+      "printables": "https://www.printables.com/model/1614131"
+    },
+    "printables_id": "1614131",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/4502f8fc-841d-46c2-b659-2bb048335198/images/12221342_dfeda784-703f-4555-a700-5579be8c4b93_bf1ca04c-5457-4ab1-be24-8a43fafe2be6/pxl_20260303_213612672portrait.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "songdawgdesigns-asrock-amd-bc-250-console-case",
+    "name": "ASRock AMD BC-250 Console Case",
+    "author": "songdawgdesigns",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Console-style case with dual 140mm fans and dual power buttons. Supports both FlexATX and full ATX PSUs.",
+    "links": {
+      "printables": "https://www.printables.com/model/1617023",
+      "cults3d": "https://cults3d.com/en/3d-model/gadget/asrock-amd-bc-250-console-case-steamos-bazzite-diy-steam-machine-style-build"
+    },
+    "printables_id": "1617023",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/75462b82-444f-4e97-b3ea-309ceb28197d/images/12288940_f57f5c38-2d20-4983-b9e3-cdc33cda9c99_f13ad806-7891-44fa-85dd-10bd1b6f26ca/photoroom_20260311_084633.png",
+    "is_remix": false
+  },
+  {
+    "id": "mtsquar3d-oc-vram-fan-kit-remix",
+    "name": "OC vRAM Fan Kit Remix",
+    "author": "MTSquar3D",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Expanded remix of the MTSquar3D Slim Console case adding Apevia Flex ATX support, vRAM fan cooling kit, SSD caddy, and magnetic dust filter.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2250341",
+      "thingiverse": "https://www.thingiverse.com/thing:7271946"
+    },
+    "printables_id": null,
+    "makerworld_id": "2250341",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US6a25e728524f6c/design/2026-01-16_59cwi00t65hv.png",
+    "is_remix": true
+  },
+  {
+    "id": "neirw-cprs-psu-case",
+    "name": "CPRS PSU case",
+    "author": "neirw",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Case designed for CPRS server PSUs (185x73.5mm), a Chinese Flex ATX-format clone.",
+    "links": {
+      "printables": "https://www.printables.com/model/1581871"
+    },
+    "printables_id": "1581871",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/fe1eaa52-b370-4746-b343-9a34c48aa404/images/11910336_28225453-cb93-4e67-ad87-0573e66cc06f_8d66d8b5-9520-4dee-abfb-03e1b3b2844e/ping-mu-jie-tu-2026-02-02-193600.png",
+    "is_remix": false
+  },
+  {
+    "id": "mzk10-another-flex-atx-case",
+    "name": "Another Flex ATX case",
+    "author": "mzk10",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Toolless case with dual 140mm Arctic P14 Pro PST fans. No heatsink fin modification needed. Designed in FreeCAD, can be oriented vertically. Uses FlexATX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1423359740682960997"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "meta-bc250-console-mini-case",
+    "name": "BC250 console_mini case",
+    "author": "Meta",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Compact mini case concept with 120mm blower fan and FlexATX PSU. Early design stage.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1347068664276451410"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "goose-sandwiched-bc250",
+    "name": "Sandwiched BC250",
+    "author": "Goose",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Two-piece split sandwich-style case with FlexATX PSU (Apevia ITX-PFC400W) and dual Be Quiet Pure Wings 3 fans. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1426686676935114923"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "az4521-steam-machine-prototype-2015-style",
+    "name": "Steam Machine Prototype (2015 style)",
+    "author": "az4521",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "BC-250 fitted into an original 2015 Valve Steam Machine Prototype shell. Includes 3D-printed spacer and custom IO plate STLs. Features glow ring and capacitive power button.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1455349814991655066"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "vitamins-amd-bc250-case",
+    "name": "AMD BC250 Case",
+    "author": "vitamins",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Case with Apevia Mini ITX/Flex ATX 500W PSU and a side cutout for M.2 to U.2 adapter access.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2219947"
+    },
+    "printables_id": null,
+    "makerworld_id": "2219947",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USdbbfef8d7eb0d5/design/2026-01-08_47e0083828ee58.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "yannichaboyer-steamboat-case-for-bc250",
+    "name": "Steamboat Case for BC250",
+    "author": "yannichaboyer",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Push-pull case with dual 120mm fans, compatible with both stock and opened heatsink fins. Uses FlexATX PSU. Nicknamed Steamboat.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2431616",
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1raqo8h/"
+    },
+    "printables_id": null,
+    "makerworld_id": "2431616",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US2f5f1f8349db80/design/d4e9278a9e7139e0.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "giacomorov-3d-printed-case-for-steam-machine-giacomorov",
+    "name": "3D Printed Case for Steam Machine (Giacomorov)",
+    "author": "Giacomorov",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "3D-printed console-style case inspired by the PlayStation 5 aesthetic, housing the BC-250 with FlexATX PSU.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/1976044"
+    },
+    "printables_id": null,
+    "makerworld_id": "1976044",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US54f2cbbe6e7190/design/2025-11-09_8a080ec5f6691.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "sparpet-ps3-psu-modded-case",
+    "name": "PS3 PSU Modded Case",
+    "author": "sparpet",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "3D-printed console case reusing a PS3 Phat PSU. Requires PCIe power connector relocation (desoldering). Uses 2x 120mm fans for the board plus 1x 80mm fan for PSU/RAM cooling. Needs M3 heat inserts.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1384745183492706416"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "migon-migon-metalfish-shell-mod",
+    "name": "Migon Metalfish Shell mod",
+    "author": "migon",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Remix of the Arthrimus Slim Console with an expanded back panel to accommodate wider Metalfish 500W FlexATX PSU (83mm wide).",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1443330511547273286"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  },
+  {
+    "id": "rockpython-arthrimus-slim-screen-integration",
+    "name": "Arthrimus slim screen integration",
+    "author": "rockpython",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Mod integrating a display screen into the front panel of the Arthrimus Slim Console.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1466309845295824919"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "owee4567-arthrimus-slim-owee-mods",
+    "name": "Arthrimus slim Owee mods",
+    "author": "owee4567",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Collection of mods for the Arthrimus Slim Console: front panel with dual 40mm fans, enlarged left side panel with 120mm fan mount, and custom feet.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1444131857028485263"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "seb-gauge-minimalist-case-prototype-gadget-seb-gauge",
+    "name": "Minimalist Case Prototype (Gadget/seb.gauge)",
+    "author": "seb.gauge",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Prototype version of the Minimalist BC-250 Case (later published on Printables). Three variants supporting 240mm and 360mm fan configurations. Includes carry handle STL. Uses FlexATX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1464319730067177576"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "realderyn-bc250-case-realderyn",
+    "name": "BC250 Case (realderyn)",
+    "author": "realderyn",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Early community case design with 12-piece construction and blower shroud. Prototype from December 2024. Uses FlexATX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1315931174740164618"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "praeterita-amd-bc-250-120mm-fan-top-cover",
+    "name": "AMD BC-250 120mm Fan Top Cover",
+    "author": "praeterita",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Top cover providing dual 120mm fan mounts for the BC-250. No internal PSU — requires external power supply.",
+    "links": {
+      "printables": "https://www.printables.com/model/1514874"
+    },
+    "printables_id": "1514874",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/5263f0fc-8aa5-4bb4-9229-0e3879b0f3a0/images/11412047_f0f01ec8-7864-4229-965d-ed67e2eb0a2e_907db728-0a61-4bf9-9534-d7abdee501ce/kakaotalk_20251214_150307950_01.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "bioizhere-bc250-case-early-incomplete",
+    "name": "bc250 case (early, incomplete)",
+    "author": "bioizhere",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Incomplete early case design with Arctic P12 Slim 15mm fan and 90-100mm cooler clearance. No PSU slot included.",
+    "links": {
+      "printables": "https://www.printables.com/model/1091505"
+    },
+    "printables_id": "1091505",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/1091505/images/8254147_6007c0dd-940f-401c-a362-13f69a2902a9_d467e5a1-0ecb-4384-9b54-49785c4e5050/screenshot-803.png",
+    "is_remix": false
+  },
+  {
+    "id": "mrlarva-tv-7304454-asrock-bc-250-steam-machine-v2",
+    "name": "TV-7304454 — ASRock BC-250 Steam Machine v2",
+    "author": "MrLarva",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Version 2 of MrLarva's case with up to 2cm clearance for backplate heatsink. Uses FlexATX PSU.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7304454"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/fb/8f/2c/94/e0/card_preview_BC-250_MrLarva_Case.png",
+    "is_remix": true
+  },
+  {
+    "id": "jayrule-easily-printable-case-v3",
+    "name": "Easily Printable Case (V3)",
+    "author": "jayrule",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Screwless case designed with zero bridging or overhangs for maximum printer compatibility. Two-piece glued construction. V3 final version. Uses Metalfish FlexATX PSU (any FlexATX should fit).",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1442651196346335232"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "emiliano-1590-generic-simple-case",
+    "name": "Generic/Simple Case",
+    "author": "emiliano_1590",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Straightforward case designed in SolidWorks with FlexATX PSU (FSP500-30AS) and single central 140mm fan. ABS construction with USB 3.0 hub. STEP source shared on Discord.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1437311862172815362"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "josuee34-bc250-case-v1-v2",
+    "name": "BC250 case v1+v2",
+    "author": "josuee34",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Two-version case with hexagonal tunnel airflow design, dual fans, and FlexATX PSU (any Flex U1 should fit). Uses approximately 500g of PETG filament.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1422479521101119508"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "bastardgoose-sandwiched-case",
+    "name": "Sandwiched Case",
+    "author": "bastardgoose",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "discord",
+    "section": "FlexATX",
+    "description": "Two-piece horizontally split case with FlexATX PSU. Printed and tested.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1426686676935114923"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "seb-gauge-gadget-p-1581724-the-lanboy",
+    "name": "The Lanboy",
+    "author": "seb.gauge (= Gadget/P-1581724)",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "wip",
+    "section": "FlexATX",
+    "description": "Portable all-in-one case with integrated 16-inch 1920x1200 display panel connected via DP-to-eDP. FlexATX PSU, foldable feet, ATX breakout board, and fan controller. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1472592880291020811"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "legendarymakes-retro-steamy-machine-case",
+    "name": "Retro Steamy Machine Case",
+    "author": "LegendaryMakes",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "commercial",
+    "section": "FlexATX",
+    "description": "Commercially sold printed case with FlexATX PSU and push-pull dual 140mm fans. Available in three themed editions: Midnight, Retro, and Vintage Arcade.",
+    "links": {
+      "ebay": "https://www.ebay.com/itm/306694535602"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "playnation-bc-250-case-remix-for-tfx",
+    "name": "BC-250 Case Remix for TFX",
+    "author": "PlayNation",
+    "psu_family": "tfx",
+    "psu_label": "Vinga 400W OEM TFX-400",
+    "availability": "public",
+    "section": "TFX",
+    "description": "Remix adding TFX PSU compatibility (Vinga 400W OEM TFX-400). Features dual 120mm Arctic fans. Based on the MTSquar3D case.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2387157"
+    },
+    "printables_id": null,
+    "makerworld_id": "2387157",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USc95783f4ebf48b/design/b83bdd032ed61aec.jpg",
+    "is_remix": true
+  },
+  {
+    "id": "gennro-bc-250-atx-psu-bazzite-box",
+    "name": "BC-250 ATX PSU Bazzite Box",
+    "author": "gennro",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "Console-style case designed for a standard full ATX PSU. Dubbed the Bazzite Box.",
+    "links": {
+      "printables": "https://www.printables.com/model/1550729"
+    },
+    "printables_id": "1550729",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/8ab40bf9-4a5e-4833-a932-a77dcd749b02/images/11694664_f491bab7-9b5c-43f5-90a2-76ff94aebb87_c3d53d1f-88b8-4e2e-b335-2ec30472da67/bazzbox.png",
+    "is_remix": false
+  },
+  {
+    "id": "catsiewdai-amd-bc-250-case-for-standard-atx",
+    "name": "AMD BC-250 Case for Standard ATX",
+    "author": "CatSiewDai",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "3D-printed case designed around standard ATX PSU compatibility as the primary constraint.",
+    "links": {
+      "printables": "https://www.printables.com/model/1553599"
+    },
+    "printables_id": "1553599",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/176919e0-39d1-480c-bc9e-927e40afc58b/images/11711943_c68aec92-165c-4fa5-b28f-b4a297c19a16_4c4b690c-e28b-4b7a-bd7e-22163b3ec57f/case-diagram.png",
+    "is_remix": false
+  },
+  {
+    "id": "mateo-fdez-dual-fan-bc-250-atx-case",
+    "name": "Dual Fan BC-250 ATX CASE",
+    "author": "Mateo Fdez",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "Dual fan case remixed from gennro's Bazzite Box design. Uses full ATX PSU.",
+    "links": {
+      "printables": "https://www.printables.com/model/1579658"
+    },
+    "printables_id": "1579658",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/6218c4dd-bfff-46f4-a642-4eb3c628f24b/images/11895515_50a32ef6-f583-4258-a48d-74891ebae98f_b9a804ef-a586-43df-b89b-9233eb43fd2b/captura-de-pantalla-2026-02-01-a-las-05225.png",
+    "is_remix": false
+  },
+  {
+    "id": "zmaslo-amd-bc-250-case-atx-fan-duct",
+    "name": "AMD BC-250 Case ATX + Fan Duct",
+    "author": "ZMASLO",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "ATX PSU case with a fan duct solution that directs airflow without damaging the stock heatsink cooler.",
+    "links": {
+      "printables": "https://www.printables.com/model/1616167"
+    },
+    "printables_id": "1616167",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/889596cc-8056-4dd5-aca3-a4124373f2a4/images/12155682_afd22190-ea61-4266-90fb-b6ed6a337ea6_e9a54150-4b0f-4bdb-b003-d7c5ca573724/tunel.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "suvalle55-bc-250-simple-wooden-case",
+    "name": "BC-250 Simple Wooden Case",
+    "author": "suvalle55",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "Handmade wooden case using standard ATX PSU. Combines plywood, aluminum, and carbon fiber PLA with an Arctic P12 Pro fan.",
+    "links": {
+      "printables": "https://www.printables.com/model/1595794"
+    },
+    "printables_id": "1595794",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/74993a87-0e17-4efe-9340-4171ae58c868/images/12007652_122f4e78-0dbf-4850-90b9-1cc30b94a3d2_321e89b2-2d08-4d2f-84a8-eff7f5ad0932/1.png",
+    "is_remix": false
+  },
+  {
+    "id": "kabanchyk-bc-250-atx-case",
+    "name": "BC-250 ATX CASE",
+    "author": "KABANCHYK",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "commercial",
+    "section": "Full ATX",
+    "description": "3D-printed case with triple 120mm fan cooling and full ATX PSU. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/en/3d-model/gadget/bc-250-atx-case"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "lumstudio-bc-250-atx-case-steam-machine",
+    "name": "BC 250 ATX CASE Steam Machine",
+    "author": "lumstudio",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "commercial",
+    "section": "Full ATX",
+    "description": "Steam Machine style case with magnetic front panel and full ATX PSU. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/en/3d-model/gadget/bc-250-atx-case-steam-machine"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "greatapo-open-frame-case-ikea-hack",
+    "name": "Open Frame Case + IKEA Hack",
+    "author": "GreatApo",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "Open-frame case built on an IKEA VARIERA shelf insert with 3D-printed mounting brackets. Fits the BC-250 board and a full ATX PSU. Crenelated top for cable pass-through.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7314188",
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rs9g83/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/57/d7/47/2b/be/featured_preview_PXL_20260313_002055154.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "amd-bc-250-case-for-standard-atx-wip",
+    "name": "AMD BC-250 Case for Standard ATX (WIP)",
+    "author": "?",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "wip",
+    "section": "Full ATX",
+    "description": "Work in progress. 3D-printed case designed around ATX PSU compatibility. Prioritizes structural integrity with internal ribbing.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7269520"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/34/50/1e/21/2d/featured_preview_Screenshot_2026-01-12_170735.png",
+    "is_remix": false
+  },
+  {
+    "id": "matmiak-amd-bc250-case-for-atx-psu",
+    "name": "AMD BC250 Case for ATX PSU",
+    "author": "matmiak",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "public",
+    "section": "Full ATX",
+    "description": "Case for ATX PSU printed on a resin printer (Anycubic Mono X2). Includes hole for AliExpress power switch.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7303096"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://cdn.thingiverse.com/assets/5e/1e/90/12/22/featured_preview_Screenshot_2026-02-25_134716.png",
+    "is_remix": false
+  },
+  {
+    "id": "brod6046-bc250-case-vertical-config",
+    "name": "BC250 Case Vertical Config",
+    "author": "brod6046",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "discord",
+    "section": "Full ATX",
+    "description": "Vertical orientation case with full ATX PSU and 140mm fan cooling.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1324794668176900207"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "jai-chopped-atx-bc-250-case",
+    "name": "Chopped ATX BC-250 Case",
+    "author": "Jai",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "request",
+    "section": "Full ATX",
+    "description": "Experimental case using a physically cut-down ATX PSU housing to save space. Warning: involves modifying high-voltage PSU internals. Files available on request.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1454631401692336260"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "big-ass-squat-wooden-case-atx",
+    "name": "Wooden case + ATX",
+    "author": "Big_Ass_Squat",
+    "psu_family": "atx",
+    "psu_label": "Full ATX",
+    "availability": "unpublished",
+    "section": "Full ATX",
+    "description": "Handmade wooden case with full ATX PSU. No 3D printer required.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rcduik/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/6r9v8snwy7lg1.jpg?width=3000&format=pjpg&auto=webp&s=acae241e33ba176ce199cd813205e077f1fdec8f",
+    "is_remix": false
+  },
+  {
+    "id": "hrumque-bc-250-amd-case-v2-hp-server",
+    "name": "BC-250 AMD case v2 (HP Server)",
+    "author": "Hrumque",
+    "psu_family": "hp-server",
+    "psu_label": "HP Server PSU",
+    "availability": "public",
+    "section": "HP Server PSU",
+    "description": "Case for HP HSTNS-PL28 Gen6/Gen7 server PSU (typically under $10). Superseded by the V4 multi-PSU version.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/2263468"
+    },
+    "printables_id": null,
+    "makerworld_id": "2263468",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US4b1c408d0fcc1/design/2026-01-19_a99357271cc6a8.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "hrumque-bc250-amd-case-v3-hp-hdd-usb-hub",
+    "name": "BC250 AMD case v3 HP + HDD + USB hub",
+    "author": "Hrumque",
+    "psu_family": "hp-server",
+    "psu_label": "HP Server PSU",
+    "availability": "public",
+    "section": "HP Server PSU",
+    "description": "Version 3 with HP server PSU, adding 2.5-inch HDD bay and USB hub. Printed in ASA and PETG. Superseded by V4.",
+    "links": {
+      "printables": "https://www.printables.com/model/1580750",
+      "makerworld": "https://makerworld.com/en/models/2326706"
+    },
+    "printables_id": "1580750",
+    "makerworld_id": "2326706",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USdcc0203ee33f36/design/fd7b59a9ce778779.jpg",
+    "is_remix": false
+  },
+  {
+    "id": "arthrimus-arthrimus-slim-hp-hstns-pr28-edition",
+    "name": "Arthrimus Slim — HP HSTNS-PR28 edition",
+    "author": "Arthrimus",
+    "psu_family": "hp-server",
+    "psu_label": "HP Server PSU",
+    "availability": "wip",
+    "section": "HP Server PSU",
+    "description": "Modified Arthrimus Slim Console for the quiet HP HSTNS-PR28 server PSU. Custom control PCB in development. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1429675604554416292"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "arthrimus-arthrimus-slim-dell-d750e-edition",
+    "name": "Arthrimus Slim — Dell D750e edition",
+    "author": "Arthrimus",
+    "psu_family": "hp-server",
+    "psu_label": "HP Server PSU",
+    "availability": "wip",
+    "section": "HP Server PSU",
+    "description": "Modified Arthrimus Slim Console for Dell D750e server PSU. Custom control PCB V1 functional, V2 in development. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1429675604554416292"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "kabanchyk-vertical-bc-250-case",
+    "name": "Vertical BC-250 case",
+    "author": "KABANCHYK",
+    "psu_family": "server-1f",
+    "psu_label": "Server PSU 1F",
+    "availability": "commercial",
+    "section": "Server PSU 1F",
+    "description": "Vertical case for 1F-format server PSU or slim 300W+ PSU with triple fan cooling. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/en/3d-model/gadget/vertical-bc-250-case"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "kabanchyk-bc-250-case-standard",
+    "name": "BC-250 CASE (standard)",
+    "author": "KABANCHYK",
+    "psu_family": "server-1f",
+    "psu_label": "Server PSU 1F",
+    "availability": "commercial",
+    "section": "Server PSU 1F",
+    "description": "Standard horizontal case for 1F-format server PSU. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/en/3d-model/gadget/bc-250-case"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "xxtdhl-bc-250-case-xxtdhl",
+    "name": "BC-250 CASE (xxtdhl)",
+    "author": "xxtdhl",
+    "psu_family": "server-1f",
+    "psu_label": "Server PSU 1F",
+    "availability": "commercial",
+    "section": "Server PSU 1F",
+    "description": "Case for 1F server PSU with dual 120mm fan cooling. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/en/3d-model/tool/bc-250-case-tkxxt"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "kapa3d-amd-bc-250-gamer-case",
+    "name": "AMD BC-250 Gamer Case",
+    "author": "kapa3D",
+    "psu_family": "server-1f",
+    "psu_label": "Server PSU 1F",
+    "availability": "commercial",
+    "section": "Server PSU 1F",
+    "description": "High-airflow gaming case compatible with ATX or FlexATX PSUs and 1F server PSU. Sold as a paid download on Cults3D.",
+    "links": {
+      "cults3d": "https://cults3d.com/fr/mod%C3%A8le-3d/outil/amd-bc-250-gamer-case"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "kawaiiturd-8-3l-compact-4-cluster-tower",
+    "name": "8.3L compact 4×cluster tower",
+    "author": "KawaiiTurd",
+    "psu_family": "server-1f",
+    "psu_label": "Server PSU 1F",
+    "availability": "discord",
+    "section": "Server PSU 1F",
+    "description": "Compact 8.3L tower (360x140x165mm) housing four BC-250 boards with a 40x60mm server PSU and single Arctic 140mm fan with ducts. Designed for compute clusters, LAN parties, or home automation. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1463930029133009159"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "head-lifeguard7846-custom-steam-machine-sf600",
+    "name": "Custom Steam Machine (SF600)",
+    "author": "Head-Lifeguard7846",
+    "psu_family": "sfx",
+    "psu_label": "SFX",
+    "availability": "unpublished",
+    "section": "SFX",
+    "description": "Custom case with Corsair SF600 SFX PSU. Printed in GF-PETG and matte PETG, designed in Fusion 360.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rousto/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/hyky8tgwezng1.jpg?width=2144&format=pjpg&auto=webp&s=bbff4061450d3f3fdf9d79d70c1989f226190bf1",
+    "is_remix": false
+  },
+  {
+    "id": "errr-nr200p-cased-bc250",
+    "name": "NR200P cased BC250",
+    "author": "Errr",
+    "psu_family": "sfx",
+    "psu_label": "SFX",
+    "availability": "discord",
+    "section": "SFX",
+    "description": "BC-250 mounted vertically inside a modified Cooler Master NR200P SFF case with Corsair SF600 SFX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1394424939209035836"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "ivanin3d-obelisk-case-design",
+    "name": "Obelisk Case Design",
+    "author": "ivanin3d",
+    "psu_family": "sfx",
+    "psu_label": "SFX",
+    "availability": "discord",
+    "section": "SFX",
+    "description": "Vertical obelisk-style case with Corsair SF600 SFX PSU. Features dual-fan layout, mostly toolless assembly, and a mechanical keyboard switch for the power button. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1461992216888086643"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "nexgen-3d-nexgen3d-aio-mount",
+    "name": "NexGen3D AIO Mount",
+    "author": "NexGen-3D",
+    "psu_family": "other",
+    "psu_label": "Liquid/AIO",
+    "availability": "public",
+    "section": "Liquid/AIO",
+    "description": "Sturdy 240mm AIO liquid cooler mount for the BC-250. Tested with Thermalright Aqua Elite V4 and MSI MAG Coreliquid A15. Not a full case — cooling bracket only.",
+    "links": {
+      "printables": "https://www.printables.com/model/1554003"
+    },
+    "printables_id": "1554003",
+    "makerworld_id": null,
+    "thumbnail": "https://media.printables.com/media/prints/abbc439a-5da5-423b-a36e-82500e9a9c12/images/11714731_8ff1d37f-e5ef-4145-8920-374654f438b4_9def48da-4c4a-47e5-967c-006eb7ec2d45/bc-250-aio-mount.png",
+    "is_remix": false
+  },
+  {
+    "id": "zedeau-janky-watercooling-open-frame",
+    "name": "Janky watercooling (open frame)",
+    "author": "Zedeau",
+    "psu_family": "other",
+    "psu_label": "Liquid/AIO",
+    "availability": "discord",
+    "section": "Liquid/AIO",
+    "description": "Custom watercooling setup using an EK X99 waterblock with a custom adapter plate. Open frame built from 4x 300mm 2020 aluminum extrusions. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1465438158215712969"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "owee456-slim-console-aio-side-panel",
+    "name": "Slim Console + AIO side panel",
+    "author": "Owee456",
+    "psu_family": "other",
+    "psu_label": "Liquid/AIO",
+    "availability": "discord",
+    "section": "Liquid/AIO",
+    "description": "Custom side panel for the Arthrimus Slim Console adding an AIO liquid cooler mount.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1418669646151811223/1444131857028485263"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "mastertonberry427-lay-flat-steam-box-case",
+    "name": "Lay Flat Steam Box Case",
+    "author": "mastertonberry427",
+    "psu_family": "led-driver",
+    "psu_label": "300W LED driver 12V/25A",
+    "availability": "discord",
+    "section": "LED Driver",
+    "description": "Lay-flat steam box style case with dual 140mm fans and 300W 12V/25A LED driver as PSU. Uses 6x M3 inserts with double-sided tape for PSU mounting. STEP and 3MF files shared on Discord.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1451340219419726037"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "cakewalk-c4kew4lk-bc250-slim-case-prototype",
+    "name": "BC250 slim case (prototype)",
+    "author": "cakewalk_ (= C4kew4lk)",
+    "psu_family": "lrs",
+    "psu_label": "UHP-350-12",
+    "availability": "public",
+    "section": "MeanWell LRS/UHP",
+    "description": "Compact slim case with MeanWell UHP-350-12 passive PSU and 3x 40mm fans. Same design as the C4kew4lk BC250 Slim Case.",
+    "links": {
+      "printables": "https://www.printables.com/model/1504664"
+    },
+    "printables_id": "1504664",
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "sparpet-bc250-with-ps3-psu",
+    "name": "BC250 with PS3 PSU",
+    "author": "sparpet",
+    "psu_family": "ps3",
+    "psu_label": "PS3 PSU",
+    "availability": "discord",
+    "section": "PS3 PSU",
+    "description": "3D-printed case reusing a PS3 Phat PSU. Requires board modifications including PCIe power connector relocation and a resistor jumper to enable the 12V rail.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1384745183492706416"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "jo-o-bc-250-on-ps3-fat-case",
+    "name": "BC-250 on PS3 fat case",
+    "author": "João",
+    "psu_family": "ps3",
+    "psu_label": "PS3 PSU",
+    "availability": "discord",
+    "section": "PS3 PSU",
+    "description": "BC-250 fitted into a dead PS3 Fat console shell with blower fan cooling. Available PSU space approximately 20x5.5x6-8cm. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1471519515476230156"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "fish-ps3-bc-250",
+    "name": "PS3 BC-250",
+    "author": "fish",
+    "psu_family": "ps3",
+    "psu_label": "PS3 PSU",
+    "availability": "discord",
+    "section": "PS3 PSU",
+    "description": "BC-250 installed in a stripped PS3 console shell. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1444116242611961978"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "oleksii-amd-bc-250-vesa-100-75-basket",
+    "name": "AMD BC-250 VESA 100/75 Basket",
+    "author": "Oleksii",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "public",
+    "section": "VESA/Rack/Special",
+    "description": "VESA 100/75 compatible basket mount for attaching the BC-250 behind a monitor. Fits dual 120mm fans on top. Designed in Fusion 360.",
+    "links": {
+      "makerworld": "https://makerworld.com/en/models/1844470"
+    },
+    "printables_id": null,
+    "makerworld_id": "1844470",
+    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/DSM00000001844470/design/2025-10-01_585be6894c3678.png",
+    "is_remix": false
+  },
+  {
+    "id": "sentinel-1u-rack-bracket",
+    "name": "1U Rack Bracket",
+    "author": "SentineL",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "3D-printed 1U rackmount bracket for mounting BC-250 boards in a standard server rack.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1381494635083468923"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "based-cumrade-bc250-case-dock-style",
+    "name": "BC250 Case Dock Style",
+    "author": "based_cumrade",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "unpublished",
+    "section": "VESA/Rack/Special",
+    "description": "Flat dock-style case with various stand options for different orientations. Project cancelled.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1319113766536871966"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "biohazardv2-0-atx-to-bc250-board-bracket",
+    "name": "ATX to BC250 board bracket",
+    "author": "biohazardv2.0",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "wip",
+    "section": "VESA/Rack/Special",
+    "description": "Two-piece adapter bracket for mounting the BC-250 board with a standard AMD CPU cooler. Work in progress.",
+    "links": {
+      "printables": "https://www.printables.com/model/1042228-bc250-to-amd-cpu-cooler-mount"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "average-data-hoarder-bc-250-handheld",
+    "name": "BC-250 Handheld",
+    "author": "Average Data Hoarder",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "Novelty handheld form factor with touchscreen. Mains powered (no battery). Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1458227362989740052"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "mike-dual-bc-250-compute-suitcase",
+    "name": "Dual BC-250 Compute Suitcase",
+    "author": "Mike",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "Portable suitcase housing two BC-250 boards with a shared 500W ATX PSU. Individual 120mm blower fans per board with shrouds. Early concept stage.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1347050906612666488"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "dangerdook-imac-gaming-aio-for-lans",
+    "name": "iMac gaming AIO for lans",
+    "author": "dangerdook",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "BC-250 installed inside a 2006 17-inch iMac shell, preserving the original display for an all-in-one LAN party machine. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1409326179973988403"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "spitko-the-portable-bc250",
+    "name": "The portable BC250",
+    "author": "Spitko",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "BC-250 fitted into a vintage Compaq Portable 386 suitcase computer shell. Retro mod project. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1438446977602945137"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "kawaiiturd-1-8l-cross-flow-fan-mod",
+    "name": "1.8L cross-flow fan mod",
+    "author": "kawaiiturd",
+    "psu_family": "other",
+    "psu_label": "VESA/Rack/Special",
+    "availability": "discord",
+    "section": "VESA/Rack/Special",
+    "description": "Product-design-focused 1.8L build using a custom 3D-printed cross-flow (squirrel cage) fan for quiet airflow. Not a complete case. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1463930029133009159"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "vvaaron-zulkit-metal-enclosure-wine-box",
+    "name": "Zulkit Metal Enclosure + wine box",
+    "author": "vvaaron",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX externe",
+    "availability": "public",
+    "section": "Off-the-shelf",
+    "description": "No-3D-printer build using an off-the-shelf Zulkit metal electronics enclosure (350x200x95mm). FlexATX PSU with Arctic P12 Pro intake and 2x P8 side fans. Cut holes for I/O. Idles at 40C, gaming at 65C.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1456411114597257358"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "boutoron2685-taobao-egpu-shell",
+    "name": "Taobao eGPU Shell",
+    "author": "boutoron2685",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "commercial",
+    "section": "Off-the-shelf",
+    "description": "Cheap off-the-shelf metal eGPU enclosure from Taobao (model AC5, under $20 for shell only). 80mm wide, fits BC-250 with FlexATX PSU. Slim fans recommended for rear cooling.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1470034521884852449"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "hermesconrad-metalfish-itx-open-frame",
+    "name": "Metalfish ITX open frame",
+    "author": "hermesconrad",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "commercial",
+    "section": "Off-the-shelf",
+    "description": "Metal Fish ITX open-frame case using 20x20mm aluminum extrusions. Vertical orientation, same length as BC-250. Can potentially host two boards. Uses FlexATX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1469080195515551920"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "gennro-xbox-one-case-mod",
+    "name": "Xbox One case mod",
+    "author": "gennro",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "unpublished",
+    "section": "Off-the-shelf",
+    "description": "Attempted BC-250 installation in an Xbox One console shell. Project cancelled due to impossible wiring.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1444460382604492953"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "joeydepdollas-bc-250-in-xbox-one-case",
+    "name": "BC-250 in Xbox One Case",
+    "author": "JoeyDepDollas",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "unknown",
+    "section": "Off-the-shelf",
+    "description": "BC-250 installed in a modified real Xbox One console shell.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1r8ozkr/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/1jnyuj38hdkg1.jpg?width=1080&crop=smart&auto=webp&s=8aba66d0f9745f4c28cc4f05f7c9ed57144b59c8",
+    "is_remix": false
+  },
+  {
+    "id": "fitformsolutions-3-9l-mkii-flexatx-ps5-fan-case",
+    "name": "3.9L MKII FlexATX + PS5 Fan Case",
+    "author": "FitFormSolutions",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX + Nidec PS5 fan",
+    "availability": "commercial",
+    "section": "Commercial",
+    "description": "Commercially sold 3.9L PETG case (MKII version) with FlexATX PSU and Nidec PS5 blower fan. Ships from Canada.",
+    "links": {
+      "ebay": "https://www.ebay.com/itm/127460591552",
+      "etsy": "https://www.etsy.com/listing/4405362103/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "fitformsolutions-amd-bc-250-blade-cooling-case",
+    "name": "AMD BC-250 Blade Cooling Case",
+    "author": "FitFormSolutions",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "commercial",
+    "section": "Commercial",
+    "description": "Commercially sold All Black Edition case with blower-style cooling.",
+    "links": {
+      "ebay": "https://www.ebay.com/itm/306089654152"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "fitformsolutions-amd-bc-250-noctua-cooling-enclosure",
+    "name": "AMD BC-250 Noctua Cooling Enclosure",
+    "author": "FitFormSolutions",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "commercial",
+    "section": "Commercial",
+    "description": "Commercially sold enclosure with Noctua fan cooling.",
+    "links": {
+      "etsy": "https://www.etsy.com/listing/1904667505"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "printandpar-authorized-reseller-nexgen3d-case-us-print-servi",
+    "name": "NexGen3D Case (US print service)",
+    "author": "PrintAndPar (authorized reseller)",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "commercial",
+    "section": "Commercial",
+    "description": "Authorized US print service selling the NexGen3D DIY Steam Machine case (approved by NexGen-3D).",
+    "links": {
+      "etsy": "https://www.etsy.com/listing/4433157329"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "zephyr-s-market-arthrimus-slim-console",
+    "name": "Arthrimus Slim Console",
+    "author": "Zephyr's Market",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "commercial",
+    "section": "Commercial",
+    "description": "Print-on-demand service selling the Arthrimus Slim Console case.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1315927175601459202"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "hong31s-bc250-case-diy",
+    "name": "BC250 CASE diy",
+    "author": "hong31s",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "unpublished",
+    "section": "Unpublished Builds",
+    "description": "DIY case build. Work in progress.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1315927175601459202"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "frequent-article5172-german-custom-case",
+    "name": "German custom case",
+    "author": "Frequent-Article5172",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "unpublished",
+    "section": "Unpublished Builds",
+    "description": "Custom case build shared in the community.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1315927175601459202"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "maelremremdotxyz-maelremremdotxyz-design",
+    "name": "MaelremremDotXYZ Design",
+    "author": "MaelremremDotXYZ",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Custom case design achieving sub-67C gaming temperatures with a 2145 MHz overclock at 1.1V. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rpbmro/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/m88w2r6pw2og1.jpg?width=1080&crop=smart&auto=webp&s=eaed8706e3144696ed226e17c8d6dde799950c2e",
+    "is_remix": false
+  },
+  {
+    "id": "frequent-article5172-custom-case-german-build",
+    "name": "Custom Case (German build)",
+    "author": "Frequent-Article5172",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Custom case design, completed despite a faulty BC-250 board. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rtvilb/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/necarnlsw2pg1.jpg?width=1080&crop=smart&auto=webp&s=343d070aa0cee43798d98cba622f2988a1a3ef07",
+    "is_remix": false
+  },
+  {
+    "id": "paincomprehensive875-s5-max-pc-case-mod",
+    "name": "S5 Max PC Case Mod",
+    "author": "PainComprehensive875",
+    "psu_family": "atx",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "ATX",
+    "description": "Modified S5 Max PC case repurposed for the BC-250 with ATX PSU and added power switch. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rtmjro/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/c0dku3fu51pg1.jpg?width=1080&crop=smart&auto=webp&s=6491359f269d1c582c46cab1225ca6a1547c93e0",
+    "is_remix": false
+  },
+  {
+    "id": "automatic-switch-338-bc-250-atx-build",
+    "name": "BC-250 ATX Build",
+    "author": "Automatic-Switch-338",
+    "psu_family": "atx",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "ATX",
+    "description": "Remix of a Cults3D ATX case, heavily modified for the BC-250. Uses ATX PSU. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rt96ed/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/zzzbonq9exog1.jpg?width=1080&crop=smart&auto=webp&s=2e041005dc202de16a66c205f80bbdfa8dff64f9",
+    "is_remix": true
+  },
+  {
+    "id": "abbreviationskind597-bc250-acrylic-case",
+    "name": "BC250 Acrylic Case",
+    "author": "AbbreviationsKind597",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Custom laser-cut acrylic case for the BC-250. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rryw5f/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/ceqdsuxsqnog1.jpg?width=1080&crop=smart&auto=webp&s=937395c05976e72faa92bac10a61c010361c1444",
+    "is_remix": false
+  },
+  {
+    "id": "razidargh-cardboard-case",
+    "name": "Cardboard Case",
+    "author": "Razidargh",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Creative cardboard case build for the BC-250. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rroyxb/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/3uamoxjstlog1.jpg?width=1080&crop=smart&auto=webp&s=a449860f5b89d844f6025fe753941cc945953954",
+    "is_remix": false
+  },
+  {
+    "id": "conscious-flamingo27-customized-pitman-case",
+    "name": "Customized Pitman Case",
+    "author": "Conscious-Flamingo27",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Remix of the WeskMods Pitman case modified for a larger Apevia ITX-PFC500W PSU with the power port relocated to the front panel.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rftgjo/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/5lldt40k0ylg1.jpg?width=1080&crop=smart&auto=webp&s=cd1c88871cd53bdb6033ce291e1da0210b117ba2",
+    "is_remix": true
+  },
+  {
+    "id": "vividperformance734-custom-panel-bc-250-build",
+    "name": "Custom Panel BC-250 Build",
+    "author": "Vivid_Performance734",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Custom-designed case panels for a BC-250 build. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rc5vdj/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/dyby2i7rs5lg1.jpg?width=1080&crop=smart&auto=webp&s=a5f2c5b56d5529f76023b22e8ca4d0ce1e8af18a",
+    "is_remix": false
+  },
+  {
+    "id": "se7en9057-push-pull-case-wip",
+    "name": "Push-Pull Case (WIP)",
+    "author": "se7en9057",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Push-pull fan configuration case with stock heatsink fins intact. Achieves 50-53C idle, 75C max under OCCT stress test. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rb3un9/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/ohi4af8r5xkg1.png?width=1080&crop=smart&auto=webp&s=c0f7f277f99abeb7849ff97184d2c473aeab6567",
+    "is_remix": false
+  },
+  {
+    "id": "hrumque-bc-250-industrial-case",
+    "name": "BC-250 \"Industrial\" Case",
+    "author": "Hrumque",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "Industrial-style case design by Hrumque. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1r985ck/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/8slifsvc1ikg1.jpg?width=1080&crop=smart&auto=webp&s=1b693a3d816da84a2f55444c5abbd6850481cc3e",
+    "is_remix": false
+  },
+  {
+    "id": "kacikor-yet-another-bc-250-3d-printed-case",
+    "name": "Yet Another BC-250 3D-printed Case",
+    "author": "Kacikor",
+    "psu_family": "lop",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "MeanWell LOP",
+    "description": "3D-printed case with MeanWell LOP PSU. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1r5d9xt/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/5w5ko8ywhnjg1.jpg?width=1080&crop=smart&auto=webp&s=ece9a71cba5ee2cb231fc9d1a18ae2ae0f8cf77e",
+    "is_remix": false
+  },
+  {
+    "id": "chico28526-bc-250-steamcase-arcade-machine",
+    "name": "BC-250 Steamcase Arcade Machine",
+    "author": "chico28526",
+    "psu_family": "other",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "Other / Unknown PSU",
+    "description": "BC-250 integrated into a Steamcase arcade machine form factor. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1qbv74n/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/ebma22vp35dg1.jpg?width=1080&crop=smart&auto=webp&s=def8e0bd8e9ab54e0dca20b75165d8519dfab758",
+    "is_remix": false
+  },
+  {
+    "id": "yard-quick-flexatx-case",
+    "name": "FlexATX Case",
+    "author": "Yard-Quick",
+    "psu_family": "flexatx",
+    "psu_label": "",
+    "availability": "wip",
+    "section": "FlexATX",
+    "description": "Custom FlexATX case for the BC-250. Work in progress.",
+    "links": {
+      "reddit": "https://reddit.com/r/BC250Gaming/comments/1rdlcwk/"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": "https://preview.redd.it/fwe7rr5k1hlg1.jpg?width=1080&crop=smart&auto=webp&s=c29993c8ecad9ddf029ee25ce9eb6e4400643ab4",
+    "is_remix": false
+  },
+  {
+    "id": "gloryplaysgames-finally-finished-custom-case",
+    "name": "Finally Finished Custom Case",
+    "author": "gloryplaysgames",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "unpublished",
+    "section": "FlexATX",
+    "description": "Console-style case with dual 140mm fans, based on the songdawgdesigns Cults3D case design. Uses FlexATX PSU.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1479644306980605962"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "garnetbug-oscar-the-trash-computer",
+    "name": "Oscar the Trash Computer",
+    "author": "garnetbug",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "discord",
+    "section": "Off-the-shelf",
+    "description": "Budget build using a wood board and scrap materials. Replaced stock heatsink fins with Raspberry Pi heatsinks and a low-profile APU cooler, plus a large aluminum heatsink underneath.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1462215466243199056"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "hudson-064-office-project",
+    "name": "Office Project",
+    "author": "hudson_064",
+    "psu_family": "other",
+    "psu_label": "?",
+    "availability": "discord",
+    "section": "Other / Unknown PSU",
+    "description": "Office-oriented BC-250 build project.",
+    "links": {
+      "discord": "https://discord.com/channels/1315924807128449065/1461583140991537306"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": false
+  },
+  {
+    "id": "pesen333-e-waste-steam-machine",
+    "name": "E-waste Steam Machine",
+    "author": "Pesen333",
+    "psu_family": "flexatx",
+    "psu_label": "FlexATX",
+    "availability": "public",
+    "section": "FlexATX",
+    "description": "Remix of the Arthrimus case with VRM cooling modifications and Apevia Flex ATX PSU. E-waste reuse themed build.",
+    "links": {
+      "thingiverse": "https://www.thingiverse.com/thing:7245584"
+    },
+    "printables_id": null,
+    "makerworld_id": null,
+    "thumbnail": null,
+    "is_remix": true
+  }
+]
