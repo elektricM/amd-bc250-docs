@@ -6,66 +6,84 @@
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Discord](https://img.shields.io/discord/1320414880956571719?color=7289da&label=Discord&logo=discord)](https://discord.gg/8eZfFWhczz)
 
-**Comprehensive, community-driven documentation for the AMD BC250 board.**
+**Comprehensive, community-driven documentation for the AMD BC250 board** — a compact AMD "Cyan Skillfish" APU platform originally designed for cryptocurrency mining, repurposed by the community as a capable Linux gaming and desktop system.
 
-📖 **Read the docs:** [https://elektricM.github.io/amd-bc250-docs/](https://elektricM.github.io/amd-bc250-docs/)
+📖 **Read the docs:** [elektricM.github.io/amd-bc250-docs](https://elektricM.github.io/amd-bc250-docs/)
 
-✏️ **Contribute:** Found a solution? Add it to the docs so everyone can find it! See [CONTRIBUTING.md](CONTRIBUTING.md)
+---
 
-## What's Included
+## What's Inside
 
-- **Linux setup guides** for 7+ distributions (Fedora, Bazzite, CachyOS, Arch, Debian, etc.)
-- **BIOS flashing** and configuration (including GPU frequency patch)
-- **Hardware specs** - power requirements, cooling, display compatibility
-- **Troubleshooting** - boot issues, performance problems, stability fixes
-- **Gaming compatibility** - tested games, settings, FPS data
-- **Driver setup** - RADV configuration, environment variables
-- **Community cases catalogue** - 145 case/enclosure designs, searchable and filterable
-- **System configuration** - GPU governor (cyan-skillfish-governor-tt default, oberon-governor alternative), sensors, power management
+| Section | Description |
+|---|---|
+| [Getting Started](https://elektricM.github.io/amd-bc250-docs/getting-started/quick-start/) | Board intro, prerequisites, quick setup checklist |
+| [Linux Setup](https://elektricM.github.io/amd-bc250-docs/linux/fedora/) | Guides for Fedora, Bazzite, CachyOS, Arch, Debian, and more |
+| [BIOS & Firmware](https://elektricM.github.io/amd-bc250-docs/bios/flashing/) | Flashing, configuration, GPU frequency patch (P3.00) |
+| [Hardware](https://elektricM.github.io/amd-bc250-docs/hardware/specs/) | Power, cooling, display compatibility, pinouts |
+| [Gaming & Performance](https://elektricM.github.io/amd-bc250-docs/gaming/compatibility/) | Tested games, FPS data, settings |
+| [Drivers (RADV)](https://elektricM.github.io/amd-bc250-docs/drivers/radv/) | RADV configuration, Mesa version requirements |
+| [System Configuration](https://elektricM.github.io/amd-bc250-docs/system/governor/) | GPU governor, power management, sensors |
+| [Community Cases](https://elektricM.github.io/amd-bc250-docs/community/cases/) | 145 case and enclosure designs — searchable and filterable |
+| [Troubleshooting](https://elektricM.github.io/amd-bc250-docs/troubleshooting/stability/) | Boot issues, performance problems, display fixes |
+
+---
+
+## Community Cases Catalogue
+
+**145 case and enclosure designs** documented from Discord, Reddit, Printables, MakerWorld, and Thingiverse — filterable by PSU type, availability, and platform.
+
+➜ [Browse the catalogue](https://elektricM.github.io/amd-bc250-docs/community/cases/)
+
+---
+
+## Stats
+
+- **1000+ Discord community members** contributing real-world testing
+- **9,716 technical messages** analyzed from the BC250 Discord
+- **30+ games tested** with performance data and settings
+- **7 Linux distributions** with dedicated setup guides
+- **145 case designs** catalogued from the community
+- **Last updated:** March 2026
+
+---
 
 ## Building Locally
 
 ```bash
-# Install dependencies
 pip install mkdocs-material
-
-# Serve locally with live reload
-mkdocs serve
-
-# Build static site
-mkdocs build
+mkdocs serve        # live preview at http://127.0.0.1:8000/
+mkdocs build        # build static site to ./site/
 ```
 
-The site will be available at http://127.0.0.1:8000/
-
-## Content Sources
-
-Built from:
-- BC250 Discord community (9,716 technical messages from 1000+ members)
-- [BC250 GitHub repository](https://github.com/mothenjoyer69/bc250-documentation)
-- Last Updated: November 21, 2025
+---
 
 ## Contributing
 
-**Please contribute your knowledge!** Instead of posting solutions in Discord where they get lost, add them to the documentation:
+Solutions posted in Discord get buried. Put them in the docs instead — everyone finds them forever.
 
-- **Easy way:** Click "Edit on GitHub" on any page and submit changes
-- **Report issues:** Found wrong info? [Open an issue](https://github.com/elektricM/amd-bc250-docs/issues)
-- **Full guide:** See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions
+- **Quick edit:** Click "Edit on GitHub" on any page
+- **Report errors:** [Open an issue](https://github.com/elektricM/amd-bc250-docs/issues)
+- **Full guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 
-**What we need:**
-- ✅ Tested hardware configurations
-- ✅ Game compatibility reports
-- ✅ Troubleshooting solutions you've found
-- ✅ Distribution-specific setup steps
-- ✅ Fixes for outdated information
+**What's needed most:**
+- Tested hardware configurations and PSU combinations
+- Game compatibility reports (especially newer titles)
+- Distribution-specific quirks and fixes
+- Case/enclosure designs for the [community catalogue](https://elektricM.github.io/amd-bc250-docs/community/cases/)
 
-**Join Discord:** [https://discord.gg/8eZfFWhczz](https://discord.gg/8eZfFWhczz) - but please document your solutions here!
+**Discord:** [discord.gg/8eZfFWhczz](https://discord.gg/8eZfFWhczz)
+
+---
+
+## Sources
+
+- BC250 Discord community (9,716 messages from 1000+ members)
+- [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation)
+- Community-contributed testing and documentation
 
 ## License
 
-- Documentation: CC BY-SA 4.0
-- Code: MIT
+Documentation: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Code: [MIT](LICENSE)
 
 ---
 
