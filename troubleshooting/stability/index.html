@@ -1,0 +1,4289 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects">
+      
+      
+        <meta name="author" content="BC250 Community">
+      
+      
+        <link rel="canonical" href="https://elektricM.github.io/amd-bc250-docs/troubleshooting/stability/">
+      
+      
+        <link rel="prev" href="../performance/">
+      
+      
+        <link rel="next" href="../../community/cases/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Stability Problems - AMD BC250 Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stability-troubleshooting-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AMD BC250 Documentation" class="md-header__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AMD BC250 Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Stability Problems
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AMD BC250 Documentation" class="md-nav__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    AMD BC250 Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/pinouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pinouts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS & Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BIOS & Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS Flashing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/vram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRAM Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/overclocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/fedora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/bazzite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bazzite Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/cachyos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CachyOS Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arch Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/debian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debian Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kernel Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/mesa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drivers & Graphics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Drivers & Graphics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/radv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADV Driver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensors & Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaming & Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaming & Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gaming/compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boot Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stability Problems
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stability Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnostic-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnostic Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-crashes-and-freezes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes and Freezes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Crashes and Freezes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-related-system-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU-Related System Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thermal-related-freezes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal-Related Freezes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overclocking-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governor-related-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governor-Related Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-reboots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random Reboots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Reboots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-supply-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Supply Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overheating-auto-shutoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overheating Auto-Shutoff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-panics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Panics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel Panics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broken-kernel-versions-gpu-driver-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Broken Kernel Versions - GPU Driver Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acpi-errors-on-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACPI Errors on Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voltage-related-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage-Related Instability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage-Related Instability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptoms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-your-voltage-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding Your Voltage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Warnings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-drop-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Drop Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zram-conflicts-with-dynamic-vram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ZRAM Conflicts with Dynamic VRAM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ZRAM Conflicts with Dynamic VRAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-errors-and-ram-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Errors and RAM Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Errors and RAM Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insufficient-ram-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insufficient RAM Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram-timingfrequency-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAM Timing/Frequency Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audiovideo-freezing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audio/Video Freezing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audio/Video Freezing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game-audio-stuttering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Audio Stuttering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-freezing-then-crash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video Freezing Then Crash
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bios-related-stability-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS-Related Stability Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BIOS-Related Stability Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iommu-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IOMMU Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-settings-not-persisting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Settings Not Persisting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-corruption-from-unstable-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Corruption from Unstable Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-state-and-sleep-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power State and Sleep Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power State and Sleep Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-freezes-when-sleeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System "Freezes" When Sleeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sleep-state-power-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sleep State Power Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systematic-stability-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Systematic Stability Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Systematic Stability Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-diagnosis-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-by-Step Diagnosis Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stress-testing-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stress Testing Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-during-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring During Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Error Messages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-reset-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "GPU reset failed"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Out of memory"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-system-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Low system RAM"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acpi-errors-on-boot_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACPI errors on boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapter-not-found-unknown-graphics-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Adapter not found" / "Unknown graphics adapter"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-failure-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware Failure Indicators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Failure Indicators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-suspect-hardware-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Suspect Hardware Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prevention Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-stable-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Stable Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference: Stable Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conservative-maximum-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conservative (Maximum Stability)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balanced-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balanced (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-requires-good-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance (Requires Good Cooling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-most-common-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Most Common Fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cases & Enclosures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/quick-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnostic-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnostic Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-crashes-and-freezes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Crashes and Freezes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Crashes and Freezes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-related-system-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU-Related System Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thermal-related-freezes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal-Related Freezes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overclocking-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governor-related-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Governor-Related Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-reboots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random Reboots
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Reboots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-supply-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power Supply Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overheating-auto-shutoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overheating Auto-Shutoff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-panics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Panics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel Panics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#broken-kernel-versions-gpu-driver-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Broken Kernel Versions - GPU Driver Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acpi-errors-on-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACPI Errors on Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#voltage-related-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage-Related Instability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Voltage-Related Instability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptoms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-your-voltage-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding Your Voltage Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Warnings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#voltage-drop-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Voltage Drop Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zram-conflicts-with-dynamic-vram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ZRAM Conflicts with Dynamic VRAM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ZRAM Conflicts with Dynamic VRAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-errors-and-ram-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Errors and RAM Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Errors and RAM Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insufficient-ram-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insufficient RAM Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram-timingfrequency-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAM Timing/Frequency Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audiovideo-freezing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audio/Video Freezing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audio/Video Freezing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#game-audio-stuttering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Game Audio Stuttering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#video-freezing-then-crash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Video Freezing Then Crash
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bios-related-stability-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS-Related Stability Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BIOS-Related Stability Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iommu-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IOMMU Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-settings-not-persisting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Settings Not Persisting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bios-corruption-from-unstable-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BIOS Corruption from Unstable Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power-state-and-sleep-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power State and Sleep Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Power State and Sleep Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-freezes-when-sleeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System "Freezes" When Sleeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sleep-state-power-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sleep State Power Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systematic-stability-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Systematic Stability Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Systematic Stability Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-diagnosis-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-by-Step Diagnosis Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stress-testing-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stress Testing Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-during-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring During Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Error Messages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Error Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-reset-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "GPU reset failed"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Out of memory"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low-system-ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Low system RAM"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acpi-errors-on-boot_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACPI errors on boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapter-not-found-unknown-graphics-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Adapter not found" / "Unknown graphics adapter"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-failure-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware Failure Indicators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Failure Indicators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-suspect-hardware-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Suspect Hardware Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prevention Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup-recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-stable-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Stable Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference: Stable Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conservative-maximum-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conservative (Maximum Stability)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balanced-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balanced (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-requires-good-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance (Requires Good Cooling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-most-common-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Most Common Fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/elektricM/amd-bc250-docs/edit/main/docs/troubleshooting/stability.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/elektricM/amd-bc250-docs/raw/main/docs/troubleshooting/stability.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="stability-troubleshooting-guide">Stability Troubleshooting Guide<a class="headerlink" href="#stability-troubleshooting-guide" title="Permanent link">&para;</a></h1>
+<p>This guide addresses system crashes, freezes, random reboots, and instability issues on the BC-250. These problems are often interrelated and can stem from hardware, BIOS configuration, kernel compatibility, or power delivery issues.</p>
+<hr />
+<h2 id="quick-diagnostic-checklist">Quick Diagnostic Checklist<a class="headerlink" href="#quick-diagnostic-checklist" title="Permanent link">&para;</a></h2>
+<p>Before diving into specific issues, check these common causes:</p>
+<ol>
+<li><strong>Kernel version</strong>: Are you running kernel 6.15.0-6.15.6 or 6.17.8+? (Known to cause GPU crashes)</li>
+<li><strong>BIOS settings</strong>: Did you clear CMOS after flashing BIOS?</li>
+<li><strong>VRAM allocation</strong>: Are you using 512MB dynamic with ZRAM enabled?</li>
+<li><strong>IOMMU</strong>: Is it disabled in BIOS?</li>
+<li><strong>Governor voltage</strong>: Are your voltage settings stable for your frequency?</li>
+<li><strong>Power supply</strong>: Is your PSU sufficient and stable?</li>
+</ol>
+<hr />
+<h2 id="system-crashes-and-freezes">System Crashes and Freezes<a class="headerlink" href="#system-crashes-and-freezes" title="Permanent link">&para;</a></h2>
+<h3 id="gpu-related-system-crashes">GPU-Related System Crashes<a class="headerlink" href="#gpu-related-system-crashes" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Entire system freezes or crashes during GPU load, requires hard reboot</p>
+<p><strong>Root Cause</strong>: On the BC-250, the GPU and CPU are tightly integrated. When the GPU crashes, the entire system crashes because the driver attempts to reset the GPU, which is not possible on this APU architecture.</p>
+<p><strong>Quote from community</strong>:</p>
+<blockquote>
+<p>"The GPU crashes, the whole system crashes, and requires a reboot. Unfortunately, since these chips are based on the GPU, when the GPU crashes, the whole system crashes."</p>
+</blockquote>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Check kernel version</strong> (Most critical)
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uname<span class="w"> </span>-r
+</span></code></pre></div></li>
+<li><strong>AVOID kernel 6.15.0-6.15.6 and 6.17.8+</strong> - Known to cause random GPU crashes under load</li>
+<li><strong>Recommended</strong>: 6.15.7-6.17.7 (best performance) or 6.12.x-6.14.x LTS (stable)</li>
+<li>
+<p>If on broken version, install working kernel immediately</p>
+</li>
+<li>
+<p><strong>Verify governor voltage stability</strong></p>
+</li>
+<li>Run benchmark: <code>vkmark</code> or <code>superposition</code></li>
+<li>If it crashes, your voltage is too low for your frequency</li>
+<li>Increase voltage by 10-15mV and test again</li>
+<li>
+<p>Quote: "Low voltage leads to a crash in almost every case, not an oberon fault"</p>
+</li>
+<li>
+<p><strong>Check GPU temperature throttling</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sensors
+</span></code></pre></div></p>
+</li>
+<li>GPU should stay below 85°C under load</li>
+<li>If hitting 90°C+, you're likely thermal throttling</li>
+<li>
+<p>Some boards freeze at 60-65°C if cooling is inadequate</p>
+</li>
+<li>
+<p><strong>Test with locked frequency</strong></p>
+</li>
+<li>Edit <code>/etc/oberon-config.yaml</code>:
+   <div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">opps</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">frequency</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1500</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1500</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">voltage</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">900</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">900</span>
+</span></code></pre></div></li>
+<li>Restart governor: <code>systemctl restart oberon-governor</code></li>
+<li>If stable at locked frequency, it's a governor tuning issue</li>
+</ol>
+<h3 id="thermal-related-freezes">Thermal-Related Freezes<a class="headerlink" href="#thermal-related-freezes" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: System freezes or shuts off when temperatures exceed certain thresholds</p>
+<p><strong>Community experience</strong>:</p>
+<blockquote>
+<p>"Others told me their board simply turns off when overheated. Mine seems to have something above 60/65 degree (freeze, sometimes white screen). Maybe severe peaks or something?"</p>
+</blockquote>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Monitor temperatures during stress</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>sensors
+</span></code></pre></div></li>
+<li>APU edge temp: Should stay below 85°C</li>
+<li>
+<p>Some boards are more temperature-sensitive than others</p>
+</li>
+<li>
+<p><strong>Improve cooling</strong></p>
+</li>
+<li>Ensure fan is high static pressure (Arctic P12 Pro: 6.9mm H2O recommended)</li>
+<li>Check thermal paste application on APU die</li>
+<li>Consider PTM7950 phase change pad instead of paste</li>
+<li>
+<p>Verify heatsink contact pressure</p>
+</li>
+<li>
+<p><strong>Check if thermal paste dried out</strong></p>
+</li>
+<li>Symptom: Rapid temperature spikes</li>
+<li>Solution: Reapply thermal paste (or use PTM7950)</li>
+</ol>
+<h3 id="overclocking-instability">Overclocking Instability<a class="headerlink" href="#overclocking-instability" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Crashes during benchmarks or gaming, artifacts, system freezes</p>
+<p><strong>Diagnostic steps</strong>:</p>
+<ol>
+<li><strong>Find your stability limit</strong></li>
+<li>Quote: "Run benchmark until it crashes, then throw like 10-15 mV on top"</li>
+<li>Start conservative: 2000MHz @ 1000mV</li>
+<li>Increase frequency in 50MHz increments</li>
+<li>
+<p>If crashes occur, add 10-15mV voltage</p>
+</li>
+<li>
+<p><strong>Known frequency issues</strong></p>
+</li>
+<li>980MHz: "Very wonky on any voltage"</li>
+<li>1000MHz: "Sometimes wonky but give it more voltage or change loadline in BIOS"</li>
+<li>700mV: Hard minimum voltage cap</li>
+<li>
+<p>2230MHz+: Most boards require 1050mV+, some need 1100mV</p>
+</li>
+<li>
+<p><strong>Example stable configurations</strong> (varies by silicon lottery):
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1000MHz @ 700mV (conservative)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>1500MHz @ 850mV (balanced)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>2000MHz @ 1000mV (recommended max)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>2230MHz @ 1050mV (overclock, may be unstable)
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Community-tested safe points</strong> (one user's example):
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>MHz   mV
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>350   570
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>860   600
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>1090  650
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>1280  700
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>1460  750
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>1620  800
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>1760  850
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>1890  900
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>2030  950
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>2140  1000
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>2230  1050
+</span></code></pre></div>
+   Note: These are NOT universal - test your own board</p>
+</li>
+</ol>
+<h3 id="governor-related-instability">Governor-Related Instability<a class="headerlink" href="#governor-related-instability" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Random crashes during load changes, frequency spikes, voltage issues</p>
+<p><strong>Common issues</strong>:</p>
+<ol>
+<li><strong>Governor not starting correctly</strong></li>
+<li>Check status: <code>systemctl status oberon-governor</code></li>
+<li>If failing, governor may be installed in wrong location</li>
+<li>
+<p>Reinstall following distribution-specific guide</p>
+</li>
+<li>
+<p><strong>Voltage too low at startup</strong></p>
+</li>
+<li>Some boards crash on "default governor settings"</li>
+<li>Edit <code>/etc/oberon-config.yaml</code> to increase min voltage</li>
+<li>
+<p>Quote: "Hey all, my board crashes on default governor settings. Did I loose the silicon lottery?"</p>
+</li>
+<li>
+<p><strong>Frequency/voltage mismatch</strong></p>
+</li>
+<li>Symptom: Crashes when GPU load increases/decreases</li>
+<li>Solution: Reduce frequency range or increase voltage headroom</li>
+<li>Example fix:
+   <div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">opps</span><span class="p">:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">frequency</span><span class="p">:</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">voltage</span><span class="p">:</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">750</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="random-reboots">Random Reboots<a class="headerlink" href="#random-reboots" title="Permanent link">&para;</a></h2>
+<h3 id="power-supply-issues">Power Supply Issues<a class="headerlink" href="#power-supply-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: System suddenly powers off and restarts, especially under load</p>
+<p><strong>Causes</strong>:</p>
+<ol>
+<li><strong>Insufficient PSU wattage</strong></li>
+<li>BC-250 can draw up to 235W during gaming (Cyberpunk with RT)</li>
+<li>Add 20-30W for fans, storage, peripherals</li>
+<li><strong>Recommended minimum</strong>: 300W PSU</li>
+<li>
+<p>Meanwell LOP-300 is popular choice</p>
+</li>
+<li>
+<p><strong>PSU voltage instability</strong></p>
+</li>
+<li>Some cheap PSUs cannot deliver stable 12V under varying load</li>
+<li>Check PSU rail voltage if possible</li>
+<li>
+<p>Quote: "I have two. They run okay under 940 mV will heat up and shut off under load occasionally. Absolutely cannot handle the 1000 plus required to run the board at its full 2232 mhz"</p>
+</li>
+<li>
+<p><strong>Poor cable connections</strong></p>
+</li>
+<li>Loose 8-pin PCIe power connector</li>
+<li>Use 16 AWG wire minimum for custom builds</li>
+<li>Ensure clean solder joints on power rails</li>
+</ol>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Test with lower TDP:</li>
+<li>Reduce max frequency to 1500MHz</li>
+<li>Lower voltage to 850mV</li>
+<li>
+<p>If stable, it's a power delivery issue</p>
+</li>
+<li>
+<p>Measure actual power draw:</p>
+</li>
+<li>Use power meter on PSU input</li>
+<li>If approaching PSU limit, upgrade PSU</li>
+</ol>
+<h3 id="overheating-auto-shutoff">Overheating Auto-Shutoff<a class="headerlink" href="#overheating-auto-shutoff" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: System powers off cleanly when temperature exceeds threshold</p>
+<p><strong>Solution</strong>: This is actually protective behavior - improve cooling rather than disabling</p>
+<hr />
+<h2 id="kernel-panics">Kernel Panics<a class="headerlink" href="#kernel-panics" title="Permanent link">&para;</a></h2>
+<h3 id="broken-kernel-versions-gpu-driver-failures">Broken Kernel Versions - GPU Driver Failures<a class="headerlink" href="#broken-kernel-versions-gpu-driver-failures" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8+</p>
+<p><strong>Critical issue</strong>: Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support for BC-250</p>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li><strong>Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)</strong></li>
+</ol>
+<p><strong>Arch/Manjaro</strong>:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Option 1: Install working 6.15.7-6.17.7 kernel</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>linux<span class="w">  </span><span class="c1"># Check version is in working range</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Option 2: Install LTS kernel for guaranteed stability</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>linux-lts<span class="w"> </span>linux-lts-headers
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># Set as default in bootloader</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>sudo<span class="w"> </span>grub-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub/grub.cfg
+</span></code></pre></div></p>
+<p><strong>Fedora</strong>:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Install older kernel</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-6.14.x
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Set as default</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--set-default<span class="w"> </span>/boot/vmlinuz-6.14.x
+</span></code></pre></div></p>
+<p><strong>CachyOS</strong>: Use LTS kernel option during installation</p>
+<ol>
+<li><strong>Check dmesg for GPU errors</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;amdgpu\|gpu\|drm&quot;</span>
+</span></code></pre></div></li>
+<li>Look for reset failures, initialization errors</li>
+<li>If seeing "GPU reset failed" - kernel version issue</li>
+</ol>
+<h3 id="acpi-errors-on-boot">ACPI Errors on Boot<a class="headerlink" href="#acpi-errors-on-boot" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: System boots but crashes shortly after, ACPI errors in logs</p>
+<p><strong>Quote from user</strong>:</p>
+<blockquote>
+<p>"Live usb boots up most of the time but with ACPI errors. It stays on for a few seconds then crashes with black/green screen."</p>
+</blockquote>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Clear CMOS and reset BIOS to defaults</li>
+<li>Reflash BIOS if corruption suspected</li>
+<li>Disable ACPI features in BIOS if available</li>
+<li>Try different kernel boot parameters:
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>acpi=off
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>noapic
+</span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="voltage-related-instability">Voltage-Related Instability<a class="headerlink" href="#voltage-related-instability" title="Permanent link">&para;</a></h2>
+<h3 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Artifacts in games (textures going black/missing)</li>
+<li>Random crashes under load</li>
+<li>System freezes when GPU frequency changes</li>
+</ul>
+<h3 id="finding-your-voltage-requirements">Finding Your Voltage Requirements<a class="headerlink" href="#finding-your-voltage-requirements" title="Permanent link">&para;</a></h3>
+<p><strong>Method 1: Progressive testing</strong>
+1. Start at safe voltage (1000mV)
+2. Lower by 25mV increments
+3. Test with 30-minute gaming session or benchmark
+4. When crashes occur, add back 50mV for safety margin</p>
+<p><strong>Method 2: Binary search</strong>
+1. Test at 700mV (minimum)
+2. If crashes, test 850mV (midpoint)
+3. Narrow down until you find minimum stable voltage
+4. Add 25-50mV safety margin</p>
+<h3 id="voltage-warnings">Voltage Warnings<a class="headerlink" href="#voltage-warnings" title="Permanent link">&para;</a></h3>
+<p><strong>Do not exceed</strong>:
+- 1100mV for general use
+- 1150mV absolute maximum (reduces lifespan, increases heat)</p>
+<p><strong>Quote from community</strong>:</p>
+<blockquote>
+<p>"I'd guess we are not super close to the voltage limit. If we're assuming it behaves similarly to other AMD APUs, I'd expect 1.1v and possibly 1.15v to be safe. Cooling just becomes harder the more voltage you push through."</p>
+</blockquote>
+<h3 id="voltage-drop-issues">Voltage Drop Issues<a class="headerlink" href="#voltage-drop-issues" title="Permanent link">&para;</a></h3>
+<p>Some boards experience voltage drops under load causing instability:</p>
+<p><strong>BIOS fix</strong> (if available):</p>
+<blockquote>
+<p>"A slightly adjusted bios gives the cpu/gpu a little more overhead when it comes to cpu/gpu droop, it now gives a little more voltage to stabilize."</p>
+</blockquote>
+<p><strong>Governor workaround</strong>:
+- Set higher base voltage to account for droop
+- Example: If you need 1000mV effective, set to 1025mV to account for drops</p>
+<hr />
+<h2 id="zram-conflicts-with-dynamic-vram">ZRAM Conflicts with Dynamic VRAM<a class="headerlink" href="#zram-conflicts-with-dynamic-vram" title="Permanent link">&para;</a></h2>
+<h3 id="the-issue">The Issue<a class="headerlink" href="#the-issue" title="Permanent link">&para;</a></h3>
+<p><strong>Critical finding</strong>:</p>
+<blockquote>
+<p>"If anyone is having issues with games crashing. I was having issues with RDR2 crashing when using ZRAM with the 512MB VRAM (dynamic allocation) set. Going to a fixed allocation of 10/6 seems to have resolved that."</p>
+</blockquote>
+<p><strong>Explanation</strong>: ZRAM (compressed swap in RAM) conflicts with dynamic VRAM allocation (512MB setting), causing memory allocation failures and crashes.</p>
+<h3 id="solutions">Solutions<a class="headerlink" href="#solutions" title="Permanent link">&para;</a></h3>
+<p><strong>Option 1: Disable ZRAM (Recommended for gaming)</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Systemd-based distros</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>zram-swap
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>zram-swap
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Or remove package</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>zram<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-R<span class="w"> </span>zram-generator<span class="w">  </span><span class="c1"># Arch</span>
+</span></code></pre></div></p>
+<p><strong>Option 2: Use fixed VRAM allocation</strong>
+- Enter BIOS (usually Delete or F2 on boot)
+- Navigate to AMD CBS → UMA Frame Buffer Size
+- Change from "Auto" (512MB) to fixed allocation:
+  - 10GB CPU / 6GB GPU (gaming)
+  - 12GB CPU / 4GB GPU (general use)
+  - 8GB CPU / 8GB GPU (balanced)</p>
+<p><strong>Option 3: Reduce ZRAM size</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># If you must use both, limit ZRAM</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Edit /etc/systemd/zram-generator.conf</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="o">[</span>zram0<span class="o">]</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>zram-size<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4096</span><span class="w">  </span><span class="c1"># 4GB instead of 8GB</span>
+</span></code></pre></div></p>
+<p><strong>Quote from successful fix</strong>:</p>
+<blockquote>
+<p>"Never mind I applied the setting and it works wonders so far no crashing anymore set the zram swap to 8gb"</p>
+</blockquote>
+<hr />
+<h2 id="memory-errors-and-ram-issues">Memory Errors and RAM Issues<a class="headerlink" href="#memory-errors-and-ram-issues" title="Permanent link">&para;</a></h2>
+<h3 id="insufficient-ram-crashes">Insufficient RAM Crashes<a class="headerlink" href="#insufficient-ram-crashes" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>:
+- Games crash with "low system RAM" errors
+- System becomes unresponsive when memory fills
+- OOM (Out of Memory) killer activating</p>
+<p><strong>Causes</strong>:</p>
+<ol>
+<li><strong>BIOS settings not sticking</strong></li>
+<li>Quote: "BIOS settings don't stick after flashing via USB if CMOS isn't cleared"</li>
+<li>Your 512MB dynamic setting may revert to 4GB or 8GB fixed</li>
+<li>
+<p>This leaves only 8-12GB for system RAM</p>
+</li>
+<li>
+<p><strong>Swap not working properly</strong></p>
+</li>
+<li>Some users report swap failing to activate</li>
+<li>ZRAM conflicts (see above section)</li>
+</ol>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Verify actual RAM allocation</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>free<span class="w"> </span>-h
+</span></code></pre></div></li>
+<li>Should show ~15-15.5GB total RAM with 512MB dynamic VRAM</li>
+<li>
+<p>If showing only 10-12GB, BIOS setting not applied</p>
+</li>
+<li>
+<p><strong>Clear CMOS after BIOS flash</strong> (Critical step)</p>
+</li>
+<li>Power off completely</li>
+<li>Locate CMOS jumper or remove battery for 30 seconds</li>
+<li>Restore jumper/battery</li>
+<li>Boot to BIOS and reconfigure settings</li>
+<li>
+<p>Quote: "For anyone wondering, I would just like to reiterate the importance of clearing cmos after flashing the bios. I've just spent half a day diagnosing black screen issue, which ended up being caused by the non-clearance of cmos"</p>
+</li>
+<li>
+<p><strong>Double-check BIOS settings after reboot</strong></p>
+</li>
+<li>Settings may appear to save but not actually apply</li>
+<li>Reboot and verify in BIOS that 512MB is still selected</li>
+<li>
+<p>May require 2-3 CMOS clears to "stick"</p>
+</li>
+<li>
+<p><strong>Enable proper swap</strong></p>
+</li>
+<li>If not using ZRAM, create traditional swap:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Create 8GB swap file</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>sudo<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/swapfile<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1G<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">8</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Make permanent</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;/swapfile none swap defaults 0 0&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/fstab
+</span></code></pre></div></li>
+</ol>
+<h3 id="ram-timingfrequency-issues">RAM Timing/Frequency Issues<a class="headerlink" href="#ram-timingfrequency-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Warning</strong>: Unstable RAM settings can permanently corrupt BIOS</p>
+<p><strong>Quote</strong>:</p>
+<blockquote>
+<p>"Its not actually 450, its like 1750, but you can modify it. I wouldn't recommend it though, ppl over in the russian BC250 chat reported that unstable ram settings would frequently result in BIOS corruption, requiring the BIOS to be reflashed"</p>
+</blockquote>
+<p><strong>If you must overclock RAM</strong>:
+1. Have hardware flasher ready (CH341A or Raspberry Pi Pico)
+2. Back up working BIOS first
+3. Test incrementally
+4. If system fails to boot, CMOS clear may not be enough - reflash required</p>
+<hr />
+<h2 id="audiovideo-freezing">Audio/Video Freezing<a class="headerlink" href="#audiovideo-freezing" title="Permanent link">&para;</a></h2>
+<h3 id="game-audio-stuttering">Game Audio Stuttering<a class="headerlink" href="#game-audio-stuttering" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Audio clicks, pops, or stutters during gameplay</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li><strong>Change audio sample rate</strong></li>
+<li>Issue: Some games work better at 44.1kHz vs 48kHz</li>
+<li>Quote: "I changed alsa and pulseaudio settings to make the sample rate 44.1khz rather than 48khz and all of a sudden sound worked fine - it wasn't choppy anymore - but all audio was pitched down"</li>
+<li>
+<p>Recommendation: Keep at 48kHz unless specific game requires change</p>
+</li>
+<li>
+<p><strong>Use correct audio output</strong></p>
+</li>
+<li>Passive DisplayPort to HDMI: Audio works</li>
+<li>Active DP to HDMI adapters: Audio often broken</li>
+<li>
+<p>USB audio: Most reliable for quality audio</p>
+</li>
+<li>
+<p><strong>Audio-related performance issues</strong></p>
+</li>
+<li>Quote: "I saw someone on reddit saying to get better performance in linux to change the audio thing. Usually the menu was locked at 30 fps but after changing audio settings it was more than 90"</li>
+<li>Try switching between PulseAudio and PipeWire</li>
+<li>Adjust audio buffer sizes</li>
+</ol>
+<h3 id="video-freezing-then-crash">Video Freezing Then Crash<a class="headerlink" href="#video-freezing-then-crash" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Screen freezes, then goes black after 10 seconds</p>
+<p><strong>Quote</strong>: "Sadly it did not work for me once I execute koboldcpp screen freeze and 10 seconds after screen goes black"</p>
+<p><strong>Solutions</strong>:
+1. Check GPU memory allocation (see VRAM section)
+2. Verify governor is active and responding
+3. Monitor GPU temperature during freeze
+4. Test with lower resolution/settings</p>
+<hr />
+<h2 id="bios-related-stability-issues">BIOS-Related Stability Issues<a class="headerlink" href="#bios-related-stability-issues" title="Permanent link">&para;</a></h2>
+<h3 id="iommu-instability">IOMMU Instability<a class="headerlink" href="#iommu-instability" title="Permanent link">&para;</a></h3>
+<p><strong>Critical</strong>: IOMMU is broken on BC-250 and causes crashes</p>
+<p><strong>Quote</strong>:</p>
+<blockquote>
+<p>"Make sure IOMMU is disabled in bios. Having it enabled can cause weird crashes and problems like this"</p>
+</blockquote>
+<p><strong>How to disable</strong>:
+1. Enter BIOS
+2. Navigate to Advanced → NB Configuration
+3. Find IOMMU option
+4. Set to <strong>Disabled</strong>
+5. Save and exit</p>
+<p><strong>If IOMMU option not visible</strong>: Flash modded BIOS to unlock advanced settings</p>
+<h3 id="bios-settings-not-persisting">BIOS Settings Not Persisting<a class="headerlink" href="#bios-settings-not-persisting" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>:
+- Settings appear to save but revert on reboot
+- System unstable despite "correct" BIOS configuration
+- VRAM allocation not actually applied</p>
+<p><strong>Root cause</strong>: CMOS needs clearing after USB BIOS flash</p>
+<p><strong>Complete fix procedure</strong>:</p>
+<ol>
+<li><strong>Clear CMOS properly</strong></li>
+<li>Shut down completely (not just reboot)</li>
+<li>Disconnect power</li>
+<li>Locate CLR_CMOS jumper near BIOS chip</li>
+<li>Short pins for 10 seconds OR remove CR2032 battery for 30 seconds</li>
+<li>Restore jumper/battery</li>
+<li>
+<p>Reconnect power</p>
+</li>
+<li>
+<p><strong>Reconfigure BIOS</strong></p>
+</li>
+<li>Boot to BIOS (usually Delete key)</li>
+<li>Set UMA Frame Buffer Size: 512MB (Auto)</li>
+<li>Disable IOMMU</li>
+<li>Set fan profile (Full Speed recommended for testing)</li>
+<li>Disable unused features</li>
+<li>
+<p>Save and exit</p>
+</li>
+<li>
+<p><strong>Verify settings stuck</strong></p>
+</li>
+<li>Immediately reboot to BIOS</li>
+<li>Check that 512MB is still selected</li>
+<li>If reverted, repeat CMOS clear</li>
+<li>
+<p>May take 2-3 attempts</p>
+</li>
+<li>
+<p><strong>Confirm in OS</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Check total RAM (should be ~15.5GB with 512MB VRAM)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>free<span class="w"> </span>-h
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Check VRAM allocation</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Video memory&quot;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># or</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>vulkaninfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>memory
+</span></code></pre></div></p>
+</li>
+</ol>
+<h3 id="bios-corruption-from-unstable-settings">BIOS Corruption from Unstable Settings<a class="headerlink" href="#bios-corruption-from-unstable-settings" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Board won't boot after changing RAM timings or voltages</p>
+<p><strong>Prevention</strong>:
+- Never change RAM timing/frequency without hardware flasher available
+- Test overclock changes one parameter at a time
+- Keep notes of working configurations</p>
+<p><strong>Recovery</strong>:
+1. Try CMOS clear (may not work for corruption)
+2. If CMOS clear fails, hardware reflash required:
+   - Use CH341A programmer or Raspberry Pi Pico
+   - Flash known-good BIOS (P3.00 modded recommended)
+   - See BIOS recovery guide for detailed steps</p>
+<hr />
+<h2 id="power-state-and-sleep-issues">Power State and Sleep Issues<a class="headerlink" href="#power-state-and-sleep-issues" title="Permanent link">&para;</a></h2>
+<h3 id="system-freezes-when-sleeping">System "Freezes" When Sleeping<a class="headerlink" href="#system-freezes-when-sleeping" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms</strong>: Screen goes black, appears frozen, but power button wakes it</p>
+<p><strong>Quote</strong>:</p>
+<blockquote>
+<p>"Bazzite freezes when its about to sleep, had to hard reset everytime. That's interesting, mine 'freezes' when it sleeps, but hitting the power button wakes it up."</p>
+</blockquote>
+<p><strong>Explanation</strong>: Board lacks proper sleep states, enters pseudo-sleep that looks like freeze</p>
+<p><strong>Solutions</strong>:
+1. Disable sleep/suspend in power settings
+2. Use "power button wakes" as intended behavior
+3. Configure screen blanking instead of system sleep</p>
+<h3 id="sleep-state-power-issues">Sleep State Power Issues<a class="headerlink" href="#sleep-state-power-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Quote</strong>:</p>
+<blockquote>
+<p>"Yes, I've tried. I made CPU fall into idle states, unfortunately it doesn't save more than 2-3W. Best result that I've got is around 65W. Without proper sleep states on GPU, there is no way."</p>
+</blockquote>
+<p><strong>Reality</strong>: BC-250 lacks proper power state support in Linux
+- Idle power: 65-85W (with governor)
+- Cannot achieve low-power sleep states
+- SMU (System Management Unit) doesn't support Linux sleep properly</p>
+<hr />
+<h2 id="systematic-stability-testing">Systematic Stability Testing<a class="headerlink" href="#systematic-stability-testing" title="Permanent link">&para;</a></h2>
+<h3 id="step-by-step-diagnosis-process">Step-by-Step Diagnosis Process<a class="headerlink" href="#step-by-step-diagnosis-process" title="Permanent link">&para;</a></h3>
+<p>If experiencing general instability, follow this process:</p>
+<p><strong>Phase 1: Baseline (Safe Configuration)</strong>
+1. Use kernel 6.12-6.14 LTS
+2. Set BIOS: 512MB VRAM, IOMMU disabled
+3. Clear CMOS, verify settings stick
+4. Governor: 1500MHz @ 900mV locked (min=max)
+5. Disable ZRAM
+6. Test for 1 hour gaming</p>
+<p><strong>Phase 2: If Baseline Stable</strong>
+- Enable governor frequency scaling
+- Start at 1000-2000MHz range, 750-1000mV
+- Test each increment for 30 minutes
+- Gradually increase max frequency</p>
+<p><strong>Phase 3: If Baseline Unstable</strong>
+- Check kernel version first
+- Monitor temperatures during stress
+- Test PSU with multimeter under load
+- Verify BIOS flash was successful
+- Consider hardware issue</p>
+<h3 id="stress-testing-tools">Stress Testing Tools<a class="headerlink" href="#stress-testing-tools" title="Permanent link">&para;</a></h3>
+<p><strong>GPU stress</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Benchmark tools</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>vkmark
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>superposition<span class="w">  </span><span class="c1"># Unigine Superposition benchmark</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># Continuous load</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>furmark<span class="w">  </span><span class="c1"># Extreme stress test</span>
+</span></code></pre></div></p>
+<p><strong>CPU stress</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>stress-ng<span class="w"> </span>--cpu<span class="w"> </span><span class="m">6</span><span class="w"> </span>--timeout<span class="w"> </span>300s
+</span></code></pre></div></p>
+<p><strong>Combined stress</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Run game for 1 hour</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># Monitor with:</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;sensors; echo &quot;---&quot;; free -h&#39;</span>
+</span></code></pre></div></p>
+<h3 id="monitoring-during-testing">Monitoring During Testing<a class="headerlink" href="#monitoring-during-testing" title="Permanent link">&para;</a></h3>
+<p><strong>Terminal 1 - Temperatures</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>sensors
+</span></code></pre></div></p>
+<p><strong>Terminal 2 - Frequencies and voltages</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;cat /sys/class/drm/card0/device/pp_od_clk_voltage&#39;</span>
+</span></code></pre></div></p>
+<p><strong>Terminal 3 - Memory</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;free -h&#39;</span>
+</span></code></pre></div></p>
+<p><strong>Terminal 4 - System logs</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>journalctl<span class="w"> </span>-f<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;error\|fail\|crash\|amdgpu&quot;</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="common-error-messages">Common Error Messages<a class="headerlink" href="#common-error-messages" title="Permanent link">&para;</a></h2>
+<h3 id="gpu-reset-failed">"GPU reset failed"<a class="headerlink" href="#gpu-reset-failed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cause</strong>: Kernel 6.15.0-6.15.6 or 6.17.8+, overclocking instability, or GPU crash</li>
+<li><strong>Fix</strong>: Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS), reduce frequency/increase voltage</li>
+</ul>
+<h3 id="out-of-memory">"Out of memory"<a class="headerlink" href="#out-of-memory" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cause</strong>: VRAM exhausted, BIOS settings not applied, ZRAM conflict</li>
+<li><strong>Fix</strong>: Verify 512MB VRAM set, disable ZRAM, check with <code>free -h</code></li>
+</ul>
+<h3 id="low-system-ram">"Low system RAM"<a class="headerlink" href="#low-system-ram" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cause</strong>: Fixed VRAM allocation using too much, BIOS settings reverted</li>
+<li><strong>Fix</strong>: Set 512MB dynamic allocation, clear CMOS</li>
+</ul>
+<h3 id="acpi-errors-on-boot_1">ACPI errors on boot<a class="headerlink" href="#acpi-errors-on-boot_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cause</strong>: BIOS corruption, incompatible kernel, hardware issue</li>
+<li><strong>Fix</strong>: Reflash BIOS, try different kernel, clear CMOS</li>
+</ul>
+<h3 id="adapter-not-found-unknown-graphics-adapter">"Adapter not found" / "Unknown graphics adapter"<a class="headerlink" href="#adapter-not-found-unknown-graphics-adapter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cause</strong>: Mesa version too old, drivers not installed, VRAM not allocated</li>
+<li><strong>Fix</strong>: Install Mesa 25.1.3+, verify RADV driver, check VRAM in BIOS</li>
+</ul>
+<hr />
+<h2 id="hardware-failure-indicators">Hardware Failure Indicators<a class="headerlink" href="#hardware-failure-indicators" title="Permanent link">&para;</a></h2>
+<h3 id="when-to-suspect-hardware-problems">When to Suspect Hardware Problems<a class="headerlink" href="#when-to-suspect-hardware-problems" title="Permanent link">&para;</a></h3>
+<p><strong>Signs of actual hardware failure</strong>:
+1. Instability persists with all BIOS/kernel combinations
+2. Board crashes even at stock 1500MHz @ 900mV
+3. Artifacts appear even at low temperatures and safe voltages
+4. Memory errors in memtest86+
+5. Random shutoffs with known-good PSU</p>
+<p><strong>Testing for hardware issues</strong>:
+1. <strong>Memtest86+</strong>: Test RAM/memory controller
+2. <strong>Swap PSU</strong>: Borrow known-good PSU to test
+3. <strong>Test on mining BIOS</strong>: Some boards more stable on original P2.00/P4.00
+4. <strong>Visual inspection</strong>: Look for damaged components, scorch marks
+5. <strong>Compare with second board</strong>: If available</p>
+<p><strong>Quote on hardware variance</strong>:</p>
+<blockquote>
+<p>"I find that BC-250s come in two flavors those that achieve 27 tok/s and those that crank 34 tok/s on the model above."</p>
+</blockquote>
+<p>Silicon lottery is real - some boards are less stable than others.</p>
+<hr />
+<h2 id="prevention-best-practices">Prevention Best Practices<a class="headerlink" href="#prevention-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="setup-recommendations">Setup Recommendations<a class="headerlink" href="#setup-recommendations" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Always clear CMOS after BIOS flash</strong></li>
+<li><strong>Verify settings after every reboot</strong> (first few boots)</li>
+<li><strong>Test stability before gaming</strong> (run benchmark first)</li>
+<li><strong>Start conservative, increase gradually</strong> (frequency/voltage)</li>
+<li><strong>Monitor temps in first few gaming sessions</strong></li>
+<li><strong>Keep hardware flasher available</strong> (CH341A ~$5 on AliExpress)</li>
+</ol>
+<h3 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Check thermal paste every 6 months</strong> (or use PTM7950)</li>
+<li><strong>Clean heatsink fins</strong> from dust buildup</li>
+<li><strong>Verify fan operation</strong> regularly</li>
+<li><strong>Monitor kernel updates</strong> (avoid 6.15.0-6.15.6 and 6.17.8+)</li>
+<li><strong>Back up working configurations</strong> (BIOS settings, governor config)</li>
+</ol>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<p>Keep notes of:
+- Working frequency/voltage combinations
+- BIOS version and settings
+- Kernel version when stable
+- Governor configuration file
+- Any custom modifications</p>
+<hr />
+<h2 id="quick-reference-stable-configurations">Quick Reference: Stable Configurations<a class="headerlink" href="#quick-reference-stable-configurations" title="Permanent link">&para;</a></h2>
+<h3 id="conservative-maximum-stability">Conservative (Maximum Stability)<a class="headerlink" href="#conservative-maximum-stability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kernel: 6.12 LTS</li>
+<li>Governor: 1500MHz @ 900mV (locked)</li>
+<li>VRAM: 512MB dynamic</li>
+<li>ZRAM: Disabled</li>
+<li>Expected temps: 65-75°C gaming</li>
+</ul>
+<h3 id="balanced-recommended">Balanced (Recommended)<a class="headerlink" href="#balanced-recommended" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kernel: 6.13 or 6.14</li>
+<li>Governor: 1000-2000MHz, 750-1000mV</li>
+<li>VRAM: 512MB dynamic</li>
+<li>ZRAM: Disabled or 4GB max</li>
+<li>Expected temps: 70-80°C gaming</li>
+</ul>
+<h3 id="performance-requires-good-cooling">Performance (Requires Good Cooling)<a class="headerlink" href="#performance-requires-good-cooling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kernel: 6.14 patched</li>
+<li>Governor: 700-2230MHz, custom voltage curve</li>
+<li>VRAM: 512MB dynamic</li>
+<li>ZRAM: Disabled</li>
+<li>Expected temps: 75-85°C gaming</li>
+<li>Requires: High static pressure fan (Arctic P12 Pro or better)</li>
+</ul>
+<hr />
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>If problems persist after trying these solutions:</p>
+<ol>
+<li>
+<p><strong>Gather information</strong>:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Create diagnostic report</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="o">{</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== System Info ===&quot;</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span>uname<span class="w"> </span>-a
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== GPU Info ===&quot;</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>VGA
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Memory ===&quot;</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">  </span>free<span class="w"> </span>-h
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Temperatures ===&quot;</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">  </span>sensors
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Governor Status ===&quot;</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">  </span>systemctl<span class="w"> </span>status<span class="w"> </span>oberon-governor
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Recent Errors ===&quot;</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">  </span>journalctl<span class="w"> </span>-p<span class="w"> </span>err<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span>bc250-diagnostic.txt
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Check Discord</strong> #bc250-chat channel</p>
+</li>
+<li><strong>Search GitHub issues</strong> on mothenjoyer69/bc250-documentation</li>
+<li><strong>Provide specific details</strong>: Exact error messages, kernel version, BIOS version, your configuration</li>
+</ol>
+<hr />
+<h2 id="summary-most-common-fixes">Summary: Most Common Fixes<a class="headerlink" href="#summary-most-common-fixes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Most Likely Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random GPU crashes</td>
+<td>Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)</td>
+</tr>
+<tr>
+<td>BIOS settings not sticking</td>
+<td>Clear CMOS after flashing</td>
+</tr>
+<tr>
+<td>Games crashing with ZRAM</td>
+<td>Disable ZRAM or use fixed VRAM allocation</td>
+</tr>
+<tr>
+<td>General instability</td>
+<td>Disable IOMMU in BIOS</td>
+</tr>
+<tr>
+<td>Overclocking crashes</td>
+<td>Increase voltage by 10-15mV</td>
+</tr>
+<tr>
+<td>System won't boot after BIOS flash</td>
+<td>Clear CMOS, may need hardware reflash</td>
+</tr>
+<tr>
+<td>Thermal shutoffs</td>
+<td>Improve cooling, check thermal paste</td>
+</tr>
+<tr>
+<td>Low memory crashes</td>
+<td>Verify 512MB VRAM applied, check with <code>free -h</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remember</strong>: The BC-250 requires patience and methodical troubleshooting. Start with safe settings and gradually optimize. Keep notes and backups of working configurations.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../performance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Performance Issues">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Performance Issues
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../community/cases/" class="md-footer__link md-footer__link--next" aria-label="Next: Cases &amp; Enclosures">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Cases & Enclosures
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/elektricM/amd-bc250-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/uDvkhNpxRQ" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "toc.follow", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

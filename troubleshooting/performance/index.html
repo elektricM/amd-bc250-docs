@@ -1,0 +1,3537 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the AMD BC250 board - Linux setup, BIOS configuration, troubleshooting, and community projects">
+      
+      
+        <meta name="author" content="BC250 Community">
+      
+      
+        <link rel="canonical" href="https://elektricM.github.io/amd-bc250-docs/troubleshooting/performance/">
+      
+      
+        <link rel="prev" href="../display/">
+      
+      
+        <link rel="next" href="../stability/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Performance Issues - AMD BC250 Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#performance-troubleshooting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AMD BC250 Documentation" class="md-header__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AMD BC250 Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Performance Issues
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AMD BC250 Documentation" class="md-nav__button md-logo" aria-label="AMD BC250 Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v1h3v2h-3v2h3v2h-3v2h3v2h-3v2h3v2h-3v1H6v-1H3v-2h3v-2H3v-2h3v-2H3V9h3V7H3V5h3zm5 11v3h1v-3zm2 0v3h1v-3zm2 0v3h1v-3z"/></svg>
+
+    </a>
+    AMD BC250 Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elektricM/amd-bc250-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    amd-bc250-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/prerequisites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prerequisites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/pinouts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pinouts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/cooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cooling Solutions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS & Firmware
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BIOS & Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/flashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BIOS Flashing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/vram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRAM Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/overclocking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overclocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bios/recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/distributions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/fedora/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/bazzite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bazzite Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/cachyos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CachyOS Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arch Linux Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/debian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debian Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kernel Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/mesa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drivers & Graphics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Drivers & Graphics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/radv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADV Driver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drivers/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensors & Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gaming & Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gaming & Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gaming/compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boot Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Display Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Issues
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-locked-at-1500mhz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Locked at 1500MHz
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPU Locked at 1500MHz">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-oberon-governor-recommended-for-most-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Oberon Governor (Recommended for most users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-cyan-skillfish-governor-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Cyan Skillfish Governor (Advanced users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-frequency-not-scaling-above-2000mhz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Frequency Not Scaling Above 2000MHz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-rendering-llvmpipe-instead-of-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software Rendering (llvmpipe) Instead of GPU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-fps-poor-gaming-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low FPS / Poor Gaming Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low FPS / Poor Gaming Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-gpu-utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check GPU Utilization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-governor-not-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Governor Not Installed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-broken-kernel-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Broken Kernel Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-iommu-causing-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: IOMMU Causing Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-radv_debug-environment-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: RADV_DEBUG Environment Variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-game-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Game-Specific Optimizations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thermal-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal Throttling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thermal Throttling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-improve-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Improve Cooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-repaste-replace-thermal-pads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Repaste / Replace Thermal Pads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-undervolt-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Undervolt GPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vram-allocation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VRAM Allocation Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VRAM Allocation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-current-vram-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Current VRAM Split
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-game-crashes-with-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Game Crashes with "Out of Memory"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stuttering-and-frame-pacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stuttering and Frame Pacing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stuttering and Frame Pacing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-inconsistent-frame-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Inconsistent Frame Times
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-configuration-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Configuration Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Configuration Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-parameters-optimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Parameters (Optimal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-nomodeset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remove nomodeset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Monitoring Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Monitoring Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-time Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmarking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-specific-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution-Specific Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribution-Specific Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fedora
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bazzite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bazzite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cachyos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CachyOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-performance-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Performance Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stability Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cases & Enclosures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/quick-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-locked-at-1500mhz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Locked at 1500MHz
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPU Locked at 1500MHz">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-oberon-governor-recommended-for-most-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Oberon Governor (Recommended for most users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-cyan-skillfish-governor-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Cyan Skillfish Governor (Advanced users)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpu-frequency-not-scaling-above-2000mhz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU Frequency Not Scaling Above 2000MHz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-rendering-llvmpipe-instead-of-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software Rendering (llvmpipe) Instead of GPU
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#low-fps-poor-gaming-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low FPS / Poor Gaming Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Low FPS / Poor Gaming Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-gpu-utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check GPU Utilization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-governor-not-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Governor Not Installed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-broken-kernel-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Broken Kernel Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-iommu-causing-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: IOMMU Causing Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-radv_debug-environment-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: RADV_DEBUG Environment Variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-game-specific-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Game-Specific Optimizations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thermal-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thermal Throttling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thermal Throttling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-improve-cooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Improve Cooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-repaste-replace-thermal-pads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Repaste / Replace Thermal Pads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-undervolt-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Undervolt GPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vram-allocation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VRAM Allocation Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VRAM Allocation Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checking-current-vram-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Current VRAM Split
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-game-crashes-with-out-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Game Crashes with "Out of Memory"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stuttering-and-frame-pacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stuttering and Frame Pacing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stuttering and Frame Pacing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-inconsistent-frame-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Inconsistent Frame Times
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-configuration-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Configuration Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Configuration Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kernel-parameters-optimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel Parameters (Optimal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-nomodeset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remove nomodeset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Monitoring Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Monitoring Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-time Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmarking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-specific-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution-Specific Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribution-Specific Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fedora
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bazzite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bazzite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cachyos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CachyOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-performance-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Performance Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/elektricM/amd-bc250-docs/edit/main/docs/troubleshooting/performance.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/elektricM/amd-bc250-docs/raw/main/docs/troubleshooting/performance.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="performance-troubleshooting">Performance Troubleshooting<a class="headerlink" href="#performance-troubleshooting" title="Permanent link">&para;</a></h1>
+<p>This guide covers common performance issues and their solutions for the BC-250.</p>
+<hr />
+<h2 id="quick-diagnostics">Quick Diagnostics<a class="headerlink" href="#quick-diagnostics" title="Permanent link">&para;</a></h2>
+<p>Before troubleshooting specific issues, run these commands to check your system status:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Check GPU frequency and temperature</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sensors
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Check GPU utilization and frequency</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>cat<span class="w"> </span>/sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>cat<span class="w"> </span>/sys/class/drm/card0/device/pp_dmu_clock
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Check if GPU driver is loaded</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>lspci<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span>VGA
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Verify Mesa version</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL version&quot;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Check governor status (if installed)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>systemctl<span class="w"> </span>status<span class="w"> </span>oberon-governor
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1"># or</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>systemctl<span class="w"> </span>status<span class="w"> </span>cyan-skillfish-governor
+</span></code></pre></div>
+<hr />
+<h2 id="gpu-locked-at-1500mhz">GPU Locked at 1500MHz<a class="headerlink" href="#gpu-locked-at-1500mhz" title="Permanent link">&para;</a></h2>
+<p><strong>Symptoms:</strong>
+- GPU frequency stuck at 1500MHz regardless of load
+- Low FPS in games despite acceptable temperatures
+- <code>radeontop</code> or monitoring tools show constant 1500MHz</p>
+<p><strong>Cause:</strong> The default GPU governor is locked by BIOS. Without a user-space governor, the GPU cannot scale frequency dynamically.</p>
+<p><strong>Solution: Install GPU Governor</strong></p>
+<p>The BC-250 requires a custom GPU governor to enable dynamic frequency scaling between 350-2300MHz (patched kernel) or 1000-2000MHz (unpatched kernel).</p>
+<h3 id="option-1-oberon-governor-recommended-for-most-users">Option 1: Oberon Governor (Recommended for most users)<a class="headerlink" href="#option-1-oberon-governor-recommended-for-most-users" title="Permanent link">&para;</a></h3>
+<p><strong>Features:</strong>
+- Multi-step frequency scaling
+- Maintains GPU usage between 45-70%
+- Lower CPU overhead (0.4% CPU usage)
+- 100ms burst-to-max time</p>
+<p><strong>Installation:</strong></p>
+<p><strong>Fedora/Bazzite:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>dnf<span class="w"> </span>copr<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>@exotic-soc/oberon-governor
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>dnf<span class="w"> </span>install<span class="w"> </span>oberon-governor
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>oberon-governor
+</span></code></pre></div></p>
+<p><strong>Arch/Manjaro:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>yay<span class="w"> </span>-S<span class="w"> </span>oberon-governor
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>oberon-governor
+</span></code></pre></div></p>
+<p><strong>Configuration:</strong></p>
+<p>Edit <code>/etc/oberon-config.yaml</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">opps</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">frequency</span><span class="p">:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">voltage</span><span class="p">:</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</span></code></pre></div>
+<p>Restart the service:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>oberon-governor
+</span></code></pre></div></p>
+<p><strong>Verify it's working:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>oberon-governor<span class="w"> </span>--help<span class="w">  </span><span class="c1"># Should show v0.1.4 or higher</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>oberon-governor
+</span></code></pre></div></p>
+<h3 id="option-2-cyan-skillfish-governor-advanced-users">Option 2: Cyan Skillfish Governor (Advanced users)<a class="headerlink" href="#option-2-cyan-skillfish-governor-advanced-users" title="Permanent link">&para;</a></h3>
+<p><strong>Features:</strong>
+- Continuous frequency adjustment (no steps)
+- Maintains GPU utilization 70-95% (configurable)
+- Higher CPU overhead (0.9-1.3% CPU usage)
+- 24ms burst-to-max time
+- More responsive to burst loads</p>
+<p><strong>Installation:</strong></p>
+<p><strong>Fedora/RPM:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dnf<span class="w"> </span>copr<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>filippor/bazzite
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>dnf<span class="w"> </span>install<span class="w"> </span>cyan-skillfish-governor
+</span></code></pre></div></p>
+<p><strong>Arch/AUR:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>yay<span class="w"> </span>-S<span class="w"> </span>cyan-skillfish-governor
+</span></code></pre></div></p>
+<p><strong>Debian:</strong>
+Download <code>.deb</code> from <a href="https://github.com/Magnap/cyan-skillfish-governor/releases">GitHub releases</a></p>
+<p><strong>Configuration:</strong></p>
+<p>The governor uses voltage/frequency pairs. Edit the config file and add as many stable points as you've tested:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">safe-points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">350</span><span class="p">,</span><span class="w">  </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">570</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">860</span><span class="p">,</span><span class="w">  </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1090</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">650</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">700</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1460</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">750</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1620</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">800</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1760</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">850</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1890</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">900</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2030</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">950</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2090</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">975</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2140</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">freq_mhz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2230</span><span class="p">,</span><span class="w"> </span><span class="n">voltage_mv</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1050</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">]</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="n">load_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">95</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Test Your Values</p>
+<p>Default values are conservative. Test stability for your specific board:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Stop the governor</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>cyan-skillfish-governor
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Manually set frequency/voltage</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">echo</span><span class="w"> </span>vc<span class="w"> </span><span class="m">0</span><span class="w"> </span>&lt;CLOCK&gt;<span class="w"> </span>&lt;VOLTAGE&gt;<span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Run stress test (benchmark, game, etc.)</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># If stable, add to config. If crashes, increase voltage or lower frequency.</span>
+</span></code></pre></div>
+</div>
+<p>Enable and start:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>cyan-skillfish-governor
+</span></code></pre></div></p>
+<hr />
+<h2 id="gpu-frequency-not-scaling-above-2000mhz">GPU Frequency Not Scaling Above 2000MHz<a class="headerlink" href="#gpu-frequency-not-scaling-above-2000mhz" title="Permanent link">&para;</a></h2>
+<p><strong>Symptoms:</strong>
+- Governor installed but GPU won't go above 2000MHz
+- Governor config shows max 2300MHz but actual frequency limited</p>
+<p><strong>Cause:</strong> Kernel doesn't have the frequency range patch.</p>
+<p><strong>Solution: Apply Kernel Patch</strong></p>
+<p>The BC-250 needs a kernel patch to unlock frequency range from 500-2500MHz (default is 1000-2000MHz).</p>
+<p><strong>Pre-patched Kernels:</strong></p>
+<p><strong>Bazzite:</strong> Uses patched kernel by default (no action needed)</p>
+<p><strong>CachyOS:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># CachyOS has pre-patched kernels in their repo</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>paru<span class="w"> </span>-S<span class="w"> </span>linux-cachyos-lts-headers
+</span></code></pre></div></p>
+<p><strong>Fedora/Arch - Manual Patch:</strong></p>
+<p>Download the patch:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>wget<span class="w"> </span>https://raw.githubusercontent.com/mothenjoyer69/bc250-documentation/main/kernel-patches/amdgpu-frequency-range.patch
+</span></code></pre></div></p>
+<p>Apply to kernel source and recompile, or use a tool like <code>dkms</code> or CachyOS kernel manager.</p>
+<p><strong>Verification:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cat<span class="w"> </span>/sys/class/drm/card0/device/pp_od_clk_voltage
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Should show range up to 2300MHz or higher</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="software-rendering-llvmpipe-instead-of-gpu">Software Rendering (llvmpipe) Instead of GPU<a class="headerlink" href="#software-rendering-llvmpipe-instead-of-gpu" title="Permanent link">&para;</a></h2>
+<p><strong>Symptoms:</strong>
+- <code>glxinfo | grep "OpenGL renderer"</code> shows "llvmpipe"
+- Games extremely slow (5-10 FPS)
+- Steam shows "Software Rendering" in system info</p>
+<p><strong>Diagnostic:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL renderer&quot;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1"># Bad:  OpenGL renderer string: llvmpipe (LLVM 15.0.0, 256 bits)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># Good: OpenGL renderer string: AMD Radeon Graphics (gfx1013, LLVM 15.0.0, DRM 3.54, 6.12.0)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>vulkaninfo<span class="w"> </span>--summary
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># Should show AMD RADV driver</span>
+</span></code></pre></div></p>
+<p><strong>Cause 1: Mesa Too Old</strong></p>
+<p>Solution: Upgrade to Mesa 25.1.3 or newer</p>
+<p><strong>Fedora 43+:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Mesa 25.1+ is in official repos</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>update<span class="w"> </span>mesa*
+</span></code></pre></div></p>
+<p><strong>Fedora 42:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Use COPR for Mesa 25.1+</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>copr<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>@exotic-soc/bc250-mesa
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>update<span class="w"> </span>mesa*
+</span></code></pre></div></p>
+<p><strong>Arch/Manjaro:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Install from official repos</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>mesa
+</span></code></pre></div></p>
+<p><strong>Verification:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL version&quot;</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># Should show Mesa 25.1.3 or higher</span>
+</span></code></pre></div></p>
+<p><strong>Cause 2: Wrong Graphics Adapter Selected</strong></p>
+<p>Some games (especially Red Dead Redemption 2) default to software rendering.</p>
+<p><strong>Solution:</strong></p>
+<p>Check available adapters:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>vulkaninfo<span class="w"> </span>--summary
+</span></code></pre></div></p>
+<p>In-game, change graphics adapter number to match the GPU (not llvmpipe).</p>
+<p>For RDR2 specifically, launch with:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>-useMaximumSettings
+</span></code></pre></div></p>
+<p><strong>Cause 3: Driver Not Loaded</strong></p>
+<p>Check if amdgpu driver is loaded:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>lspci<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span>VGA
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># Should show &quot;Kernel driver in use: amdgpu&quot;</span>
+</span></code></pre></div></p>
+<p>If not loaded, check:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="c1"># Look for errors</span>
+</span></code></pre></div></p>
+<p>Common fix - ensure these kernel parameters are set (and <code>nomodeset</code> is removed):
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Edit /etc/default/grub</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nv">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s2">&quot;amdgpu.sg_display=0&quot;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Regenerate grub config</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>sudo<span class="w"> </span>grub-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub/grub.cfg<span class="w">    </span><span class="c1"># Arch</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="low-fps-poor-gaming-performance">Low FPS / Poor Gaming Performance<a class="headerlink" href="#low-fps-poor-gaming-performance" title="Permanent link">&para;</a></h2>
+<h3 id="check-gpu-utilization">Check GPU Utilization<a class="headerlink" href="#check-gpu-utilization" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Monitor GPU load percentage</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>cat<span class="w"> </span>/sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># If GPU is at 100% constantly = thermal throttling or insufficient performance</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># If GPU is at 30-50% = governor not scaling properly, or game/driver issue</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="c1"># If GPU is at 0-10% = not using GPU (software rendering)</span>
+</span></code></pre></div>
+<h3 id="issue-governor-not-installed">Issue: Governor Not Installed<a class="headerlink" href="#issue-governor-not-installed" title="Permanent link">&para;</a></h3>
+<p>See "GPU Locked at 1500MHz" section above.</p>
+<h3 id="issue-broken-kernel-version">Issue: Broken Kernel Version<a class="headerlink" href="#issue-broken-kernel-version" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Previously working setup suddenly has poor performance after kernel update
+- Random GPU crashes under load
+- System freezes during gaming
+- Running kernel 6.15.0-6.15.6 or 6.17.8+</p>
+<p><strong>Solution:</strong></p>
+<p><strong>Install Working Kernel</strong></p>
+<div class="admonition danger">
+<p class="admonition-title">AVOID BROKEN KERNEL VERSIONS</p>
+<p>Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support. Use 6.15.7-6.17.7 for best performance or 6.12.x-6.14.x LTS for stability.</p>
+</div>
+<p><strong>Arch/Manjaro:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Option 1: Install working 6.15.7-6.17.7 kernel</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>linux<span class="w">  </span><span class="c1"># Check version is in working range</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="c1"># Option 2: Install LTS kernel for guaranteed stability</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>linux-lts<span class="w"> </span>linux-lts-headers
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># Set as default in bootloader</span>
+</span></code></pre></div></p>
+<p><strong>CachyOS:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Check version first</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>paru<span class="w"> </span>-S<span class="w"> </span>linux-cachyos<span class="w">  </span><span class="c1"># Ensure it&#39;s 6.15.7-6.17.7</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="c1"># Or for LTS stability:</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>paru<span class="w"> </span>-S<span class="w"> </span>linux-cachyos-lts<span class="w"> </span>linux-cachyos-lts-headers
+</span></code></pre></div></p>
+<p><strong>Fedora:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Check current kernel</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>uname<span class="w"> </span>-r
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Install older kernel from koji if needed</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># Or wait for kernel fixes</span>
+</span></code></pre></div></p>
+<h3 id="issue-iommu-causing-crashes">Issue: IOMMU Causing Crashes<a class="headerlink" href="#issue-iommu-causing-crashes" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Random system crashes under GPU load
+- Weird performance issues
+- System hangs</p>
+<div class="admonition danger">
+<p class="admonition-title">IOMMU is Broken on BC-250</p>
+<p>IOMMU <strong>MUST be disabled</strong> in BIOS. It is broken on BC-250 and causes crashes, display failures, and instability.</p>
+</div>
+<p><strong>Solution:</strong></p>
+<p>Disable IOMMU in BIOS (required), or add kernel parameter as backup:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nv">amd_iommu</span><span class="o">=</span>off
+</span></code></pre></div></p>
+<h3 id="issue-radv_debug-environment-variable">Issue: RADV_DEBUG Environment Variable<a class="headerlink" href="#issue-radv_debug-environment-variable" title="Permanent link">&para;</a></h3>
+<p>Some older setup guides recommend setting <code>RADV_DEBUG=nocompute</code> globally. This may not be needed on Mesa 25.1+.</p>
+<p><strong>Test without it:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Remove from Steam launch options</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># Remove from /etc/environment if set there</span>
+</span></code></pre></div></p>
+<h3 id="issue-game-specific-optimizations">Issue: Game-Specific Optimizations<a class="headerlink" href="#issue-game-specific-optimizations" title="Permanent link">&para;</a></h3>
+<p><strong>Steam Launch Options:</strong></p>
+<p>Most games work with:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nv">RADV_DEBUG</span><span class="o">=</span>nocompute<span class="w"> </span>%command%
+</span></code></pre></div></p>
+<p>For better performance, try:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># FSR enabled</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nv">WINE_FULLSCREEN_FSR</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>%command%
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># Vulkan backend</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="nv">PROTON_USE_WINED3D</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>%command%
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="c1"># Gamescope for consistent frametimes</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>gamescope<span class="w"> </span>-W<span class="w"> </span><span class="m">1920</span><span class="w"> </span>-H<span class="w"> </span><span class="m">1080</span><span class="w"> </span>-f<span class="w"> </span>--<span class="w"> </span>%command%
+</span></code></pre></div></p>
+<hr />
+<h2 id="thermal-throttling">Thermal Throttling<a class="headerlink" href="#thermal-throttling" title="Permanent link">&para;</a></h2>
+<p><strong>Symptoms:</strong>
+- Performance starts good then degrades after 5-15 minutes
+- Temperatures above 85-90C
+- GPU frequency drops under sustained load</p>
+<p><strong>Check Temperatures:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>sensors
+</span></code></pre></div></p>
+<p>Safe operating temperatures:
+- <strong>70-85C:</strong> Normal under load
+- <strong>85-90C:</strong> High but acceptable
+- <strong>90C+:</strong> Thermal throttling likely</p>
+<p><strong>Solutions:</strong></p>
+<h3 id="1-improve-cooling">1. Improve Cooling<a class="headerlink" href="#1-improve-cooling" title="Permanent link">&para;</a></h3>
+<p><strong>Arctic P12 Max recommended</strong> (high static pressure: 3.27 mmH2O)</p>
+<p>Alternative good options:
+- Noctua NF-A12x25 (2.34 mmH2O)
+- Arctic P14 PWM (2.4 mmH2O)</p>
+<p>Fan configuration:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Set fans to full speed in BIOS (for testing)</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="c1"># Or use fan control software</span>
+</span></code></pre></div></p>
+<h3 id="2-repaste-replace-thermal-pads">2. Repaste / Replace Thermal Pads<a class="headerlink" href="#2-repaste-replace-thermal-pads" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>APU die:</strong> Use quality thermal paste (Arctic MX-4, Noctua NT-H1) or PTM7950 phase-change pad</li>
+<li><strong>Memory/VRM:</strong> 2mm thermal pads (verify thickness first)</li>
+<li>Ensure heatsink is properly secured</li>
+</ul>
+<h3 id="3-undervolt-gpu">3. Undervolt GPU<a class="headerlink" href="#3-undervolt-gpu" title="Permanent link">&para;</a></h3>
+<p>If thermal throttling persists, try undervolting:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Example: 2000MHz at 940mV instead of 1000mV</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="nb">echo</span><span class="w"> </span>vc<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="m">940</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="nb">echo</span><span class="w"> </span>c<span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
+</span></code></pre></div>
+<p>Test stability with benchmarks. If stable, update governor config.</p>
+<hr />
+<h2 id="vram-allocation-issues">VRAM Allocation Issues<a class="headerlink" href="#vram-allocation-issues" title="Permanent link">&para;</a></h2>
+<h3 id="checking-current-vram-split">Checking Current VRAM Split<a class="headerlink" href="#checking-current-vram-split" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Total system RAM</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>free<span class="w"> </span>-h
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># GPU VRAM visible</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>sudo<span class="w"> </span>lshw<span class="w"> </span>-C<span class="w"> </span>display<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>memory
+</span></code></pre></div>
+<h3 id="issue-game-crashes-with-out-of-memory">Issue: Game Crashes with "Out of Memory"<a class="headerlink" href="#issue-game-crashes-with-out-of-memory" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- Games crash after loading
+- Artifacts then crash (Company of Heroes 3, RDR2)
+- "Out of memory" errors</p>
+<p><strong>Common with:</strong> 512MB dynamic allocation + ZRAM enabled</p>
+<p><strong>Solution 1: Use Fixed VRAM Allocation</strong></p>
+<p>Boot into BIOS and change VRAM allocation:
+- <strong>For most games:</strong> 4GB VRAM / 12GB RAM
+- <strong>For competitive/esports:</strong> 6GB VRAM / 10GB RAM
+- <strong>For VRAM-heavy games:</strong> 8GB VRAM / 8GB RAM or 10GB VRAM / 6GB RAM</p>
+<div class="admonition info">
+<p class="admonition-title">Dynamic Allocation Issues</p>
+<p>512MB dynamic allocation conflicts with ZRAM on some games. Use fixed allocation instead.</p>
+</div>
+<p><strong>Solution 2: Disable ZRAM</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Disable ZRAM</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>zram-swap
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>zram-swap
+</span></code></pre></div>
+<p><strong>Solution 3: Increase VRAM Visibility (Advanced)</strong></p>
+<p>For LLM/AI workloads that need more than 12GB VRAM:</p>
+<p>Add to kernel command line:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>amdgpu.gttsize<span class="o">=</span><span class="m">14750</span><span class="w"> </span>ttm.pages_limit<span class="o">=</span><span class="m">3776000</span><span class="w"> </span>ttm.page_pool_size<span class="o">=</span><span class="m">3776000</span>
+</span></code></pre></div></p>
+<p>This allows GPU to allocate up to ~14.75GB VRAM. Limit usage to 14.25-14.5GB in applications to avoid crashes.</p>
+<hr />
+<h2 id="stuttering-and-frame-pacing">Stuttering and Frame Pacing<a class="headerlink" href="#stuttering-and-frame-pacing" title="Permanent link">&para;</a></h2>
+<h3 id="issue-inconsistent-frame-times">Issue: Inconsistent Frame Times<a class="headerlink" href="#issue-inconsistent-frame-times" title="Permanent link">&para;</a></h3>
+<p><strong>Symptoms:</strong>
+- FPS counter shows 60+ but feels choppy
+- Frame time graph shows spikes
+- Stuttering during gameplay</p>
+<p><strong>Solution 1: Use Gamescope</strong></p>
+<p>Gamescope provides consistent frame pacing:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Install gamescope</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>gamescope<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>gamescope<span class="w">    </span><span class="c1"># Arch</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># Launch game through gamescope</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>gamescope<span class="w"> </span>-W<span class="w"> </span><span class="m">1920</span><span class="w"> </span>-H<span class="w"> </span><span class="m">1080</span><span class="w"> </span>-f<span class="w"> </span>--<span class="w"> </span>%command%
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="c1"># With frame limit</span>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>gamescope<span class="w"> </span>-W<span class="w"> </span><span class="m">1920</span><span class="w"> </span>-H<span class="w"> </span><span class="m">1080</span><span class="w"> </span>-r<span class="w"> </span><span class="m">60</span><span class="w"> </span>-f<span class="w"> </span>--<span class="w"> </span>%command%
+</span></code></pre></div>
+<p><strong>Solution 2: Disable Compositor (X11)</strong></p>
+<p>For KDE Plasma (X11):
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Disable compositor in System Settings &gt; Display &gt; Compositor</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="c1"># Or use keyboard shortcut: Alt+Shift+F12</span>
+</span></code></pre></div></p>
+<p><strong>Solution 3: Use Wayland</strong></p>
+<p>Wayland generally has better frame pacing than X11.</p>
+<p><strong>Solution 4: Audio Configuration</strong></p>
+<p>Some games (especially emulators) have frame pacing tied to audio:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Check PulseAudio/PipeWire sample rate</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>pactl<span class="w"> </span>info<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Default Sample&quot;</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Lock to 48kHz</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="c1"># Edit /etc/pulse/daemon.conf (PulseAudio) or PipeWire config</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>default-sample-rate<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">48000</span>
+</span></code></pre></div>
+<p>For Ryujinx (Switch emulator): Change audio backend in settings can dramatically improve performance.</p>
+<hr />
+<h2 id="system-configuration-issues">System Configuration Issues<a class="headerlink" href="#system-configuration-issues" title="Permanent link">&para;</a></h2>
+<h3 id="kernel-parameters-optimal">Kernel Parameters (Optimal)<a class="headerlink" href="#kernel-parameters-optimal" title="Permanent link">&para;</a></h3>
+<p>Edit <code>/etc/default/grub</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nv">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s2">&quot;amdgpu.sg_display=0 mitigations=off&quot;</span>
+</span></code></pre></div>
+<p><strong>Explanation:</strong>
+- <code>amdgpu.sg_display=0</code>: Required for kernel &lt; 6.10 (doesn't hurt on newer)
+- <code>mitigations=off</code>: +18 FPS in Cyberpunk 2077 (60→78 FPS) but reduces security</p>
+<div class="admonition danger">
+<p class="admonition-title">Security Warning</p>
+<p><code>mitigations=off</code> disables CPU vulnerability mitigations. Only use if you trust all code running on the system.</p>
+</div>
+<p>Regenerate grub:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>sudo<span class="w"> </span>grub-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub/grub.cfg<span class="w">    </span><span class="c1"># Arch</span>
+</span></code></pre></div></p>
+<h3 id="remove-nomodeset">Remove nomodeset<a class="headerlink" href="#remove-nomodeset" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Critical: Remove nomodeset After Driver Installation</p>
+<p><code>nomodeset</code> is ONLY for installation. It disables GPU acceleration. Remove it after Mesa is installed.</p>
+</div>
+<p>Check if present:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>cat<span class="w"> </span>/etc/default/grub<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nomodeset
+</span></code></pre></div></p>
+<p>If found, remove it and regenerate grub config.</p>
+<hr />
+<h2 id="performance-monitoring-tools">Performance Monitoring Tools<a class="headerlink" href="#performance-monitoring-tools" title="Permanent link">&para;</a></h2>
+<h3 id="real-time-monitoring">Real-time Monitoring<a class="headerlink" href="#real-time-monitoring" title="Permanent link">&para;</a></h3>
+<p><strong>MangoHud (in-game overlay):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Install</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>mangohud<span class="w">  </span><span class="c1"># Fedora</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>mangohud<span class="w">    </span><span class="c1"># Arch</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="c1"># Use in Steam launch options</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>mangohud<span class="w"> </span>%command%
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="c1"># Or global config in ~/.config/MangoHud/MangoHud.conf</span>
+</span></code></pre></div></p>
+<p><strong>Radeontop (terminal):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>radeontop
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>radeontop
+</span></code></pre></div></p>
+<p><strong>Sensors (temperatures/voltages):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>sensors
+</span></code></pre></div></p>
+<p><strong>CoolerControl (GUI):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Fedora/Bazzite</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>ujust<span class="w"> </span>install-coolercontrol
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="c1"># Provides fan control and sensor monitoring</span>
+</span></code></pre></div></p>
+<h3 id="benchmarking">Benchmarking<a class="headerlink" href="#benchmarking" title="Permanent link">&para;</a></h3>
+<p><strong>Unigine Superposition:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># Good for thermal/stability testing</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="c1"># 1080p Extreme preset</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="c1"># Stock BC-250: ~3888 score</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># 2.22GHz OC: ~4118 score</span>
+</span></code></pre></div></p>
+<p><strong>vkmark (Vulkan):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>vkmark
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>vkmark
+</span></code></pre></div></p>
+<p><strong>Cyberpunk 2077 Benchmark:</strong>
+Popular community test - consistent results:
+- Stock: ~57 FPS (1080p high)
+- 2.22GHz: ~60 FPS
+- With mitigations=off: +15-20 FPS</p>
+<hr />
+<h2 id="distribution-specific-issues">Distribution-Specific Issues<a class="headerlink" href="#distribution-specific-issues" title="Permanent link">&para;</a></h2>
+<h3 id="fedora">Fedora<a class="headerlink" href="#fedora" title="Permanent link">&para;</a></h3>
+<p><strong>Issue: MTG Arena crashes GUI</strong>
+- Confirmed issue on Fedora with Gnome
+- Works fine on Manjaro
+- Try KDE Plasma instead of Gnome</p>
+<h3 id="bazzite">Bazzite<a class="headerlink" href="#bazzite" title="Permanent link">&para;</a></h3>
+<p><strong>Issue: Freeze on Sleep</strong>
+- Known issue: system appears frozen when entering sleep
+- Solution: Press power button to wake (don't hold, just press)</p>
+<p><strong>Issue: Bazzite Update Breaks System</strong>
+- If an update causes issues, rollback:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>rpm-ostree<span class="w"> </span>status
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>rpm-ostree<span class="w"> </span>rollback
+</span></code></pre></div></p>
+<h3 id="cachyos">CachyOS<a class="headerlink" href="#cachyos" title="Permanent link">&para;</a></h3>
+<p><strong>Issue: Installation ISO Won't Boot</strong>
+- Use LTS kernel ISO
+- Build custom ISO with LTS kernel (see guide in System Configuration section)</p>
+<hr />
+<h2 id="quick-performance-checklist">Quick Performance Checklist<a class="headerlink" href="#quick-performance-checklist" title="Permanent link">&para;</a></h2>
+<p>Use this checklist to verify your system is properly configured:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mesa version 25.1.3 or higher</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Kernel 6.15.7-6.17.7 or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8+)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> GPU governor installed and running (oberon or cyan-skillfish)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>nomodeset</code> removed from kernel parameters</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>glxinfo</code> shows RADV driver, not llvmpipe</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Temperatures under 85C under load</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Cooling with high static pressure fan (&gt;2.0 mmH2O)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> IOMMU disabled in BIOS</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>systemctl status oberon-governor</code> shows active</li>
+</ul>
+<p><strong>Quick test:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># This should show GPU scaling dynamically</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="s1">&#39;cat /sys/class/drm/card0/device/pp_dmu_clock &amp;&amp; cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent&#39;</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="c1"># Run a game or benchmark</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="c1"># Frequency should scale from ~1000MHz idle to 2000+MHz under load</span>
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="c1"># GPU utilization should be 80-100% in demanding scenes</span>
+</span></code></pre></div></p>
+<hr />
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<p>If you're still experiencing performance issues after following this guide:</p>
+<ol>
+<li>
+<p><strong>Gather system information:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="c1"># Create a system report</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>uname<span class="w"> </span>-r<span class="w">                    </span><span class="c1"># Kernel version</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>mesa<span class="w">      </span><span class="c1"># Mesa version</span>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>sensors<span class="w">                     </span><span class="c1"># Temperatures</span>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>systemctl<span class="w"> </span>status<span class="w"> </span>oberon-governor<span class="w">  </span><span class="c1"># Governor status</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>cat<span class="w"> </span>/etc/oberon-config.yaml<span class="w">       </span><span class="c1"># Governor config</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50<span class="w">    </span><span class="c1"># Recent GPU messages</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Join the Discord community:</strong></p>
+</li>
+<li>BC-250 Discord: Largest community, most active support</li>
+<li>
+<p>Search for your specific issue first - likely already solved</p>
+</li>
+<li>
+<p><strong>Check GitHub documentation:</strong></p>
+</li>
+<li><a href="https://github.com/mothenjoyer69/bc250-documentation">https://github.com/mothenjoyer69/bc250-documentation</a></li>
+<li><a href="https://github.com/AMD-BC-250/documentation">https://github.com/AMD-BC-250/documentation</a></li>
+</ol>
+<hr />
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../bios/flashing/">BIOS Flashing Guide</a></li>
+<li><a href="../../linux/distributions/">Linux Distribution Setup</a></li>
+<li><a href="../../bios/overclocking/">Overclocking Guide</a></li>
+<li><a href="../../hardware/cooling/">Cooling Solutions</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../display/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Display Issues">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Display Issues
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../stability/" class="md-footer__link md-footer__link--next" aria-label="Next: Stability Problems">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Stability Problems
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/elektricM/amd-bc250-docs" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/uDvkhNpxRQ" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "search.share", "toc.follow", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
