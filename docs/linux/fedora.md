@@ -121,7 +121,7 @@ dnf list mesa-\*
 # Use filippor/bazzite COPR with cyan-skillfish-governor-tt
 sudo dnf copr enable filippor/bazzite
 sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt
 ```
 
 !!!info "Governor Package Update"
@@ -197,7 +197,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check governor running
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 # Should show: active (running)
 
 # Check sensors
@@ -275,13 +275,13 @@ glxinfo | grep -i "opengl renderer"
 
 ```bash
 # Check governor service
-sudo systemctl status oberon-governor
+sudo systemctl status cyan-skillfish-governor-tt
 
 # Check logs
-sudo journalctl -u oberon-governor
+sudo journalctl -u cyan-skillfish-governor-tt
 
 # Restart service
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Low FPS in Games
