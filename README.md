@@ -12,6 +12,8 @@
 
 ✏️ **Contribute:** Found a solution? Add it to the docs so everyone can find it! See [CONTRIBUTING.md](CONTRIBUTING.md)
 
+[![Preview](https://elektricM.github.io/amd-bc250-docs/assets/preview.png)](https://elektricM.github.io/amd-bc250-docs/)
+
 ## What's Included
 
 - **Linux setup guides** for 7+ distributions (Fedora, Bazzite, CachyOS, Arch, Debian, etc.)
@@ -41,9 +43,9 @@ The site will be available at http://127.0.0.1:8000/
 ## Content Sources
 
 Built from:
-- BC250 Discord community (9,716 technical messages from 1000+ members)
+- BC250 Discord community (9,716 technical messages from 3,500+ members)
 - [BC250 GitHub repository](https://github.com/mothenjoyer69/bc250-documentation)
-- Last Updated: March 16, 2026
+- Last Updated: March 2026
 
 ## Contributing
 
