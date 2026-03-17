@@ -552,17 +552,17 @@
     "id": "hoodyracoon-slim-console-remix-external-usb-hub",
     "name": "Slim Console remix (external/USB hub)",
     "author": "hoodyRacoon",
-    "psu_family": "flexatx",
-    "psu_label": "FlexATX (Arthrimus)",
+    "psu_family": "other",
+    "psu_label": "External (Dell DA-2)",
     "availability": "public",
     "section": "FlexATX (Arthrimus)",
-    "description": "Remix of the Arthrimus Slim Console using an external PSU, repurposing the FlexATX bay for a USB hub, WiFi adapter, and Bluetooth dongle.",
+    "description": "Arthrimus Slim remix with external power supply (Dell DA-2), internal Wi-Fi/Bluetooth, and side-mounted USB. Based on the Arthrimus Slim chamber design but adapted for external PSU with custom ATX-to-PCIe cable. Work in progress with known tolerance issues.",
     "links": {
       "gdrive": "https://drive.google.com/drive/folders/12tBc1_Is6aH86Ojc1jvyqojz5OB2n5Nz"
     },
     "printables_id": null,
     "makerworld_id": null,
-    "thumbnail": null,
+    "thumbnail": "https://github.com/user-attachments/assets/459b0b7e-9660-4a2c-b37b-1f99906e0d1d",
     "is_remix": true
   },
   {
