@@ -481,23 +481,6 @@
     "is_remix": false
   },
   {
-    "id": "isaacalvex-custom-case-hp-power-supply",
-    "name": "CUSTOM CASE (HP POWER SUPPLY)",
-    "author": "isaacalvex",
-    "psu_family": "flexatx",
-    "psu_label": "FlexATX (Arthrimus)",
-    "availability": "public",
-    "section": "FlexATX (Arthrimus)",
-    "description": "Remix of the Arthrimus case adapted for HP server PSU with custom side panels, USB 3.0 hub, and status LED.",
-    "links": {
-      "thingiverse": "https://www.thingiverse.com/thing:7262228"
-    },
-    "printables_id": null,
-    "makerworld_id": null,
-    "thumbnail": "https://cdn.thingiverse.com/assets/21/57/84/4b/a9/featured_preview_CASE_BC250_1.jpeg",
-    "is_remix": true
-  },
-  {
     "id": "kennman5000-console-style-case-remix",
     "name": "Console Style Case remix",
     "author": "kennman5000",
@@ -682,23 +665,6 @@
     "printables_id": null,
     "makerworld_id": "2481620",
     "thumbnail": "https://makerworld.bblmw.com/makerworld/model/US422ddb877f963c/design/ebb50f24106359eb.jpg",
-    "is_remix": false
-  },
-  {
-    "id": "hrumque-bc250-amd-case-v3-flexatx",
-    "name": "BC250 AMD case v3 \u2014 FlexATX",
-    "author": "Hrumque",
-    "psu_family": "flexatx",
-    "psu_label": "FlexATX",
-    "availability": "public",
-    "section": "FlexATX",
-    "description": "Version 3 of the Hrumque case series for FlexATX PSU. Superseded by the V4 which adds HP server PSU support.",
-    "links": {
-      "makerworld": "https://makerworld.com/en/models/2370798"
-    },
-    "printables_id": null,
-    "makerworld_id": "2370798",
-    "thumbnail": "https://makerworld.bblmw.com/makerworld/model/USb098aacd90a92/design/fdef8de6b5b38cbc.jpg",
     "is_remix": false
   },
   {
@@ -1517,14 +1483,14 @@
     "psu_label": "HP Server PSU",
     "availability": "public",
     "section": "HP Server PSU",
-    "description": "Custom case designed for HP server PSU.",
+    "description": "Custom case for HP server PSU, with USB 3.0 hub and status LED. Based on the Arthrimus design with custom side panels.",
     "links": {
       "thingiverse": "https://www.thingiverse.com/thing:7262228"
     },
     "printables_id": null,
     "makerworld_id": null,
-    "thumbnail": null,
-    "is_remix": false
+    "thumbnail": "https://cdn.thingiverse.com/assets/21/57/84/4b/a9/featured_preview_CASE_BC250_1.jpeg",
+    "is_remix": true
   },
   {
     "id": "arthrimus-arthrimus-slim-hp-hstns-pr28-edition",
