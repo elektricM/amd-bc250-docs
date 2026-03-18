@@ -106,10 +106,10 @@ After booting with nomodeset:
 sudo dnf update
 sudo dnf install mesa-vulkan-drivers mesa-dri-drivers
 
-# Install GPU governor
-sudo dnf copr enable @exotic-soc/oberon-governor
-sudo dnf install oberon-governor
-sudo systemctl enable --now oberon-governor.service
+# Install GPU governor (recommended)
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 # Then remove nomodeset:
 sudo nano /etc/default/grub

@@ -351,14 +351,15 @@ sudo systemctl restart oberon-governor
 **Solution:**
 
 ```bash
-# Check governor status
-systemctl status oberon-governor
+# Check governor status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # If not running:
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 # Restart if running:
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # Verify frequency scaling
 cat /sys/class/drm/card0/device/pp_dpm_sclk
