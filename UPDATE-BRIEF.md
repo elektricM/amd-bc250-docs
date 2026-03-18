@@ -118,6 +118,31 @@ Discord quotes (March 5-7):
 - SteamMachinePro/ — full pro setup guide
 - Community adapts these for CachyOS too (amirseni, Mar 2)
 
+## CRITICAL: Native Support Status (March 2026)
+
+The docs were written when BC250 needed lots of workarounds. As of March 2026, support is mostly NATIVE:
+
+**Mesa:** 25.1+ has upstream cyan-skillfish support (landed May 2025). Fedora 43 ships mesa 25.x/26.x. All major distros have it.
+**Kernel (as of March 18 2026):** 
+- 7.0-rc4 mainline
+- 6.19.8 stable  
+- 6.18.18 LTS
+- Bazzite includes frequency patch in its kernel
+**Fedora:** 43 is current stable, 44 Beta just released (ships 6.19 + GNOME 50). Fedora 42 is EOL.
+**CachyOS:** March 2026 release is latest.
+**mothenjoyer (March 2026):** "These boards more or less just work now, and all you need to do is install a distro, install the GPU governor, and then go to town."
+
+IMPORTANT: The docs reference old kernel versions (6.12-6.17) and old Fedora (42). Update to reflect current versions.
+
+What's ACTUALLY still needed beyond a standard distro install:
+1. Flash modded BIOS (for VRAM allocation + exposed settings)
+2. Install a GPU governor (cyan-skillfish-governor-tt or -smu)
+3. ACPI fix for C-States
+4. ttm kernel params for >8GB shared memory
+5. nct6683 module with force=true for sensors
+
+Everything else (mesa, kernel, RADV) should be stock. Remove workarounds for things that are now native.
+
 ## Cross-Reference Map
 Discord channel → Doc page:
 - `Bazzite OS for starters` → linux/bazzite.md
