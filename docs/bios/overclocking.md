@@ -1,87 +1,46 @@
 # BIOS Overclocking Guide
 
-Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual configuration.
+Overclocking the BC-250 GPU beyond the default 1500 MHz lock.
 
-!!!danger "Advanced Users Only"
-    Overclocking can cause system instability, crashes, and potential hardware damage. Only proceed if you understand the risks.
+## Quick Start
 
-## Overclocking Overview
+**Most users only need to install a governor.** The governor unlocks the GPU from its 1500 MHz lock and enables dynamic frequency scaling up to 2000-2230 MHz.
 
-### What Can Be Overclocked
-
-- **GPU Frequency:** 1500 MHz (locked) → 2000-2230 MHz (with governor/kernel patch)
-- **GPU Voltage:** 700-1100 mV
-- **Memory:** Adjustable via community Mem Timing Utility (advanced — incorrect settings will crash the system)
-
-### Temperature Monitoring
-
-- **GPU Temperature:** Monitored via k10temp-pci-00c3 (tctl) and amdgpu edge sensor
-- **VRAM Temperature:** No dedicated sensor available
+1. **Install a governor** → [Governor Setup](../system/governor.md)
+2. **Tune voltage/frequency** in governor config (see below)
+3. **Only patch kernel if needed** — Bazzite is pre-patched, SMU governor bypasses patches entirely
 
 ### Requirements
 
-1. **Kernel Patch:** Extended frequency range (350-2230 MHz)
-   - OR use distribution with patch included (Bazzite, PikaOS)
-   - OR use `cyan-skillfish-governor-smu` which **bypasses kernel patches entirely** on any distro
-2. **GPU Governor:** For automatic frequency scaling
-3. **Active cooling:** High static pressure fan (Arctic P12 Max or equivalent)
-4. **Quality PSU:** 250W+ on 12V rail
+- **GPU Governor** — required for frequency scaling (see [Governor Setup](../system/governor.md))
+- **Active cooling** — high static pressure fan (Arctic P12 Max or equivalent)
+- **PSU** — 250W+ on 12V rail for overclocked workloads
 
-!!!success "Bazzite Users: No Manual Patching Needed"
-    The Bazzite kernel already includes the GPU frequency range patch. Skip directly to governor installation.
+### What Can Be Overclocked
 
-!!!tip "SMU Governor: No Kernel Patch Needed on Any Distro"
-    The `cyan-skillfish-governor-smu` manages clocks via SMU firmware calls, bypassing the need for kernel patches entirely. Best option for CachyOS/Arch users.
+- **GPU Frequency:** 1500 MHz (locked) → 2000-2230 MHz (with governor)
+- **GPU Voltage:** 700-1100 mV
+- **Memory:** Adjustable via community Mem Timing Utility (advanced — incorrect settings will crash the system)
 
 ---
 
 ## GPU Frequency Range Kernel Patch
 
-The GPU frequency range kernel patch is a community-developed modification that extends the BC-250's GPU operating frequencies beyond the default software-imposed limits to match the actual hardware capabilities.
+The kernel patch extends the GPU frequency range from 1000-2000 MHz to 350-2230 MHz.
 
 **Created by:** ViRazY ([GitHub](https://github.com/Vinjul1704))
 
+!!!success "Most Users Don't Need to Manually Patch"
+    - **Bazzite/PikaOS:** Kernel already includes this patch.
+    - **Any distro:** The [`cyan-skillfish-governor-smu`](https://github.com/filippor/cyan-skillfish-governor/tree/smu) bypasses the need for kernel patches entirely via SMU firmware calls.
+    - Manual patching is only needed for non-Bazzite users who want to use the TT governor or manual sysfs overclocking with extended frequency range.
+
 ### What the Patch Does
 
-**Frequency Range Extension:**
-- **Default range:** 1000 MHz - 2000 MHz
-- **Patched range:** 350 MHz - 2230 MHz
-- **Hardware limit:** 2230 MHz (actual silicon limit)
-
-**Voltage Range:**
-- **Default:** 700 mV - 1129 mV (unchanged in standard patch)
-- **Experimental extended patch:** 600 mV - 1300 mV (NOT RECOMMENDED)
-
-!!!warning "Use Standard Patch Only"
-    The extended voltage patch (600-1300 mV) is NOT recommended. The standard patch is sufficient for reaching 2230 MHz, and extended voltages risk hardware degradation.
-
-### Why It's Needed
-
-Without the patch, the BC-250's GPU performance is artificially limited:
-
-1. **Performance ceiling:** Stock 2000 MHz maximum prevents full potential
-2. **Power efficiency:** Cannot downclock below 1000 MHz for idle
-3. **Governor compatibility:** Cannot set frequencies outside 1000-2000 MHz range
-
-### Performance Gains
-
-**Gaming Performance:**
-- **Star Wars Battlefront 2:** 80-85 FPS → 120-130 FPS (+50%)
-- Users report "huge performance boost" across multiple titles
-- Maximum performance at 2230 MHz @ 1000-1060 mV
-
-**Power Efficiency:**
-- Idle downclocking to 350 MHz saves ~1-9W vs stock
-- Total system power can reach ~69W idle (vs ~78W stock)
-- Limited savings due to 700 mV floor being safe minimum
-
-### How to Obtain the Patch
-
-!!!success "Bazzite Users: Patch Already Included"
-    Bazzite's kernel already includes the GPU frequency range patch. No manual patching needed — just install a governor.
-
-!!!info "SMU Governor Bypasses Kernel Patching"
-    The `cyan-skillfish-governor-smu` manages clocks through SMU firmware and **does not require this kernel patch on ANY distro**. Install via AUR (`cyan-skillfish-governor-smu`) or COPR (`filippor/bazzite`).
+- **Default range:** 1000-2000 MHz → **Patched range:** 350-2230 MHz
+- **Voltage range:** 700-1129 mV (unchanged by standard patch)
+- Allows idle downclocking to 350 MHz for lower power draw
+- Extended voltage patch (600-1300 mV) exists but is NOT recommended
 
 #### Pre-Patched Distributions (Easiest)
 
@@ -101,11 +60,6 @@ The patch file is available in the BC-250 Discord server:
 - **File:** `linux-6.12-bc250-freq.mypatch` (639 bytes)
 
 ### Manual Application
-
-!!!info "Most Users Don't Need This"
-    - **Bazzite/PikaOS users:** Kernel already includes this patch.
-    - **Any distro:** The `cyan-skillfish-governor-smu` bypasses the need for kernel patches entirely.
-    - Manual patching is only needed for non-Bazzite users who want to use the TT governor or manual sysfs overclocking with extended frequency range.
 
 #### Method 1: Linux-TKG (Recommended)
 
@@ -292,15 +246,11 @@ A community-developed SMU (System Management Unit) tool enables CPU overclocking
 
 ## Safe Overclocking Limits
 
-### Community-Tested Safe Limits
+Start at 2000 MHz @ 1000 mV and work up. Stability varies by board (silicon lottery). General guidance:
 
-| Frequency | Voltage | Stability | Power Draw | Cooling Required |
-|-----------|---------|-----------|------------|------------------|
-| 2000 MHz | 1000 mV | ✅ Safe (all boards) | 190-200W | Stock + fan |
-| 2100 MHz | 1025 mV | ✅ Good (most boards) | 200-210W | Arctic P12 |
-| 2175 MHz | 1025 mV | ⚠️ Some boards | 210-220W | Arctic P12 Max |
-| 2230 MHz | 1035-1050 mV | ⚠️ Best boards only | 220-235W | Dual fans |
-| 2230 MHz | 1085 mV | ⚠️ High risk | 250W+ | Excellent cooling |
+- **2000 MHz @ 1000 mV** — safe starting point for most boards
+- **2100-2175 MHz @ 1025-1050 mV** — works on many boards, test thoroughly
+- **2230 MHz @ 1035-1060 mV** — maximum hardware limit, requires good cooling
 
 ## Manual Overclocking
 
@@ -422,34 +372,9 @@ watch -n 1 sensors
 - Performance degradation
 - GPU temp > 90°C
 
-## Performance Gains
+## Performance Notes
 
-### Benchmark Results
-
-**Unigine Superposition (1080p Extreme):**
-
-| Config | Score | FPS | GPU Temp | Power |
-|--------|-------|-----|----------|-------|
-| Stock 2000 MHz @ 1000mV | 3888 | ~57 | 76°C | 190W |
-| Patch 2230 MHz @ 1035mV | 4118 | ~60 | 86°C | 235W |
-| Gain | +230 | +3 | +10°C | +45W |
-
-**Cyberpunk 2077 (1080p High):**
-
-| Config | FPS | Notes |
-|--------|-----|-------|
-| Stock 2000 MHz | 57.66 | Without overlay |
-| OC 2220 MHz | 60.82 | +5.5% performance |
-
-### Performance vs Power Trade-Off
-
-**Analysis:**
-- 2000 MHz → 2230 MHz: +11.5% frequency
-- Performance gain: +5-6% (not linear due to other bottlenecks)
-- Power increase: +20-25%
-- Temperature increase: +10°C
-
-**Conclusion:** Diminishing returns above 2100 MHz for most users
+Overclocking from 2000 to 2230 MHz gives diminishing returns — expect single-digit percentage gains in most games, with significantly higher power draw and temperatures. Most users will see better results from stable governor tuning at 2000-2100 MHz than pushing for maximum clocks.
 
 ## Voltage Tuning
 
@@ -483,72 +408,11 @@ watch -n 1 sensors
 - **Maximum recommended:** 1085mV
 - **Absolute maximum:** 1100mV (high risk)
 
-## Cooling Requirements
+## Cooling and Power
 
-### Temperature Targets by Overclock
+Higher clocks mean more heat and power draw. Keep GPU below 85°C under load. See [Cooling Solutions](../hardware/cooling.md) and [Power Requirements](../hardware/power.md) for details.
 
-| Overclock Level | Max Temp | Recommended Cooling |
-|-----------------|----------|---------------------|
-| Stock (2000 MHz) | 76°C | Single Arctic P12 |
-| Light OC (2100 MHz) | 80°C | Arctic P12 Max |
-| Medium OC (2175 MHz) | 85°C | Dual fans or Arctic P12 Max |
-| Heavy OC (2230 MHz) | 90°C | Dual high-performance fans |
-
-!!!danger "Thermal Throttling"
-    Above 85°C, performance may be reduced. Above 90°C, system instability is likely.
-
-### Improving Cooling for Overclock
-
-1. **Upgrade fan:** Arctic P12 Max (highest static pressure)
-2. **Add second fan:** For VRM/memory cooling
-3. **Improve airflow:** Remove case panels for testing
-4. **Replace thermal paste:** Quality paste (Arctic MX-6, Kryonaut)
-5. **Straighten fins:** Improve heatsink airflow
-6. **Add thermal pads:** Cool memory chips on underside
-
-## Power Supply Considerations
-
-### Power Requirements by Overclock
-
-| Overclock | Typical Power | Peak Power | PSU Recommendation |
-|-----------|---------------|------------|---------------------|
-| Stock 2000 MHz | 190W | 200W | 220W+ |
-| 2100 MHz | 200W | 215W | 250W+ |
-| 2175 MHz | 210W | 230W | 270W+ |
-| 2230 MHz | 220W | 250W | 300W+ |
-
-!!!warning "PSU Overload"
-    Inadequate PSU will trigger over-current protection, causing crashes under load.
-
-### Furmark Power Draw
-
-**Unrealistic stress test:**
-- Stock: 250W
-- OC 2230 MHz @ 1085mV: **320W**
-
-**Note:** No game reaches Furmark power levels. Use game testing.
-
-## Overclocking Checklist
-
-Before overclocking:
-
-- [ ] BIOS flashed and configured (VRAM split set)
-- [ ] Kernel 6.12-6.14 LTS (with frequency patch if needed)
-- [ ] Mesa 25.1.3+ installed
-- [ ] GPU governor installed and running
-- [ ] Adequate cooling (Arctic P12 Max minimum)
-- [ ] PSU rated for 250W+ on 12V rail
-- [ ] Thermal monitoring set up (`sensors`)
-- [ ] Backup of current config
-
-During overclocking:
-
-- [ ] Increase frequency in 50-100 MHz steps
-- [ ] Test stability for 30+ minutes per step
-- [ ] Monitor temperatures (< 85°C target)
-- [ ] Monitor power draw
-- [ ] Check for visual artifacts
-- [ ] Verify no performance degradation
+**Before overclocking:** Ensure you have a governor installed, adequate cooling, and a PSU rated for 250W+ on 12V rail. Increase frequency in 50-100 MHz steps, testing stability for 30+ minutes at each step.
 
 ## Troubleshooting Overclocking Issues
 
@@ -603,14 +467,12 @@ During overclocking:
 
 **Check:**
 ```bash
-# Verify governor running
-systemctl status oberon-governor
-
-# Check config loaded
-cat /etc/oberon-config.yaml
+# Verify governor running (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Restart governor
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # Check applied settings
 cat /sys/class/drm/card0/device/pp_od_clk_voltage
@@ -650,9 +512,17 @@ echo "c" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
 - Recording stable voltages
 - Validating with benchmarks
 
-## See Also
+## Community Resources
 
-- [GPU Governor Setup](../system/governor.md)
+- [GPU Governor Setup](../system/governor.md) — start here
+- [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
+- [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
+- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated setup for Bazzite
+- [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
 - [Cooling Solutions](../hardware/cooling.md)
 - [Power Requirements](../hardware/power.md)
 - [BIOS Recovery](recovery.md)
+
+---
+
+**Last Updated:** 2026-03-18

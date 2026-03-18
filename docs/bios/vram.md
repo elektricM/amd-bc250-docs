@@ -13,7 +13,7 @@ The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared betw
 
 ## Configuration Options
 
-### Option 1: 512MB Dynamic (Recommended)
+### Option 1: 512MB Dynamic
 
 **BIOS Setting:** UMA Frame Buffer Size = 512MB
 
@@ -29,17 +29,15 @@ The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared betw
 - Most flexible
 - Best for varied workloads
 - No need to choose allocation manually
-- Can handle both CPU-intensive and GPU-intensive tasks
 
 **Cons:**
 - May conflict with ZRAM in some games (RDR2, Company of Heroes 3)
-- Slight overhead from dynamic allocation
 - Some games incorrectly report available VRAM
+- Some titles (Expedition 33, Mafia) crash unless 4-8GB is statically allocated
 
 **Best for:**
 - General use, mixed gaming, productivity
 - Users who don't want to tweak settings
-- Varying workloads
 
 ### Option 2: Fixed 10GB RAM / 6GB VRAM
 
@@ -289,10 +287,10 @@ For low-power builds (HTPC, always-on systems), use 4GB fixed or 512MB dynamic w
 ## Recommendations by Use Case
 
 ### General Gaming PC
-**Use:** 512MB dynamic
-- Handles everything
-- Easy to set and forget
-- Switch to 10GB/6GB only if specific game crashes
+**Use:** 512MB dynamic or 10GB/6GB fixed
+- 512MB dynamic works for most games
+- If a game crashes or stutters, try 6-8GB fixed — some titles (Expedition 33, Mafia, newer AAA) need statically allocated VRAM
+- No single setting is best for all games
 
 ### Dedicated Gaming Rig (AAA focus)
 **Use:** 10GB RAM / 6GB VRAM

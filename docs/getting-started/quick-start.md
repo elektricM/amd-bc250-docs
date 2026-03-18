@@ -32,8 +32,8 @@ Boot into BIOS (Del key during startup) and configure:
 - **IOMMU:** **Disabled** (MUST disable - IOMMU is broken)
 - **Boot Mode:** UEFI
 
-!!!danger "Backplate Active Cooling Required"
-    The VRAM chips on the backplate have no temperature sensor and will overheat under load, causing graphical glitches and instability. Install an 80mm fan on the backplate before gaming or intensive workloads. Passive cooling is insufficient.
+!!!info "Backplate Cooling Recommended"
+    The VRAM chips on the backplate have no temperature sensor. Ensure airflow over the backplate for gaming workloads. If you see pixel artifacts, VRAM may be overheating — add a fan or improve case airflow.
 
 [VRAM configuration guide →](../bios/vram.md)
 

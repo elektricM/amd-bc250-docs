@@ -14,8 +14,8 @@ The BC-250 is a high-performance board that requires proper power delivery for s
 - **Actual Power Draw:** 70-235W depending on workload
 - **Minimum PSU Recommendation:** 300W on 12V rail
 
-!!!danger "Critical Warning"
-    Always verify your PSU can deliver the required wattage on the 12V rail. Many budget PSUs cannot sustain their rated output, leading to system instability, crashes, or PSU failure.
+!!!warning "Check Your PSU"
+    Verify your PSU can deliver sufficient wattage on the 12V rail. Budget PSUs may not sustain rated output under load.
 
 ## Measured Power Consumption
 
@@ -145,7 +145,7 @@ Required Wattage = 235W * 1.2 = 282W
 This is the standard power connector and is perfectly suitable for powering the BC-250.
 
 !!!info "Using 6-pin Connector"
-    Some users report success with 6-pin connectors (missing pins 7-8), but this is **not recommended**. The missing sense pins can cause compatibility issues.
+    Many users run 6-pin PCIe connectors without issues. The missing pins 7-8 are sense/ground pins. A 6-pin connector works fine for most setups — 8-pin is only necessary if you're overclocking and pushing sustained high loads (250W+).
 
 **J2000 and J2001 - Alternative Power Connectors:**
 

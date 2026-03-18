@@ -11,19 +11,11 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 - **Design Purpose:** Rack-mounted passive or low-airflow cooling
 - **Desktop Use:** Inadequate without active airflow
 
-!!!danger "Stock Cooling Is Insufficient"
-    The stock heatsink alone will cause thermal throttling and system instability during gaming. Active cooling is **required**.
+!!!warning "Active Cooling Required"
+    The stock heatsink is designed for rack airflow, not desktop use. Add a fan for gaming workloads.
 
-!!!danger "Backplate VRAM Cooling Required"
-    The BC-250 has VRAM chips mounted on the backplate that reach dangerous temperatures without active cooling. **The board has no VRAM temperature sensor** - overheating is silent and causes visual corruption, artifacts, and instability.
-
-    **Critical requirements:**
-
-    - The board must NEVER run horizontally without airflow over the backplate
-    - Dual-sided cooling (front heatsink + rear airflow) is strongly recommended
-    - Passive backplate cooling alone is insufficient for gaming or intensive workloads
-    - **Visual symptom:** Pixel artifacts on screen indicate VRAM overheating
-    - **Long-term impact:** Running without backplate cooling causes VRAM damage and warped backplates
+!!!info "Backplate VRAM Cooling Recommended"
+    The BC-250 has VRAM chips on the backplate with no temperature sensor. Ensuring airflow over the backplate is recommended, especially for sustained gaming. Pixel artifacts during gaming can indicate VRAM overheating. Many community builds work fine with basic case airflow over the backplate — a dedicated backplate fan is ideal but not strictly required if your case has decent airflow.
 
 ## Temperature Targets
 
@@ -110,17 +102,16 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 !!!info "Premium Choice"
     Noctua fans are higher quality and quieter but cost 2-3x more than Arctic fans. Performance is similar with Arctic P12 Max.
 
-### Option 4: Dual Fan Setup (Critical for VRAM Cooling)
+### Option 4: Dual Fan Setup
 
 **Configuration:**
 - **Primary Fan:** 120mm over center of heatsink (main GPU/APU cooling)
-- **Secondary Fan:** 80-120mm for backplate VRAM cooling (REQUIRED)
+- **Secondary Fan:** 80-120mm for backplate VRAM cooling
 
 **Benefits:**
 - Lower primary fan speeds = quieter
-- **Critical for backplate VRAM cooling** - rear VRAM can throttle or fail without active rear airflow
+- Better backplate VRAM cooling
 - Improved overall system cooling
-- Redundancy if one fan fails
 
 **Recommended Combinations:**
 - 2x Arctic P12 Max (one front, one rear)
@@ -131,8 +122,8 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 - Use fan splitter cable for single PWM control
 - Or connect second fan to J4003 header
 
-!!!success "Best Practice for Stability"
-    Dual fan setups are strongly recommended for gaming and intensive workloads. Backplate VRAM cooling is the primary thermal concern for long-term stability.
+!!!tip "Best Practice"
+    Dual fan setups give the best thermal results. Recommended for heavy gaming or overclocking.
 
 ### Option 5: Tower Cooler Conversion
 
@@ -157,7 +148,7 @@ Some users have successfully mounted AM4 tower coolers:
 
 ## Backplate VRAM Cooling Solutions
 
-The VRAM chips on the backplate require active cooling. This section covers verified community methods.
+The VRAM chips on the backplate benefit from active cooling, especially under sustained load. If you see pixel artifacts during gaming, VRAM temps may be the cause.
 
 ### Recommended Methods
 
@@ -244,12 +235,12 @@ The thermal paste on used BC-250 boards is often dried out.
 
 ### Memory Thermal Pad Replacement
 
-GDDR6 memory chips on the underside can get very hot.
+GDDR6 memory chips on the underside can run hot under sustained load.
 
-**Symptoms of Hot Memory:**
+**Symptoms of hot memory:**
 - System crashes during extended gaming
 - Instability after 30-60 minutes
-- Memory errors
+- Pixel artifacts
 
 **Solution:**
 1. Remove board from case
