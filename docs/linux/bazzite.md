@@ -113,7 +113,7 @@ rpm-ostree install cyan-skillfish-governor-tt
 systemctl reboot
 
 # Enable service after reboot
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
 !!!info "SMU Governor as Emerging Alternative"
