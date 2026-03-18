@@ -150,7 +150,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### No Video Encode/Decode
 
-- **VCN (Video Core Next):** Disabled - missing required firmware
+- **VCN (Video Core Next):** Firmware blocked by Sony — hardware exists but cannot be used
 - **Hardware Encoding:** Not available
 - **Hardware Decoding:** Not available
 - **Software Fallback:** CPU decoding works but is power-hungry
