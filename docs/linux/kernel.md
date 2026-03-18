@@ -128,7 +128,7 @@ amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 sudo nano /etc/modprobe.d/increase_amd_memory.conf
 
 # Add:
-options ttm pages_limit=3776000 page_pool_size=3776000
+options ttm pages_limit=3959290 page_pool_size=3959290
 options amdgpu gttsize=14750
 
 # Rebuild initramfs

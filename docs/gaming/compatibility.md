@@ -299,7 +299,7 @@ sudo cpupower frequency-set -g performance
 **Memory Parameters for More VRAM:**
 ```bash
 # Add to kernel parameters (see Kernel guide)
-amdgpu.gttsize=14750 ttm.pages_limit=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 ## Benchmark Scores

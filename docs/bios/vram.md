@@ -249,7 +249,7 @@ Add to GRUB command line:
 sudo nano /etc/default/grub
 
 # Add to GRUB_CMDLINE_LINUX_DEFAULT:
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 
 # Update GRUB
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
