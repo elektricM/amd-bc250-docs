@@ -65,11 +65,14 @@ sudo dnf update
 # Install governor from COPR (updated Dec 2025)
 sudo dnf copr enable filippor/bazzite
 sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
-!!!info "SMU Governor as Emerging Alternative"
-    The SMU governor is an emerging alternative that works on CachyOS without requiring a kernel patch. Monitor community feedback for stability updates.
+!!!info "SMU Governor Alternative (No Kernel Patch Needed)"
+    The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Best option for CachyOS/Arch. Install via AUR: `yay -S cyan-skillfish-governor-smu`
+
+!!!danger "ACPI Fix is Essential"
+    Install the BC-250 ACPI fix for proper C-State support and power management: [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix)
 
 !!!warning "Governor Device Targeting"
     **Known Issue:** Governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration.
@@ -121,8 +124,9 @@ glxinfo | grep "OpenGL version"
 vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
-# Check governor running
-systemctl status oberon-governor
+# Check governor running (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 # Should show: active (running)
 
 # Check GPU frequency
