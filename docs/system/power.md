@@ -824,5 +824,5 @@ sensors | grep PPT
 
 ---
 
-**Last Updated:** 2025-11-21
+**Last Updated:** 2026-03-18
 **Contributors:** Community testing and reporting

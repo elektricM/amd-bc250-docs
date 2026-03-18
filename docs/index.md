@@ -101,7 +101,7 @@ Based on extensive community testing:
 
 This documentation is built from the collective knowledge of the BC250 community, combining:
 
-- **1000+ Discord community members** sharing real-world testing and troubleshooting
+- **3,500+ Discord community members** sharing real-world testing and troubleshooting
 - **100+ verified solutions** for common issues
 - **30+ tested games** with performance data
 - **Multiple distribution-specific setup guides**
@@ -115,7 +115,7 @@ This documentation is based on community Discord discussions and the [BC250 GitH
 !!! success "Content Sources"
     - **Primary:** BC250 Discord community (9,716 technical messages analyzed)
     - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) - hardware pinouts, specifications
-    - **Last Updated:** December 19, 2025
+    - **Last Updated:** March 2026
 
 ---
 
