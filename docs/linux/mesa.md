@@ -60,7 +60,7 @@ glxinfo | grep "OpenGL version"
 No additional steps needed!
 
 !!!warning "Fedora 42 is End of Life"
-    Fedora 42 reached EOL. Upgrade to Fedora 43 (Mesa 25.x in repos) or try Fedora 44 Beta.
+    Fedora 42 reached EOL. Upgrade to Fedora 43 (Mesa 25.x in repos).
 
 ### Arch Linux / CachyOS
 

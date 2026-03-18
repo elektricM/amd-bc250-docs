@@ -44,7 +44,7 @@ Boot into BIOS (Del key during startup) and configure:
 
 **Fedora Installation:**
 
-1. Download Fedora 43 Workstation (or Fedora 44 Beta)
+1. Download Fedora 43 Workstation
 2. Boot installer in "Basic Graphics Mode" (enables nomodeset automatically)
 3. Complete installation normally
 4. Reboot

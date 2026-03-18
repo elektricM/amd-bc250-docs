@@ -423,7 +423,7 @@ sudo systemctl disable zram-swap
 
 **Solution 3: Replace ZRAM with zswap (Better for RAM-Hungry Games)**
 
-zswap compresses swap in RAM before writing to disk, avoiding ZRAM's VRAM conflicts while still helping with memory pressure. Community reports this made games like AoE2:DE with UHD textures playable at 4K.
+zswap compresses swap in RAM before writing to disk, avoiding ZRAM's VRAM conflicts while still helping with memory pressure.
 
 **Bazzite setup:**
 ```bash

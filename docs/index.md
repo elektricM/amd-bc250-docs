@@ -76,7 +76,7 @@ The AMD BC250 is a compact motherboard built around AMD's "Cyan Skillfish" APU, 
 Before you begin, be aware of these essential requirements:
 
 !!! danger "Kernel Version"
-    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.18.18 LTS** (recommended) or **6.17.11+** for best performance. Kernel 6.19.x has PCIe issues on BC-250.
+    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.18.18 LTS** (recommended), **6.19.x stable**, or **6.17.11+** for best performance.
 
 !!! warning "Mesa Version"
     **Mesa 25.1.3+ minimum**, 25.1.5+ recommended for proper RADV driver support.

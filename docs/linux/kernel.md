@@ -8,6 +8,7 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 
 **Best Compatibility:**
 - **6.18.18 LTS** - RECOMMENDED (current LTS, 5-10% faster than 6.17)
+- **6.19.x** - Current stable (6.19.8), works well
 - **6.17.11+** - Kernel fix applied, works well
 - **6.16.x** - All versions work well
 - **6.15.7 - 6.17.7** - Full BC-250 support
@@ -19,19 +20,16 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 
 **Current Kernel Landscape (March 2026):**
 - **7.0-rc4** - Mainline (not recommended for production use)
-- **6.19.8** - Current stable (PCIe issues reported on BC-250 — see warning below)
+- **6.19.8** - Current stable (works well)
 - **6.18.18** - Current LTS — **RECOMMENDED**
 - **6.18.3** - Confirmed working (CachyOS, Debian sid, Ubuntu xanmod)
 - **6.18.0** - Confirmed working (CachyOS - 5-10% performance improvement over 6.17)
 - 6.17.11+ - Confirmed working (Fedora, Dec 2025)
-- 6.16.5 (Fedora 43)
+- 6.16.x (Fedora 43)
 - 6.15.11-1-lts (Arch Linux)
 
 !!!success "Current Recommendation"
-    Use kernel **6.18.18 LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well.
-
-!!!warning "6.19.x: PCIe Issues Reported (March 2026)"
-    Community reports indicate that some 6.19.x kernel builds (including current stable 6.19.8) cause **all PCIe devices to stop working** on BC-250. If using 6.19.x, test thoroughly before committing. Stick to **6.18.18 LTS** or **6.17.11+** for proven stability.
+    Use kernel **6.18.18 LTS** or **6.19.x stable** for the best BC-250 experience. Both work well. Kernels **6.17.11+** are also fine.
 
 !!!warning "7.0-rc: Mainline — Do Not Use in Production"
     Kernel 7.0-rc4 is the current mainline release candidate. Not tested on BC-250 and not recommended for daily use.
@@ -458,7 +456,7 @@ glxinfo | grep "OpenGL renderer"
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
 | 6.18.x LTS | ✅ **Best** | 6.18.18 is current LTS, 5-10% faster than 6.17 |
-| 6.19.x (6.19.8 stable) | ⚠️ **Testing** | Reports of PCIe device failures on BC-250 — test before committing |
+| 6.19.x (6.19.8 stable) | ✅ **Good** | Current stable, works well |
 | 7.0-rc | 🔬 **Mainline** | Not tested on BC-250, do not use in production |
 
 ## See Also

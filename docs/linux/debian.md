@@ -182,7 +182,7 @@ sudo apt install linux-xanmod-lts-x64v3
 
 **Confirmed working:** 6.18.3+ tested Jan 2026. Current LTS: 6.18.18.
 
-**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.18.18 LTS (recommended) or 6.17.11+. Kernel 6.19.x has PCIe issues on BC-250.
+**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.18.18 LTS (recommended), 6.19.x stable, or 6.17.11+.
 
 ---
 

@@ -912,13 +912,13 @@ A: Check if system updated kernel. Run `uname -r` from live USB after mounting s
 A: Did you remove `nomodeset` after installing drivers? It must be removed from GRUB config.
 
 **Q: How do I know if my kernel is the problem?**
-A: BC-250 works best with 6.18.18 LTS (current recommendation) or 6.17.11+. Kernels 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU drivers. Kernel 6.19.x has PCIe issues on BC-250. Avoid 6.10 and below (too old).
+A: BC-250 works best with 6.18.18 LTS or 6.19.x stable. 6.17.11+ also works. Kernels 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU drivers. Avoid 6.10 and below (too old).
 
 **Q: BIOS seems dead after flashing. Bricked?**
 A: 90% chance you just need to clear CMOS. Remove battery for 60 seconds. Almost never truly bricked.
 
 **Q: Can I prevent these boot issues?**
-A: Yes! Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10, and 6.19.x (PCIe issues). Use 6.18.18 LTS. Keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
+A: Yes! Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10. Use 6.18.18 LTS or 6.19.x stable. Keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
 
 ---
 

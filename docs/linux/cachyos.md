@@ -375,7 +375,7 @@ sensors  # Expected: nct6686-isa-0a20, GPU temp, fan speeds
 **Broken kernels (avoid):**
 - **6.15.0 - 6.15.6** - GPU initialization failures, kernel panics
 - **6.17.8-6.17.10** - GPU driver issues (fixed in 6.17.11+)
-- **6.19.x** - PCIe issues reported on BC-250 (Mar 2026)
+- **6.19.x** - Current stable, works well
 
 If you accidentally install a broken kernel:
 ```bash

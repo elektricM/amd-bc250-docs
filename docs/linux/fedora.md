@@ -57,7 +57,7 @@ Fedora is the most recommended distribution for BC-250, offering:
 ### Step 2: Select Boot Mode
 
 !!!warning "Fedora 42 is End of Life"
-    Fedora 42 reached EOL. If still running Fedora 42, upgrade to Fedora 43. Fedora 44 Beta is also available (ships kernel 6.19 + GNOME 50).
+    Fedora 42 reached EOL. If still running Fedora 42, upgrade to Fedora 43.
 
 **For Fedora 43 with working kernels (6.18.18 LTS or 6.17.11+):**
 
@@ -76,7 +76,7 @@ You can try the standard "Install Fedora" option. If it boots successfully, no n
     - Kernel 6.18.18 LTS: Current LTS, RECOMMENDED
     - Kernel 6.17.11+: Working (Dec 2025+)
     - Kernels 6.17.8–6.17.10: Known broken, avoid
-    - Kernel 6.19.x: PCIe issues reported on BC-250 — avoid for now
+    - Kernel 6.19.x: Current stable, works well
     - Note: Unpatched kernels have 1000–2000 MHz frequency limits. Custom kernel compilation or distro patches (e.g., CachyOS) unlock higher ranges.
 
 ### Step 3: Complete Installation

@@ -15,7 +15,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 ## Fedora 43 (Most Recommended for Beginners)
 
 !!!warning "Fedora 42 is End of Life"
-    Fedora 42 reached EOL. Upgrade to Fedora 43 or try Fedora 44 Beta (ships kernel 6.19 + GNOME 50).
+    Fedora 42 reached EOL. Upgrade to Fedora 43.
 
 ### Overview
 

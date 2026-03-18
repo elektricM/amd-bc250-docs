@@ -7,7 +7,7 @@ Both Arch Linux and Manjaro work excellently on the BC-250. Arch provides maximu
 **Status:** Both fully working
 **Difficulty:** Arch (Advanced), Manjaro (Intermediate)
 **Mesa:** 25.1+ in official repos with upstream BC-250 support. Mesa 26 (development/git) available and confirmed working on Debian sid and Ubuntu 26.04 daily as of Jan 2026.
-**Kernel:** Kernel 6.18.18 LTS (current LTS, recommended) and 6.17.11+ are confirmed stable. Avoid 6.17.8–6.17.10 and 6.15.0–6.15.6 (known broken). Kernel 6.19.x has PCIe issues on BC-250.
+**Kernel:** Kernel 6.18.18 LTS (current LTS, recommended) and 6.19.x stable both work well. 6.17.11+ also confirmed stable. Avoid 6.17.8–6.17.10 and 6.15.0–6.15.6 (known broken).
 
 ---
 
@@ -71,7 +71,7 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 1. **Kernel Selection**
    - **Recommended:** Kernel 6.18.18 LTS (current LTS) or `linux-lts` package
    - **Also works:** 6.17.11+ confirmed stable
-   - **AVOID:** Kernel 6.15.0-6.15.6, 6.17.8–6.17.10 (GPU initialization failures), and 6.19.x (PCIe issues)
+   - **AVOID:** Kernel 6.15.0-6.15.6, 6.17.8–6.17.10 (GPU initialization failures)
    - LTS kernels (6.12-6.14) remain supported for stability
 
 2. **Boot Parameters**
