@@ -15,11 +15,11 @@ This guide covers all environment variables for BC-250 graphics configuration, p
 
 ### RADV_DEBUG=nocompute
 
-**Status:** DEPRECATED on Mesa 25.1+
+**Status:** DEPRECATED on Mesa 25.1+ / **REMOVED in Mesa 25.2+**
 
-The compute queue issue is resolved upstream. Only use if running Mesa 25.0 or earlier.
+The compute queue issue is resolved upstream. Only use if running Mesa 25.0 or earlier. **Fedora 43 ships Mesa 25.3.6** — this flag has no effect and is not needed.
 
-For Mesa 25.1 and newer, use RADV_DEBUG=nohiz instead for Game Mode stability.
+For Mesa 25.1 and newer (including 25.2.x), use RADV_DEBUG=nohiz instead for rendering stability.
 
 **What it did:**
 The BC-250's compute queue had hardware issues that caused graphical artifacts and rendering problems. This variable forced all workloads through the graphics queue instead.
@@ -394,16 +394,16 @@ RUSTICL_ENABLE=radeonsi
 
 ## Complete Gaming Setup Example
 
-Recommended launch options for Steam games:
+Recommended launch options for Steam games (Mesa 25.1+):
 
 ```bash
-RADV_DEBUG=nocompute mangohud %command%
+RADV_DEBUG=nohiz mangohud %command%
 ```
 
-With additional debugging:
+With additional debugging (Mesa < 25.1 only — nocompute not needed on 25.1+):
 
 ```bash
-RADV_DEBUG=nocompute,nohiz DXVK_HUD=fps,gpu MANGOHUD=1 %command%
+RADV_DEBUG=nohiz DXVK_HUD=fps,gpu MANGOHUD=1 %command%
 ```
 
 ## Environment Variable Precedence
@@ -432,14 +432,14 @@ vulkaninfo | grep -i "device name"
 glxinfo | grep -i "opengl renderer"
 ```
 
-## Mesa 25.1+ Changes
+## Mesa 25.1+ / 25.2.x Changes
 
-With Mesa 25.1 and later:
+With Mesa 25.1 and later (Fedora 43 ships **Mesa 25.3.6**):
 
-- `RADV_DEBUG=nocompute` may no longer be needed (compute queue disabled by default)
-- Test without the variable first
-- If issues persist, re-enable it
-- Monitor [Mesa MR #33116](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) status
+- `RADV_DEBUG=nocompute` is deprecated on 25.1+ and effectively removed/ignored on 25.2.x — do not use
+- Test with `RADV_DEBUG=nohiz` only (no nocompute needed)
+- If you are on Mesa 25.0 or older, `nocompute` is still valid
+- [Mesa MR #33116](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) — upstream fix reference
 
 ## Troubleshooting
 
@@ -483,7 +483,7 @@ ROCm support is experimental and very limited. Use Vulkan instead.
 
 | Variable | Purpose | Required | Value |
 |----------|---------|----------|-------|
-| `RADV_DEBUG=nocompute` | Fix compute queue | Yes (Mesa < 25.1) | `nocompute` |
+| `RADV_DEBUG=nocompute` | Fix compute queue | DEPRECATED (25.1+) / Removed (25.2+) | Only use on Mesa 25.0 or older |
 | `RADV_DEBUG=nohiz` | Fix artifacts | Sometimes | `nohiz` |
 | `VK_ICD_FILENAMES` | Vulkan driver path | For Steam Big Picture | See above |
 | `AMD_LOG_LEVEL` | Debug logging | Debug only | `0-4` |
@@ -493,9 +493,9 @@ ROCm support is experimental and very limited. Use Vulkan instead.
 
 ## Best Practices
 
-1. Start with minimal variables (`RADV_DEBUG=nocompute` only)
-2. Add variables only when needed for specific issues
-3. Test changes one variable at a time
-4. Document working configurations per game
-5. Remove variables when no longer needed (e.g., Mesa 25.1+ may not need `nocompute`)
+1. On Mesa 25.1+ (including 25.2.x), use `RADV_DEBUG=nohiz` only — `nocompute` is deprecated and ignored on 25.2.x
+2. On Mesa 25.0 or older: `nocompute` is still needed, but upgrade to 25.1+ if at all possible
+3. Fedora 43 ships Mesa 25.3.6 — `nocompute` is not needed there
+4. Add variables only when needed for specific issues
+5. Test changes one variable at a time
 6. Use per-game settings in Steam rather than system-wide when possible
