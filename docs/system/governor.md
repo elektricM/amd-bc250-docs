@@ -392,29 +392,35 @@ mangohud %command%  # Steam launch option
 
 **Check service:**
 ```bash
-sudo systemctl status oberon-governor
+# Check whichever governor you installed:
+sudo systemctl status cyan-skillfish-governor-tt
+# Or: sudo systemctl status oberon-governor
 
 # Check logs
-sudo journalctl -u oberon-governor
+sudo journalctl -u cyan-skillfish-governor-tt
+# Or: sudo journalctl -u oberon-governor
 ```
 
 **Solutions:**
 
 **1. Enable service:**
 ```bash
-sudo systemctl enable oberon-governor
+sudo systemctl enable cyan-skillfish-governor-tt
+# Or: sudo systemctl enable oberon-governor
 ```
 
 **2. Check config file exists:**
 ```bash
-ls -l /etc/oberon-config.yaml
+ls -l /etc/cyan-skillfish-governor-tt/config.toml
+# Or: ls -l /etc/oberon-config.yaml
 
 # If missing, reinstall governor
 ```
 
 **3. Manual restart:**
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
+# Or: sudo systemctl restart oberon-governor
 ```
 
 **Workaround (Arch/CachyOS):**
@@ -433,16 +439,16 @@ Some users report governor doesn't activate until GPU is used:
 
 **Debug:**
 ```bash
-# Check governor binary exists
-which oberon-governor
+# Check governor binary exists (use whichever you installed)
+which cyan-skillfish-governor-tt
+# Or: which oberon-governor
 
 # Check config
-cat /etc/oberon-config.yaml
+cat /etc/cyan-skillfish-governor-tt/config.toml
+# Or: cat /etc/oberon-config.yaml
 
-# Try manual start
-sudo oberon-governor
-
-# Check for errors
+# Check for errors in logs
+sudo journalctl -u cyan-skillfish-governor-tt --no-pager -n 20
 ```
 
 ### Governor Crashes with iostream Error
@@ -553,8 +559,9 @@ governor:
 
 **Check for bugs:**
 ```bash
-# View governor logs
-sudo journalctl -u oberon-governor -f
+# View governor logs (use whichever you installed)
+sudo journalctl -u cyan-skillfish-governor-tt -f
+# Or: sudo journalctl -u oberon-governor -f
 ```
 
 ## Performance Comparison
@@ -596,8 +603,9 @@ sudo journalctl -u oberon-governor -f
 **Step 1: Test Maximum Stable Frequency**
 
 ```bash
-# Stop governor
-sudo systemctl stop oberon-governor
+# Stop governor (use whichever you installed)
+sudo systemctl stop cyan-skillfish-governor-tt
+# Or: sudo systemctl stop oberon-governor
 
 # Manually set test frequency
 echo vc 0 2100 1050 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -621,7 +629,8 @@ opps:
 **Step 3: Restart and Test**
 
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
+# Or: sudo systemctl restart oberon-governor
 
 # Test with games/benchmarks
 # Monitor temperatures
