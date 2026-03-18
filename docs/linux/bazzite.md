@@ -141,7 +141,12 @@ Some boards are unstable at lower voltages. The script defaults to 1000mV to pre
 
 ## Performance Setup (Advanced)
 
-"Bazzite on Steroids" - Custom images with GPU frequency range patch for up to 50% performance boost.
+!!!success "Bazzite Kernel Already Includes GPU Frequency Patch"
+    As of early 2026, the standard Bazzite kernel already includes the GPU frequency range patch. **Manual kernel patching is not needed on Bazzite.** The "Bazzite on Steroids" custom images below are only needed if you want additional pre-configured optimizations.
+
+    Alternatively, the **SMU governor** (`cyan-skillfish-governor-smu`) bypasses the need for kernel patches entirely on any distro.
+
+"Bazzite on Steroids" - Custom images with additional pre-configured optimizations.
 
 ### Features
 

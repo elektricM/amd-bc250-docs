@@ -259,11 +259,12 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Install lm-sensors
 sudo apt install lm-sensors
 
-# Load nct6687 module
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+# Load nct6683 sensor module (requires force=true)
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 
 # Load module now
-sudo modprobe nct6687
+sudo modprobe nct6683 force=true
 
 # Verify
 sensors
@@ -371,7 +372,7 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 sensors
 
 # Expected:
-# nct6687-isa-0a20
+# nct6686-isa-0a20
 # GPU Temp: XX°C
 # Fan speeds
 ```

@@ -341,10 +341,11 @@ dmesg | grep nct6683
 
 ### Fan Control (Optional)
 
-For fan control (nct6683 is read-only), use nct6687:
+Load the nct6683 sensor module for temperature and fan monitoring:
 
 ```bash
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 sudo mkinitcpio -P
 sudo reboot
 
