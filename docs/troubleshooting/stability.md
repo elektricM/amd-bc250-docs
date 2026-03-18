@@ -53,15 +53,12 @@ Before diving into specific issues, check these common causes:
    - Some boards freeze at 60-65°C if cooling is inadequate
 
 4. **Test with locked frequency**
-   - Edit `/etc/oberon-config.yaml`:
-   ```yaml
-   opps:
-     - frequency:
-       - min: 1500
-       - max: 1500
-     - voltage:
-       - min: 900
-       - max: 900
+   - Edit your governor config (e.g., `/etc/cyan-skillfish-governor-tt/config.toml`):
+   ```toml
+   min_frequency = 1500
+   max_frequency = 1500
+   min_voltage = 900
+   max_voltage = 900
    ```
    - Restart governor: `systemctl restart cyan-skillfish-governor-tt`
    - If stable at locked frequency, it's a governor tuning issue
@@ -134,6 +131,26 @@ Before diving into specific issues, check these common causes:
    ```
    Note: These are NOT universal - test your own board
 
+### Black Screen on GPU Reset (Governor Running)
+
+**Symptoms**: GPU crashes, screen goes black, system never recovers — hard reboot required
+
+**Cause**: If the GPU crashes while the governor (cyan-skillfish) is running, the governor continues writing to sysfs during the GPU reset attempt, preventing recovery. The GPU gets stuck in a failed reset loop and the screen stays black.
+
+**Workaround**:
+
+1. **Disable governor before playing crash-prone games**
+   ```bash
+   sudo systemctl stop cyan-skillfish-governor-tt
+   ```
+   Re-enable after: `sudo systemctl start cyan-skillfish-governor-tt`
+
+2. **Use stable voltage/frequency settings** to reduce the chance of GPU crashes in the first place — see the voltage-related instability section below.
+
+*Source: Discord user nohanmv, Feb 26 2026*
+
+---
+
 ### Governor-Related Instability
 
 **Symptoms**: Random crashes during load changes, frequency spikes, voltage issues
@@ -147,21 +164,18 @@ Before diving into specific issues, check these common causes:
 
 2. **Voltage too low at startup**
    - Some boards crash on "default governor settings"
-   - Edit `/etc/oberon-config.yaml` to increase min voltage
+   - Edit your governor config to increase min voltage
    - Quote: "Hey all, my board crashes on default governor settings. Did I loose the silicon lottery?"
 
 3. **Frequency/voltage mismatch**
    - Symptom: Crashes when GPU load increases/decreases
    - Solution: Reduce frequency range or increase voltage headroom
-   - Example fix:
-   ```yaml
-   opps:
-     - frequency:
-       - min: 1000
-       - max: 2000
-     - voltage:
-       - min: 750
-       - max: 1000
+   - Example fix (cyan-skillfish-governor-tt config.toml):
+   ```toml
+   min_frequency = 1000
+   max_frequency = 2000
+   min_voltage = 750
+   max_voltage = 1000
    ```
 
 ---

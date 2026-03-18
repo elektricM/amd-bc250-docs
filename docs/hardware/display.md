@@ -8,7 +8,7 @@ Guide to connecting displays to the BC-250 and troubleshooting display issues.
 
 - **DisplayPort:** 1x full-size DisplayPort 1.4
 - **HDMI:** None (requires adapter)
-- **Resolution Support:** Up to 8K @60Hz or 4K @120Hz
+- **Resolution Support:** Up to 4K @120Hz
 - **HDR Support:** Yes (HDR10)
 
 !!!info "DisplayPort Only"
@@ -27,7 +27,6 @@ Guide to connecting displays to the BC-250 and troubleshooting display issues.
 - 1920x1080 (1080p) @ 144Hz+
 - 2560x1440 (1440p) @ 144Hz+
 - 3840x2160 (4K) @ 120Hz
-- 7680x4320 (8K) @ 60Hz
 
 !!!success "Native DisplayPort Recommended"
     If your monitor has DisplayPort, use it directly. This avoids adapter compatibility issues.

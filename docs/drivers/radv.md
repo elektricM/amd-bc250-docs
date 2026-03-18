@@ -733,7 +733,7 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 # 2: 2000Mhz
 
 # If stuck at 1500MHz, governor is not working
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 ```
 
 **Solution:** Install and configure GPU governor (see [System Configuration](../system/governor.md) guide).
@@ -756,5 +756,5 @@ For most users, install Mesa 25.1+ from your distribution's repositories, set `R
 ---
 
 **Last Updated:** 2026-03-18
-**Based on:** Discord community discussions (7,000+ messages analyzed)
+**Based on:** Discord community discussions
 **See Also:** [Linux Setup Guide](../linux/distributions.md), [System Configuration](../system/governor.md), [Gaming & Performance](../gaming/compatibility.md)

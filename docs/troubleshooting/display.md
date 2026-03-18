@@ -241,9 +241,9 @@ If GPU >90°C:
 If using custom governor settings:
 
 ```bash
-# Edit /etc/oberon-config.yaml
+# Edit governor config (e.g., /etc/cyan-skillfish-governor-tt/config.toml)
 # Reduce max_frequency or increase voltage
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 **3. Power Supply Issues**

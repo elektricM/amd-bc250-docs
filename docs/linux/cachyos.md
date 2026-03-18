@@ -341,8 +341,8 @@ glxinfo | grep "OpenGL version"  # Expected: Mesa 25.1.x+
 # 3. Check GPU
 vulkaninfo | grep deviceName  # Expected: AMD Radeon Graphics (RADV GFX1013)
 
-# 4. Check governor
-systemctl status oberon-governor  # Expected: active (running)
+# 4. Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt  # Expected: active (running)
 
 # 5. Check GPU frequency
 cat /sys/class/drm/card0/device/pp_dpm_sclk  # Expected: Multiple frequencies
@@ -417,7 +417,7 @@ CachyOS now works well on BC-250 with standard installation. The complex custom 
 1. Download CachyOS ISO from [cachyos.org](https://cachyos.org/)
 2. Install normally (follow installer wizard)
 3. Verify compatible kernel is installed (6.12-6.14 LTS or 6.15.7-6.17.7)
-4. Install oberon-governor for GPU frequency scaling
+4. Install GPU governor (`cyan-skillfish-governor-smu` from AUR recommended)
 5. Configure sensors, install gaming tools, enjoy
 
 ---
@@ -427,7 +427,7 @@ CachyOS now works well on BC-250 with standard installation. The complex custom 
 - **CachyOS Website:** [cachyos.org](https://cachyos.org/)
 - **CachyOS Wiki:** [wiki.cachyos.org](https://wiki.cachyos.org/)
 - **CachyOS GitHub:** [github.com/CachyOS](https://github.com/CachyOS)
-- **Oberon Governor:** [GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
+- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 

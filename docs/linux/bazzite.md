@@ -105,7 +105,7 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 ### Voltage Configuration
 
-Default configuration (`/etc/oberon-config.yaml`):
+Default configuration (`/etc/cyan-skillfish-governor-tt/config.toml`):
 
 ```yaml
 voltage:
@@ -132,21 +132,21 @@ Some boards are unstable at lower voltages. The script defaults to 1000mV to pre
 ### Features
 
 - Custom patched kernel (GPU frequency: 350-2230 MHz vs stock 1000-2000 MHz)
-- Oberon governor pre-configured
+- GPU governor pre-configured
 - Weekly automated builds (every Monday)
 - Three variants: GNOME, KDE, Deck
 
 ### Prerequisites
 
-If you already have Bazzite installed with Oberon:
+If you already have Bazzite installed with an older governor:
 
 ```bash
-# Remove existing oberon installation
+# Remove existing oberon installation (if applicable)
 sudo systemctl stop oberon-governor
 sudo systemctl disable oberon-governor
 rpm-ostree uninstall oberon-governor
 
-# Remove config
+# Remove old config
 sudo rm -f /etc/oberon-config.yaml
 ```
 
@@ -181,7 +181,7 @@ After rebase:
 
 ```bash
 systemctl reboot
-systemctl status oberon-governor  # Verify running
+systemctl status cyan-skillfish-governor-tt  # Verify running
 ```
 
 !!!warning "WiFi May Be Killed by Performance Setup (Issue #10)"
@@ -195,7 +195,7 @@ Performance patch increases power draw and temperatures:
 - **Cooling:** High static pressure fans required
 - **Temps:** Expect 85-95°C under full load (normal for this board)
 
-To reduce power consumption, edit `/etc/oberon-config.yaml`:
+To reduce power consumption, edit `/etc/cyan-skillfish-governor-tt/config.toml`:
 
 ```yaml
 voltage:
@@ -205,7 +205,7 @@ frequency:
   - max: 1800  # Reduced from 2230
 ```
 
-Then restart: `sudo systemctl restart oberon-governor`
+Then restart: `sudo systemctl restart cyan-skillfish-governor-tt`
 
 ### Disable CPU Mitigations (Optional)
 
@@ -309,14 +309,13 @@ systemctl reboot
 **Solution:**
 
 ```bash
-sudo nano /etc/oberon-config.yaml
+sudo nano /etc/cyan-skillfish-governor-tt/config.toml
 
-# Change:
-voltage:
-  - min: 1000  # Increase from 700
-  - max: 1000
+# Increase voltage if unstable:
+# min_voltage = 1000
+# max_voltage = 1000
 
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Flatpak Apps Don't See GPU
@@ -419,7 +418,7 @@ watch -n 1 cat /sys/class/drm/card0/device/pp_dpm_sclk
 ujust update
 
 # Check governor
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 
 # Check GPU frequency
 cat /sys/class/drm/card0/device/pp_dpm_sclk
@@ -441,7 +440,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-pa
 - **Bazzite Official:** [bazzite.gg](https://bazzite.gg)
 - **Setup script:** [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation)
 - **Patched images:** [vietsman/bazzite-patched](https://github.com/vietsman/bazzite-patched)
-- **Oberon governor:** [oberon-governor GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
+- **GPU Governor:** [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 

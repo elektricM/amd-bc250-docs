@@ -202,9 +202,15 @@ Remove `nomodeset` if you added it during installation (after Mesa is installed)
 
 ---
 
-### 5. Install Oberon Governor
+### 5. Install GPU Governor
 
-Governor is required for proper GPU frequency scaling.
+A GPU governor is required for proper GPU frequency scaling.
+
+**Option 1: Install cyan-skillfish-governor-smu from .deb (recommended)**
+
+The SMU governor is available as a .deb package from [filippor's COPR](https://github.com/filippor/cyan-skillfish-governor). It bypasses kernel patching entirely.
+
+**Option 2: Build oberon-governor from source (legacy)**
 
 ```bash
 # Install dependencies
@@ -358,8 +364,8 @@ uname -r
 ### Check Governor
 
 ```bash
-# Service status
-systemctl status oberon-governor
+# Service status (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # GPU frequency
 cat /sys/class/drm/card0/device/pp_dpm_sclk
@@ -480,8 +486,9 @@ sudo apt install -t experimental mesa-vulkan-drivers libgl1-mesa-dri --reinstall
 ### Governor Not Working
 
 ```bash
-# Check service
-systemctl status oberon-governor
+# Check service (use whichever you installed)
+systemctl status oberon-governor          # legacy
+systemctl status cyan-skillfish-governor-smu  # SMU variant
 
 # Check logs
 journalctl -u oberon-governor -f
@@ -529,7 +536,7 @@ sudo apt install htop
 - **Debian:** [debian.org](https://www.debian.org/)
 - **PikaOS:** [pikaos.org](https://pikaos.org)
 - **Xanmod Kernel:** [xanmod.org](https://xanmod.org/)
-- **Oberon Governor:** [GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
+- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
@@ -545,8 +552,8 @@ glxinfo | grep "OpenGL version"
 # Check GPU
 vulkaninfo | grep deviceName
 
-# Check governor
-systemctl status oberon-governor
+# Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # Check GPU frequency
 cat /sys/class/drm/card0/device/pp_dpm_sclk

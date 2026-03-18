@@ -56,7 +56,7 @@ With proper Linux setup, the BC-250 delivers performance comparable to:
 
 **Budget Gaming:** One of the cheapest ways to build a capable 1080p gaming PC
 
-**Massive Community:** Active Discord with 1000+ members sharing mods, troubleshooting, and improvements
+**Active Community:** Discord server with members sharing mods, troubleshooting, and improvements
 
 **Open Documentation:** Multiple GitHub repositories with setup guides, BIOS mods, and driver patches
 

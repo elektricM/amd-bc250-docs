@@ -22,10 +22,10 @@ lspci -k | grep -A 3 VGA
 # Verify Mesa version
 glxinfo | grep "OpenGL version"
 
-# Check governor status (if installed)
-systemctl status oberon-governor
-# or
+# Check governor status
 systemctl status cyan-skillfish-governor-tt
+# or if using legacy governor:
+# systemctl status oberon-governor
 ```
 
 ---
@@ -654,7 +654,7 @@ Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
 - [ ] Kernel 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
-- [ ] GPU governor installed and running (cyan-skillfish-governor-tt or oberon-governor)
+- [ ] GPU governor installed and running (cyan-skillfish-governor-tt recommended)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM
 - [ ] `glxinfo` shows RADV driver, not llvmpipe

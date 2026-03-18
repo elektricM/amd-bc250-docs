@@ -1,6 +1,6 @@
 # Sensors and Monitoring
 
-A comprehensive guide to monitoring temperatures, fan speeds, voltages, and performance metrics on the BC-250.
+Guide to monitoring temperatures, fan speeds, voltages, and performance metrics on the BC-250.
 
 ---
 

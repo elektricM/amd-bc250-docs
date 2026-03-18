@@ -184,14 +184,14 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 ### Configuration
 
-Edit `/etc/oberon-config.yaml`:
+Edit `/etc/cyan-skillfish-governor-tt/config.toml`:
 
-```yaml
+```toml
 # Safe starting point:
-min_frequency: 1000  # MHz
-max_frequency: 2000  # MHz
-min_voltage: 700     # mV (hard minimum, don't go lower)
-max_voltage: 1050    # mV
+min_frequency = 1000  # MHz
+max_frequency = 2000  # MHz
+min_voltage = 700     # mV (hard minimum, don't go lower)
+max_voltage = 1050    # mV
 ```
 
 Restart governor after changes:
@@ -373,7 +373,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 - **Governor:** Multiple forks (Oberon, Cyan Skillfish)
 
 ### Community
-- **Discord:** 1000+ members, link in GitHub
+- **Discord:** Active community, link in GitHub
 - **TheRetroWeb:** https://theretroweb.com/motherboards/s/amd-bc-250
 
 ### Key Contributors

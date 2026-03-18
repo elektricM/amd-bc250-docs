@@ -285,8 +285,10 @@ nvtop      # Real-time GPU monitoring
 ### Verify Governor Running
 
 ```bash
-systemctl status oberon-governor
-# Expected: active (running)
+# Use whichever governor you installed:
+systemctl status cyan-skillfish-governor-tt   # TT variant (recommended)
+systemctl status cyan-skillfish-governor-smu  # SMU variant
+systemctl status oberon-governor              # legacy
 ```
 
 ### Check Frequency Scaling
@@ -312,7 +314,7 @@ The `*` moves between frequencies based on load.
 
 **Manual start:**
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt  # or oberon-governor
 ```
 
 ---
@@ -452,8 +454,8 @@ IgnorePkg = linux
 - [pnbarbeito/bc250-arch](https://github.com/pnbarbeito/bc250-arch)
 
 **Governor projects:**
-- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor)
-- [Cyan Skillfish Governor](https://github.com/Magnap/cyan-skillfish-governor) (AUR)
+- [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (AUR, recommended)
+- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
@@ -469,8 +471,8 @@ nvtop
 # Check GPU frequency
 cat /sys/class/drm/card0/device/pp_dpm_sclk
 
-# Check governor
-systemctl status oberon-governor
+# Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
 
 # Check temps
 sensors

@@ -243,7 +243,7 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 
 - Boots from USB without issues
 - Latest KDE Plasma works well
-- Oberon governor installs easily
+- GPU governor installs easily
 - Good hardware detection
 - Easier than Arch for beginners
 

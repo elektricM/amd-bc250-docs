@@ -130,7 +130,7 @@ sudo systemctl enable --now cyan-skillfish-governor-tt
 !!!info "Alternative COPR Option"
     You can also use `@exotic-soc/oberon-governor` for the original oberon-governor package if preferred.
 
-**Option 2: Build from Source**
+**Option 2: Build oberon-governor from source (legacy)**
 
 ```bash
 git clone https://gitlab.com/mothenjoyer69/oberon-governor.git

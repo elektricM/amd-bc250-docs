@@ -1,6 +1,6 @@
 # AMD BC250 Documentation
 
-Welcome to the comprehensive documentation for the **AMD BC250** board - a powerful ex-mining board featuring a cut-down PlayStation 5 APU.
+Documentation for the **AMD BC250** board — an ex-mining board featuring a cut-down PlayStation 5 APU.
 
 ## What is the BC250?
 
@@ -101,9 +101,7 @@ Based on extensive community testing:
 
 This documentation is built from the collective knowledge of the BC250 community, combining:
 
-- **3,500+ Discord community members** sharing real-world testing and troubleshooting
-- **100+ verified solutions** for common issues
-- **30+ tested games** with performance data
+- **Active Discord community** sharing real-world testing and troubleshooting
 - **Multiple distribution-specific setup guides**
 
 ### Contributing
@@ -113,8 +111,8 @@ This documentation is based on community Discord discussions and the [BC250 GitH
 ## Documentation Status
 
 !!! success "Content Sources"
-    - **Primary:** BC250 Discord community (9,716 technical messages analyzed)
-    - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) - hardware pinouts, specifications
+    - **Primary:** BC250 Discord community
+    - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) — hardware pinouts, specifications
     - **Last Updated:** March 2026
 
 ---
