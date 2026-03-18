@@ -11,7 +11,7 @@ Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual confi
 
 - **GPU Frequency:** 1500 MHz (locked) → 2000-2230 MHz (with governor/kernel patch)
 - **GPU Voltage:** 700-1100 mV
-- **Memory:** Not user-adjustable (GDDR6 runs at fixed speed)
+- **Memory:** Adjustable via community Mem Timing Utility (advanced — incorrect settings will crash the system)
 
 ### Temperature Monitoring
 
@@ -250,6 +250,31 @@ voltage:
 - Use extended voltage patch (600-1300 mV) - unnecessary and risky
 - Go below 700 mV (unstable, minimal power savings)
 - Exceed 1129 mV without careful testing (hardware degradation risk)
+
+---
+
+## CPU Overclocking & Undervolting (SMU Tool)
+
+A community-developed SMU (System Management Unit) tool enables CPU overclocking and undervolting on the BC-250.
+
+**Repository:** [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc)
+**Created by:** mrfrakes and dantistnfs (via SMU reverse engineering)
+
+### What It Does
+
+- Overclock all 6 CPU cores (up to 4 GHz @ 1275 mV reported)
+- Undervolt the CPU for lower power and temperatures
+- Detect viable overclock for your specific board
+- Apply overclock automatically on startup
+
+### Requirements
+
+- **Cooling:** Good active cooling is essential — CPU overclocking adds significant heat on top of GPU load
+- **PSU:** Ensure adequate headroom (300W+ recommended when combined with GPU overclock)
+- **Testing:** Use incremental steps and stress test thoroughly
+
+!!!warning "Silicon Lottery"
+    Not all BC-250 boards will reach 4 GHz. Use the tool's detection features to find your chip's safe limits. Always test stability under sustained load before committing settings.
 
 ---
 
