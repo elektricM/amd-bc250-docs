@@ -96,6 +96,7 @@ This installs:
 !!!warning "Critical Step"
     After drivers are installed, you MUST remove nomodeset or the GPU won't work properly.
 
+**Fedora / Standard GRUB distributions:**
 ```bash
 sudo nano /etc/default/grub
 
@@ -111,6 +112,27 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 # Reboot
 sudo reboot
 ```
+
+**Bazzite / Fedora Atomic (rpm-ostree):**
+
+Bazzite does not use `/etc/default/grub` — editing it directly has no effect. Use `rpm-ostree kargs` instead:
+
+```bash
+# Remove nomodeset if it was added
+rpm-ostree kargs --delete-if-present="nomodeset"
+
+# Reboot
+systemctl reboot
+```
+
+Alternatively, create or edit `/etc/default/grub.d/user.cfg` for persistent kernel parameter changes:
+
+```bash
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet"' | sudo tee /etc/default/grub.d/user.cfg
+```
+
+!!!info "Bazzite Usually Doesn't Need nomodeset"
+    Bazzite typically boots correctly without nomodeset. If you didn't add it, you can skip this step.
 
 ### Step 6: Verify Installation
 

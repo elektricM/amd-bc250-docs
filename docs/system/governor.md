@@ -269,8 +269,8 @@ sudo systemctl restart oberon-governor
 
 **Advanced Multi-Step Configuration:**
 
-!!!warning "Requires Kernel Patch"
-    The 350 MHz minimum frequency requires the GPU frequency range kernel patch. Without the patch, the governor will crash with `std::__ios_failure`. Use `min: 1000` on stock kernels.
+!!!warning "Requires Kernel Patch (or SMU Governor)"
+    The 350 MHz minimum frequency requires either the GPU frequency range kernel patch (pre-included in Bazzite) or the SMU governor. On stock kernels without the patch, the governor will crash with `std::__ios_failure`. Use `min: 1000` on stock kernels, or switch to `cyan-skillfish-governor-smu` which bypasses the patch requirement entirely.
 
 ```yaml
 opps:
@@ -498,6 +498,21 @@ cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 !!!note "GPU Card Number"
     Your GPU may be `card0` or `card1` depending on system configuration. Check with `ls /sys/class/drm/` to find the correct card.
+
+### Black Screen on GPU Reset (Governor Running)
+
+**Symptoms:**
+- GPU crashes during a game, screen goes black and never recovers
+- System appears to be running (fans spinning, SSH may work) but no display output
+- Hard reboot required
+
+**Cause:** When the GPU crashes while the governor is actively managing frequencies, the GPU reset mechanism can't complete properly. The governor continues trying to write to sysfs during the reset, preventing recovery.
+
+**Workaround:**
+- Disable governor before playing crash-prone games: `sudo systemctl stop cyan-skillfish-governor-tt`
+- Re-enable after: `sudo systemctl start cyan-skillfish-governor-tt`
+
+**Long-term fix:** Use stable voltage/frequency settings that don't cause GPU crashes in the first place. If a specific game consistently crashes the GPU, increase voltage or reduce max frequency.
 
 ### System Crashes with Governor
 
