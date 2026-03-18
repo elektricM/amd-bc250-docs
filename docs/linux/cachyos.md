@@ -348,7 +348,7 @@ systemctl status oberon-governor  # Expected: active (running)
 cat /sys/class/drm/card0/device/pp_dpm_sclk  # Expected: Multiple frequencies
 
 # 6. Check sensors
-sensors  # Expected: nct6687, GPU temp, fan speeds
+sensors  # Expected: nct6686-isa-0a20, GPU temp, fan speeds
 ```
 
 ---
