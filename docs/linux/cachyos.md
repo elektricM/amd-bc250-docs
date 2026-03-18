@@ -361,7 +361,7 @@ sensors  # Expected: nct6687, GPU temp, fan speeds
 
 **Broken kernels (avoid):**
 - **6.15.0 - 6.15.6** - GPU initialization failures, kernel panics
-- **6.17.8+** - GPU driver issues
+- **6.17.8-6.17.10** - GPU driver issues (fixed in 6.17.11+)
 
 If you accidentally install a broken kernel:
 ```bash

@@ -166,7 +166,7 @@ This fixes graphical glitches in some games.
 **Solution:**
 
 1. Verify Mesa 25.1+ installed: `dnf list mesa-*`
-2. Check kernel version: `uname -r` (should be 6.15.7-6.17.7 or 6.12-6.14 LTS, NOT 6.15.0-6.15.6 or 6.17.8+)
+2. Check kernel version: `uname -r` (should be 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12-6.14 LTS, NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
 3. Verify nomodeset was removed from GRUB
 
 ### Poor Performance / Low FPS

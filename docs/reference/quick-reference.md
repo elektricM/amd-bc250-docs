@@ -45,7 +45,7 @@ Fast answers to common questions. For detailed information, see the full documen
 ### Kernel Requirements
 
 - **Use:** Kernel 6.15.7 - 6.17.7 (best) or 6.12.x - 6.14.x LTS (stable)
-- **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU initialization fails)
+- **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 (GPU initialization fails — fixed in 6.17.11+)
 - **Boot parameter:** `nomodeset` during install, remove after drivers installed
 
 ### Kernel Parameters
@@ -353,7 +353,7 @@ RADV_DEBUG=nohiz,nocompute %command%
     1. **Always clear CMOS after USB BIOS flash**
     2. **Disable IOMMU in BIOS** (IOMMU is broken - MUST disable)
     3. **Use nomodeset during install, remove after drivers installed**
-    4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8+** (GPU driver fails)
+    4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** (GPU driver fails — fixed in 6.17.11+)
     5. **700mV minimum voltage** (crashes below this)
     6. **Active DP-HDMI adapters break audio**
 

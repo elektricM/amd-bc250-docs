@@ -8,7 +8,7 @@ This guide addresses system crashes, freezes, random reboots, and instability is
 
 Before diving into specific issues, check these common causes:
 
-1. **Kernel version**: Are you running kernel 6.15.0-6.15.6 or 6.17.8+? (Known to cause GPU crashes)
+1. **Kernel version**: Are you running kernel 6.15.0-6.15.6 or 6.17.8-6.17.10? (Known to cause GPU crashes)
 2. **BIOS settings**: Did you clear CMOS after flashing BIOS?
 3. **VRAM allocation**: Are you using 512MB dynamic with ZRAM enabled?
 4. **IOMMU**: Is it disabled in BIOS?
@@ -34,7 +34,7 @@ Before diving into specific issues, check these common causes:
    ```bash
    uname -r
    ```
-   - **AVOID kernel 6.15.0-6.15.6 and 6.17.8+** - Known to cause random GPU crashes under load
+   - **AVOID kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause random GPU crashes under load
    - **Recommended**: 6.15.7-6.17.7 (best performance) or 6.12.x-6.14.x LTS (stable)
    - If on broken version, install working kernel immediately
 
@@ -214,9 +214,9 @@ Before diving into specific issues, check these common causes:
 
 ### Broken Kernel Versions - GPU Driver Failures
 
-**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8+
+**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8-6.17.10
 
-**Critical issue**: Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support for BC-250
+**Critical issue**: Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support for BC-250
 
 **Solution**:
 
@@ -650,7 +650,7 @@ journalctl -f | grep -i "error\|fail\|crash\|amdgpu"
 ## Common Error Messages
 
 ### "GPU reset failed"
-- **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8+, overclocking instability, or GPU crash
+- **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10, overclocking instability, or GPU crash
 - **Fix**: Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS), reduce frequency/increase voltage
 
 ### "Out of memory"
@@ -712,7 +712,7 @@ Silicon lottery is real - some boards are less stable than others.
 1. **Check thermal paste every 6 months** (or use PTM7950)
 2. **Clean heatsink fins** from dust buildup
 3. **Verify fan operation** regularly
-4. **Monitor kernel updates** (avoid 6.15.0-6.15.6 and 6.17.8+)
+4. **Monitor kernel updates** (avoid 6.15.0-6.15.6 and 6.17.8-6.17.10)
 5. **Back up working configurations** (BIOS settings, governor config)
 
 ### Documentation

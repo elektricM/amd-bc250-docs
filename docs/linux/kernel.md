@@ -25,7 +25,10 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 - 6.15.11-1-lts (Arch Linux)
 
 !!!success "Current Recommendation"
-    Use kernel **6.18.x LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well. **6.19.x** is the current stable branch.
+    Use kernel **6.18.x LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well.
+
+!!!warning "6.19.x: PCIe Issues Reported (March 2026)"
+    Community reports indicate that some 6.19.x kernel builds cause **all PCIe devices to stop working** on BC-250. If using 6.19.x, test thoroughly before committing. Stick to **6.18.x** or **6.17.11+** for proven stability.
 
 ### Broken Kernels
 
@@ -444,7 +447,7 @@ glxinfo | grep "OpenGL renderer"
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
 | 6.18.x LTS | ✅ **Best** | 5-10% faster than 6.17 (CachyOS Jan 2026) |
-| 6.19.x | ✅ **Current Stable** | Latest stable branch |
+| 6.19.x | ⚠️ **Testing** | Reports of PCIe device failures (Mar 2026) — test before committing |
 
 ## See Also
 

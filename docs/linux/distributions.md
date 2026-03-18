@@ -387,7 +387,7 @@ sudo apt update && sudo apt upgrade
 
 ### Fedora
 
-- **Issue:** Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU
+- **Issue:** Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU
 - **Solution:** Pin kernel to 6.14
 
 ### Bazzite

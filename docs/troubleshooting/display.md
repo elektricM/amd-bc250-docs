@@ -20,7 +20,7 @@ Display problems are the #1 issue new BC-250 users encounter. This guide covers 
 2. BIOS settings not applied (CMOS not cleared)
 3. Incompatible display adapter (active DP-HDMI)
 4. IOMMU enabled in BIOS
-5. Broken kernel version (6.15.0-6.15.6 or 6.17.8+) driver issues
+5. Broken kernel version (6.15.0-6.15.6 or 6.17.8-6.17.10) driver issues
 
 ---
 
@@ -142,7 +142,7 @@ Check kernel version:
 uname -r
 ```
 
-If kernel is 6.15.0-6.15.6 or 6.17.8+:
+If kernel is 6.15.0-6.15.6 or 6.17.8-6.17.10:
 ```bash
 # Install working kernel
 # Fedora:
@@ -155,7 +155,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
 !!!danger "Broken Kernel Versions"
-    Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250. Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12-6.14 LTS for stability.
 
 ---
 
@@ -424,11 +424,11 @@ dmesg | grep -i iommu
 ### Broken Kernel Versions - No Display
 
 **Problem:**
-- Upgraded kernel to 6.15.0-6.15.6 or 6.17.8+
+- Upgraded kernel to 6.15.0-6.15.6 or 6.17.8-6.17.10
 - Now no display after boot
 
 **Cause:**
-Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250.
+Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250.
 
 **Solution:**
 
@@ -574,7 +574,7 @@ vulkaninfo | grep deviceName
 ## FAQ
 
 **Q: Display worked yesterday, now doesn't. What changed?**
-A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8+, boot working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS).
+A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8-6.17.10, boot working kernel (6.17.11+, 6.18.x, or 6.12-6.14 LTS).
 
 **Q: Can I use HDMI directly?**
 A: No, board only has DisplayPort. Must use DP cable or adapter.

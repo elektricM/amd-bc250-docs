@@ -164,10 +164,10 @@ glxinfo | grep "OpenGL version"
 # Then verify kernel version
 uname -r
 # Should be 6.15.7-6.17.7 (best) or 6.12.x-6.14.x LTS (stable)
-# AVOID 6.15.0-6.15.6 and 6.17.8+
+# AVOID 6.15.0-6.15.6 and 6.17.8-6.17.10
 ```
 
-If kernel is 6.15.0-6.15.6 or 6.17.8+:
+If kernel is 6.15.0-6.15.6 or 6.17.8-6.17.10:
 ```bash
 # Fedora - install working kernel
 sudo dnf install kernel-6.16.5-*  # or any 6.15.7-6.17.7 version
@@ -182,7 +182,7 @@ sudo grubby --set-default /boot/vmlinuz-6.16.*
 ```
 
 !!!danger "Broken Kernel Versions"
-    Kernel versions 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with Cyan Skillfish GPUs. Use 6.15.7-6.17.7 for best performance or 6.12.x-6.14.x LTS for stability.
+    Kernel versions 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with Cyan Skillfish GPUs. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12.x-6.14.x LTS for stability.
 
 ---
 
@@ -865,7 +865,7 @@ If USB method fails:
 | Hangs at boot | IOMMU enabled | Disable IOMMU in BIOS |
 | GRUB shows, then black | Missing/wrong drivers | Add `nomodeset`, install Mesa 25.1+ |
 | Works after BIOS flash, then fails | CMOS not cleared | Clear CMOS battery |
-| Works, then breaks after update | Kernel 6.15.0-6.15.6 or 6.17.8+ installed | Install 6.15.7-6.17.7 or 6.12-6.14 LTS |
+| Works, then breaks after update | Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10 installed | Install 6.17.11+, 6.18.x, or 6.12-6.14 LTS |
 
 ---
 
@@ -908,19 +908,19 @@ drm.debug=0x1f         # DRM debug output
 A: Add `nomodeset` to kernel parameters at GRUB. This is the #1 solution for BC-250 boot issues.
 
 **Q: System worked yesterday, today won't boot. Nothing changed.**
-A: Check if system updated kernel. Run `uname -r` from live USB after mounting system drive. If 6.15.0-6.15.6 or 6.17.8+, that's the problem.
+A: Check if system updated kernel. Run `uname -r` from live USB after mounting system drive. If 6.15.0-6.15.6 or 6.17.8-6.17.10, that's the problem.
 
 **Q: Installed drivers but still have black screen?**
 A: Did you remove `nomodeset` after installing drivers? It must be removed from GRUB config.
 
 **Q: How do I know if my kernel is the problem?**
-A: BC-250 works best with 6.15.7-6.17.7 or 6.12.x-6.14.x LTS. Kernels 6.15.0-6.15.6 and 6.17.8+ break GPU drivers. Avoid 6.10 and below (too old).
+A: BC-250 works best with 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS. Kernels 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU drivers. Avoid 6.10 and below (too old).
 
 **Q: BIOS seems dead after flashing. Bricked?**
 A: 90% chance you just need to clear CMOS. Remove battery for 60 seconds. Almost never truly bricked.
 
 **Q: Can I prevent these boot issues?**
-A: Yes! Avoid kernel 6.15.0-6.15.6 and 6.17.8+, keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
+A: Yes! Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10, keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
 
 ---
 

@@ -311,14 +311,14 @@ See "GPU Locked at 1500MHz" section above.
 - Previously working setup suddenly has poor performance after kernel update
 - Random GPU crashes under load
 - System freezes during gaming
-- Running kernel 6.15.0-6.15.6 or 6.17.8+
+- Running kernel 6.15.0-6.15.6 or 6.17.8-6.17.10
 
 **Solution:**
 
 **Install Working Kernel**
 
 !!! danger "AVOID BROKEN KERNEL VERSIONS"
-    Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support. Use 6.15.7-6.17.7 for best performance or 6.12.x-6.14.x LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12.x-6.14.x LTS for stability.
 
 **Arch/Manjaro:**
 ```bash
@@ -686,7 +686,7 @@ rpm-ostree rollback
 Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
-- [ ] Kernel 6.15.7-6.17.7 or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8+)
+- [ ] Kernel 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
 - [ ] GPU governor installed and running (oberon or cyan-skillfish)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM
