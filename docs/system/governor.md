@@ -60,6 +60,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 **Developer:** filippor / Magnap
 **Type:** SMU-based governor — bypasses kernel patches entirely
 **Service name:** `cyan-skillfish-governor-smu`
+**Released:** January 18, 2026
 
 **Features:**
 - Manages clock speeds through SMU firmware calls
@@ -67,7 +68,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 - Available on AUR (`cyan-skillfish-governor-smu`), COPR (`filippor/bazzite`), .deb, .rpm, Nix
 - Best option for CachyOS/Arch users who don't want to patch kernels
 
-**Repository:** [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor)
+**Repository:** [github.com/filippor/cyan-skillfish-governor (smu branch)](https://github.com/filippor/cyan-skillfish-governor/tree/smu)
 
 ### Oberon Governor (Legacy — Still Stable)
 
@@ -642,16 +643,26 @@ sudo systemctl restart oberon-governor
 
 **Known Limits:**
 - **1000 MHz:** Minimum safe frequency on stock kernel
-- **2000 MHz @ 1000mV:** Safe for all boards
-- **2175 MHz @ 1025mV:** Safe for most boards
-- **2230 MHz:** Maximum with kernel patch, requires cooling
+- **2000 MHz @ 1000mV:** Safe starting point
+- **2100-2175 MHz @ 1025mV:** Works on many boards, test thoroughly
+- **2230 MHz:** Maximum with kernel patch, requires good cooling
 
 !!!warning "Overclocking Risks"
     Overclocking can cause instability, crashes, and potentially hardware damage. Always monitor temperatures and test thoroughly.
 
+## Community Resources
+
+- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup (governor + zram + CPU mitigations)
+- [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
+- [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
+- [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
+
 ## See Also
 
-- [System Configuration](../system/governor.md)
 - [BIOS Overclocking Guide](../bios/overclocking.md)
 - [Cooling Solutions](../hardware/cooling.md)
 - [Performance Tuning](../gaming/compatibility.md)
+
+---
+
+**Last Updated:** 2026-03-18
