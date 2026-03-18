@@ -38,13 +38,14 @@ The BC-250 **only works on Linux** for gaming and desktop use. There is no Windo
 
 BC-250 support was added upstream in Mesa 25.1.0. **Do not use older versions** - they will not work properly or at all.
 
-### Recommended: Mesa 25.2.4+
+### Recommended: Mesa 25.2.x
 
-For stability and performance, use Mesa 25.2.4 or newer:
+For stability and performance, use Mesa 25.2.x or newer:
 
 - **25.1.0** - Initial BC-250 support
 - **25.1.3+** - Minimum recommended
-- **25.2.4** - Confirmed working (Bazzite Feb 2026), current stable target
+- **25.2.4** - Confirmed working (Bazzite Feb 2026)
+- **25.3.6** - Current stable on Fedora 43 (March 2026) — recommended target
 
 ### What Changed in Mesa 25.1?
 
@@ -62,7 +63,7 @@ Mesa 25.1 includes critical fixes for BC-250:
 
 ## Installation by Distribution
 
-### Fedora 42/43
+### Fedora 43
 
 Mesa 25.1 is now in mainline Fedora repositories (as of Fedora 43):
 
@@ -75,15 +76,8 @@ glxinfo | grep "OpenGL version"
 # Should show: Mesa 25.1.X or newer
 ```
 
-**Fedora 42** may need a manual update if on an older installation:
-
-```bash
-# Check current version
-dnf list installed | grep mesa
-
-# If < 25.1, update system
-sudo dnf upgrade --refresh
-```
+!!!warning "Fedora 42 is End of Life"
+    Fedora 42 reached EOL. Upgrade to Fedora 43 for current Mesa packages.
 
 ### Bazzite
 
@@ -232,8 +226,8 @@ export RADV_DEBUG=nohiz
 export RADV_DEBUG=nocompute,nohiz
 ```
 
-!!! info "RADV_DEBUG=nocompute on Mesa 25.1+"
-    Mesa 25.1 includes [MR 33116](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) which automatically disables the broken compute-only queue. You may not need `RADV_DEBUG=nocompute` anymore, but it doesn't hurt to keep it.
+!!! warning "RADV_DEBUG=nocompute is DEPRECATED on Mesa 25.1+ / REMOVED on 25.2.x"
+    Mesa 25.1 includes [MR 33116](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33116) which automatically disables the broken compute-only queue. On Mesa 25.2.x (Fedora 43 ships 25.2.7), this flag is effectively removed and has no effect. Do NOT use it on Mesa 25.1+ — use `RADV_DEBUG=nohiz` instead.
 
 #### Memory Management
 
@@ -332,7 +326,7 @@ This is rarely needed on modern distributions but may help with hardware acceler
 
 **Solutions:**
 
-1. **Update to Mesa 25.1.3+** - Many artifacts fixed in newer versions
+1. **Update to Mesa 25.1.3+ or 25.2.x** - Many artifacts fixed in newer versions (Fedora 43 has 25.2.7)
 2. **Use `RADV_DEBUG=nohiz`** - Disables hierarchical Z buffer
 3. **Apply [MR 33962](https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33962)** - Additional artifact fixes (may need to compile Mesa yourself)
 4. **Enable unified heap** - Add drirc configuration (see Memory Management section)
@@ -366,7 +360,7 @@ The compute-only queue on BC-250 is broken. Mesa 25.1+ disables it automatically
 export RADV_DEBUG=nocompute
 ```
 
-**Background:** The BC-250's compute queue has hardware issues. Mesa 25.1 includes a workaround that detects GFX1013 and disables the compute-only queue by default.
+**Background:** The BC-250's compute queue has hardware issues. Mesa 25.1+ includes a workaround that detects GFX1013 and disables the compute-only queue by default. On Mesa 25.2+, the `nocompute` flag is ignored — the fix is handled automatically.
 
 ### Limited VRAM Visibility in Vulkan
 
@@ -409,7 +403,7 @@ This allows the GPU to use system RAM as VRAM overflow, partially compensating f
 
 **Explanation:**
 
-The BC-250's video encode/decode hardware (VCN) is disabled or non-functional. This is a hardware limitation, not a driver issue:
+The BC-250's video encode/decode hardware (VCN) does not work because the required firmware is blocked by Sony. This is unlikely to change, as Sony controls the firmware release:
 
 ```bash
 # vainfo will fail
@@ -621,8 +615,17 @@ export GGML_VK_FORCE_MAX_ALLOCATION_SIZE=2000000000  # 2GB chunks
 
 **Performance:**
 - 4-bit quantized 8B model: ~60 tokens/sec
-- 12GB VRAM split recommended for larger models
+- ~14.2 GB available VRAM with desktop running, 256-512MB BIOS VRAM setting sufficient (dynamic allocation handles the rest)
 - Vulkan backend more stable than ROCm for BC-250
+
+**Tip: Headless mode for maximum VRAM:**
+```bash
+# Disable GUI to free ~800MB RAM for inference
+sudo systemctl set-default multi-user.target && sudo reboot
+
+# Restore GUI later
+sudo systemctl set-default graphical.target && sudo reboot
+```
 
 **Known Issues:**
 - Vulkan sees ~10GB of 12GB VRAM (see VRAM visibility issue above)
@@ -725,7 +728,7 @@ unset MESA_SHADER_CACHE_DISABLE
 **Quick Check:**
 ```bash
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Should show multiple frequency levels with * at current:
 # 0: 1000Mhz
@@ -733,7 +736,7 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 # 2: 2000Mhz
 
 # If stuck at 1500MHz, governor is not working
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 ```
 
 **Solution:** Install and configure GPU governor (see [System Configuration](../system/governor.md) guide).
@@ -744,17 +747,17 @@ systemctl status oberon-governor
 
 **RADV** is the only working graphics driver for BC-250 on Linux:
 
-- ✅ **Required:** Mesa 25.1.0 minimum (25.1.5+ recommended)
+- ✅ **Required:** Mesa 25.1.0 minimum (25.2.x like Fedora 43's 25.2.7 recommended)
 - ✅ **Works with:** All major Linux distributions (Fedora, Arch, Debian, Bazzite, etc.)
 - ✅ **Performance:** Good for 720p-1080p gaming, competitive with RX 6600
-- ✅ **Environment variables:** `RADV_DEBUG=nohiz` recommended, `nocompute` may not be needed on Mesa 25.1+
+- ✅ **Environment variables:** `RADV_DEBUG=nohiz` recommended — `nocompute` is deprecated on 25.1+ and ignored on 25.2.x
 - ✅ **Known issues:** Visual artifacts (mostly fixed), limited VRAM visibility, no VA-API
 - ❌ **No Windows support:** BC-250 GPU does not work on Windows
 
-For most users, install Mesa 25.1+ from your distribution's repositories, set `RADV_DEBUG=nohiz` in Steam launch options, install the GPU governor, and enjoy gaming.
+For most users, install Mesa 25.2.x (or 25.1+) from your distribution's repositories, set `RADV_DEBUG=nohiz` in Steam launch options, install the GPU governor, and enjoy gaming.
 
 ---
 
-**Last Updated:** 2025-11-21
-**Based on:** Discord community discussions (7,000+ messages analyzed)
+**Last Updated:** 2026-03-18
+**Based on:** Discord community discussions
 **See Also:** [Linux Setup Guide](../linux/distributions.md), [System Configuration](../system/governor.md), [Gaming & Performance](../gaming/compatibility.md)
