@@ -488,7 +488,37 @@ sudo systemctl stop zram-swap
 sudo systemctl disable zram-swap
 ```
 
-**Solution 3: Increase VRAM Visibility (Advanced)**
+**Solution 3: Replace ZRAM with zswap (Better for RAM-Hungry Games)**
+
+zswap compresses swap in RAM before writing to disk, avoiding ZRAM's VRAM conflicts while still helping with memory pressure. Community reports this made games like AoE2:DE with UHD textures playable at 4K.
+
+**Bazzite setup:**
+```bash
+# Disable zram
+echo "" | sudo tee /etc/systemd/zram-generator.conf
+
+# Set up swapfile first (see https://docs.bazzite.gg/Advanced/swapfile/)
+
+# Enable lz4 drivers in initramfs
+rpm-ostree initramfs --enable \
+  --arg=--add-drivers \
+  --arg=lz4 \
+  --arg=--add-drivers \
+  --arg=lz4_compress
+
+# Add kernel parameters
+rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
+
+# Reboot, then set swappiness
+echo 180 | sudo tee /proc/sys/vm/swappiness
+```
+
+**Verify:** `grep -r . /sys/module/zswap/parameters/`
+
+!!!warning "zswap and SSD Wear"
+    zswap eventually writes to your swap file on disk. Not recommended on slow storage devices.
+
+**Solution 4: Increase VRAM Visibility (Advanced)**
 
 For LLM/AI workloads that need more than 12GB VRAM:
 

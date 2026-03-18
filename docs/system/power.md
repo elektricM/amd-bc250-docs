@@ -810,7 +810,7 @@ sensors | grep PPT
 ## Additional Resources
 
 **Governor Projects:**
-- [Oberon Governor (Original)](https://gitlab.com/TuxThePenguin0/oberon-governor)
+- [Oberon Governor (Original)](https://gitlab.com/mothenjoyer69/oberon-governor)
 - [Oberon Governor (Fork)](https://github.com/filippor/oberon-governor)
 - [Cyan Skillfish Governor](https://github.com/Magnap/cyan-skillfish-governor)
 
