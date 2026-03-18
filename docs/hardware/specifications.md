@@ -92,14 +92,14 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Control:** PWM (Pulse Width Modulation)
 
 !!!tip "Fan Control"
-    The nct6687 kernel module enables PWM control. Without it, sensors are read-only.
+    The nct6683 kernel module (with `force=true`) enables sensor and PWM control.
 
 #### Other Headers
 
 - **Power Button:** Onboard button only (no header - soldering required for external switch)
 - **Debug Header:** 20-pin AMD HDT1 debug connector
 - **SPI Flash:** Header for BIOS flashing
-- **Super I/O:** NCT6686/6687 chip for sensors and fan control
+- **Super I/O:** NCT6683 chip for sensors and fan control (module: `nct6683` with `force=true`)
 
 ## Heatsink and Cooling
 
