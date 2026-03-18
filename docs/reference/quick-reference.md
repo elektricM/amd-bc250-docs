@@ -44,7 +44,7 @@ Fast answers to common questions. For detailed information, see the full documen
 
 ### Kernel Requirements
 
-- **Use:** Kernel 6.15.7 - 6.17.7 (best) or 6.12.x - 6.14.x LTS (stable)
+- **Use:** Kernel 6.17.11+, 6.18.x (best), 6.15.7-6.17.7 (good), or 6.12.x-6.14.x LTS (stable)
 - **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 (GPU initialization fails — fixed in 6.17.11+)
 - **Boot parameter:** `nomodeset` during install, remove after drivers installed
 
@@ -117,9 +117,9 @@ amdgpu.sg_display=0
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| Mesa | 25.1.3 | 25.1.5+ |
-| Kernel | 6.12.x | 6.12-6.14 LTS |
-| Governor | Any | Latest from COPR |
+| Mesa | 25.1.0 | 25.2.4+ |
+| Kernel | 6.12.x | 6.17.11+ or 6.18.x |
+| Governor | Any | cyan-skillfish-governor-tt or -smu |
 
 [Linux setup guide →](../linux/distributions.md)
 
@@ -169,15 +169,17 @@ The governor controls GPU frequency and voltage. **Required for gaming performan
 ### Installation
 
 ```bash
-# Fedora:
+# Fedora/Bazzite (recommended):
 sudo dnf copr enable filippor/bazzite
-sudo dnf install oberon-governor
+sudo dnf install cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
-# Bazzite:
+# Bazzite (automated script):
 curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
 
-# Arch:
-# Build from source - see full guide
+# Arch/CachyOS (SMU - no kernel patch needed):
+yay -S cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 ### Configuration
@@ -354,8 +356,11 @@ RADV_DEBUG=nohiz,nocompute %command%
     2. **Disable IOMMU in BIOS** (IOMMU is broken - MUST disable)
     3. **Use nomodeset during install, remove after drivers installed**
     4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** (GPU driver fails — fixed in 6.17.11+)
-    5. **700mV minimum voltage** (crashes below this)
+    5. **700mV minimum voltage** (GPU locks to 1500MHz below this)
     6. **Active DP-HDMI adapters break audio**
+    7. **ACPI fix is essential** — required for C-State support and power management ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
+    8. **No HW video encode/decode** — VCN firmware blocked by Sony, software decoding only
+    9. **Do NOT use Smokeless_UMAF** — may cause permanent damage to the board
 
 ---
 
