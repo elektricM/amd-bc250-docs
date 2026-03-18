@@ -45,13 +45,12 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 ### Hardware Requirements
 
 - 300W+ PSU on 12V rail (250W minimum)
-- 2x 120mm high static pressure fans
-- **Active cooling on backplate (80mm+ fan minimum)** - VRAM has no temperature sensor and will overheat without it
+- 120mm high static pressure fan (Arctic P12 recommended)
 - DisplayPort cable or passive DP-to-HDMI adapter
 - USB drive (8GB+) for installation media
 
-!!!danger "Backplate Active Cooling Required"
-    Active cooling backplate solution is critical. Confirmed critical by multiple Feb 2026 sources; strong community consensus on necessity. No VRAM temperature sensor exists on BC-250 - you cannot monitor backplate VRAM thermals.
+!!!info "Backplate VRAM Cooling Recommended"
+    The VRAM chips on the backplate have no temperature sensor. Ensure airflow over the backplate for gaming workloads. Many builds work fine with basic case airflow — a dedicated backplate fan is ideal but not strictly required if your case has decent airflow.
 
 ---
 
@@ -82,25 +81,7 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 
 ## Standard Setup
 
-### Automated Installation (Recommended)
-
-One-command installation of Oberon governor:
-
-```bash
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
-```
-
-**What this script does:**
-- Installs Oberon GPU governor
-- Enables governor service
-- Configures voltage settings (1000mV default for stability)
-- No Mesa modifications needed (already included)
-
-**Important:** Run on fresh install for best results. Script auto-reboots when complete.
-
-### Manual Installation
-
-If automated script doesn't work:
+### Governor Installation
 
 ```bash
 # Add COPR repository

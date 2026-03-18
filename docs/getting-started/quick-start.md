@@ -77,18 +77,6 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 !!!warning "Governor Device Targeting"
     **Known Issue:** Governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration.
 
-```bash
-# For Bazzite
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
-```
-
-This installs:
-
-- Mesa 25.1+ drivers (already in Fedora 43+ / Bazzite)
-- Oberon GPU governor (required for performance)
-- Sensor drivers (lm-sensors package)
-- System optimizations
-
 **Difficulty:** Easy
 
 ### Step 5: Remove nomodeset
@@ -200,7 +188,7 @@ This fixes graphical glitches in some games.
 **Problem:** Games running at 15-20 FPS
 **Solution:**
 
-1. Check governor is running: `systemctl status oberon-governor`
+1. Check governor is running: `systemctl status cyan-skillfish-governor-tt`
 2. Check GPU frequency: `cat /sys/class/drm/card0/device/pp_dpm_sclk`
 3. Should NOT be stuck at 1500MHz
 
@@ -217,14 +205,6 @@ This fixes graphical glitches in some games.
 [Full troubleshooting guide →](../troubleshooting/display.md)
 
 ---
-
-## Performance Targets
-
-You should achieve:
-
-- **Idle:** 40-60°C, 50-80W power draw
-- **Gaming:** 70-85°C, 150-200W power draw
-- **FPS:** 60+ in most games at 1080p medium-high settings
 
 ## Next Steps
 
