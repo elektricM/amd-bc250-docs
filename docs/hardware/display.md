@@ -237,11 +237,13 @@ glxinfo | grep "OpenGL renderer"
 
 **Option 1: USB DisplayLink Adapter**
 - Add USB to HDMI/DisplayPort adapter
-- Works for desktop use
-- Not suitable for gaming (high latency)
+- Works for desktop use (plug in after boot for best results)
+- **Not suitable for gaming** — high latency due to CPU-based compression, BC-250's CPU is the bottleneck
+- Does not work in Steam Deck game mode
 
 **Option 2: DisplayPort MST Hub**
 - Split single DP into multiple displays
+- **Maximum 2 screens** via MST on BC-250
 - Shares bandwidth between displays
 - Works for productivity
 - Limited resolution per display

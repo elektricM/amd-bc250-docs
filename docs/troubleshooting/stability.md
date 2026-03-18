@@ -432,6 +432,9 @@ zram-size = 4096  # 4GB instead of 8GB
 **Quote**:
 > "Its not actually 450, its like 1750, but you can modify it. I wouldn't recommend it though, ppl over in the russian BC250 chat reported that unstable ram settings would frequently result in BIOS corruption, requiring the BIOS to be reflashed"
 
+!!!danger "P5.00 BIOS More Susceptible to Bricking"
+    Community reports (from the Mem Timing Utility channel) indicate **P5.00 BIOS** is more susceptible to permanent bricking from aggressive memory timings, requiring a full reflash. **P3.00 BIOS** typically triggers a watchdog reset instead. The most rewarding timing to tune is tREF; other UDIMM timings yield minimal gains. The BC-250's GDDR6 ICs are bottom-binned Micron parts with limited overclocking headroom.
+
 **If you must overclock RAM**:
 1. Have hardware flasher ready (CH341A or Raspberry Pi Pico)
 2. Back up working BIOS first

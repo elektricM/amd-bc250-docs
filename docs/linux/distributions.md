@@ -266,8 +266,8 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 ### Ubuntu
 
 **Status:** Works with updated Mesa
-- **Mesa:** 25.1.5 available via PPAs
-- **Kernel:** 6.12+ recommended
+- **Mesa:** 25.1.5 available via PPAs. Ubuntu 26.04 daily server ISO includes Mesa 25+ and kernel 6.17/6.18 with out-of-box BC-250 support.
+- **Kernel:** 6.18.x LTS recommended
 - **Desktop:** GNOME by default
 
 **Pros:**

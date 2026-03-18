@@ -10,6 +10,7 @@ The BC-250 requires active cooling for gaming and desktop use. This guide covers
 - **Fin Orientation:** Vertical, front-to-back
 - **Design Purpose:** Rack-mounted passive or low-airflow cooling
 - **Desktop Use:** Inadequate without active airflow
+- **Variants:** Three heatsink variants exist (8-row and 9-row fins). Quick ID: a QR code next to the PCIe 8-pin connector indicates the 9-row variant. The variant with fewer, thicker-gauge aluminum fins may cool slightly better stock.
 
 !!!warning "Active Cooling Required"
     The stock heatsink is designed for rack airflow, not desktop use. Add a fan for gaming workloads.
@@ -245,7 +246,7 @@ GDDR6 memory chips on the underside can run hot under sustained load.
 **Solution:**
 1. Remove board from case
 2. Remove old thermal pads (if present)
-3. Apply new thermal pads (1.5mm-2mm thick)
+3. Apply new thermal pads (**1.5mm on front of board, 2.0mm on back**)
 4. Attach aluminum plate or heatsink to underside
 5. Optional: Add fan for active cooling
 

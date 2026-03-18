@@ -614,8 +614,17 @@ export GGML_VK_FORCE_MAX_ALLOCATION_SIZE=2000000000  # 2GB chunks
 
 **Performance:**
 - 4-bit quantized 8B model: ~60 tokens/sec
-- 12GB VRAM split recommended for larger models
+- ~14.2 GB available VRAM with desktop running, 256-512MB BIOS VRAM setting sufficient (dynamic allocation handles the rest)
 - Vulkan backend more stable than ROCm for BC-250
+
+**Tip: Headless mode for maximum VRAM:**
+```bash
+# Disable GUI to free ~800MB RAM for inference
+sudo systemctl set-default multi-user.target && sudo reboot
+
+# Restore GUI later
+sudo systemctl set-default graphical.target && sudo reboot
+```
 
 **Known Issues:**
 - Vulkan sees ~10GB of 12GB VRAM (see VRAM visibility issue above)
