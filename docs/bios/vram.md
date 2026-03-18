@@ -13,7 +13,7 @@ The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared betw
 
 ## Configuration Options
 
-### Option 1: 512MB Dynamic (Recommended)
+### Option 1: 512MB Dynamic
 
 **BIOS Setting:** UMA Frame Buffer Size = 512MB
 
@@ -29,17 +29,15 @@ The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared betw
 - Most flexible
 - Best for varied workloads
 - No need to choose allocation manually
-- Can handle both CPU-intensive and GPU-intensive tasks
 
 **Cons:**
 - May conflict with ZRAM in some games (RDR2, Company of Heroes 3)
-- Slight overhead from dynamic allocation
 - Some games incorrectly report available VRAM
+- Some titles (Expedition 33, Mafia) crash unless 4-8GB is statically allocated
 
 **Best for:**
 - General use, mixed gaming, productivity
 - Users who don't want to tweak settings
-- Varying workloads
 
 ### Option 2: Fixed 10GB RAM / 6GB VRAM
 
@@ -134,7 +132,7 @@ free -h
 # Should show ~10-15GB depending on allocation
 
 # Check VRAM
-cat /sys/class/drm/card0/device/mem_info_vram_total
+cat /sys/class/drm/card*/device/mem_info_vram_total
 # Shows GPU memory in bytes
 
 # Check both
@@ -144,37 +142,6 @@ inxi -Fxxxz
 ```
 
 ---
-
-## Performance Impact by Use Case
-
-### Gaming
-
-| Game Type | Recommended | Why |
-|-----------|-------------|-----|
-| Esports (CS2, Valorant, Dota 2) | 512MB dynamic | Low VRAM needs, benefits from more RAM |
-| AAA (Cyberpunk, RDR2) | 6GB fixed (10/6) | High VRAM needs, avoid ZRAM conflicts |
-| Older games (<2020) | 512MB dynamic | Low VRAM needs |
-| Emulation | 512MB dynamic | Varies, dynamic handles it |
-
-### Productivity
-
-| Workload | Recommended | Why |
-|----------|-------------|-----|
-| Web browsing, office | 512MB dynamic | Minimal VRAM needs |
-| Photo editing | 512MB dynamic | RAM-heavy |
-| Video editing (1080p) | 6GB fixed | May need VRAM for acceleration |
-| Video editing (4K) | 8GB fixed | High VRAM for processing |
-| 3D rendering | 8GB fixed | GPU compute needs VRAM |
-
-### AI/Compute
-
-| Task | Recommended | Why |
-|------|-------------|-----|
-| LLM inference (<13B) | 512MB dynamic | Flexible VRAM |
-| LLM inference (13-30B) | 8GB fixed | Needs guaranteed VRAM |
-| Stable Diffusion (SD1.5) | 512MB dynamic | ~4GB VRAM sufficient |
-| Stable Diffusion (SDXL) | 6GB+ fixed | ~7GB VRAM needed |
-| Stable Diffusion training (experimental) | 8GB fixed | Memory-intensive, limited ROCm support |
 
 ---
 
@@ -249,7 +216,7 @@ Add to GRUB command line:
 sudo nano /etc/default/grub
 
 # Add to GRUB_CMDLINE_LINUX_DEFAULT:
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 
 # Update GRUB
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -269,55 +236,6 @@ llama.cpp --mem 14500  # Slightly less than 14.75GB max
 
 ---
 
-## Power Consumption Impact
-
-VRAM allocation affects idle power draw:
-
-| Allocation | Idle Power | Gaming Power |
-|------------|------------|--------------|
-| 4GB VRAM | 50-60W | 150-200W |
-| 6GB VRAM | 55-65W | 150-200W |
-| 8GB VRAM | 60-70W | 150-200W |
-| 512MB dynamic | 50-80W | 150-200W |
-
-More allocated VRAM = more GDDR6 to refresh = higher idle power.
-
-For low-power builds (HTPC, always-on systems), use 4GB fixed or 512MB dynamic with light loads.
-
----
-
-## Recommendations by Use Case
-
-### General Gaming PC
-**Use:** 512MB dynamic
-- Handles everything
-- Easy to set and forget
-- Switch to 10GB/6GB only if specific game crashes
-
-### Dedicated Gaming Rig (AAA focus)
-**Use:** 10GB RAM / 6GB VRAM
-- Most reliable for modern games
-- No ZRAM conflicts
-- Predictable performance
-
-### Budget Productivity Machine
-**Use:** 512MB dynamic
-- Maximum available RAM
-- VRAM allocated as needed
-- Good for multitasking
-
-### AI/LLM Inference
-**Use:** 8GB RAM / 8GB VRAM or larger
-- Dedicated VRAM for models
-- No dynamic allocation overhead
-- Predictable inference performance
-
-### HTPC / Low Power
-**Use:** 12GB RAM / 4GB VRAM
-- Lowest idle power
-- Enough VRAM for video playback
-- Maximum RAM for buffering
-
 ---
 
 ## Testing Your Configuration
@@ -327,7 +245,7 @@ After changing allocation, verify it works:
 ```bash
 # 1. Check allocation took effect
 free -h
-cat /sys/class/drm/card0/device/mem_info_vram_total
+cat /sys/class/drm/card*/device/mem_info_vram_total
 
 # 2. Run stress test
 vkmark  # Vulkan benchmark
@@ -341,26 +259,6 @@ journalctl -f  # Watch for memory errors
 ```
 
 ---
-
-## FAQ
-
-**Q: Can I change allocation without reflashing BIOS?**
-A: Yes, if you have modded BIOS. Just change in BIOS menu and reboot.
-
-**Q: Does this affect Windows?**
-A: BC-250 has no Windows GPU drivers, so N/A. Setting would affect Windows if drivers existed.
-
-**Q: Can I use different allocations for different OS?**
-A: No, allocation is set in BIOS and applies to all boot options.
-
-**Q: Is dynamic allocation slower?**
-A: Negligible difference in gaming. Compute tasks may prefer fixed for predictability.
-
-**Q: Why does free -h show less RAM than expected?**
-A: System overhead, kernel reserve, firmware reserve typically use ~500MB-1GB.
-
-**Q: Can I allocate all 16GB to GPU?**
-A: No, CPU needs RAM to function. Minimum is ~2-4GB for system.
 
 ---
 
