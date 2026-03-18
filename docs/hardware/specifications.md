@@ -29,7 +29,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 !!!success "GPU Features"
     - Hardware ray tracing support (RDNA 2 RT cores)
     - FSR (FidelityFX Super Resolution) compatible
-    - Vulkan 1.3 support
+    - Vulkan 1.4 support (apiVersion 1.4.318)
     - No video encoding/decoding (VCN disabled)
 
 ### Memory Configuration
@@ -38,7 +38,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Memory Type:** GDDR6 (PS5 specification)
 - **Memory Speed:** 14 Gbps
 - **Memory Bus:** 256-bit
-- **Memory Bandwidth:** ~448 GB/s
+- **Memory Bandwidth:** ~448 GB/s (based on PS5 APU spec: 256-bit @ 14 Gbps). Actual BC-250 bandwidth is unconfirmed — dmidecode reports 1750 MT/s configured speed, and community reports suggest memory speeds may be lower or locked differently than full PS5 spec.
 
 !!!warning "Memory Split Required"
     The 16GB is shared between CPU and GPU. You must configure the split in BIOS:
@@ -80,7 +80,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 #### Storage
 
 - **M.2 Slot:** 1x M.2 2280 slot (PCIe Gen 2 x2)
-- **Speed:** ~1 GB/s maximum
+- **Speed:** ~640 MB/s (measured via hdparm; PCIe Gen2 x2 confirmed)
 - **USB:** 1x USB 3.0 port (Type-A)
 - **USB Speed:** ~480 MB/s (SATA speed equivalent)
 
@@ -92,14 +92,14 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Control:** PWM (Pulse Width Modulation)
 
 !!!tip "Fan Control"
-    The nct6687 kernel module enables PWM control. Without it, sensors are read-only.
+    The `nct6683` kernel module (with `force=true`) enables sensor and PWM control for the NCT6686D chip.
 
 #### Other Headers
 
 - **Power Button:** Onboard button only (no header - soldering required for external switch)
 - **Debug Header:** 20-pin AMD HDT1 debug connector
 - **SPI Flash:** Header for BIOS flashing
-- **Super I/O:** NCT6686/6687 chip for sensors and fan control
+- **Super I/O:** NCT6686D chip for sensors and fan control (kernel reports "Found NCT6686D or compatible chip"; use module `nct6683` with `force=true`)
 
 ## Heatsink and Cooling
 
@@ -150,7 +150,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### No Video Encode/Decode
 
-- **VCN (Video Core Next):** Disabled - missing required firmware
+- **VCN (Video Core Next):** Firmware blocked by Sony — hardware exists but cannot be used
 - **Hardware Encoding:** Not available
 - **Hardware Decoding:** Not available
 - **Software Fallback:** CPU decoding works but is power-hungry
