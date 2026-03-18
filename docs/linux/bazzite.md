@@ -239,16 +239,11 @@ systemctl reboot
 
 ### Temperature Sensors
 
-Enable sensor module for temperature and fan control:
+Enable the nct6683 sensor module for temperature and fan monitoring:
 
 ```bash
-# For PWM fan control (CoolerControl compatible):
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
-
-# Alternative: nct6683 with force (read-only sensors, per mothenjoyer69's docs):
-# echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
-# echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
-
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 systemctl reboot
 ```
 
@@ -256,7 +251,7 @@ Verify:
 
 ```bash
 sensors
-# Should show nct6687-isa-0a20 (or nct6683-isa-0a20) with GPU temp, fan speeds
+# Should show nct6686-isa-0a20 with GPU temp, fan speeds
 ```
 
 ### CoolerControl (Optional)

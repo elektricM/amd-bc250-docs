@@ -323,15 +323,16 @@ Quick DIY solution using cardboard or foam board.
 
 ## Fan Control
 
-### PWM Control with nct6687
+### PWM Control with nct6683
 
-The BC-250 uses the NCT6686/6687 Super I/O chip for fan control.
+The BC-250 uses the NCT6683 Super I/O chip for fan and sensor control.
 
 **Driver Installation:**
 
 ```bash
-# Load kernel module
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+# Load kernel module (requires force=true)
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 
 # Rebuild initramfs
 sudo dracut --regenerate-all --force  # Fedora
@@ -345,7 +346,7 @@ sudo reboot
 **Verify:**
 ```bash
 sensors
-# Should show nct6687-isa-0a20 with fan speeds
+# Should show nct6686-isa-0a20 with fan speeds
 ```
 
 ### CoolerControl (GUI Fan Curves)
