@@ -15,26 +15,23 @@ Advanced guide to overclocking the BC-250 GPU via BIOS settings and manual confi
 
 ### Temperature Monitoring
 
-- **GPU Temperature:** Monitored via k10temp-pci-00c3 (tctl)
-- **VRAM Temperature:** No sensor available - active backplate cooling required for stability
+- **GPU Temperature:** Monitored via k10temp-pci-00c3 (tctl) and amdgpu edge sensor
+- **VRAM Temperature:** No dedicated sensor available
 
 ### Requirements
 
 1. **Kernel Patch:** Extended frequency range (350-2230 MHz)
    - OR use distribution with patch included (Bazzite, PikaOS)
+   - OR use `cyan-skillfish-governor-smu` which **bypasses kernel patches entirely** on any distro
 2. **GPU Governor:** For automatic frequency scaling
-3. **Main heatsink:** Arctic P12 Max or equivalent
-4. **Backplate:** Dedicated 80mm+ fan (required for VRAM stability)
-5. **Active cooling on backplate (80mm+ fan minimum)** - VRAM has no temperature sensor and will overheat without it
-6. **Quality PSU:** 250W+ on 12V rail
+3. **Active cooling:** High static pressure fan (Arctic P12 Max or equivalent)
+4. **Quality PSU:** 250W+ on 12V rail
 
-!!!danger "Backplate Active Cooling Required"
-    Active cooling on the backplate is CRITICAL for BC-250 stability. Without it:
-    - VRAM overheating causes visual artifacts (pixel corruption on screen)
-    - Frequency scaling becomes unstable and unreliable
-    - Undervolt variations increase thermal throttling
+!!!success "Bazzite Users: No Manual Patching Needed"
+    The Bazzite kernel already includes the GPU frequency range patch. Skip directly to governor installation.
 
-    Ensure active airflow (fan or equivalent) directly cooling the backplate before proceeding with frequency scaling diagnostics.
+!!!tip "SMU Governor: No Kernel Patch Needed on Any Distro"
+    The `cyan-skillfish-governor-smu` manages clocks via SMU firmware calls, bypassing the need for kernel patches entirely. Best option for CachyOS/Arch users.
 
 ---
 
@@ -80,6 +77,12 @@ Without the patch, the BC-250's GPU performance is artificially limited:
 
 ### How to Obtain the Patch
 
+!!!success "Bazzite Users: Patch Already Included"
+    Bazzite's kernel already includes the GPU frequency range patch. No manual patching needed — just install a governor.
+
+!!!info "SMU Governor Bypasses Kernel Patching"
+    The `cyan-skillfish-governor-smu` manages clocks through SMU firmware and **does not require this kernel patch on ANY distro**. Install via AUR (`cyan-skillfish-governor-smu`) or COPR (`filippor/bazzite`).
+
 #### Pre-Patched Distributions (Easiest)
 
 1. **Bazzite** - Kernel pre-patched, no compilation needed
@@ -98,6 +101,11 @@ The patch file is available in the BC-250 Discord server:
 - **File:** `linux-6.12-bc250-freq.mypatch` (639 bytes)
 
 ### Manual Application
+
+!!!info "Most Users Don't Need This"
+    - **Bazzite/PikaOS users:** Kernel already includes this patch.
+    - **Any distro:** The `cyan-skillfish-governor-smu` bypasses the need for kernel patches entirely.
+    - Manual patching is only needed for non-Bazzite users who want to use the TT governor or manual sysfs overclocking with extended frequency range.
 
 #### Method 1: Linux-TKG (Recommended)
 
@@ -246,10 +254,14 @@ voltage:
 !!!warning "PSU Requirements"
     Maximum power draw can exceed 320W with full GPU load (Furmark). Ensure adequate PSU capacity. Games typically draw 220-250W max.
 
+!!!danger "Minimum Voltage: 700mV"
+    Setting minimum voltage below 700mV locks the GPU to 1500MHz. Always keep min voltage ≥700mV.
+
 **Do NOT:**
 - Use extended voltage patch (600-1300 mV) - unnecessary and risky
-- Go below 700 mV (unstable, minimal power savings)
+- Go below 700 mV (locks GPU to 1500MHz, defeats the purpose of overclocking)
 - Exceed 1129 mV without careful testing (hardware degradation risk)
+- Use Smokeless_UMAF — may cause permanent damage to the board
 
 ---
 
