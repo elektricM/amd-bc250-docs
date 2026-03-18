@@ -43,55 +43,7 @@ systemctl status cyan-skillfish-governor-tt
 
 The BC-250 requires a custom GPU governor to enable dynamic frequency scaling between 350-2300MHz (patched kernel) or 1000-2000MHz (unpatched kernel).
 
-### Option 1: Oberon Governor (Recommended for most users)
-
-**Features:**
-- Multi-step frequency scaling
-- Maintains GPU usage between 45-70%
-- Lower CPU overhead (0.4% CPU usage)
-- 100ms burst-to-max time
-
-**Installation:**
-
-**Fedora/Bazzite:**
-```bash
-dnf copr enable @exotic-soc/oberon-governor
-dnf install oberon-governor
-systemctl enable --now oberon-governor
-```
-
-**Arch/Manjaro:**
-```bash
-yay -S oberon-governor
-systemctl enable --now oberon-governor
-```
-
-**Configuration:**
-
-Edit `/etc/oberon-config.yaml`:
-
-```yaml
-opps:
-  - frequency:
-    - min: 1000
-    - max: 2000
-  - voltage:
-    - min: 700
-    - max: 1000
-```
-
-Restart the service:
-```bash
-sudo systemctl restart oberon-governor
-```
-
-**Verify it's working:**
-```bash
-oberon-governor --help  # Should show v0.1.4 or higher
-systemctl status oberon-governor
-```
-
-### Option 2: Cyan Skillfish Governor (Advanced users)
+### Option 1: Cyan Skillfish Governor TT (Recommended)
 
 **Features:**
 - Continuous frequency adjustment (no steps)
@@ -365,26 +317,9 @@ Disable IOMMU in BIOS (required), or add kernel parameter as backup:
 amd_iommu=off
 ```
 
-### Issue: RADV_DEBUG Environment Variable
-
-Some older setup guides recommend setting `RADV_DEBUG=nocompute` globally. This may not be needed on Mesa 25.1+.
-
-**Test without it:**
-```bash
-# Remove from Steam launch options
-# Remove from /etc/environment if set there
-```
-
 ### Issue: Game-Specific Optimizations
 
 **Steam Launch Options:**
-
-Most games work with:
-```bash
-RADV_DEBUG=nocompute %command%
-```
-
-For better performance, try:
 ```bash
 # FSR enabled
 WINE_FULLSCREEN_FSR=1 %command%
@@ -719,14 +654,14 @@ Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
 - [ ] Kernel 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
-- [ ] GPU governor installed and running (oberon or cyan-skillfish)
+- [ ] GPU governor installed and running (cyan-skillfish-governor-tt or oberon-governor)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM
 - [ ] `glxinfo` shows RADV driver, not llvmpipe
 - [ ] Temperatures under 85C under load
 - [ ] Cooling with high static pressure fan (>2.0 mmH2O)
 - [ ] IOMMU disabled in BIOS
-- [ ] `systemctl status oberon-governor` shows active
+- [ ] `systemctl status cyan-skillfish-governor-tt` shows active
 
 **Quick test:**
 ```bash
@@ -750,8 +685,7 @@ If you're still experiencing performance issues after following this guide:
 uname -r                    # Kernel version
 glxinfo | grep -i mesa      # Mesa version
 sensors                     # Temperatures
-systemctl status oberon-governor  # Governor status
-cat /etc/oberon-config.yaml       # Governor config
+systemctl status cyan-skillfish-governor-tt  # Governor status
 dmesg | grep amdgpu | tail -50    # Recent GPU messages
 ```
 

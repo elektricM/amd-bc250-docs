@@ -364,16 +364,6 @@ Check anti-cheat compatibility: [areweanticheatyet.com](https://areweanticheatye
 
 ## Performance Expectations
 
-### vs. PlayStation 5
-
-| Aspect | BC-250 | PS5 |
-|--------|--------|-----|
-| CPU Performance | 75% | 100% |
-| GPU Performance | 67% | 100% |
-| Real-World Gaming | 70-80% | 100% |
-
-**Summary:** Expect slightly lower performance than PS5, but still very capable for 1080p gaming.
-
 ### vs. Desktop GPUs
 
 **Approximate Equivalent:**
