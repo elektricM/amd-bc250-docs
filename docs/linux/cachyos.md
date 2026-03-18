@@ -139,22 +139,33 @@ Install Arch Linux first, then migrate to CachyOS repositories for optimized pac
 
 ### Install GPU Governor
 
-GPU is locked at 1500MHz without governor. CachyOS has COPR packages available.
+GPU is locked at 1500MHz without governor.
 
-**Method 1: Install from COPR (Easiest)**
+**Method 1: SMU Governor from AUR (Recommended — No Kernel Patch Needed)**
 ```bash
-# Add CachyOS extra repos if not already enabled
-# Install oberon-governor
-sudo pacman -S oberon-governor
+# Install cyan-skillfish-governor-smu (bypasses kernel patches entirely)
+yay -S cyan-skillfish-governor-smu
 
 # Enable and start
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 # Verify
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
 ```
 
-**Method 2: Build from source**
+**Method 2: TT Governor from AUR (Requires Kernel Patch)**
+```bash
+# Install cyan-skillfish-governor-tt
+yay -S cyan-skillfish-governor-tt
+
+# Enable and start
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
+
+# Verify
+systemctl status cyan-skillfish-governor-tt
+```
+
+**Method 3: Build oberon-governor from source (legacy)**
 ```bash
 # Install dependencies
 sudo pacman -S base-devel cmake git
@@ -185,8 +196,9 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Install lm_sensors
 sudo pacman -S lm_sensors
 
-# Load nct6687 for PWM control
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+# Load nct6683 sensor module (requires force=true)
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 
 # Rebuild initramfs
 sudo mkinitcpio -P
