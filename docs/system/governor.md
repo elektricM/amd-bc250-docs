@@ -24,9 +24,53 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 !!!success "Essential for Performance"
     The governor is not optional for good gaming performance. Without it, you're stuck at 1500 MHz.
 
+!!!danger "ACPI Fix is Essential"
+    The BC-250 ACPI fix is required for proper C-State support and power management. Without it, you won't get proper idle power states. Install from [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix).
+
+!!!danger "Minimum Voltage: 700mV"
+    Never set minimum GPU voltage below 700mV. This locks the GPU to 1500MHz and defeats the purpose of the governor.
+
 ## Governor Options
 
-### Oberon Governor (Original - Recommended)
+### Cyan-Skillfish Governor TT (Recommended)
+
+**Developer:** filippor (based on Magnap's work)
+**Type:** Multi-step governor with thermal throttling
+**Service name:** `cyan-skillfish-governor-tt`
+**Config:** `/etc/cyan-skillfish-governor-tt/config.toml`
+
+**Features:**
+- Multiple frequency steps with thermal throttling
+- Maintains GPU usage in optimal range
+- Available as COPR/RPM, AUR, .deb, Nix
+- Community default for Bazzite/Fedora (Jan 2026+)
+
+**COPR:** `filippor/bazzite`
+**Repository:** [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor)
+
+!!!warning "Service Name Changed (Dec 2025)"
+    filippor renamed the service from `cyan-skillfish-governor` to `cyan-skillfish-governor-tt` on Dec 13, 2025. Config folder moved from `/etc/cyan-skillfish-governor/` to `/etc/cyan-skillfish-governor-tt/`. If upgrading, migrate your config:
+
+    ```bash
+    sudo cp /etc/cyan-skillfish-governor/config.toml /etc/cyan-skillfish-governor-tt/config.toml
+    ```
+
+### Cyan-Skillfish Governor SMU (Kernel-Patch Free)
+
+**Developer:** filippor / Magnap
+**Type:** SMU-based governor — bypasses kernel patches entirely
+**Service name:** `cyan-skillfish-governor-smu`
+**Released:** January 18, 2026
+
+**Features:**
+- Manages clock speeds through SMU firmware calls
+- **Does NOT require kernel frequency range patch on any distro**
+- Available on AUR (`cyan-skillfish-governor-smu`), COPR (`filippor/bazzite`), .deb, .rpm, Nix
+- Best option for CachyOS/Arch users who don't want to patch kernels
+
+**Repository:** [github.com/filippor/cyan-skillfish-governor (smu branch)](https://github.com/filippor/cyan-skillfish-governor/tree/smu)
+
+### Oberon Governor (Legacy — Still Stable)
 
 **Developer:** mothenjoyer69 / TuxThePenguin0
 **Type:** Two-state governor (min/max frequency)
@@ -37,39 +81,35 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 - Low CPU overhead (0.4%)
 - Binary states: 1000 MHz idle, 2000 MHz load
 
+**COPR:** `@exotic-soc/oberon-governor`
 **Repository:** [gitlab.com/mothenjoyer69/oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor)
 
-### Filip's Enhanced Governor
+### NexGen3D Setup Script (Bazzite Beginners)
 
-**Developer:** FilippoR
-**Type:** Multi-step governor
+**Repository:** [github.com/NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine)
 
-**Features:**
-- Multiple frequency steps (not just 2)
-- Maintains GPU usage 45-70%
-- More responsive than original
-- Available as COPR/RPM package
-- Latest version: v0.1.4+
+Installs cyan-skillfish-governor-tt + zram + CPU mitigations. De facto standard for Bazzite beginners.
 
-**Repository:** [github.com/filippor/oberon-governor](https://github.com/filippor/oberon-governor)
+### PS5GPU-BC250 (GUI Controller — New)
 
-**Target:** Keeps GPU load in optimal range for consistent performance
-
-### Cyan-Skillfish Governor
-
-**Developer:** Magnap
-**Type:** Continuous scaling governor
+**Developer:** ZEROAESQUERDA
+**Type:** GUI-based GPU controller with automatic and manual modes
 
 **Features:**
-- Continuously adjusts frequency (no steps)
-- Maintains GPU utilization 70-95%
-- More precise voltage control
-- Multiple voltage points supported
-- Available as .deb, .rpm, AUR, Nix
+- Visual Qt-based interface (works on KDE, GNOME)
+- Adjust min/max GPU frequency and voltage
+- Set operating temperature limits
+- Automatic clock control in 4 boost stages based on load and temperature
+- Manual frequency and voltage control mode
+- No kernel patches or config file editing required
+- Works like MSI Afterburner / Adrenalin on Windows
 
-**Repository:** [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor)
+**Repository:** [github.com/ZEROAESQUERDA/PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250)
 
-**Performance:** Equivalent to max frequency at constant load, with better efficiency
+!!!warning "Disable Other Governors First"
+    You must disable any running GPU governor (oberon, cyan-skillfish) before using PS5GPU-BC250. Running multiple frequency controllers simultaneously will cause conflicts.
+
+---
 
 ## Installation
 
@@ -77,22 +117,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 COPR repositories are available for easy installation on Fedora and Bazzite. This eliminates the need to compile from source.
 
-**For Oberon Governor (Recommended):**
-```bash
-# Add mothenjoyer69's COPR repository
-sudo dnf copr enable @exotic-soc/oberon-governor
-
-# Install governor
-sudo dnf install oberon-governor
-
-# Enable and start service
-sudo systemctl enable --now oberon-governor.service
-
-# Check status
-systemctl status oberon-governor
-```
-
-**For Cyan-Skillfish Governor:**
+**For Cyan-Skillfish Governor TT (Recommended):**
 ```bash
 # Add filippor's COPR repository
 sudo dnf copr enable filippor/bazzite
@@ -101,7 +126,19 @@ sudo dnf copr enable filippor/bazzite
 sudo dnf install cyan-skillfish-governor-tt
 
 # Enable and start service
-sudo systemctl enable --now cyan-skillfish-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
+```
+
+**For SMU Governor (No Kernel Patch Needed):**
+```bash
+# Fedora/Bazzite:
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
+
+# Arch/CachyOS:
+yay -S cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 !!!warning "Important: Verify GPU Device Targeting"
@@ -110,13 +147,6 @@ sudo systemctl enable --now cyan-skillfish-governor.service
     - Check which card is BC-250: `ls -la /sys/class/drm/ | grep card`
     - The governor may target card0 or card1 depending on your system
     - If governor settings don't apply, you may need to manually specify the correct card in configuration
-
-!!!info "Alternative: SMU Governor (Kernel-Patch Free)"
-    **Emerging Alternative:** If kernel patching is not feasible, use the SMU-based cyan-skillfish-governor instead. It manages clock speeds through SMU firmware calls and does not require kernel modifications.
-
-    Available on: AUR (`cyan-skillfish-governor-smu`), COPR, .deb, .rpm, Nix
-
-    Some distributions (notably CachyOS) support `cyan-skillfish-governor-smu` as an alternative that works without kernel patches.
 
 !!!success "No Compilation Required"
     Using COPR packages means you don't need to manually compile the governor from source. The packages are pre-built and maintained.
@@ -168,26 +198,22 @@ curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/head
 systemctl status oberon-governor
 ```
 
-### Option 4: Cyan-Skillfish Governor
+### Option 4: Cyan-Skillfish Governor (Other Distros)
 
-**Fedora:**
+**Arch/CachyOS:**
 ```bash
-sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
-```
-
-**Arch:**
-```bash
-yay -S cyan-skillfish-governor
-# Or for SMU version:
+# TT version (requires kernel patch or Bazzite):
+yay -S cyan-skillfish-governor-tt
+# SMU version (no kernel patch needed — recommended for Arch/CachyOS):
 yay -S cyan-skillfish-governor-smu
 ```
 
 **Debian/Ubuntu:**
 ```bash
 # Download .deb from GitHub releases
-wget https://github.com/Magnap/cyan-skillfish-governor/releases/download/v0.1.3/cyan-skillfish-governor_0.1.3_amd64.deb
-sudo dpkg -i cyan-skillfish-governor_0.1.3_amd64.deb
+# Check https://github.com/Magnap/cyan-skillfish-governor/releases for latest
+wget https://github.com/Magnap/cyan-skillfish-governor/releases/latest/download/cyan-skillfish-governor-tt_amd64.deb
+sudo dpkg -i cyan-skillfish-governor-tt_amd64.deb
 ```
 
 ## Configuration
@@ -214,8 +240,8 @@ opps:
     min: 1000
     max: 2175    # Slight overclock
   voltage:
-    min: 700
-    max: 1025    # Slightly higher voltage for stability
+    min: 700     # Hardware minimum on real BC-250
+    max: 1129    # Real hardware OD voltage range is 700-1129mV
 ```
 
 **Restart after changes:**
@@ -229,8 +255,8 @@ sudo systemctl restart oberon-governor
 
 **Advanced Multi-Step Configuration:**
 
-!!!warning "Requires Kernel Patch"
-    The 350 MHz minimum frequency requires the GPU frequency range kernel patch. Without the patch, the governor will crash with `std::__ios_failure`. Use `min: 1000` on stock kernels.
+!!!warning "Requires Kernel Patch (or SMU Governor)"
+    The 350 MHz minimum frequency requires either the GPU frequency range kernel patch (pre-included in Bazzite) or the SMU governor. On stock kernels without the patch, the governor will crash with `std::__ios_failure`. Use `min: 1000` on stock kernels, or switch to `cyan-skillfish-governor-smu` which bypasses the patch requirement entirely.
 
 ```yaml
 opps:
@@ -238,8 +264,8 @@ opps:
     min: 350     # Requires kernel patch! Use 1000 on stock kernel
     max: 2175    # Overclocked maximum
   voltage:
-    min: 700
-    max: 1025
+    min: 700     # Hardware minimum on real BC-250
+    max: 1129    # Real hardware OD voltage range is 700-1129mV
   steps: 24      # Number of frequency steps (creates 25 levels: 0-24)
 
 governor:
@@ -254,18 +280,19 @@ governor:
   overheat_reset_ms: 10000    # Cool-down time after overheat
 ```
 
-### Cyan-Skillfish Governor Config
+### Cyan-Skillfish Governor TT Config
 
-**Config File:** `/etc/cyan-skillfish-governor/config.toml`
+**Config File:** `/etc/cyan-skillfish-governor-tt/config.toml`
 
 **Example Configuration:**
 ```toml
 # Define voltage points (frequency MHz, voltage mV)
+# Real hardware voltage range: 700-1129mV
 safe-points = [
-    [1000, 700],   # 1000 MHz @ 700 mV (idle)
+    [1000, 700],   # 1000 MHz @ 700 mV (idle, minimum)
     [1500, 900],   # 1500 MHz @ 900 mV
     [2000, 1000],  # 2000 MHz @ 1000 mV (gaming)
-    [2175, 1025],  # 2175 MHz @ 1025 mV (boost)
+    [2175, 1050],  # 2175 MHz @ 1050 mV (boost)
 ]
 
 # GPU load target range (70-95%)
@@ -279,10 +306,13 @@ interval_ms = 50       # Sampling interval
 burst_samples = 20     # Samples before burst to max
 ```
 
+!!!danger "Minimum Voltage: 700mV (Hardware Minimum)"
+    The BC-250 hardware minimum is 700mV. Setting minimum voltage below 700mV locks the GPU to 1500MHz. Always keep min voltage ≥700mV. Maximum safe voltage is 1129mV (real hardware OD range).
+
 **Test voltage/frequency manually:**
 ```bash
 # Stop governor
-sudo systemctl stop cyan-skillfish-governor
+sudo systemctl stop cyan-skillfish-governor-tt
 
 # Manually set frequency and voltage
 echo vc 0 2000 1000 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -297,8 +327,9 @@ echo vc 0 2000 1000 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_cl
 ### Check Governor is Running
 
 ```bash
-# Check service status
-systemctl status oberon-governor
+# Check service status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Should show: active (running)
 ```
@@ -307,7 +338,7 @@ systemctl status oberon-governor
 
 ```bash
 # View current GPU frequencies
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000Mhz
@@ -339,7 +370,7 @@ Shows real-time GPU frequency, voltage, and temperature.
 **Command Line:**
 ```bash
 # Watch frequency changes
-watch -n 1 'cat /sys/class/drm/card0/device/pp_dpm_sclk'
+watch -n 1 'cat /sys/class/drm/card*/device/pp_dpm_sclk'
 ```
 
 **MangoHud (In-Game Overlay):**
@@ -362,29 +393,35 @@ mangohud %command%  # Steam launch option
 
 **Check service:**
 ```bash
-sudo systemctl status oberon-governor
+# Check whichever governor you installed:
+sudo systemctl status cyan-skillfish-governor-tt
+# Or: sudo systemctl status oberon-governor
 
 # Check logs
-sudo journalctl -u oberon-governor
+sudo journalctl -u cyan-skillfish-governor-tt
+# Or: sudo journalctl -u oberon-governor
 ```
 
 **Solutions:**
 
 **1. Enable service:**
 ```bash
-sudo systemctl enable oberon-governor
+sudo systemctl enable cyan-skillfish-governor-tt
+# Or: sudo systemctl enable oberon-governor
 ```
 
 **2. Check config file exists:**
 ```bash
-ls -l /etc/oberon-config.yaml
+ls -l /etc/cyan-skillfish-governor-tt/config.toml
+# Or: ls -l /etc/oberon-config.yaml
 
 # If missing, reinstall governor
 ```
 
 **3. Manual restart:**
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
+# Or: sudo systemctl restart oberon-governor
 ```
 
 **Workaround (Arch/CachyOS):**
@@ -403,16 +440,16 @@ Some users report governor doesn't activate until GPU is used:
 
 **Debug:**
 ```bash
-# Check governor binary exists
-which oberon-governor
+# Check governor binary exists (use whichever you installed)
+which cyan-skillfish-governor-tt
+# Or: which oberon-governor
 
 # Check config
-cat /etc/oberon-config.yaml
+cat /etc/cyan-skillfish-governor-tt/config.toml
+# Or: cat /etc/oberon-config.yaml
 
-# Try manual start
-sudo oberon-governor
-
-# Check for errors
+# Check for errors in logs
+sudo journalctl -u cyan-skillfish-governor-tt --no-pager -n 20
 ```
 
 ### Governor Crashes with iostream Error
@@ -455,6 +492,21 @@ cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 !!!note "GPU Card Number"
     Your GPU may be `card0` or `card1` depending on system configuration. Check with `ls /sys/class/drm/` to find the correct card.
+
+### Black Screen on GPU Reset (Governor Running)
+
+**Symptoms:**
+- GPU crashes during a game, screen goes black and never recovers
+- System appears to be running (fans spinning, SSH may work) but no display output
+- Hard reboot required
+
+**Cause:** When the GPU crashes while the governor is actively managing frequencies, the GPU reset mechanism can't complete properly. The governor continues trying to write to sysfs during the reset, preventing recovery.
+
+**Workaround:**
+- Disable governor before playing crash-prone games: `sudo systemctl stop cyan-skillfish-governor-tt`
+- Re-enable after: `sudo systemctl start cyan-skillfish-governor-tt`
+
+**Long-term fix:** Use stable voltage/frequency settings that don't cause GPU crashes in the first place. If a specific game consistently crashes the GPU, increase voltage or reduce max frequency.
 
 ### System Crashes with Governor
 
@@ -508,8 +560,9 @@ governor:
 
 **Check for bugs:**
 ```bash
-# View governor logs
-sudo journalctl -u oberon-governor -f
+# View governor logs (use whichever you installed)
+sudo journalctl -u cyan-skillfish-governor-tt -f
+# Or: sudo journalctl -u oberon-governor -f
 ```
 
 ## Performance Comparison
@@ -551,8 +604,9 @@ sudo journalctl -u oberon-governor -f
 **Step 1: Test Maximum Stable Frequency**
 
 ```bash
-# Stop governor
-sudo systemctl stop oberon-governor
+# Stop governor (use whichever you installed)
+sudo systemctl stop cyan-skillfish-governor-tt
+# Or: sudo systemctl stop oberon-governor
 
 # Manually set test frequency
 echo vc 0 2100 1050 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -576,7 +630,8 @@ opps:
 **Step 3: Restart and Test**
 
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
+# Or: sudo systemctl restart oberon-governor
 
 # Test with games/benchmarks
 # Monitor temperatures
@@ -584,16 +639,27 @@ sudo systemctl restart oberon-governor
 
 **Known Limits:**
 - **1000 MHz:** Minimum safe frequency on stock kernel
-- **2000 MHz @ 1000mV:** Safe for all boards
-- **2175 MHz @ 1025mV:** Safe for most boards
-- **2230 MHz:** Maximum with kernel patch, requires cooling
+- **2000 MHz @ 1000mV:** Safe starting point
+- **2100-2175 MHz @ 1025-1050mV:** Works on many boards, test thoroughly
+- **2230 MHz:** Maximum with kernel patch, requires good cooling
+- **700-1129mV:** Real hardware voltage range (absolute minimum 700mV, maximum safe 1129mV)
 
 !!!warning "Overclocking Risks"
     Overclocking can cause instability, crashes, and potentially hardware damage. Always monitor temperatures and test thoroughly.
 
+## Community Resources
+
+- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup (governor + zram + CPU mitigations)
+- [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
+- [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
+- [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
+
 ## See Also
 
-- [System Configuration](../system/governor.md)
 - [BIOS Overclocking Guide](../bios/overclocking.md)
 - [Cooling Solutions](../hardware/cooling.md)
 - [Performance Tuning](../gaming/compatibility.md)
+
+---
+
+**Last Updated:** 2026-03-18
