@@ -117,21 +117,6 @@ Installs cyan-skillfish-governor-tt + zram + CPU mitigations. De facto standard 
 
 COPR repositories are available for easy installation on Fedora and Bazzite. This eliminates the need to compile from source.
 
-**For Oberon Governor (Recommended):**
-```bash
-# Add mothenjoyer69's COPR repository
-sudo dnf copr enable @exotic-soc/oberon-governor
-
-# Install governor
-sudo dnf install oberon-governor
-
-# Enable and start service
-sudo systemctl enable --now oberon-governor.service
-
-# Check status
-systemctl status oberon-governor
-```
-
 **For Cyan-Skillfish Governor TT (Recommended):**
 ```bash
 # Add filippor's COPR repository
@@ -341,8 +326,9 @@ echo vc 0 2000 1000 > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_cl
 ### Check Governor is Running
 
 ```bash
-# Check service status
-systemctl status oberon-governor
+# Check service status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Should show: active (running)
 ```

@@ -137,14 +137,11 @@ If GPU remains at 1500 MHz after installing patched kernel:
 
 2. **Update governor configuration:**
    ```bash
-   sudo nano /etc/oberon-config.yaml
+   # For cyan-skillfish-governor-tt:
+   sudo nano /etc/cyan-skillfish-governor-tt/config.toml
+   # Update safe-points to include extended range frequencies
 
-   # Update to use extended range
-   frequency:
-     min: 350    # Was 1000
-     max: 2230   # Was 2000
-
-   sudo systemctl restart oberon-governor
+   sudo systemctl restart cyan-skillfish-governor-tt
    ```
 
 ### Recommended Settings
@@ -281,40 +278,6 @@ cat /sys/class/drm/card0/device/pp_od_clk_voltage
 
 ### Method 2: Via Governor Config (Permanent)
 
-**Edit governor config:**
-```bash
-sudo nano /etc/oberon-config.yaml
-```
-
-**Safe overclock example:**
-```yaml
-opps:
-  frequency:
-    min: 1000    # 1000 MHz idle
-    max: 2100    # 2100 MHz load
-  voltage:
-    min: 700     # 700 mV idle
-    max: 1025    # 1025 mV load
-```
-
-**Aggressive overclock example:**
-```yaml
-opps:
-  frequency:
-    min: 1000
-    max: 2175    # 2175 MHz load
-  voltage:
-    min: 700
-    max: 1050    # Higher voltage for stability
-```
-
-**Apply changes:**
-```bash
-sudo systemctl restart oberon-governor
-```
-
-### Method 3: Cyan-Skillfish Governor (Multi-Point)
-
 **Edit config:**
 ```bash
 sudo nano /etc/cyan-skillfish-governor-tt/config.toml
@@ -390,10 +353,7 @@ Overclocking from 2000 to 2230 MHz gives diminishing returns — expect single-d
 5. If crashes, increase by 25mV
 6. Find minimum stable voltage
 
-**Example Results:**
-- Some boards stable at 2000 MHz @ 950mV (-50mV)
-- Reduces power by ~10-15W
-- Lowers temperature by 5-7°C
+Results vary by board. Test stability thoroughly at each step.
 
 ### Overvolting for Higher Clocks
 
