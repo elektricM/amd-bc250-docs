@@ -8,7 +8,7 @@ A comprehensive guide to monitoring temperatures, fan speeds, voltages, and perf
 
 The BC-250 includes multiple hardware monitoring components:
 
-- **NCT6686/NCT6687 SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds)
+- **Nuvoton NCT6686 SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds). Linux driver: `nct6683` (with `force=true`)
 - **AMD GPU sensors** - GPU temperature, voltage, power consumption
 - **k10temp** - CPU temperature monitoring
 - **NVMe sensors** - M.2 drive temperature
@@ -17,11 +17,13 @@ Proper monitoring is essential to ensure your BC-250 stays within safe operating
 
 ---
 
-## NCT6686/NCT6687 SuperIO Setup
+## NCT6683 SuperIO Driver Setup
 
-### What is the NCT6686/NCT6687?
+### About the SuperIO Chip
 
-The Nuvoton NCT6686 or NCT6687 is a Super I/O chip on the BC-250 that provides hardware monitoring capabilities including:
+The BC-250 uses a Nuvoton NCT6686 Super I/O chip for hardware monitoring. The Linux kernel driver for this chip is `nct6683` (not `nct6686` — there is no kernel module by that name). The `force=true` option is required because the chip isn't auto-detected.
+
+The chip provides:
 
 - Multiple temperature sensors (thermistors, AMD TSI)
 - Voltage rails monitoring
@@ -609,7 +611,7 @@ From Discord testing:
    dmesg | grep nct6683
    ```
 
-4. Some kernels may need `nct6687` instead:
+4. If `nct6683` doesn't provide PWM fan control, try `nct6687` (provides read-write PWM on some kernels):
    ```bash
    sudo modprobe nct6687 force=true
    ```
@@ -788,4 +790,4 @@ radeontop
 
 ---
 
-**Last Updated:** November 21, 2025
+**Last Updated:** March 18, 2026
