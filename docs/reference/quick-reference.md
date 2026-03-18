@@ -197,7 +197,7 @@ max_voltage: 1050    # mV
 Restart governor after changes:
 
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Check GPU Frequency
@@ -255,18 +255,19 @@ sudo reboot
 ### Governor Management
 
 ```bash
-# Check status
-systemctl status oberon-governor
+# Check status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Start/stop
-sudo systemctl start oberon-governor
-sudo systemctl stop oberon-governor
+sudo systemctl start cyan-skillfish-governor-tt
+sudo systemctl stop cyan-skillfish-governor-tt
 
 # Restart after config change
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # View logs
-journalctl -u oberon-governor -f
+journalctl -u cyan-skillfish-governor-tt -f
 ```
 
 ---
@@ -318,7 +319,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 1. Mesa version ≥ 25.1: `glxinfo | grep Mesa`
 2. Kernel ≤ 6.14: `uname -r`
 3. nomodeset removed from GRUB
-4. Governor running: `systemctl status oberon-governor`
+4. Governor running: `systemctl status cyan-skillfish-governor-tt`
 
 ### BIOS Settings Don't Stick
 

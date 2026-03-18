@@ -63,7 +63,7 @@ Before diving into specific issues, check these common causes:
        - min: 900
        - max: 900
    ```
-   - Restart governor: `systemctl restart oberon-governor`
+   - Restart governor: `systemctl restart cyan-skillfish-governor-tt`
    - If stable at locked frequency, it's a governor tuning issue
 
 ### Thermal-Related Freezes
@@ -141,7 +141,7 @@ Before diving into specific issues, check these common causes:
 **Common issues**:
 
 1. **Governor not starting correctly**
-   - Check status: `systemctl status oberon-governor`
+   - Check status: `systemctl status cyan-skillfish-governor-tt`
    - If failing, governor may be installed in wrong location
    - Reinstall following distribution-specific guide
 
@@ -768,7 +768,7 @@ If problems persist after trying these solutions:
      echo "=== Temperatures ==="
      sensors
      echo "=== Governor Status ==="
-     systemctl status oberon-governor
+     systemctl status cyan-skillfish-governor-tt
      echo "=== Recent Errors ==="
      journalctl -p err -n 50
    } > bc250-diagnostic.txt
