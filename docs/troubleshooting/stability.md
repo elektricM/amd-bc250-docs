@@ -105,9 +105,8 @@ Before diving into specific issues, check these common causes:
    - If crashes occur, add 10-15mV voltage
 
 2. **Known frequency issues**
-   - 980MHz: "Very wonky on any voltage"
    - 1000MHz: "Sometimes wonky but give it more voltage or change loadline in BIOS"
-   - 700mV: Hard minimum voltage cap
+   - 700mV: Hard minimum voltage cap — setting min voltage below 700mV locks GPU to 1500MHz
    - 2230MHz+: Most boards require 1050mV+, some need 1100mV
 
 3. **Example stable configurations** (varies by silicon lottery):

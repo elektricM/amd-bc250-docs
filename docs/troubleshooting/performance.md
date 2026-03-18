@@ -25,7 +25,7 @@ glxinfo | grep "OpenGL version"
 # Check governor status (if installed)
 systemctl status oberon-governor
 # or
-systemctl status cyan-skillfish-governor
+systemctl status cyan-skillfish-governor-tt
 ```
 
 ---
@@ -110,7 +110,9 @@ dnf install cyan-skillfish-governor
 
 **Arch/AUR:**
 ```bash
-yay -S cyan-skillfish-governor
+yay -S cyan-skillfish-governor-tt
+# Or for SMU variant (no kernel patch needed):
+yay -S cyan-skillfish-governor-smu
 ```
 
 **Debian:**
@@ -524,7 +526,7 @@ For LLM/AI workloads that need more than 12GB VRAM:
 
 Add to kernel command line:
 ```bash
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 This allows GPU to allocate up to ~14.75GB VRAM. Limit usage to 14.25-14.5GB in applications to avoid crashes.

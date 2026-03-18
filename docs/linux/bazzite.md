@@ -116,8 +116,8 @@ systemctl reboot
 sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
-!!!info "SMU Governor as Emerging Alternative"
-    The SMU governor (`cyan-skillfish-governor-smu`) is an emerging alternative that works on CachyOS without requiring kernel patches. Monitor community feedback for stability updates.
+!!!info "SMU Governor Alternative (No Kernel Patch Needed)"
+    The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Available on AUR, COPR (`filippor/bazzite`), .deb, .rpm, and Nix.
 
 !!!warning "GPU Card Naming Issue"
     The governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration if frequency scaling doesn't work.
@@ -197,6 +197,9 @@ After rebase:
 systemctl reboot
 systemctl status oberon-governor  # Verify running
 ```
+
+!!!warning "WiFi May Be Killed by Performance Setup (Issue #10)"
+    Users have reported that rebasing to the performance/patched image can kill WiFi drivers. This is likely caused by the kernel swap or driver module changes during the rebase. If you lose WiFi after rebasing, you may need to reinstall WiFi driver modules or roll back with `rpm-ostree rollback`.
 
 ### Power and Cooling Warnings
 

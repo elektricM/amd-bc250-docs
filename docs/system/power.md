@@ -151,7 +151,7 @@ sudo systemctl restart oberon-governor
 
 More granular control with multiple voltage/frequency points.
 
-Default location: `/etc/cyan-skillfish-governor/config.toml`
+Default location: `/etc/cyan-skillfish-governor-tt/config.toml`
 
 ```toml
 # Multiple safe-points for precise voltage control
@@ -179,7 +179,7 @@ max = 95
 
 Apply changes:
 ```bash
-sudo systemctl restart cyan-skillfish-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Manual Power Limiting (Advanced)
@@ -678,7 +678,7 @@ Expected results:
 **For Power Efficiency (Low Consumption):**
 
 ```toml
-# /etc/cyan-skillfish-governor/config.toml
+# /etc/cyan-skillfish-governor-tt/config.toml
 [[safe-points]]
 frequency = 350
 voltage = 700
@@ -758,7 +758,7 @@ Expected results:
 ```bash
 systemctl status oberon-governor
 # or
-systemctl status cyan-skillfish-governor
+systemctl status cyan-skillfish-governor-tt
 ```
 
 **Check Current Power State:**

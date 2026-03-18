@@ -355,7 +355,7 @@ sudo systemctl restart oberon-governor
 
 **Edit config:**
 ```bash
-sudo nano /etc/cyan-skillfish-governor/config.toml
+sudo nano /etc/cyan-skillfish-governor-tt/config.toml
 ```
 
 **Multi-voltage point configuration:**
@@ -371,7 +371,7 @@ safe-points = [
 
 **Restart governor:**
 ```bash
-sudo systemctl restart cyan-skillfish-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ## Testing Stability
