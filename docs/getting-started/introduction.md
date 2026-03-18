@@ -41,10 +41,14 @@ With proper Linux setup, the BC-250 delivers performance comparable to:
 
 **Other limitations:**
 
+- **No hardware video encode/decode** — VCN firmware is blocked by Sony, software decoding only
 - Audio over DisplayPort can be unreliable with some adapters (passive adapters usually work)
 - No built-in WiFi/Bluetooth (USB adapters work)
 - Limited instruction set (some AVX features missing)
 - High idle power consumption (~50-80W without optimization)
+
+!!!danger "Do NOT Use Smokeless_UMAF"
+    Do not use Smokeless_UMAF on the BC-250 — it may cause **permanent damage** to the board.
 
 ## Why BC-250?
 
