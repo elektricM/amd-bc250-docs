@@ -7,7 +7,7 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 ### Recommended Kernels
 
 **Best Compatibility:**
-- **6.18.x LTS** - RECOMMENDED (CachyOS 6.18.0 reports 5-10% faster than 6.17)
+- **6.18.18 LTS** - RECOMMENDED (current LTS, 5-10% faster than 6.17)
 - **6.17.11+** - Kernel fix applied, works well
 - **6.16.x** - All versions work well
 - **6.15.7 - 6.17.7** - Full BC-250 support
@@ -17,15 +17,21 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 - **6.13.x** - Stable
 - **6.14.x LTS** - Well-tested
 
-**Confirmed Working Versions (Jan-Feb 2026):**
+**Current Kernel Landscape (March 2026):**
+- **7.0-rc4** - Mainline (not recommended for production use)
+- **6.19.8** - Current stable — confirmed working on BC-250 (Fedora 43, March 2026; Discord community confirmed 4K120 HDR working)
+- **6.18.18** - Current LTS — **RECOMMENDED**
 - **6.18.3** - Confirmed working (CachyOS, Debian sid, Ubuntu xanmod)
 - **6.18.0** - Confirmed working (CachyOS - 5-10% performance improvement over 6.17)
 - 6.17.11+ - Confirmed working (Fedora, Dec 2025)
-- 6.16.5 (Fedora 42/43)
+- 6.16.5 (Fedora 43)
 - 6.15.11-1-lts (Arch Linux)
 
 !!!success "Current Recommendation"
-    Use kernel **6.18.x LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well. **6.19.x** is the current stable branch.
+    Use kernel **6.18.18 LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** and **6.19.x** also work well — 6.19.8 confirmed working on Fedora 43 (March 2026).
+
+!!!warning "7.0-rc: Mainline — Do Not Use in Production"
+    Kernel 7.0-rc4 is the current mainline release candidate. Not tested on BC-250 and not recommended for daily use.
 
 ### Broken Kernels
 
@@ -108,7 +114,7 @@ For maximum GPU memory access (14.5-14.75GB):
 
 ```bash
 # Add to kernel parameters
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 !!! danger "Do NOT Enable IOMMU"
@@ -125,7 +131,7 @@ amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
 sudo nano /etc/modprobe.d/increase_amd_memory.conf
 
 # Add:
-options ttm pages_limit=3776000 page_pool_size=3776000
+options ttm pages_limit=3959290 page_pool_size=3959290
 options amdgpu gttsize=14750
 
 # Rebuild initramfs
@@ -230,7 +236,7 @@ For detailed setup instructions, see the [GPU Governor Setup guide](../system/go
 # Display kernel version
 uname -r
 
-# Example output: 6.14.4-104.fc42.x86_64
+# Example output: 6.18.18-200.fc43.x86_64
 ```
 
 ### Installing Specific Kernel Version
@@ -241,10 +247,10 @@ uname -r
 dnf list kernel --showduplicates
 
 # Install specific version
-sudo dnf install kernel-6.14.4-104
+sudo dnf install kernel-6.18.18-200
 
 # Set as default in GRUB if needed
-sudo grub2-set-default "Fedora Linux (6.14.4-104)"
+sudo grub2-set-default "Fedora Linux (6.18.18-200)"
 ```
 
 **Arch Linux:**
@@ -288,10 +294,10 @@ IgnorePkg = linux
 **Debian:**
 ```bash
 # Hold kernel package
-sudo apt-mark hold linux-image-6.14.11-amd64
+sudo apt-mark hold linux-image-6.18.18-amd64
 
 # Unhold
-sudo apt-mark unhold linux-image-6.14.11-amd64
+sudo apt-mark unhold linux-image-6.18.18-amd64
 ```
 
 ### Removing Broken Kernel
@@ -320,7 +326,7 @@ sudo pacman -R linux  # if on broken version
 # Install known-good kernel
 sudo pacman -S linux-lts  # 6.12 or 6.14 LTS
 # or
-sudo pacman -S linux  # check version is 6.15.7-6.17.7
+sudo pacman -S linux  # check version is 6.17.11+ or 6.18.x
 ```
 
 ## Kernel Patches for BC-250
@@ -330,16 +336,21 @@ sudo pacman -S linux  # check version is 6.15.7-6.17.7
 **Purpose:** Enables extended frequency range (350 MHz - 2230 MHz) instead of default (1000-2000 MHz)
 
 **Distributions with Patch Included:**
-- Bazzite (pre-applied)
+- Bazzite (pre-applied — **no manual patching needed**)
 - PikaOS (pre-applied)
 
-**Manual Patching:**
+!!!success "Bazzite Users: Patch Already Included"
+    If you're running Bazzite, the GPU frequency range patch is **already included in Bazzite's kernel**. You do NOT need to manually patch anything. Just install a governor and you're done.
+
+!!!info "SMU Governor Bypasses Kernel Patching"
+    The `cyan-skillfish-governor-smu` manages clock speeds through SMU firmware calls and **does not require the kernel frequency range patch on ANY distro**. This is the easiest option for CachyOS, Arch, Fedora, or Debian users who don't want to compile a custom kernel. Install via AUR (`cyan-skillfish-governor-smu`) or COPR (`filippor/bazzite`).
+
+**Manual Patching (only if not using Bazzite/PikaOS and not using SMU governor):**
 
 Required for:
-- Fedora
-- Arch Linux
-- Debian
-- Other distributions
+- Fedora (with TT governor)
+- Arch Linux (with TT governor)
+- Debian (with TT governor)
 
 **Patch Application (Advanced):**
 
@@ -350,7 +361,7 @@ Required for:
 
 [Detailed patching guide available in community resources]
 
-**Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS)
+**Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS) or use the SMU governor
 
 ### TKG Kernel (Arch-based)
 
@@ -443,8 +454,9 @@ glxinfo | grep "OpenGL renderer"
 | 6.17.0-6.17.7 | ✅ **Recommended** | Good support |
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
-| 6.18.x LTS | ✅ **Best** | 5-10% faster than 6.17 (CachyOS Jan 2026) |
-| 6.19.x | ✅ **Current Stable** | Latest stable branch |
+| 6.18.x LTS | ✅ **Best** | 6.18.18 is current LTS, 5-10% faster than 6.17 |
+| 6.19.x (6.19.8 stable) | ✅ **Current Stable** | Confirmed working on BC-250 (March 2026, Fedora 43) |
+| 7.0-rc | 🔬 **Mainline** | Not tested on BC-250, do not use in production |
 
 ## See Also
 
