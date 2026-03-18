@@ -394,16 +394,16 @@ RUSTICL_ENABLE=radeonsi
 
 ## Complete Gaming Setup Example
 
-Recommended launch options for Steam games:
+Recommended launch options for Steam games (Mesa 25.1+):
 
 ```bash
-RADV_DEBUG=nocompute mangohud %command%
+RADV_DEBUG=nohiz mangohud %command%
 ```
 
-With additional debugging:
+With additional debugging (Mesa < 25.1 only — nocompute not needed on 25.1+):
 
 ```bash
-RADV_DEBUG=nocompute,nohiz DXVK_HUD=fps,gpu MANGOHUD=1 %command%
+RADV_DEBUG=nohiz DXVK_HUD=fps,gpu MANGOHUD=1 %command%
 ```
 
 ## Environment Variable Precedence
@@ -493,9 +493,9 @@ ROCm support is experimental and very limited. Use Vulkan instead.
 
 ## Best Practices
 
-1. Start with minimal variables (`RADV_DEBUG=nocompute` only)
+1. On Mesa 25.1+, start with `RADV_DEBUG=nohiz` only (`nocompute` is no longer needed)
 2. Add variables only when needed for specific issues
 3. Test changes one variable at a time
 4. Document working configurations per game
-5. Remove variables when no longer needed (e.g., Mesa 25.1+ may not need `nocompute`)
+5. Remove `RADV_DEBUG=nocompute` if you've upgraded to Mesa 25.1+ — it's handled automatically
 6. Use per-game settings in Steam rather than system-wide when possible
