@@ -167,6 +167,9 @@ The board has NO built-in wireless.
 - **Recommended:** Realtek RTL8822BU chipset (in-kernel driver as of 6.12+)
 - **Alternative:** USB-C DAC/headphones for audio
 
+!!!warning "WiFi and Custom Kernels"
+    Some custom kernel builds or patched images (e.g., Bazzite "performance mode") may not include your WiFi adapter's driver. If WiFi stops working after a kernel change or image rebase, connect via Ethernet and reinstall the driver. Choose adapters with in-kernel drivers (like RTL8822BU) for best compatibility.
+
 ### Case/Mounting
 
 The board is bare PCB, so you'll want some kind of enclosure or mounting.

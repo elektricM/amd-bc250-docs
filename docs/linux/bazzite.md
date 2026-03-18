@@ -164,6 +164,14 @@ rpm-ostree uninstall oberon-governor
 sudo rm -f /etc/oberon-config.yaml
 ```
 
+!!!danger "USB WiFi Drivers May Be Removed (Issue #10)"
+    Rebasing to patched images may remove USB WiFi/Bluetooth drivers that are not included in the custom kernel build. If you rely on a USB WiFi adapter (the BC-250 has no built-in wireless), **verify your adapter's driver is included in the patched image before rebasing**. If WiFi stops working after rebase:
+
+    1. Connect via Ethernet temporarily
+    2. Check if your WiFi adapter's kernel module is available: `lsmod | grep <your_driver>`
+    3. Install missing drivers: `rpm-ostree install <driver-package>`
+    4. Or rollback: `rpm-ostree rollback && systemctl reboot`
+
 ### Rebase to Patched Image
 
 Choose your desktop environment:
