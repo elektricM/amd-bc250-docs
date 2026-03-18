@@ -111,7 +111,7 @@ For maximum GPU memory access (14.5-14.75GB):
 
 ```bash
 # Add to kernel parameters
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 !!! danger "Do NOT Enable IOMMU"
@@ -333,16 +333,21 @@ sudo pacman -S linux  # check version is 6.15.7-6.17.7
 **Purpose:** Enables extended frequency range (350 MHz - 2230 MHz) instead of default (1000-2000 MHz)
 
 **Distributions with Patch Included:**
-- Bazzite (pre-applied)
+- Bazzite (pre-applied — **no manual patching needed**)
 - PikaOS (pre-applied)
 
-**Manual Patching:**
+!!!success "Bazzite Users: Patch Already Included"
+    If you're running Bazzite, the GPU frequency range patch is **already included in Bazzite's kernel**. You do NOT need to manually patch anything. Just install a governor and you're done.
+
+!!!info "SMU Governor Bypasses Kernel Patching"
+    The `cyan-skillfish-governor-smu` manages clock speeds through SMU firmware calls and **does not require the kernel frequency range patch on ANY distro**. This is the easiest option for CachyOS, Arch, Fedora, or Debian users who don't want to compile a custom kernel. Install via AUR (`cyan-skillfish-governor-smu`) or COPR (`filippor/bazzite`).
+
+**Manual Patching (only if not using Bazzite/PikaOS and not using SMU governor):**
 
 Required for:
-- Fedora
-- Arch Linux
-- Debian
-- Other distributions
+- Fedora (with TT governor)
+- Arch Linux (with TT governor)
+- Debian (with TT governor)
 
 **Patch Application (Advanced):**
 
@@ -353,7 +358,7 @@ Required for:
 
 [Detailed patching guide available in community resources]
 
-**Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS)
+**Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS) or use the SMU governor
 
 ### TKG Kernel (Arch-based)
 
