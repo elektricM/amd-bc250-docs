@@ -1,6 +1,6 @@
 # Sensors and Monitoring
 
-A comprehensive guide to monitoring temperatures, fan speeds, voltages, and performance metrics on the BC-250.
+Guide to monitoring temperatures, fan speeds, voltages, and performance metrics on the BC-250.
 
 ---
 
@@ -8,7 +8,7 @@ A comprehensive guide to monitoring temperatures, fan speeds, voltages, and perf
 
 The BC-250 includes multiple hardware monitoring components:
 
-- **NCT6686/NCT6687 SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds)
+- **Nuvoton NCT6686D SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds). Linux driver: `nct6683` (with `force=true`)
 - **AMD GPU sensors** - GPU temperature, voltage, power consumption
 - **k10temp** - CPU temperature monitoring
 - **NVMe sensors** - M.2 drive temperature
@@ -17,11 +17,13 @@ Proper monitoring is essential to ensure your BC-250 stays within safe operating
 
 ---
 
-## NCT6686/NCT6687 SuperIO Setup
+## NCT6683 SuperIO Driver Setup
 
-### What is the NCT6686/NCT6687?
+### About the SuperIO Chip
 
-The Nuvoton NCT6686 or NCT6687 is a Super I/O chip on the BC-250 that provides hardware monitoring capabilities including:
+The BC-250 uses a Nuvoton **NCT6686D** Super I/O chip for hardware monitoring (the kernel reports "Found NCT6686D or compatible chip"). The Linux kernel driver for this chip is `nct6683` (not `nct6686` — there is no kernel module by that name). The `force=true` option is required because the chip isn't auto-detected.
+
+The chip provides:
 
 - Multiple temperature sensors (thermistors, AMD TSI)
 - Voltage rails monitoring
@@ -215,10 +217,13 @@ This updates every second. Press `Ctrl+C` to exit.
 
 ### Using AMDGPU Sysfs
 
+!!!info "DRM Card Number Varies"
+    The BC-250 GPU typically shows up as **card1** in sysfs (not card0), though this can vary by system. Commands below use the `card*` glob to match any card number. If you need a specific card, run `ls /sys/class/drm/` and look for the `cardN-DP-*` entries to identify the correct card.
+
 Read GPU temperature directly:
 
 ```bash
-cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+cat /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input
 ```
 
 This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
@@ -226,7 +231,7 @@ This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
 Convert to Celsius:
 
 ```bash
-awk '{print $1/1000 "°C"}' /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+awk '{print $1/1000 "°C"}' /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input
 ```
 
 ### GPU Power Consumption
@@ -234,13 +239,13 @@ awk '{print $1/1000 "°C"}' /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
 Read current GPU power draw:
 
 ```bash
-cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
+cat /sys/class/drm/card*/device/hwmon/hwmon*/power1_average
 ```
 
 Returns power in microwatts. Convert to watts:
 
 ```bash
-awk '{print $1/1000000 "W"}' /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
+awk '{print $1/1000000 "W"}' /sys/class/drm/card*/device/hwmon/hwmon*/power1_average
 ```
 
 ### GPU Clock Speeds
@@ -248,7 +253,7 @@ awk '{print $1/1000000 "W"}' /sys/class/drm/card0/device/hwmon/hwmon*/power1_ave
 Check current GPU frequency:
 
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 ```
 
 Example output:
@@ -609,7 +614,7 @@ From Discord testing:
    dmesg | grep nct6683
    ```
 
-4. Some kernels may need `nct6687` instead:
+4. If `nct6683` doesn't provide PWM fan control, try `nct6687` as an alternative (provides read-write PWM on some kernels) — note the actual chip is NCT6686D, but `nct6687` may work as a fallback:
    ```bash
    sudo modprobe nct6687 force=true
    ```
@@ -632,7 +637,7 @@ From Discord testing:
 
 3. Check amdgpu sysfs directly:
    ```bash
-   cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+   cat /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input
    ```
 
 4. Ensure Mesa 25.1+ is installed:
@@ -690,9 +695,9 @@ echo "Timestamp,GPU_Temp,CPU_Temp,GPU_Power" > "$LOGFILE"
 
 while true; do
     TIMESTAMP=$(date +%s)
-    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
     CPU_TEMP=$(sensors k10temp-pci-00c3 -u 2>/dev/null | grep temp1_input | awk '{print $2}')
-    GPU_POWER=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
+    GPU_POWER=$(cat /sys/class/drm/card*/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
 
     echo "$TIMESTAMP,$GPU_TEMP,$CPU_TEMP,$GPU_POWER" >> "$LOGFILE"
     sleep 5
@@ -720,7 +725,7 @@ Save as `~/temp-alert.sh`:
 THRESHOLD=85
 
 while true; do
-    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
 
     if (( $(echo "$GPU_TEMP > $THRESHOLD" | bc -l) )); then
         notify-send -u critical "BC-250 Temperature Alert" "GPU temp: ${GPU_TEMP}°C (threshold: ${THRESHOLD}°C)"
@@ -744,13 +749,13 @@ sensors
 watch -n 1 sensors
 
 # GPU temperature only
-cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
+cat /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
 
 # GPU power consumption
-cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
+cat /sys/class/drm/card*/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
 
 # GPU clock speed
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Launch nvtop
 nvtop
@@ -788,4 +793,4 @@ radeontop
 
 ---
 
-**Last Updated:** November 21, 2025
+**Last Updated:** March 18, 2026
