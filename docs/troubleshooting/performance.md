@@ -105,7 +105,7 @@ systemctl status oberon-governor
 **Fedora/RPM:**
 ```bash
 dnf copr enable filippor/bazzite
-dnf install cyan-skillfish-governor
+dnf install cyan-skillfish-governor-tt
 ```
 
 **Arch/AUR:**
@@ -146,7 +146,7 @@ load_target = { min = 70, max = 95 }
 
     ```bash
     # Stop the governor
-    sudo systemctl stop cyan-skillfish-governor
+    sudo systemctl stop cyan-skillfish-governor-tt
 
     # Manually set frequency/voltage
     echo vc 0 <CLOCK> <VOLTAGE> > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -157,7 +157,7 @@ load_target = { min = 70, max = 95 }
 
 Enable and start:
 ```bash
-sudo systemctl enable --now cyan-skillfish-governor
+sudo systemctl enable --now cyan-skillfish-governor-tt
 ```
 
 ---
