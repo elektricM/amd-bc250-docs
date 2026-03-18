@@ -289,67 +289,6 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 3. **Reduce load** - lower GPU max frequency/voltage
 4. **Upgrade PSU** - use higher wattage unit with better cooling
 
-## DIY Power Supply Modifications
-
-### Making Custom PCIe Cables
-
-**Required Tools:**
-- Wire crimpers
-- PCIe 8-pin connector housing
-- 16 AWG wire minimum (silicone insulation recommended)
-- Pin removal tool (optional)
-
-**Steps:**
-1. Cut 8 wires to appropriate length (~30cm)
-2. Strip 5mm of insulation from each end
-3. Crimp terminals onto wire ends
-4. Insert pins into PCIe connector (3x 12V, 5x GND)
-5. Verify continuity with multimeter
-6. Test with low load before full gaming
-
-!!!danger "DIY Safety"
-    Poor crimps can cause fire. Test cables under load and monitor temperature. If cables get warm, they have high resistance and should be redone.
-
-### Shorting ATX Connector for Always-On
-
-**24-Pin ATX Pinout:**
-- Pin 16 (Green): PS_ON signal
-- Pins 15, 17 (Black): Ground
-
-**Method:**
-1. Use paperclip or jumper wire
-2. Bridge pin 16 to pin 15 or 17
-3. PSU turns on when plugged in
-
-**Use Case:** External PSU that powers BC-250 only
-
-### Adding Power Switch
-
-**Components:**
-- Momentary push button switch
-- 2-conductor wire
-
-**Wiring:**
-1. Connect switch between PSU PS_ON and GND
-2. Test that short press powers on/off
-3. For BC-250 control, must solder to onboard button (no header available)
-
-## PSU Efficiency
-
-**80 Plus Certification:**
-- **80 Plus Bronze:** 82-85% efficient at 50% load
-- **80 Plus Silver:** 85-88% efficient at 50% load
-- **80 Plus Gold:** 87-90% efficient at 50% load
-- **80 Plus Platinum:** 90-92% efficient at 50% load
-
-**Efficiency Impact:**
-- Bronze PSU at 180W load: ~212W from wall
-- Platinum PSU at 180W load: ~197W from wall
-- Savings: ~15W (varies with load)
-
-!!!info "PSU Efficiency Matters"
-    Higher efficiency PSUs waste less power as heat, reducing cooling requirements and long-term operating costs.
-
 ## Recommended PSU Summary
 
 | Use Case | Recommended PSU |
