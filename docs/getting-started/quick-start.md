@@ -40,11 +40,11 @@ Boot into BIOS (Del key during startup) and configure:
 ### Step 3: Install Linux
 
 !!!tip "Recommended: Fedora or Bazzite"
-    Fedora 42/43 and Bazzite have the best out-of-box support. Other distros work but need more manual setup.
+    Fedora 43 and Bazzite have the best out-of-box support. Other distros work but need more manual setup.
 
 **Fedora Installation:**
 
-1. Download Fedora 42 or 43 Workstation
+1. Download Fedora 43 Workstation (or Fedora 44 Beta)
 2. Boot installer in "Basic Graphics Mode" (enables nomodeset automatically)
 3. Complete installation normally
 4. Reboot
@@ -58,8 +58,8 @@ Boot into BIOS (Del key during startup) and configure:
 Run the automated setup script:
 
 ```bash
-# For Fedora 42/43
-# Mesa 25.1+ is included in Fedora 43 repos - no additional setup needed
+# For Fedora 43 (Fedora 42 is EOL — upgrade if still on it)
+# Mesa 25.x is included in Fedora 43 repos - no additional setup needed
 sudo dnf update
 
 # Install governor from COPR (updated Dec 2025)
@@ -180,7 +180,7 @@ This fixes graphical glitches in some games.
 **Solution:**
 
 1. Verify Mesa 25.1+ installed: `dnf list mesa-*`
-2. Check kernel version: `uname -r` (should be 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12-6.14 LTS, NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
+2. Check kernel version: `uname -r` (should be 6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS — NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
 3. Verify nomodeset was removed from GRUB
 
 ### Poor Performance / Low FPS

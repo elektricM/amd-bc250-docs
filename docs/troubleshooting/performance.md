@@ -180,12 +180,8 @@ Solution: Upgrade to Mesa 25.1.3 or newer
 sudo dnf update mesa*
 ```
 
-**Fedora 42:**
-```bash
-# Use COPR for Mesa 25.1+
-sudo dnf copr enable @exotic-soc/bc250-mesa
-sudo dnf update mesa*
-```
+!!!warning "Fedora 42 is End of Life"
+    Upgrade to Fedora 43 which ships Mesa 25.x in repos.
 
 **Arch/Manjaro:**
 ```bash
@@ -272,12 +268,12 @@ See "GPU Locked at 1500MHz" section above.
 **Install Working Kernel**
 
 !!! danger "AVOID BROKEN KERNEL VERSIONS"
-    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12.x-6.14.x LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support. Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.
 
 **Arch/Manjaro:**
 ```bash
-# Option 1: Install working 6.15.7-6.17.7 kernel
-sudo pacman -S linux  # Check version is in working range
+# Option 1: Install working kernel (6.17.11+ or 6.18.x)
+sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
 # Option 2: Install LTS kernel for guaranteed stability
 sudo pacman -S linux-lts linux-lts-headers
 # Set as default in bootloader
@@ -286,7 +282,7 @@ sudo pacman -S linux-lts linux-lts-headers
 **CachyOS:**
 ```bash
 # Check version first
-paru -S linux-cachyos  # Ensure it's 6.15.7-6.17.7
+paru -S linux-cachyos  # Ensure it's 6.17.11+ or 6.18.x
 # Or for LTS stability:
 paru -S linux-cachyos-lts linux-cachyos-lts-headers
 ```
@@ -653,7 +649,7 @@ rpm-ostree rollback
 Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
-- [ ] Kernel 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
+- [ ] Kernel 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
 - [ ] GPU governor installed and running (cyan-skillfish-governor-tt recommended)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM

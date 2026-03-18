@@ -6,20 +6,23 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 | User Type | Recommended Distro | Reason |
 |-----------|-------------------|--------|
-| **Beginners** | Fedora 42/43 or Bazzite | Easy setup, works out-of-box, good documentation |
+| **Beginners** | Fedora 43 or Bazzite | Easy setup, works out-of-box, good documentation |
 | **Gaming Focus** | Bazzite | Steam Deck experience, pre-configured for gaming |
 | **Performance** | CachyOS | Optimized packages, best frame times |
 | **Advanced Users** | Arch Linux | Full control, latest packages |
 | **Stability** | Debian/PikaOS | Rock-solid, good for production work |
 
-## Fedora 42/43 (Most Recommended for Beginners)
+## Fedora 43 (Most Recommended for Beginners)
+
+!!!warning "Fedora 42 is End of Life"
+    Fedora 42 reached EOL. Upgrade to Fedora 43 or try Fedora 44 Beta (ships kernel 6.19 + GNOME 50).
 
 ### Overview
 
 **Status:** Highly recommended, most tested
 - **Desktop:** GNOME or KDE Plasma
-- **Kernel:** 6.18.3 or later (confirmed stable Jan 2026+), 6.17.11+ working (Dec 2025+), or 6.12-6.14 LTS (stable)
-- **Mesa:** 25.1+ in mainline repos (Fedora 43)
+- **Kernel:** 6.18.18 LTS (current LTS, recommended), 6.17.11+ working (Dec 2025+)
+- **Mesa:** 25.x in mainline repos (Fedora 43)
 
 ### Pros
 
@@ -31,7 +34,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 ### Cons
 
-- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250 (use 6.17.11+, 6.18.x, or 6.12-6.14 LTS)
+- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250 (use 6.18.18 LTS or 6.17.11+)
 - Some users report MTG Arena crashes specifically on Fedora
 - Auto-updates can break things if not careful
 
@@ -117,7 +120,7 @@ systemctl reboot
 
 - May need Arch migration if standard ISO fails
 - SMU governor now available via AUR packages without requiring a pre-patched kernel
-- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause panics (use 6.17.11+, 6.18.x, or LTS)
+- Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause panics (use 6.18.18 LTS or 6.17.11+)
 - More complex setup
 
 !!!success "SMU Governor Alternative"
@@ -128,7 +131,7 @@ systemctl reboot
 **Option 1: Arch + Migration (Recommended)**
 
 1. Install Arch Linux following the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
-2. Use `linux-lts` kernel (6.12.x - 6.14.x)
+2. Use `linux-lts` kernel (6.12.x - 6.14.x or 6.18.18 LTS)
 3. Boot with `nomodeset` if needed (remove after driver installation)
 4. Use CachyOS migration script from their documentation
 5. Install CachyOS LTS kernel during migration
@@ -308,7 +311,7 @@ sudo apt update && sudo apt upgrade
 ### Kernel Compatibility
 
 !!!danger "Avoid Broken Kernel Versions"
-    Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause kernel panics and GPU initialization failures on BC-250. **Use 6.17.11+, 6.18.x for best performance or 6.12-6.14 LTS for stability.**
+    Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 cause kernel panics and GPU initialization failures on BC-250. **Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.**
 
 !!!warning "GPU Stability Testing"
     CLI stress tests (Furmark, etc.) may not catch GPU instability reliably. BC-250 design causes full system crashes at unstable voltages without artifacting first. Users attempting frequency tuning need this warning to prevent data loss. Incremental tuning with small voltage steps is required; always save work frequently when testing.
@@ -356,7 +359,7 @@ sudo apt update && sudo apt upgrade
 
 ### Fedora (Easiest)
 
-1. Download Fedora 42/43 Workstation ISO
+1. Download Fedora 43 Workstation ISO
 2. Flash to USB
 3. Boot in "Basic Graphics Mode"
 4. Install normally
@@ -388,7 +391,7 @@ sudo apt update && sudo apt upgrade
 ### Fedora
 
 - **Issue:** Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU
-- **Solution:** Pin kernel to 6.14
+- **Solution:** Pin kernel to 6.18 LTS
 
 ### Bazzite
 

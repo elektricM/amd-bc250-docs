@@ -102,7 +102,7 @@ After booting with nomodeset:
 
 ```bash
 # Install drivers (distro-specific)
-# Fedora 42/43 - Mesa 25.1+ included in repos:
+# Fedora 43 - Mesa 25.1+ included in repos:
 sudo dnf update
 sudo dnf install mesa-vulkan-drivers mesa-dri-drivers
 
@@ -146,16 +146,15 @@ If kernel is 6.15.0-6.15.6 or 6.17.8-6.17.10:
 ```bash
 # Install working kernel
 # Fedora:
-sudo dnf install kernel-6.16.5-*  # or any 6.15.7-6.17.7 version
-# Or for LTS stability:
-sudo dnf install kernel-6.14.x
+sudo dnf install kernel-6.18.18-*  # current LTS, recommended
+# Or: sudo dnf install kernel-6.17.11+
 
 # Update GRUB to use working kernel as default
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
 !!!danger "Broken Kernel Versions"
-    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12-6.14 LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.
 
 ---
 
@@ -428,19 +427,19 @@ dmesg | grep -i iommu
 - Now no display after boot
 
 **Cause:**
-Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250.
+Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.18.18 LTS or 6.17.11+.
 
 **Solution:**
 
 Boot working kernel:
 1. At GRUB, select "Advanced options"
-2. Select kernel in 6.15.7-6.17.7 range (if available) or 6.12-6.14 LTS
+2. Select kernel 6.18.x LTS, 6.17.11+, or 6.12-6.14 LTS
 3. Boot
 
 Make working kernel default:
 ```bash
 # Fedora:
-sudo grubby --set-default /boot/vmlinuz-6.16.x  # or 6.14.x for LTS
+sudo grubby --set-default /boot/vmlinuz-6.18.*  # 6.18.18 LTS recommended
 
 # Or remove broken kernel entirely
 sudo dnf remove kernel-6.15.5\* kernel-6.17.8\*  # example versions
@@ -574,7 +573,7 @@ vulkaninfo | grep deviceName
 ## FAQ
 
 **Q: Display worked yesterday, now doesn't. What changed?**
-A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8-6.17.10, boot working kernel (6.17.11+, 6.18.x, or 6.12-6.14 LTS).
+A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8-6.17.10, boot working kernel (6.18.18 LTS or 6.17.11+).
 
 **Q: Can I use HDMI directly?**
 A: No, board only has DisplayPort. Must use DP cable or adapter.

@@ -76,7 +76,7 @@ The AMD BC250 is a compact motherboard built around AMD's "Cyan Skillfish" APU, 
 Before you begin, be aware of these essential requirements:
 
 !!! danger "Kernel Version"
-    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.15.7-6.17.7** or **6.17.11+** for best performance, or **6.12.x-6.14.x LTS** for stability.
+    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.18.18 LTS** (recommended) or **6.17.11+** for best performance. Kernel 6.19.x has PCIe issues on BC-250.
 
 !!! warning "Mesa Version"
     **Mesa 25.1.3+ minimum**, 25.1.5+ recommended for proper RADV driver support.
@@ -91,7 +91,7 @@ Before you begin, be aware of these essential requirements:
 
 Based on extensive community testing:
 
-1. **Fedora 42/43** - Most tested, beginner-friendly, Mesa 25.1+ in repos
+1. **Fedora 43** - Most tested, beginner-friendly, Mesa 25.x in repos (Fedora 42 is EOL)
 2. **Bazzite** - Gaming-focused, works out-of-box
 3. **CachyOS** - Best performance for advanced users
 4. **Arch Linux** - Maximum control and flexibility

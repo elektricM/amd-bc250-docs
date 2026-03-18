@@ -35,7 +35,7 @@ Before diving into specific issues, check these common causes:
    uname -r
    ```
    - **AVOID kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause random GPU crashes under load
-   - **Recommended**: 6.15.7-6.17.7 (best performance) or 6.12.x-6.14.x LTS (stable)
+   - **Recommended**: 6.18.18 LTS (recommended) or 6.17.11+
    - If on broken version, install working kernel immediately
 
 2. **Verify governor voltage stability**
@@ -233,12 +233,12 @@ Before diving into specific issues, check these common causes:
 
 **Solution**:
 
-1. **Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)**
+1. **Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS)**
 
    **Arch/Manjaro**:
    ```bash
-   # Option 1: Install working 6.15.7-6.17.7 kernel
-   sudo pacman -S linux  # Check version is in working range
+   # Option 1: Install working kernel (6.17.11+ or 6.18.x)
+   sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
    # Option 2: Install LTS kernel for guaranteed stability
    sudo pacman -S linux-lts linux-lts-headers
 
@@ -249,10 +249,10 @@ Before diving into specific issues, check these common causes:
    **Fedora**:
    ```bash
    # Install older kernel
-   sudo dnf install kernel-6.14.x
+   sudo dnf install kernel-6.18.18-*
 
    # Set as default
-   sudo grubby --set-default /boot/vmlinuz-6.14.x
+   sudo grubby --set-default /boot/vmlinuz-6.18.*
    ```
 
    **CachyOS**: Use LTS kernel option during installation
@@ -664,7 +664,7 @@ journalctl -f | grep -i "error\|fail\|crash\|amdgpu"
 
 ### "GPU reset failed"
 - **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10, overclocking instability, or GPU crash
-- **Fix**: Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS), reduce frequency/increase voltage
+- **Fix**: Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS), reduce frequency/increase voltage
 
 ### "Out of memory"
 - **Cause**: VRAM exhausted, BIOS settings not applied, ZRAM conflict
@@ -798,7 +798,7 @@ If problems persist after trying these solutions:
 
 | Problem | Most Likely Fix |
 |---------|----------------|
-| Random GPU crashes | Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS) |
+| Random GPU crashes | Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS) |
 | BIOS settings not sticking | Clear CMOS after flashing |
 | Games crashing with ZRAM | Disable ZRAM or use fixed VRAM allocation |
 | General instability | Disable IOMMU in BIOS |

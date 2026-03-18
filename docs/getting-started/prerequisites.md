@@ -99,7 +99,7 @@ The BC-250 requires Linux for GPU support. Windows has NO drivers.
 
 **Recommended (easiest setup):**
 
-- **Fedora 42 or 43 Workstation** - Most tested, good documentation
+- **Fedora 43 Workstation** - Most tested, good documentation (Fedora 42 is EOL)
 - **Bazzite** - Gaming-focused, works out-of-box
 
 **Also work well:**

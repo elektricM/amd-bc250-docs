@@ -59,17 +59,8 @@ glxinfo | grep "OpenGL version"
 
 No additional steps needed!
 
-### Fedora 42
-
-**Check version first:**
-
-```bash
-dnf list mesa-\*
-```
-
-**If Mesa < 25.1:**
-
-Most Fedora 42 systems after updates should have 25.1+. If not, mesa-git COPR may be needed, but this is increasingly rare.
+!!!warning "Fedora 42 is End of Life"
+    Fedora 42 reached EOL. Upgrade to Fedora 43 (Mesa 25.x in repos) or try Fedora 44 Beta.
 
 ### Arch Linux / CachyOS
 
@@ -167,7 +158,7 @@ pacman -Q mesa
 glxinfo | grep "OpenGL renderer"
 
 # Should show:
-# OpenGL renderer string: AMD Radeon Graphics (radv gfx1013 LLVM 18.1.8 DRM 3.59 6.14.4-104.fc42.x86_64)
+# OpenGL renderer string: AMD Radeon Graphics (radv gfx1013 LLVM 18.1.8 DRM 3.59 6.18.18-200.fc43.x86_64)
 ```
 
 !!!danger "llvmpipe Means No GPU"
@@ -465,7 +456,7 @@ sudo dnf versionlock add mesa\*
 | 25.1.3+ | ✅ Minimum | Stable, bug fixes |
 | 25.1.5+ | ✅ Good | Improvements over 25.1.3 |
 | 25.2.4+ | ✅ **Recommended** | Current stable (Feb 2026) |
-| 26.x | ✅ Latest | Available on Debian sid/Ubuntu 26.04 daily |
+| 26.0 | ✅ Latest | Available on Debian sid/Ubuntu 26.04 daily |
 
 ## See Also
 

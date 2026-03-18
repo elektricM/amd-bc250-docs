@@ -180,9 +180,9 @@ sudo apt update
 sudo apt install linux-xanmod-lts-x64v3
 ```
 
-**Confirmed working:** 6.18.3 tested Jan 2026
+**Confirmed working:** 6.18.3+ tested Jan 2026. Current LTS: 6.18.18.
 
-**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.17.11+ or 6.18.x for best performance, or stick to 6.12-6.14 LTS for stability.
+**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.18.18 LTS (recommended) or 6.17.11+. Kernel 6.19.x has PCIe issues on BC-250.
 
 ---
 
@@ -358,7 +358,7 @@ vulkaninfo | grep deviceName
 
 # Kernel version
 uname -r
-# Expected: 6.17.11+, 6.18.x (best) or 6.12.x-6.14.x LTS (stable)
+# Expected: 6.18.18 LTS (recommended) or 6.17.11+
 ```
 
 ### Check Governor
@@ -401,7 +401,7 @@ sensors
 **Symptom:** GPU initialization failures, black screens on 6.15.0-6.15.6 or 6.17.8–6.17.10
 
 **Solution:**
-- Use 6.17.11+, 6.18.x for best performance
+- Use 6.18.18 LTS (recommended) or 6.17.11+
 - Or use 6.12-6.14 LTS kernels for guaranteed stability
 - Avoid 6.15.0-6.15.6 and 6.17.8–6.17.10 (known broken)
 

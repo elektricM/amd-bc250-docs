@@ -163,26 +163,24 @@ glxinfo | grep "OpenGL version"
 
 # Then verify kernel version
 uname -r
-# Should be 6.15.7-6.17.7 (best) or 6.12.x-6.14.x LTS (stable)
+# Should be 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (stable)
 # AVOID 6.15.0-6.15.6 and 6.17.8-6.17.10
 ```
 
 If kernel is 6.15.0-6.15.6 or 6.17.8-6.17.10:
 ```bash
 # Fedora - install working kernel
-sudo dnf install kernel-6.16.5-*  # or any 6.15.7-6.17.7 version
-# Or for LTS stability:
-sudo dnf install kernel-6.14.*
+sudo dnf install kernel-6.18.18-*  # current LTS, recommended
 
 # List available kernels
 sudo grubby --info=ALL
 
 # Set working kernel as default
-sudo grubby --set-default /boot/vmlinuz-6.16.*
+sudo grubby --set-default /boot/vmlinuz-6.18.*
 ```
 
 !!!danger "Broken Kernel Versions"
-    Kernel versions 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with Cyan Skillfish GPUs. Use 6.15.7-6.17.7, 6.17.11+, or 6.18.x for best performance, or 6.12.x-6.14.x LTS for stability.
+    Kernel versions 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with Cyan Skillfish GPUs. Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.
 
 ---
 
@@ -339,7 +337,7 @@ Boot older kernel:
 sudo grubby --info=ALL
 
 # Set older kernel as default
-sudo grubby --set-default /boot/vmlinuz-6.13.*
+sudo grubby --set-default /boot/vmlinuz-6.18.*
 
 # Or remove broken kernel
 sudo dnf remove kernel-6.15.5\* kernel-6.17.8\*  # Fedora (example versions)
@@ -865,7 +863,7 @@ If USB method fails:
 | Hangs at boot | IOMMU enabled | Disable IOMMU in BIOS |
 | GRUB shows, then black | Missing/wrong drivers | Add `nomodeset`, install Mesa 25.1+ |
 | Works after BIOS flash, then fails | CMOS not cleared | Clear CMOS battery |
-| Works, then breaks after update | Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10 installed | Install 6.17.11+, 6.18.x, or 6.12-6.14 LTS |
+| Works, then breaks after update | Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10 installed | Install 6.18.18 LTS or 6.17.11+ |
 
 ---
 
@@ -914,13 +912,13 @@ A: Check if system updated kernel. Run `uname -r` from live USB after mounting s
 A: Did you remove `nomodeset` after installing drivers? It must be removed from GRUB config.
 
 **Q: How do I know if my kernel is the problem?**
-A: BC-250 works best with 6.17.11+, 6.18.x, 6.15.7-6.17.7, or 6.12.x-6.14.x LTS. Kernels 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU drivers. Avoid 6.10 and below (too old).
+A: BC-250 works best with 6.18.18 LTS (current recommendation) or 6.17.11+. Kernels 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU drivers. Kernel 6.19.x has PCIe issues on BC-250. Avoid 6.10 and below (too old).
 
 **Q: BIOS seems dead after flashing. Bricked?**
 A: 90% chance you just need to clear CMOS. Remove battery for 60 seconds. Almost never truly bricked.
 
 **Q: Can I prevent these boot issues?**
-A: Yes! Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10, keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
+A: Yes! Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10, and 6.19.x (PCIe issues). Use 6.18.18 LTS. Keep Mesa 25.1+, disable IOMMU in BIOS, always clear CMOS after BIOS flash.
 
 ---
 

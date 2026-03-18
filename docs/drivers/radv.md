@@ -62,7 +62,7 @@ Mesa 25.1 includes critical fixes for BC-250:
 
 ## Installation by Distribution
 
-### Fedora 42/43
+### Fedora 43
 
 Mesa 25.1 is now in mainline Fedora repositories (as of Fedora 43):
 
@@ -75,15 +75,8 @@ glxinfo | grep "OpenGL version"
 # Should show: Mesa 25.1.X or newer
 ```
 
-**Fedora 42** may need a manual update if on an older installation:
-
-```bash
-# Check current version
-dnf list installed | grep mesa
-
-# If < 25.1, update system
-sudo dnf upgrade --refresh
-```
+!!!warning "Fedora 42 is End of Life"
+    Fedora 42 reached EOL. Upgrade to Fedora 43 for current Mesa packages.
 
 ### Bazzite
 

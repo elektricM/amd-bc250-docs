@@ -44,8 +44,8 @@ Fast answers to common questions. For detailed information, see the full documen
 
 ### Kernel Requirements
 
-- **Use:** Kernel 6.17.11+, 6.18.x (best), 6.15.7-6.17.7 (good), or 6.12.x-6.14.x LTS (stable)
-- **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 (GPU initialization fails — fixed in 6.17.11+)
+- **Use:** Kernel 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (stable)
+- **Avoid:** Kernel 6.15.0-6.15.6, 6.17.8-6.17.10 (GPU fails), and 6.19.x (PCIe issues on BC-250)
 - **Boot parameter:** `nomodeset` during install, remove after drivers installed
 
 ### Kernel Parameters
@@ -101,7 +101,7 @@ amdgpu.sg_display=0
 ### Operating System
 
 **Recommended:**
-- Fedora 42/43 Workstation (easiest)
+- Fedora 43 Workstation (easiest)
 - Bazzite (best for gaming)
 - CachyOS (best performance, harder setup)
 
@@ -118,7 +118,7 @@ amdgpu.sg_display=0
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
 | Mesa | 25.1.0 | 25.2.4+ |
-| Kernel | 6.12.x | 6.17.11+ or 6.18.x |
+| Kernel | 6.12.x | 6.18.18 LTS or 6.17.11+ |
 | Governor | Any | cyan-skillfish-governor-tt or -smu |
 
 [Linux setup guide →](../linux/distributions.md)
@@ -336,7 +336,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 1. VRAM allocation (try 10GB/6GB fixed if using 512MB dynamic with ZRAM)
 2. Disable ZRAM: `sudo systemctl disable zram-swap`
 3. Update Mesa to latest
-4. Check kernel version (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
+4. Check kernel version (use 6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS)
 
 ### High Temperatures
 
@@ -356,7 +356,7 @@ RADV_DEBUG=nohiz,nocompute %command%
     1. **Always clear CMOS after USB BIOS flash**
     2. **Disable IOMMU in BIOS** (IOMMU is broken - MUST disable)
     3. **Use nomodeset during install, remove after drivers installed**
-    4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** (GPU driver fails — fixed in 6.17.11+)
+    4. **Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10** (GPU driver fails), **and 6.19.x** (PCIe issues)
     5. **700mV minimum voltage** (GPU locks to 1500MHz below this)
     6. **Active DP-HDMI adapters break audio**
     7. **ACPI fix is essential** — required for C-State support and power management ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))

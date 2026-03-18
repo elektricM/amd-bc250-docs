@@ -76,7 +76,7 @@ CachyOS can now be installed directly on the BC-250 using the standard ISO.
    ```bash
    # After installation completes
    uname -r
-   # Should show compatible version (6.12-6.14 LTS or 6.15.7-6.17.7)
+   # Should show compatible version (6.18.x LTS recommended, or 6.17.11+)
    ```
 
 6. **Reboot and enjoy**
@@ -97,7 +97,7 @@ Install Arch Linux first, then migrate to CachyOS repositories for optimized pac
    Follow the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide)
 
    **Key selections:**
-   - Kernel: `linux-lts` (6.12.x - 6.14.x) or `linux` (verify version is 6.15.7-6.17.7)
+   - Kernel: `linux-lts` (6.18.18 LTS recommended) or `linux` (verify version is 6.17.11+)
    - Desktop: KDE Plasma or GNOME
    - Bootloader: GRUB
 
@@ -333,7 +333,7 @@ coolercontrol
 
 ```bash
 # 1. Check kernel
-uname -r  # Expected: 6.12.x-lts or 6.15.7-6.17.7
+uname -r  # Expected: 6.18.x-lts (recommended) or 6.17.11+
 
 # 2. Check Mesa
 glxinfo | grep "OpenGL version"  # Expected: Mesa 25.1.x+
@@ -368,12 +368,14 @@ sensors  # Expected: nct6686-isa-0a20, GPU temp, fan speeds
 ### Kernel Compatibility
 
 **Compatible kernels:**
-- **6.12.x - 6.14.x LTS** - Most stable, recommended
-- **6.15.7 - 6.17.7** - Works well, newer features
+- **6.18.18 LTS** - Current LTS, RECOMMENDED
+- **6.17.11+** - Confirmed stable
+- **6.12.x - 6.14.x LTS** - Older but stable
 
 **Broken kernels (avoid):**
 - **6.15.0 - 6.15.6** - GPU initialization failures, kernel panics
 - **6.17.8-6.17.10** - GPU driver issues (fixed in 6.17.11+)
+- **6.19.x** - PCIe issues reported on BC-250 (Mar 2026)
 
 If you accidentally install a broken kernel:
 ```bash
@@ -416,7 +418,7 @@ CachyOS now works well on BC-250 with standard installation. The complex custom 
 **Quick Start:**
 1. Download CachyOS ISO from [cachyos.org](https://cachyos.org/)
 2. Install normally (follow installer wizard)
-3. Verify compatible kernel is installed (6.12-6.14 LTS or 6.15.7-6.17.7)
+3. Verify compatible kernel is installed (6.18.18 LTS recommended, or 6.17.11+)
 4. Install GPU governor (`cyan-skillfish-governor-smu` from AUR recommended)
 5. Configure sensors, install gaming tools, enjoy
 

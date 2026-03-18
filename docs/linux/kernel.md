@@ -7,7 +7,7 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 ### Recommended Kernels
 
 **Best Compatibility:**
-- **6.18.x LTS** - RECOMMENDED (CachyOS 6.18.0 reports 5-10% faster than 6.17)
+- **6.18.18 LTS** - RECOMMENDED (current LTS, 5-10% faster than 6.17)
 - **6.17.11+** - Kernel fix applied, works well
 - **6.16.x** - All versions work well
 - **6.15.7 - 6.17.7** - Full BC-250 support
@@ -17,18 +17,24 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 - **6.13.x** - Stable
 - **6.14.x LTS** - Well-tested
 
-**Confirmed Working Versions (Jan-Feb 2026):**
+**Current Kernel Landscape (March 2026):**
+- **7.0-rc4** - Mainline (not recommended for production use)
+- **6.19.8** - Current stable (PCIe issues reported on BC-250 — see warning below)
+- **6.18.18** - Current LTS — **RECOMMENDED**
 - **6.18.3** - Confirmed working (CachyOS, Debian sid, Ubuntu xanmod)
 - **6.18.0** - Confirmed working (CachyOS - 5-10% performance improvement over 6.17)
 - 6.17.11+ - Confirmed working (Fedora, Dec 2025)
-- 6.16.5 (Fedora 42/43)
+- 6.16.5 (Fedora 43)
 - 6.15.11-1-lts (Arch Linux)
 
 !!!success "Current Recommendation"
-    Use kernel **6.18.x LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well.
+    Use kernel **6.18.18 LTS** for the best BC-250 performance (5-10% faster than 6.17). Alternatively, kernels **6.17.11+** also work well.
 
 !!!warning "6.19.x: PCIe Issues Reported (March 2026)"
-    Community reports indicate that some 6.19.x kernel builds cause **all PCIe devices to stop working** on BC-250. If using 6.19.x, test thoroughly before committing. Stick to **6.18.x** or **6.17.11+** for proven stability.
+    Community reports indicate that some 6.19.x kernel builds (including current stable 6.19.8) cause **all PCIe devices to stop working** on BC-250. If using 6.19.x, test thoroughly before committing. Stick to **6.18.18 LTS** or **6.17.11+** for proven stability.
+
+!!!warning "7.0-rc: Mainline — Do Not Use in Production"
+    Kernel 7.0-rc4 is the current mainline release candidate. Not tested on BC-250 and not recommended for daily use.
 
 ### Broken Kernels
 
@@ -233,7 +239,7 @@ For detailed setup instructions, see the [GPU Governor Setup guide](../system/go
 # Display kernel version
 uname -r
 
-# Example output: 6.14.4-104.fc42.x86_64
+# Example output: 6.18.18-200.fc43.x86_64
 ```
 
 ### Installing Specific Kernel Version
@@ -244,10 +250,10 @@ uname -r
 dnf list kernel --showduplicates
 
 # Install specific version
-sudo dnf install kernel-6.14.4-104
+sudo dnf install kernel-6.18.18-200
 
 # Set as default in GRUB if needed
-sudo grub2-set-default "Fedora Linux (6.14.4-104)"
+sudo grub2-set-default "Fedora Linux (6.18.18-200)"
 ```
 
 **Arch Linux:**
@@ -291,10 +297,10 @@ IgnorePkg = linux
 **Debian:**
 ```bash
 # Hold kernel package
-sudo apt-mark hold linux-image-6.14.11-amd64
+sudo apt-mark hold linux-image-6.18.18-amd64
 
 # Unhold
-sudo apt-mark unhold linux-image-6.14.11-amd64
+sudo apt-mark unhold linux-image-6.18.18-amd64
 ```
 
 ### Removing Broken Kernel
@@ -323,7 +329,7 @@ sudo pacman -R linux  # if on broken version
 # Install known-good kernel
 sudo pacman -S linux-lts  # 6.12 or 6.14 LTS
 # or
-sudo pacman -S linux  # check version is 6.15.7-6.17.7
+sudo pacman -S linux  # check version is 6.17.11+ or 6.18.x
 ```
 
 ## Kernel Patches for BC-250
@@ -451,8 +457,9 @@ glxinfo | grep "OpenGL renderer"
 | 6.17.0-6.17.7 | ✅ **Recommended** | Good support |
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
-| 6.18.x LTS | ✅ **Best** | 5-10% faster than 6.17 (CachyOS Jan 2026) |
-| 6.19.x | ⚠️ **Testing** | Reports of PCIe device failures (Mar 2026) — test before committing |
+| 6.18.x LTS | ✅ **Best** | 6.18.18 is current LTS, 5-10% faster than 6.17 |
+| 6.19.x (6.19.8 stable) | ⚠️ **Testing** | Reports of PCIe device failures on BC-250 — test before committing |
+| 7.0-rc | 🔬 **Mainline** | Not tested on BC-250, do not use in production |
 
 ## See Also
 
