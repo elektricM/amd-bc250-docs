@@ -409,7 +409,7 @@ This allows the GPU to use system RAM as VRAM overflow, partially compensating f
 
 **Explanation:**
 
-The BC-250's video encode/decode hardware (VCN) is disabled or non-functional. This is a hardware limitation, not a driver issue:
+The BC-250's video encode/decode hardware (VCN) does not work because the required firmware is blocked by Sony. This is unlikely to change, as Sony controls the firmware release:
 
 ```bash
 # vainfo will fail
@@ -755,6 +755,6 @@ For most users, install Mesa 25.1+ from your distribution's repositories, set `R
 
 ---
 
-**Last Updated:** 2025-11-21
+**Last Updated:** 2026-03-18
 **Based on:** Discord community discussions (7,000+ messages analyzed)
 **See Also:** [Linux Setup Guide](../linux/distributions.md), [System Configuration](../system/governor.md), [Gaming & Performance](../gaming/compatibility.md)
