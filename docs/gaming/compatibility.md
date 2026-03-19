@@ -278,10 +278,9 @@ RADV_DEBUG=nohiz mangohud gamemoderun %command%
 ### System Tweaks
 
 **CPU Governor:**
-```bash
-# Set to performance mode for gaming
-sudo cpupower frequency-set -g performance
-```
+
+!!!note "Not applicable on BC-250"
+    The BC-250 does not expose cpufreq scaling. CPU frequency is managed by hardware/firmware automatically.
 
 **Disable Compositing (X11):**
 - Reduces latency
@@ -299,7 +298,7 @@ sudo cpupower frequency-set -g performance
 **Memory Parameters for More VRAM:**
 ```bash
 # Add to kernel parameters (see Kernel guide)
-amdgpu.gttsize=14750 ttm.pages_limit=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 ## Benchmark Scores
@@ -364,16 +363,6 @@ Check anti-cheat compatibility: [areweanticheatyet.com](https://areweanticheatye
 
 ## Performance Expectations
 
-### vs. PlayStation 5
-
-| Aspect | BC-250 | PS5 |
-|--------|--------|-----|
-| CPU Performance | 75% | 100% |
-| GPU Performance | 67% | 100% |
-| Real-World Gaming | 70-80% | 100% |
-
-**Summary:** Expect slightly lower performance than PS5, but still very capable for 1080p gaming.
-
 ### vs. Desktop GPUs
 
 **Approximate Equivalent:**
@@ -390,7 +379,7 @@ Check anti-cheat compatibility: [areweanticheatyet.com](https://areweanticheatye
 5. **Monitor Temps:** Keep GPU < 85°C for stability
 6. **Adequate VRAM:** Use 4GB split for AAA games
 7. **Disable Mitigations:** `mitigations=off` for +10-15% FPS
-8. **Optimize Kernel:** Use 6.15.7-6.17.7 or 6.12-6.14 LTS, avoid 6.15.0-6.15.6 and 6.17.8+
+8. **Optimize Kernel:** Use 6.18.18 LTS or 6.19.x (current stable), avoid 6.15.0-6.15.6 and 6.17.8-6.17.10
 
 ## See Also
 
