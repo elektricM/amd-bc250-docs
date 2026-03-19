@@ -393,8 +393,8 @@ If all recovery methods fail:
 
 **Common recovery scenarios that worked:**
 
-1. **CMOS clear after USB flash:** 90% success rate
-2. **Hardware reprogram with CH347T:** 95% success rate
+1. **CMOS clear after USB flash:** Usually sufficient
+2. **Hardware reprogram with CH347T:** Very reliable
 3. **Reflash same file twice:** Sometimes needed
 4. **Try different programmer:** Some programmers work better
 
