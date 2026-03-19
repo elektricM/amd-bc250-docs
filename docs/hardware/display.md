@@ -8,7 +8,7 @@ Guide to connecting displays to the BC-250 and troubleshooting display issues.
 
 - **DisplayPort:** 1x full-size DisplayPort 1.4
 - **HDMI:** None (requires adapter)
-- **Resolution Support:** Up to 8K @60Hz or 4K @120Hz
+- **Resolution Support:** Up to 4K @120Hz
 - **HDR Support:** Yes (HDR10)
 
 !!!info "DisplayPort Only"
@@ -27,7 +27,6 @@ Guide to connecting displays to the BC-250 and troubleshooting display issues.
 - 1920x1080 (1080p) @ 144Hz+
 - 2560x1440 (1440p) @ 144Hz+
 - 3840x2160 (4K) @ 120Hz
-- 7680x4320 (8K) @ 60Hz
 
 !!!success "Native DisplayPort Recommended"
     If your monitor has DisplayPort, use it directly. This avoids adapter compatibility issues.
@@ -238,11 +237,13 @@ glxinfo | grep "OpenGL renderer"
 
 **Option 1: USB DisplayLink Adapter**
 - Add USB to HDMI/DisplayPort adapter
-- Works for desktop use
-- Not suitable for gaming (high latency)
+- Works for desktop use (plug in after boot for best results)
+- **Not suitable for gaming** — high latency due to CPU-based compression, BC-250's CPU is the bottleneck
+- Does not work in Steam Deck game mode
 
 **Option 2: DisplayPort MST Hub**
 - Split single DP into multiple displays
+- **Maximum 2 screens** via MST on BC-250
 - Shares bandwidth between displays
 - Works for productivity
 - Limited resolution per display
