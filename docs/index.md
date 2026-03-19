@@ -1,6 +1,6 @@
 # AMD BC250 Documentation
 
-Welcome to the comprehensive documentation for the **AMD BC250** board - a powerful ex-mining board featuring a cut-down PlayStation 5 APU.
+Documentation for the **AMD BC250** board — an ex-mining board featuring a cut-down PlayStation 5 APU.
 
 ## What is the BC250?
 
@@ -76,7 +76,7 @@ The AMD BC250 is a compact motherboard built around AMD's "Cyan Skillfish" APU, 
 Before you begin, be aware of these essential requirements:
 
 !!! danger "Kernel Version"
-    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.15.7-6.17.7** or **6.17.11+** for best performance, or **6.12.x-6.14.x LTS** for stability.
+    **AVOID Linux kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause GPU driver failures. Use **6.18.18 LTS** (recommended), **6.19.x**, or **6.17.11+** for best performance — 6.19.8 confirmed working on Fedora 43 (March 2026).
 
 !!! warning "Mesa Version"
     **Mesa 25.1.3+ minimum**, 25.1.5+ recommended for proper RADV driver support.
@@ -91,7 +91,7 @@ Before you begin, be aware of these essential requirements:
 
 Based on extensive community testing:
 
-1. **Fedora 42/43** - Most tested, beginner-friendly, Mesa 25.1+ in repos
+1. **Fedora 43** - Most tested, beginner-friendly, Mesa 25.x in repos (Fedora 42 is EOL)
 2. **Bazzite** - Gaming-focused, works out-of-box
 3. **CachyOS** - Best performance for advanced users
 4. **Arch Linux** - Maximum control and flexibility
@@ -101,9 +101,7 @@ Based on extensive community testing:
 
 This documentation is built from the collective knowledge of the BC250 community, combining:
 
-- **1000+ Discord community members** sharing real-world testing and troubleshooting
-- **100+ verified solutions** for common issues
-- **30+ tested games** with performance data
+- **Active Discord community** sharing real-world testing and troubleshooting
 - **Multiple distribution-specific setup guides**
 
 ### Contributing
@@ -113,9 +111,9 @@ This documentation is based on community Discord discussions and the [BC250 GitH
 ## Documentation Status
 
 !!! success "Content Sources"
-    - **Primary:** BC250 Discord community (9,716 technical messages analyzed)
-    - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) - hardware pinouts, specifications
-    - **Last Updated:** December 19, 2025
+    - **Primary:** BC250 Discord community
+    - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) — hardware pinouts, specifications
+    - **Last Updated:** March 2026
 
 ---
 
