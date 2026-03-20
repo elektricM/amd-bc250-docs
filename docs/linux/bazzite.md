@@ -45,13 +45,12 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 ### Hardware Requirements
 
 - 300W+ PSU on 12V rail (250W minimum)
-- 2x 120mm high static pressure fans
-- **Active cooling on backplate (80mm+ fan minimum)** - VRAM has no temperature sensor and will overheat without it
+- 120mm high static pressure fan (Arctic P12 recommended)
 - DisplayPort cable or passive DP-to-HDMI adapter
 - USB drive (8GB+) for installation media
 
-!!!danger "Backplate Active Cooling Required"
-    Active cooling backplate solution is critical. Confirmed critical by multiple Feb 2026 sources; strong community consensus on necessity. No VRAM temperature sensor exists on BC-250 - you cannot monitor backplate VRAM thermals.
+!!!info "Backplate VRAM Cooling Recommended"
+    The VRAM chips on the backplate have no temperature sensor. Ensure airflow over the backplate for gaming workloads. Many builds work fine with basic case airflow — a dedicated backplate fan is ideal but not strictly required if your case has decent airflow.
 
 ---
 
@@ -82,25 +81,7 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 
 ## Standard Setup
 
-### Automated Installation (Recommended)
-
-One-command installation of Oberon governor:
-
-```bash
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
-```
-
-**What this script does:**
-- Installs Oberon GPU governor
-- Enables governor service
-- Configures voltage settings (1000mV default for stability)
-- No Mesa modifications needed (already included)
-
-**Important:** Run on fresh install for best results. Script auto-reboots when complete.
-
-### Manual Installation
-
-If automated script doesn't work:
+### Governor Installation
 
 ```bash
 # Add COPR repository
@@ -113,18 +94,18 @@ rpm-ostree install cyan-skillfish-governor-tt
 systemctl reboot
 
 # Enable service after reboot
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
-!!!info "SMU Governor as Emerging Alternative"
-    The SMU governor (`cyan-skillfish-governor-smu`) is an emerging alternative that works on CachyOS without requiring kernel patches. Monitor community feedback for stability updates.
+!!!info "SMU Governor Alternative (No Kernel Patch Needed)"
+    The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Available on AUR, COPR (`filippor/bazzite`), .deb, .rpm, and Nix.
 
 !!!warning "GPU Card Naming Issue"
     The governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration if frequency scaling doesn't work.
 
 ### Voltage Configuration
 
-Default configuration (`/etc/oberon-config.yaml`):
+Default configuration (`/etc/cyan-skillfish-governor-tt/config.toml`):
 
 ```yaml
 voltage:
@@ -141,28 +122,41 @@ Some boards are unstable at lower voltages. The script defaults to 1000mV to pre
 
 ## Performance Setup (Advanced)
 
-"Bazzite on Steroids" - Custom images with GPU frequency range patch for up to 50% performance boost.
+!!!success "Bazzite Kernel Already Includes GPU Frequency Patch"
+    As of early 2026, the standard Bazzite kernel already includes the GPU frequency range patch. **Manual kernel patching is not needed on Bazzite.** The "Bazzite on Steroids" custom images below are only needed if you want additional pre-configured optimizations.
+
+    Alternatively, the **SMU governor** (`cyan-skillfish-governor-smu`) bypasses the need for kernel patches entirely on any distro.
+
+"Bazzite on Steroids" - Custom images with additional pre-configured optimizations.
 
 ### Features
 
 - Custom patched kernel (GPU frequency: 350-2230 MHz vs stock 1000-2000 MHz)
-- Oberon governor pre-configured
+- GPU governor pre-configured
 - Weekly automated builds (every Monday)
 - Three variants: GNOME, KDE, Deck
 
 ### Prerequisites
 
-If you already have Bazzite installed with Oberon:
+If you already have Bazzite installed with an older governor:
 
 ```bash
-# Remove existing oberon installation
+# Remove existing oberon installation (if applicable)
 sudo systemctl stop oberon-governor
 sudo systemctl disable oberon-governor
 rpm-ostree uninstall oberon-governor
 
-# Remove config
+# Remove old config
 sudo rm -f /etc/oberon-config.yaml
 ```
+
+!!!danger "USB WiFi Drivers May Be Removed (Issue #10)"
+    Rebasing to patched images may remove USB WiFi/Bluetooth drivers that are not included in the custom kernel build. If you rely on a USB WiFi adapter (the BC-250 has no built-in wireless), **verify your adapter's driver is included in the patched image before rebasing**. If WiFi stops working after rebase:
+
+    1. Connect via Ethernet temporarily
+    2. Check if your WiFi adapter's kernel module is available: `lsmod | grep <your_driver>`
+    3. Install missing drivers: `rpm-ostree install <driver-package>`
+    4. Or rollback: `rpm-ostree rollback && systemctl reboot`
 
 ### Rebase to Patched Image
 
@@ -187,8 +181,11 @@ After rebase:
 
 ```bash
 systemctl reboot
-systemctl status oberon-governor  # Verify running
+systemctl status cyan-skillfish-governor-tt  # Verify running
 ```
+
+!!!warning "WiFi May Be Killed by Performance Setup (Issue #10)"
+    Users have reported that rebasing to the performance/patched image can kill WiFi drivers. This is likely caused by the kernel swap or driver module changes during the rebase. If you lose WiFi after rebasing, you may need to reinstall WiFi driver modules or roll back with `rpm-ostree rollback`.
 
 ### Power and Cooling Warnings
 
@@ -198,7 +195,7 @@ Performance patch increases power draw and temperatures:
 - **Cooling:** High static pressure fans required
 - **Temps:** Expect 85-95°C under full load (normal for this board)
 
-To reduce power consumption, edit `/etc/oberon-config.yaml`:
+To reduce power consumption, edit `/etc/cyan-skillfish-governor-tt/config.toml`:
 
 ```yaml
 voltage:
@@ -208,7 +205,7 @@ frequency:
   - max: 1800  # Reduced from 2230
 ```
 
-Then restart: `sudo systemctl restart oberon-governor`
+Then restart: `sudo systemctl restart cyan-skillfish-governor-tt`
 
 ### Disable CPU Mitigations (Optional)
 
@@ -228,10 +225,11 @@ systemctl reboot
 
 ### Temperature Sensors
 
-Enable NCT6687 module for PWM fan control:
+Enable the nct6683 sensor module for temperature and fan monitoring:
 
 ```bash
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 systemctl reboot
 ```
 
@@ -239,7 +237,7 @@ Verify:
 
 ```bash
 sensors
-# Should show nct6687-isa-0a20 with GPU temp, fan speeds
+# Should show nct6686-isa-0a20 with GPU temp, fan speeds
 ```
 
 ### CoolerControl (Optional)
@@ -311,14 +309,13 @@ systemctl reboot
 **Solution:**
 
 ```bash
-sudo nano /etc/oberon-config.yaml
+sudo nano /etc/cyan-skillfish-governor-tt/config.toml
 
-# Change:
-voltage:
-  - min: 1000  # Increase from 700
-  - max: 1000
+# Increase voltage if unstable:
+# min_voltage = 1000
+# max_voltage = 1000
 
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Flatpak Apps Don't See GPU
@@ -334,17 +331,18 @@ sudo systemctl restart oberon-governor
 **Solution:**
 
 ```bash
-# Check governor status
-systemctl status oberon-governor
+# Check governor status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # If not running:
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 # Restart if running:
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # Verify frequency scaling
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 ```
 
 ### Boot Slow / Black Screen During Boot
@@ -388,7 +386,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Check temperatures
 sensors
@@ -408,7 +406,7 @@ vulkaninfo | grep deviceName
 nvtop
 
 # Check governor scaling
-watch -n 1 cat /sys/class/drm/card0/device/pp_dpm_sclk
+watch -n 1 cat /sys/class/drm/card*/device/pp_dpm_sclk
 ```
 
 ---
@@ -420,10 +418,10 @@ watch -n 1 cat /sys/class/drm/card0/device/pp_dpm_sclk
 ujust update
 
 # Check governor
-systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-tt
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Check temps
 sensors
@@ -442,7 +440,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-pa
 - **Bazzite Official:** [bazzite.gg](https://bazzite.gg)
 - **Setup script:** [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation)
 - **Patched images:** [vietsman/bazzite-patched](https://github.com/vietsman/bazzite-patched)
-- **Oberon governor:** [oberon-governor GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
+- **GPU Governor:** [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
