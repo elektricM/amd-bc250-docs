@@ -56,7 +56,10 @@ Fedora is the most recommended distribution for BC-250, offering:
 
 ### Step 2: Select Boot Mode
 
-**For Fedora 42/43 with working kernels (6.17.11+, 6.18.3+ or later):**
+!!!warning "Fedora 42 is End of Life"
+    Fedora 42 reached EOL. If still running Fedora 42, upgrade to Fedora 43. Fedora 44 Beta is also available (ships kernel 6.19 + GNOME 50).
+
+**For Fedora 43 with working kernels (6.18.18 LTS or 6.17.11+):**
 
 You can try the standard "Install Fedora" option. If it boots successfully, no need for basic graphics mode.
 
@@ -67,12 +70,13 @@ You can try the standard "Install Fedora" option. If it boots successfully, no n
 3. This enables `nomodeset` automatically
 
 !!!info "Nomodeset May Not Be Required"
-    On Fedora 42/43 with working kernel versions (6.17.11+, 6.18.3+ or later), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
+    On Fedora 43 with working kernel versions (6.18.18 LTS or 6.17.11+), nomodeset is often no longer needed during installation. However, if you encounter a black screen, use basic graphics mode.
 
 !!!info "Recommended Kernel Versions"
-    - Kernel 6.18.3 or later: CONFIRMED stable (Jan 2026+)
+    - Kernel 6.18.18 LTS: Current LTS, RECOMMENDED
     - Kernel 6.17.11+: Working (Dec 2025+)
     - Kernels 6.17.8–6.17.10: Known broken, avoid
+    - Kernel 6.19.x: Confirmed working (March 2026, Fedora 43)
     - Note: Unpatched kernels have 1000–2000 MHz frequency limits. Custom kernel compilation or distro patches (e.g., CachyOS) unlock higher ranges.
 
 ### Step 3: Complete Installation
@@ -110,7 +114,7 @@ sudo dnf install -y git cmake make gcc-c++ libdrm-devel lm_sensors
 dnf list mesa-\*
 
 # Should show 25.1+ for Fedora 43
-# If Fedora 42 and < 25.1, may need mesa-git (unlikely now)
+# Fedora 43 ships Mesa 25.x — no additional setup needed
 ```
 
 ### Step 4: Install GPU Governor
@@ -130,7 +134,7 @@ sudo systemctl enable --now cyan-skillfish-governor-tt
 !!!info "Alternative COPR Option"
     You can also use `@exotic-soc/oberon-governor` for the original oberon-governor package if preferred.
 
-**Option 2: Build from Source**
+**Option 2: Build oberon-governor from source (legacy)**
 
 ```bash
 git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
@@ -173,7 +177,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 !!!info "Kernel Parameters Explained"
     - `quiet` - Reduces boot messages
     - `mitigations=off` - Disables CPU security mitigations (+18 FPS in Cyberpunk 2077)
-    - `amdgpu.sg_display=0` - Only needed for kernels < 6.10 (not required on Fedora 42/43)
+    - `amdgpu.sg_display=0` - Only needed for kernels < 6.10 (not needed on Fedora 43)
 
 ### Step 7: Reboot
 
@@ -190,7 +194,7 @@ After reboot, you should have full resolution and GPU acceleration.
 ```bash
 # Check Mesa version
 glxinfo | grep "OpenGL version"
-# Should show: Mesa 25.1.X
+# Should show: Mesa 25.1.X or higher (Fedora 43 ships 25.2.x)
 
 # Check GPU detected
 vulkaninfo | grep deviceName
@@ -242,7 +246,7 @@ sudo dnf install mangohud goverlay gamemode gamescope
 
 ## Optional: Hold Kernel Version
 
-Since kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250, you may want to prevent automatic kernel updates to broken versions. Note: 6.17.11+, 6.18.3+ are confirmed working:
+Since kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 break BC-250, you may want to prevent automatic kernel updates to broken versions. Note: 6.18.18 LTS and 6.17.11+ are confirmed working:
 
 ```bash
 # Install versionlock plugin
@@ -292,7 +296,7 @@ sudo systemctl restart cyan-skillfish-governor-tt
 mangohud steam
 
 # Check GPU frequency scaling
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 # Should show frequencies changing under load
 ```
 
@@ -315,7 +319,7 @@ sudo dnf remove kernel-6.17.9\*
 sudo dnf upgrade kernel
 
 # Or install LTS for stability
-sudo dnf install kernel-6.14.4-104
+sudo dnf install kernel-6.18.18-200
 ```
 
 ### MTG Arena Crashes on Fedora
@@ -326,12 +330,10 @@ sudo dnf install kernel-6.14.4-104
 
 ## Performance Tuning
 
-### Enable Performance Governor
+### CPU Frequency Scaling Note
 
-```bash
-# For better gaming performance
-sudo cpupower frequency-set -g performance
-```
+!!!info "No cpufreq scaling on BC-250"
+    The BC-250's Zen 2 CPU does **not** expose cpufreq scaling — `/sys/devices/system/cpu/cpu0/cpufreq/` does not exist. Commands like `cpupower frequency-set -g performance` have no effect and can be safely omitted.
 
 ### Optimize for Low Latency
 
