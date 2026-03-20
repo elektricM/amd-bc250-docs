@@ -7,7 +7,7 @@ Both Arch Linux and Manjaro work excellently on the BC-250. Arch provides maximu
 **Status:** Both fully working
 **Difficulty:** Arch (Advanced), Manjaro (Intermediate)
 **Mesa:** 25.1+ in official repos with upstream BC-250 support. Mesa 26 (development/git) available and confirmed working on Debian sid and Ubuntu 26.04 daily as of Jan 2026.
-**Kernel:** Kernels 6.18.x and 6.17.11+ are confirmed stable. Avoid 6.17.8–6.17.10 and 6.15.0–6.15.6 (known broken). LTS kernels (6.12–6.14) remain supported for stability.
+**Kernel:** Kernel 6.18.18 LTS (current LTS, recommended), 6.19.x, and 6.17.11+ are confirmed stable. Avoid 6.17.8–6.17.10 and 6.15.0–6.15.6 (known broken).
 
 ---
 
@@ -69,9 +69,9 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 **Key BC-250 Specific Requirements:**
 
 1. **Kernel Selection**
-   - Install `linux-lts` package (6.12.x - 6.14.x) for stability
-   - **Recommended:** Kernels 6.18.x and 6.17.11+ are confirmed stable
-   - **AVOID:** Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (GPU initialization failures)
+   - **Recommended:** Kernel 6.18.18 LTS (current LTS) or `linux-lts` package
+   - **Also works:** 6.17.11+ confirmed stable
+   - **AVOID:** Kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (GPU initialization failures) — 6.19.x works fine
    - LTS kernels (6.12-6.14) remain supported for stability
 
 2. **Boot Parameters**
@@ -285,14 +285,16 @@ nvtop      # Real-time GPU monitoring
 ### Verify Governor Running
 
 ```bash
-systemctl status oberon-governor
-# Expected: active (running)
+# Use whichever governor you installed:
+systemctl status cyan-skillfish-governor-tt   # TT variant (recommended)
+systemctl status cyan-skillfish-governor-smu  # SMU variant
+systemctl status oberon-governor              # legacy
 ```
 
 ### Check Frequency Scaling
 
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000MHz
@@ -312,7 +314,7 @@ The `*` moves between frequencies based on load.
 
 **Manual start:**
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt  # or oberon-governor
 ```
 
 ---
@@ -341,10 +343,11 @@ dmesg | grep nct6683
 
 ### Fan Control (Optional)
 
-For fan control (nct6683 is read-only), use nct6687:
+Load the nct6683 sensor module for temperature and fan monitoring:
 
 ```bash
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 sudo mkinitcpio -P
 sudo reboot
 
@@ -380,7 +383,7 @@ sudo pacman -S protonup-qt
 **Solution 2: Check kernel**
 ```bash
 uname -r
-# If 6.15.0-6.15.6 or 6.17.8–6.17.10, install working kernel (6.17.11+, 6.18.x, or 6.12-6.14 LTS)
+# If 6.15.0-6.15.6 or 6.17.8–6.17.10, install working kernel (6.18.18 LTS or 6.17.11+)
 ```
 
 ### GPU Not Detected / llvmpipe
@@ -415,7 +418,7 @@ dmesg | grep amdgpu
 
 **Solution:**
 ```bash
-# Option 1: Install confirmed stable kernel (6.17.11+, 6.18.x)
+# Option 1: Install confirmed stable kernel (6.18.18 LTS or 6.17.11+)
 sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
 # Or
 # Option 2: Install LTS for guaranteed stability
@@ -451,8 +454,8 @@ IgnorePkg = linux
 - [pnbarbeito/bc250-arch](https://github.com/pnbarbeito/bc250-arch)
 
 **Governor projects:**
-- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor)
-- [Cyan Skillfish Governor](https://github.com/Magnap/cyan-skillfish-governor) (AUR)
+- [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (AUR, recommended)
+- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
@@ -466,10 +469,10 @@ fastfetch
 nvtop
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
-# Check governor
-systemctl status oberon-governor
+# Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
 
 # Check temps
 sensors
