@@ -180,9 +180,9 @@ sudo apt update
 sudo apt install linux-xanmod-lts-x64v3
 ```
 
-**Confirmed working:** 6.18.3 tested Jan 2026
+**Confirmed working:** 6.18.3+ tested Jan 2026. Current LTS: 6.18.18.
 
-**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.17.11+ or 6.18.x for best performance, or stick to 6.12-6.14 LTS for stability.
+**Important:** Avoid kernel 6.15.0-6.15.6 and 6.17.8–6.17.10 (broken). Use 6.18.18 LTS (recommended), 6.19.x (confirmed working), or 6.17.11+.
 
 ---
 
@@ -202,9 +202,15 @@ Remove `nomodeset` if you added it during installation (after Mesa is installed)
 
 ---
 
-### 5. Install Oberon Governor
+### 5. Install GPU Governor
 
-Governor is required for proper GPU frequency scaling.
+A GPU governor is required for proper GPU frequency scaling.
+
+**Option 1: Install cyan-skillfish-governor-smu from .deb (recommended)**
+
+The SMU governor is available as a .deb package from [filippor's COPR](https://github.com/filippor/cyan-skillfish-governor). It bypasses kernel patching entirely.
+
+**Option 2: Build oberon-governor from source (legacy)**
 
 ```bash
 # Install dependencies
@@ -248,7 +254,7 @@ Verify:
 
 ```bash
 systemctl status oberon-governor
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 ```
 
 ---
@@ -259,11 +265,12 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Install lm-sensors
 sudo apt install lm-sensors
 
-# Load nct6687 module
-echo 'nct6687' | sudo tee /etc/modules-load.d/nct6687.conf
+# Load nct6683 sensor module (requires force=true)
+echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 
 # Load module now
-sudo modprobe nct6687
+sudo modprobe nct6683 force=true
 
 # Verify
 sensors
@@ -351,17 +358,17 @@ vulkaninfo | grep deviceName
 
 # Kernel version
 uname -r
-# Expected: 6.17.11+, 6.18.x (best) or 6.12.x-6.14.x LTS (stable)
+# Expected: 6.18.18 LTS (recommended) or 6.17.11+
 ```
 
 ### Check Governor
 
 ```bash
-# Service status
-systemctl status oberon-governor
+# Service status (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 # Should show multiple frequencies with * moving
 ```
 
@@ -371,7 +378,7 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 sensors
 
 # Expected:
-# nct6687-isa-0a20
+# nct6686-isa-0a20
 # GPU Temp: XX°C
 # Fan speeds
 ```
@@ -394,7 +401,7 @@ sensors
 **Symptom:** GPU initialization failures, black screens on 6.15.0-6.15.6 or 6.17.8–6.17.10
 
 **Solution:**
-- Use 6.17.11+, 6.18.x for best performance
+- Use 6.18.18 LTS (recommended) or 6.17.11+
 - Or use 6.12-6.14 LTS kernels for guaranteed stability
 - Avoid 6.15.0-6.15.6 and 6.17.8–6.17.10 (known broken)
 
@@ -479,8 +486,9 @@ sudo apt install -t experimental mesa-vulkan-drivers libgl1-mesa-dri --reinstall
 ### Governor Not Working
 
 ```bash
-# Check service
-systemctl status oberon-governor
+# Check service (use whichever you installed)
+systemctl status oberon-governor          # legacy
+systemctl status cyan-skillfish-governor-smu  # SMU variant
 
 # Check logs
 journalctl -u oberon-governor -f
@@ -528,7 +536,7 @@ sudo apt install htop
 - **Debian:** [debian.org](https://www.debian.org/)
 - **PikaOS:** [pikaos.org](https://pikaos.org)
 - **Xanmod Kernel:** [xanmod.org](https://xanmod.org/)
-- **Oberon Governor:** [GitLab](https://gitlab.com/mothenjoyer69/oberon-governor)
+- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
@@ -544,11 +552,11 @@ glxinfo | grep "OpenGL version"
 # Check GPU
 vulkaninfo | grep deviceName
 
-# Check governor
-systemctl status oberon-governor
+# Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 
 # Check temps
 sensors
