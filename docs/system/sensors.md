@@ -8,7 +8,9 @@ Guide to monitoring temperatures, fan speeds, voltages, and performance metrics 
 
 The BC-250 includes multiple hardware monitoring components:
 
-- **Nuvoton NCT6686 SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds). Linux driver: `nct6683` (with `force=true`)
+- **Nuvoton NCT6686D SuperIO chip** - Motherboard sensors (temperatures, voltages, fan speeds)
+    - For **read-only monitoring**: use the in-kernel `nct6683` driver (with `force=true`)
+    - For **read+write PWM fan control**: use the out-of-tree `nct6687` driver ([Fred78290/nct6687d](https://github.com/Fred78290/nct6687d)) with `force=true`
 - **AMD GPU sensors** - GPU temperature, voltage, power consumption
 - **k10temp** - CPU temperature monitoring
 - **NVMe sensors** - M.2 drive temperature
@@ -17,64 +19,73 @@ Proper monitoring is essential to ensure your BC-250 stays within safe operating
 
 ---
 
-## NCT6683 SuperIO Driver Setup
+## SuperIO Driver Setup
 
 ### About the SuperIO Chip
 
-The BC-250 uses a Nuvoton NCT6686 Super I/O chip for hardware monitoring. The Linux kernel driver for this chip is `nct6683` (not `nct6686` — there is no kernel module by that name). The `force=true` option is required because the chip isn't auto-detected.
+The BC-250 uses a **Nuvoton NCT6686D** Super I/O chip for hardware monitoring. There are two Linux driver options:
+
+- **`nct6683`** (in-kernel) — Read-only access to sensors (temperatures, voltages, fan speeds). Cannot control fan PWM.
+- **`nct6687`** (out-of-tree, [Fred78290/nct6687d](https://github.com/Fred78290/nct6687d)) — Full read+write access including PWM fan control. **Required if you want software fan control.**
+
+Both require `force=true` because the chip isn't auto-detected. Regardless of which module is loaded, sensors will report as `nct6686-isa-0a20`.
 
 The chip provides:
 
-- Multiple temperature sensors (thermistors, AMD TSI)
-- Voltage rails monitoring
-- Fan speed monitoring (up to 5 fan headers)
-- Fan control capabilities
+- Multiple temperature sensors (CPU, System, VRM MOS, and more)
+- Voltage rails monitoring (+12V, +5V, +3.3V, CPU Soc, CPU Vcore, etc.)
+- Fan speed monitoring (up to 8 fan headers)
+- PWM fan control (only with `nct6687` module)
 
 ### Loading the Sensor Module
 
 By default, Linux may not automatically load the driver for this chip. You need to manually enable it.
 
-#### Step 1: Load the Module Temporarily
+#### Option A: Read-Only Sensors (nct6683)
 
-Test if the module loads correctly:
+Use this if you only need temperature/voltage/fan speed monitoring without PWM fan control.
+
+**Step 1:** Test if the module loads correctly:
 
 ```bash
 sudo modprobe nct6683 force=true
 ```
 
-Verify it loaded:
+**Step 2:** Make it permanent:
 
 ```bash
-lsmod | grep nct6683
+echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
+echo 'nct6683' | sudo tee /etc/modules-load.d/99-sensors.conf
 ```
 
-#### Step 2: Make it Permanent
+#### Option B: Full PWM Fan Control (nct6687 — Recommended)
 
-Create a modprobe configuration file:
+Use this if you want software fan speed control (CoolerControl, manual PWM, etc.).
+
+**Step 1:** Build and install the nct6687 module:
 
 ```bash
-sudo nano /etc/modprobe.d/sensors.conf
+git clone https://github.com/Fred78290/nct6687d.git
+cd nct6687d
+make
+sudo make install
 ```
 
-Add the following line:
-
-```
-options nct6683 force=true
-```
-
-Create a modules load file:
+**Step 2:** Configure modprobe to use nct6687 and blacklist nct6683:
 
 ```bash
-sudo nano /etc/modules-load.d/99-sensors.conf
+# Blacklist nct6683 (conflicts with nct6687)
+echo 'blacklist nct6683' | sudo tee /etc/modprobe.d/sensors.conf
+echo 'options nct6687 force=true' | sudo tee -a /etc/modprobe.d/sensors.conf
+
+# Load nct6687 on boot
+echo 'nct6687' | sudo tee /etc/modules-load.d/99-sensors.conf
 ```
 
-Add:
+!!!warning "Choose One Module"
+    Do not load both `nct6683` and `nct6687` simultaneously — they conflict. Blacklist whichever you're not using.
 
-```
-nct6683
-```
-
-#### Step 3: Regenerate Initramfs
+#### Regenerate Initramfs
 
 **On Fedora/Bazzite:**
 ```bash
@@ -96,6 +107,9 @@ Reboot for changes to take effect:
 ```bash
 sudo reboot
 ```
+
+!!!info "PWM Values Reset on Reboot"
+    The `nct6687` module does not persist PWM values across reboots. You'll need CoolerControl, a systemd service, or a udev rule to set your desired fan speed at boot.
 
 ---
 
@@ -138,51 +152,61 @@ sensors
 
 ### Expected Output
 
-Here's what you should see on a properly configured BC-250:
+The output varies depending on which Super I/O module you loaded.
 
-```bash
+**With `nct6687` module (recommended — enables PWM fan control):**
+
+```
 amdgpu-pci-0100
 Adapter: PCI adapter
-vddgfx:      906.00 mV
-vddnb:       824.00 mV
-edge:         +63.0°C
-PPT:          55.12 W  (avg =   0.00 W)
+vddgfx:      699.00 mV
+vddnb:         1.10 V
+edge:         +46.0°C
+PPT:          38.01 W  (avg =  40.25 W)
 
 nvme-pci-0300
 Adapter: PCI adapter
-Composite:    +51.9°C  (low  =  -0.1°C, high = +79.8°C)
-                       (crit = +81.8°C)
-Sensor 1:     +51.9°C  (low  = -273.1°C, high = +65261.8°C)
+Composite:    +38.9°C  (low  =  -0.1°C, high = +82.8°C)
+                       (crit = +84.8°C)
+Sensor 1:     +38.9°C  (low  = -273.1°C, high = +65261.8°C)
 
 k10temp-pci-00c3
 Adapter: PCI adapter
-Tctl:         +51.5°C
+Tctl:         +47.9°C
 
 nct6686-isa-0a20
 Adapter: ISA adapter
++12V:            0.00 V  (min =  +0.00 V, max =  +0.00 V)
++5V:             0.00 V  (min =  +0.00 V, max =  +0.00 V)
++3.3V:           3.36 V  (min =  +0.00 V, max =  +3.36 V)
+CPU Soc:         0.00 V  (min =  +0.00 V, max =  +0.00 V)
+CPU Vcore:       0.00 V  (min =  +0.00 V, max =  +0.00 V)
+CPU Fan:          0 RPM  (min =    0 RPM, max =    0 RPM)
+Pump Fan:      1907 RPM  (min = 1866 RPM, max = 1907 RPM)
+System Fan #1:    0 RPM  (min =    0 RPM, max =    0 RPM)
+...
+CPU:            +47.0°C  (low  = +35.0°C, high = +47.0°C)
+System:         +42.5°C  (low  = +20.0°C, high = +42.5°C)
+VRM MOS:        +42.0°C  (low  = +20.0°C, high = +42.0°C)
+```
+
+**With `nct6683` module (read-only, no fan control):**
+
+```
+nct6686-isa-0a20
+Adapter: ISA adapter
 VIN0:             832.00 mV (min =  +0.00 V, max =  +0.00 V)
-VIN1:               1.02 V  (min =  +0.00 V, max =  +0.00 V)
-VIN2:             976.00 mV (min =  +0.00 V, max =  +0.00 V)
-VIN6:               1.39 V  (min =  +0.00 V, max =  +0.00 V)
-VIN7:             928.00 mV (min =  +0.00 V, max =  +0.00 V)
-VIN16:            896.00 mV (min =  +0.00 V, max =  +0.00 V)
+...
 fan1:                0 RPM  (min =    0 RPM)
 fan2:             1372 RPM  (min =    0 RPM)
-fan3:                0 RPM  (min =    0 RPM)
-fan4:                0 RPM  (min =    0 RPM)
-fan5:                0 RPM  (min =    0 RPM)
-AMD TSI Addr 98h:  +63.0°C  (low  =  +0.0°C)
-                            (high =  +0.0°C, hyst =  +0.0°C)
-                            (crit =  +0.0°C)  sensor = AMD AMDSI
-Thermistor 14:     +57.5°C  (low  =  +0.0°C)
-                            (high =  +0.0°C, hyst =  +0.0°C)
-                            (crit =  +0.0°C)  sensor = thermistor
-Thermistor 15:     +57.0°C  (low  =  +0.0°C)
-                            (high =  +0.0°C, hyst =  +0.0°C)
-                            (crit =  +0.0°C)  sensor = thermistor
-intrusion0:       OK
-beep_enable:      disabled
+...
+AMD TSI Addr 98h:  +63.0°C  ...  sensor = AMD AMDSI
+Thermistor 14:     +57.5°C  ...  sensor = thermistor
+Thermistor 15:     +57.0°C  ...  sensor = thermistor
 ```
+
+!!!info "Sensor Names Differ By Module"
+    Both modules report as `nct6686-isa-0a20`, but the `nct6687` module provides named labels (CPU Fan, Pump Fan, CPU Soc, etc.) while `nct6683` shows generic names (VIN0, fan1, Thermistor 14, etc.).
 
 ### Understanding the Sensors
 
@@ -196,9 +220,18 @@ beep_enable:      disabled
 - `Tctl` - CPU temperature (Zen 2 control temperature)
 
 **SuperIO Sensors (nct6686-isa-0a20):**
-- `VIN0-VIN16` - Various voltage rails
+
+With `nct6687` module:
+
+- `+12V`, `+5V`, `+3.3V`, `CPU Soc`, `CPU Vcore` etc. - Named voltage rails
+- `CPU Fan`, `Pump Fan`, `System Fan #1-6` - Named fan speed monitoring (RPM), up to 8 channels
+- `CPU`, `System`, `VRM MOS` - Named temperature sensors
+
+With `nct6683` module:
+
+- `VIN0-VIN16` - Voltage rails (generic names)
 - `fan1-fan5` - Fan speed monitoring (RPM)
-- `AMD TSI Addr 98h` - AMD Temperature Sensor Interface (alternative CPU temp reading)
+- `AMD TSI Addr 98h` - AMD Temperature Sensor Interface (CPU temp)
 - `Thermistor 14/15` - Board temperature sensors
 
 ### Watch Sensors in Real-Time
@@ -220,7 +253,7 @@ This updates every second. Press `Ctrl+C` to exit.
 Read GPU temperature directly:
 
 ```bash
-cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
 ```
 
 This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
@@ -228,7 +261,7 @@ This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
 Convert to Celsius:
 
 ```bash
-awk '{print $1/1000 "°C"}' /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+awk '{print $1/1000 "°C"}' /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
 ```
 
 ### GPU Power Consumption
@@ -236,13 +269,13 @@ awk '{print $1/1000 "°C"}' /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
 Read current GPU power draw:
 
 ```bash
-cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
+cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average
 ```
 
 Returns power in microwatts. Convert to watts:
 
 ```bash
-awk '{print $1/1000000 "W"}' /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
+awk '{print $1/1000000 "W"}' /sys/class/drm/card1/device/hwmon/hwmon*/power1_average
 ```
 
 ### GPU Clock Speeds
@@ -250,7 +283,7 @@ awk '{print $1/1000000 "W"}' /sys/class/drm/card0/device/hwmon/hwmon*/power1_ave
 Check current GPU frequency:
 
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
 Example output:
@@ -276,10 +309,12 @@ sensors | grep -A 5 "fan"
 
 ### Fan Headers on BC-250
 
-The board has **5 fan headers** (shown as fan1-fan5 in sensors):
+The board has two physical fan headers: **J1** (primary) and **J4003** (secondary).
 
-- Usually only **fan2** is used for the main cooling fan
-- Other headers may show 0 RPM if not connected
+The Super I/O chip exposes up to 8 fan channels in software (fan1-fan8), but only the connected headers will show RPM readings:
+
+- The main cooling fan typically reads as **Pump Fan** (fan2 in `nct6687` output, or fan2 in `nct6683` output)
+- Other channels show 0 RPM if not connected
 
 ### BIOS Fan Control Settings
 
@@ -293,6 +328,9 @@ The BC-250 BIOS has three fan control modes:
 
 ### Manual Fan Control via PWM
 
+!!!warning "Requires nct6687 Module"
+    PWM fan control requires the `nct6687` module. The in-kernel `nct6683` module provides read-only access and cannot set PWM values.
+
 Check available PWM controls:
 
 ```bash
@@ -302,14 +340,15 @@ ls /sys/class/hwmon/hwmon*/pwm*
 Set fan speed manually (value 0-255, where 255 = 100%):
 
 ```bash
-echo 200 | sudo tee /sys/class/hwmon/hwmon*/pwm2
+# Find the hwmon for nct6686
+HWMON=$(grep -l nct6686 /sys/class/hwmon/hwmon*/name | head -1 | xargs dirname)
+
+# Set PWM (0=off, 127=50%, 255=100%)
+echo 80 | sudo tee $HWMON/pwm2
 ```
 
-Enable manual PWM control:
-
-```bash
-echo 1 | sudo tee /sys/class/hwmon/hwmon*/pwm2_enable
-```
+!!!info "PWM Resets on Reboot"
+    PWM values set manually are not persistent across reboots. Use CoolerControl or a systemd service to set fan speed at boot.
 
 ---
 
@@ -590,9 +629,9 @@ From Discord testing:
    sensors --version
    ```
 
-### NCT6683 Module Won't Load
+### Sensor Module Won't Load
 
-**Problem:** `modprobe nct6683 force=true` fails or doesn't work.
+**Problem:** `modprobe nct6683 force=true` or `modprobe nct6687 force=true` fails.
 
 **Solutions:**
 
@@ -601,20 +640,30 @@ From Discord testing:
    uname -r
    ```
 
-2. Verify chip detection:
+2. Check dmesg for errors:
    ```bash
-   sudo sensors-detect
+   dmesg | grep -i nct
    ```
 
-3. Check dmesg for errors:
+3. Ensure the modules are not conflicting — only load one at a time:
    ```bash
-   dmesg | grep nct6683
-   ```
-
-4. If `nct6683` doesn't provide PWM fan control, try `nct6687` (provides read-write PWM on some kernels):
-   ```bash
+   # Check what's loaded
+   lsmod | grep nct
+   
+   # If nct6683 is loaded but you want nct6687:
+   sudo rmmod nct6683
    sudo modprobe nct6687 force=true
    ```
+
+4. For nct6687, you may need to build from source if it's not packaged for your distro:
+   ```bash
+   git clone https://github.com/Fred78290/nct6687d.git
+   cd nct6687d && make && sudo make install
+   sudo modprobe nct6687 force=true
+   ```
+
+!!!info "nct6683 vs nct6687"
+    `nct6683` is read-only (temperature, voltage, fan speed monitoring). `nct6687` provides full read+write access including PWM fan control. For fan curves and manual speed control, you need `nct6687`.
 
 ### GPU Temperature Not Showing
 
@@ -634,7 +683,7 @@ From Discord testing:
 
 3. Check amdgpu sysfs directly:
    ```bash
-   cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
+   cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
    ```
 
 4. Ensure Mesa 25.1+ is installed:
@@ -692,9 +741,9 @@ echo "Timestamp,GPU_Temp,CPU_Temp,GPU_Power" > "$LOGFILE"
 
 while true; do
     TIMESTAMP=$(date +%s)
-    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
     CPU_TEMP=$(sensors k10temp-pci-00c3 -u 2>/dev/null | grep temp1_input | awk '{print $2}')
-    GPU_POWER=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
+    GPU_POWER=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
 
     echo "$TIMESTAMP,$GPU_TEMP,$CPU_TEMP,$GPU_POWER" >> "$LOGFILE"
     sleep 5
@@ -722,7 +771,7 @@ Save as `~/temp-alert.sh`:
 THRESHOLD=85
 
 while true; do
-    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
 
     if (( $(echo "$GPU_TEMP > $THRESHOLD" | bc -l) )); then
         notify-send -u critical "BC-250 Temperature Alert" "GPU temp: ${GPU_TEMP}°C (threshold: ${THRESHOLD}°C)"
@@ -746,13 +795,13 @@ sensors
 watch -n 1 sensors
 
 # GPU temperature only
-cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
+cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
 
 # GPU power consumption
-cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
+cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
 
 # GPU clock speed
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Launch nvtop
 nvtop

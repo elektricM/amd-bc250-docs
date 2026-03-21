@@ -63,16 +63,16 @@ Add these to GRUB configuration:
 sudo nano /etc/default/grub
 
 # Add to GRUB_CMDLINE_LINUX_DEFAULT:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 ```
 
 **Parameter Explanations:**
 
 - `quiet` - Reduces boot messages (optional)
-- `amdgpu.sg_display=0` - **Required for kernels < 6.10** - disables scatter-gather display
+- `amdgpu.sg_display=0` - **Only needed for kernels < 6.10** (disables scatter-gather display). On kernel 6.10+ (including current Fedora 43 kernel 6.19.x), this parameter is not needed and can be omitted.
 
 !!!info "amdgpu.sg_display"
-    This parameter is only needed for kernels older than 6.10. If using 6.11+, it doesn't hurt to leave it, but it's not strictly necessary.
+    This parameter is only required for kernels older than 6.10. Modern distros running 6.16+ do not need it. The modprobe option `options amdgpu sg_display=0` achieves the same thing and is still safe to keep as a fallback.
 
 ### Performance Parameters (Optional)
 
@@ -92,7 +92,8 @@ Disabling CPU security mitigations provides a noticeable performance boost for g
 sudo nano /etc/default/grub
 
 # Add mitigations=off to GRUB_CMDLINE_LINUX_DEFAULT:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
+# Note: amdgpu.sg_display=0 only needed for kernels < 6.10
 
 # Update GRUB
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg  # Fedora
@@ -456,7 +457,7 @@ glxinfo | grep "OpenGL renderer"
 | 6.17.8-6.17.10 | ❌ **Broken** | GPU driver broken |
 | 6.17.11+ | ✅ **Recommended** | Kernel fix applied |
 | 6.18.x LTS | ✅ **Best** | 6.18.18 is current LTS, 5-10% faster than 6.17 |
-| 6.19.x (6.19.8 stable) | ✅ **Good** | Current stable, works well |
+| 6.19.x | ✅ **Good** | Current stable (6.19.8 confirmed working on Fedora 43, March 2026) |
 | 7.0-rc | 🔬 **Mainline** | Not tested on BC-250, do not use in production |
 
 ## See Also

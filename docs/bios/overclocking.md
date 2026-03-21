@@ -19,7 +19,7 @@ Overclocking the BC-250 GPU beyond the default 1500 MHz lock.
 ### What Can Be Overclocked
 
 - **GPU Frequency:** 1500 MHz (locked) → 2000-2230 MHz (with governor)
-- **GPU Voltage:** 700-1100 mV
+- **GPU Voltage:** 700-1129 mV (stock kernel OD_RANGE)
 - **Memory:** Adjustable via community Mem Timing Utility (advanced — incorrect settings will crash the system)
 
 ---
@@ -257,17 +257,17 @@ Start at 2000 MHz @ 1000 mV and work up. Stability varies by board (silicon lott
 
 ```bash
 # View current frequency/voltage table
-cat /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card1/device/pp_od_clk_voltage
 
 # Set voltage and frequency
 # Format: vc <level> <frequency_MHz> <voltage_mV>
-echo "vc 0 2100 1025" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
+echo "vc 0 2100 1025" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
 
 # Commit changes
-echo "c" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
+echo "c" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
 
 # Verify
-cat /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card1/device/pp_od_clk_voltage
 ```
 
 **Test with benchmark:**
@@ -435,7 +435,7 @@ systemctl status cyan-skillfish-governor-tt
 sudo systemctl restart cyan-skillfish-governor-tt
 
 # Check applied settings
-cat /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card1/device/pp_od_clk_voltage
 ```
 
 ## Advanced: Multiple Voltage Points
@@ -447,13 +447,13 @@ For Cyan-Skillfish Governor or manual tuning:
 1. Test each frequency point:
 ```bash
 # Test 1500 MHz
-echo "vc 0 1500 875" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
-echo "c" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
+echo "vc 0 1500 875" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
+echo "c" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
 # Run benchmark, find minimum stable voltage
 
 # Test 1750 MHz
-echo "vc 0 1750 950" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
-echo "c" | sudo tee /sys/class/drm/card0/device/pp_od_clk_voltage
+echo "vc 0 1750 950" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
+echo "c" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
 # Run benchmark, find minimum stable voltage
 
 # Repeat for 2000, 2100, 2175, 2230 MHz

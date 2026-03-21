@@ -254,7 +254,7 @@ Verify:
 
 ```bash
 systemctl status oberon-governor
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
 ---
@@ -264,16 +264,23 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```bash
 # Install lm-sensors
 sudo apt install lm-sensors
+```
 
-# Load nct6683 sensor module (requires force=true)
+For **read-only monitoring** (temperatures, voltages, fan speeds):
+
+```bash
 echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
 echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
-
-# Load module now
 sudo modprobe nct6683 force=true
+```
 
-# Verify
+For **PWM fan control**, use the `nct6687` module instead — see the [Sensors Guide](../system/sensors.md) for full instructions.
+
+Verify:
+
+```bash
 sensors
+# Should show nct6686-isa-0a20 with temperatures and fan speeds
 ```
 
 ---
@@ -368,7 +375,7 @@ uname -r
 systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 # Should show multiple frequencies with * moving
 ```
 
@@ -556,7 +563,7 @@ vulkaninfo | grep deviceName
 systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Check temps
 sensors

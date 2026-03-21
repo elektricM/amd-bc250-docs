@@ -23,13 +23,13 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Compute Units:** 24 CUs (down from 36 CUs in full PS5 APU)
 - **Codename:** Cyan Skillfish (gfx1013)
 - **Base Frequency:** 1500 MHz (locked without governor)
-- **Maximum Frequency:** 2000-2230 MHz (with kernel patch and governor)
+- **Maximum Frequency:** 2000 MHz stock kernel, up to 2230 MHz with kernel patch and governor
 - **Performance:** Comparable to RX 6600 / GTX 1660 Ti in gaming workloads
 
 !!!success "GPU Features"
     - Hardware ray tracing support (RDNA 2 RT cores)
     - FSR (FidelityFX Super Resolution) compatible
-    - Vulkan 1.3 support
+    - Vulkan 1.4 support (1.4.328 with Mesa 25.3+)
     - No video encoding/decoding (VCN disabled)
 
 ### Memory Configuration
@@ -79,10 +79,10 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 
 #### Storage
 
-- **M.2 Slot:** 1x M.2 2280 slot (PCIe Gen 2 x2)
-- **Speed:** ~1 GB/s maximum
-- **USB:** 1x USB 3.0 port (Type-A)
-- **USB Speed:** ~480 MB/s (SATA speed equivalent)
+- **M.2 Slot:** 1x M.2 2280 slot (PCIe 2.0 x2 or SATA III)
+- **Speed:** ~1 GB/s maximum (NVMe) or ~550 MB/s (SATA)
+- **USB:** 2x USB 3.0 + 2x USB 2.0 (4 ports total)
+- **Ethernet:** 1x Gigabit Ethernet (Realtek RTL8111H)
 
 #### Fan Headers
 
@@ -92,14 +92,15 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Control:** PWM (Pulse Width Modulation)
 
 !!!tip "Fan Control"
-    The nct6683 kernel module (with `force=true`) enables sensor and PWM control.
+    For **read-only** sensor monitoring: use the `nct6683` kernel module (with `force=true`).
+    For **read+write PWM fan control**: use the `nct6687` module ([Fred78290/nct6687d](https://github.com/Fred78290/nct6687d)) with `force=true`. The in-kernel `nct6683` driver cannot write PWM values.
 
 #### Other Headers
 
 - **Power Button:** Onboard button only (no header - soldering required for external switch)
 - **Debug Header:** 20-pin AMD HDT1 debug connector
 - **SPI Flash:** Header for BIOS flashing
-- **Super I/O:** NCT6683 chip for sensors and fan control (module: `nct6683` with `force=true`)
+- **Super I/O:** NCT6686D chip for sensors and fan control (sensor module: `nct6683`, PWM control module: `nct6687` — both require `force=true`)
 
 ## Heatsink and Cooling
 

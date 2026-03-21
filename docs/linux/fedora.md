@@ -145,14 +145,15 @@ sudo systemctl enable --now oberon-governor.service
 
 ### Step 5: Configure Sensors
 
+For **read-only monitoring** (temperatures, voltages, fan speeds):
+
 ```bash
-# Load sensor module
 echo 'nct6683' | sudo tee /etc/modules-load.d/99-sensors.conf
 echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/options-sensors.conf
-
-# Regenerate initramfs
 sudo dracut --regenerate-all --force
 ```
+
+For **PWM fan control** (recommended), use `nct6687` instead — see the [Sensors Guide](../system/sensors.md) for full setup instructions.
 
 ### Step 6: Remove nomodeset and Configure GRUB
 
@@ -296,7 +297,7 @@ sudo systemctl restart cyan-skillfish-governor-tt
 mangohud steam
 
 # Check GPU frequency scaling
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 # Should show frequencies changing under load
 ```
 
@@ -330,12 +331,14 @@ sudo dnf install kernel-6.18.18-200
 
 ## Performance Tuning
 
-### Enable Performance Governor
+### CPU Frequency Scaling
 
-```bash
-# For better gaming performance
-sudo cpupower frequency-set -g performance
-```
+!!!info "Requires ACPI Fix"
+    CPU frequency scaling is not available by default on BC-250. Install the [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) SSDT-PST table to enable cpufreq with 8 P-states (800-3200 MHz). With the fix, `schedutil` governor is recommended:
+
+    ```bash
+    echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+    ```
 
 ### Optimize for Low Latency
 

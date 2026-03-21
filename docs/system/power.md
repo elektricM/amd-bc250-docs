@@ -291,22 +291,19 @@ max_voltage = 950     # Reduced max voltage
 
 Result: 60-70W idle possible
 
-**Step 3: CPU Power Management (Advanced)**
+**Step 3: CPU Power Management**
 
-Enable CPU idle states:
+!!!info "CPU Frequency Scaling — Requires ACPI Fix"
+    By default, the BC-250 does not expose CPU frequency scaling (no cpufreq interface). However, installing the [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) SSDT-PST table enables standard Linux cpufreq with 8 P-states from 800 MHz to 3200 MHz. With the ACPI fix installed:
 
-```bash
-# Check current CPU governor
-cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ```bash
+    # Set CPU governor (schedutil recommended for balanced power/performance)
+    echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 
-# Set to powersave or schedutil
-echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+    # Available: conservative, ondemand, userspace, powersave, performance, schedutil
+    ```
 
-# Check idle states
-sudo cpupower idle-info
-```
-
-Result: Additional 2-3W savings (65W idle achievable)
+    Without the ACPI fix, `cpupower frequency-set` will not work.
 
 **Best Case Scenario:**
 

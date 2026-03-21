@@ -24,8 +24,13 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 !!!success "Essential for Performance"
     The governor is not optional for good gaming performance. Without it, you're stuck at 1500 MHz.
 
-!!!danger "ACPI Fix is Essential"
-    The BC-250 ACPI fix is required for proper C-State support and power management. Without it, you won't get proper idle power states. Install from [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix).
+!!!success "ACPI Fix — Recommended"
+    The [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) provides SSDT tables for CPU C-State and P-State support:
+
+    - **SSDT-CST (C-States):** Enables C1/C2/C3 CPU idle states. Without this, CPU cores never enter sleep at idle.
+    - **SSDT-PST (P-States):** Enables CPU frequency scaling from 800 MHz to 3200 MHz via standard Linux cpufreq governors (schedutil, powersave, etc.). Confirmed working on kernel 6.19.8.
+
+    Both tables are loaded via initrd override — see the [ACPI fix installation section](#acpi-fix-installation) below. Not required for GPU governor operation, but significantly improves CPU idle power and enables CPU frequency scaling.
 
 !!!danger "Minimum Voltage: 700mV"
     Never set minimum GPU voltage below 700mV. This locks the GPU to 1500MHz and defeats the purpose of the governor.
@@ -337,7 +342,7 @@ systemctl status cyan-skillfish-governor-tt
 
 ```bash
 # View current GPU frequencies
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000Mhz
@@ -369,7 +374,7 @@ Shows real-time GPU frequency, voltage, and temperature.
 **Command Line:**
 ```bash
 # Watch frequency changes
-watch -n 1 'cat /sys/class/drm/card0/device/pp_dpm_sclk'
+watch -n 1 'cat /sys/class/drm/card1/device/pp_dpm_sclk'
 ```
 
 **MangoHud (In-Game Overlay):**
@@ -644,6 +649,77 @@ sudo systemctl restart cyan-skillfish-governor-tt
 
 !!!warning "Overclocking Risks"
     Overclocking can cause instability, crashes, and potentially hardware damage. Always monitor temperatures and test thoroughly.
+
+## ACPI Fix Installation
+
+The [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) provides SSDT tables that enable CPU C-States (idle sleep) and P-States (frequency scaling). Both are confirmed working on kernel 6.19.8.
+
+### What It Enables
+
+- **C-States (SSDT-CST):** CPU cores enter C1/C2/C3 sleep states at idle, reducing power consumption
+- **P-States (SSDT-PST):** CPU frequency scales from 800 MHz to 3200 MHz using standard Linux cpufreq governors (schedutil, powersave, performance, etc.)
+
+### Installation
+
+**Step 1: Clone and build the initrd override**
+
+```bash
+git clone https://github.com/bc250-collective/bc250-acpi-fix.git
+cd bc250-acpi-fix
+
+# Create ACPI override cpio archive
+mkdir -p kernel/firmware/acpi
+cp SSDT-CST.aml SSDT-PST.aml kernel/firmware/acpi/
+find kernel | cpio -o -H newc > /tmp/acpi_override.cpio
+
+# Copy to /boot
+sudo cp /tmp/acpi_override.cpio /boot/acpi_override.cpio
+```
+
+**Step 2: Add to boot loader**
+
+On Fedora (BLS entries):
+
+```bash
+# Edit the BLS entry for your current kernel
+sudo nano /boot/loader/entries/$(cat /etc/machine-id)-$(uname -r).conf
+
+# Prepend /acpi_override.cpio to the initrd line:
+# Before: initrd /initramfs-6.19.8-200.fc43.x86_64.img
+# After:  initrd /acpi_override.cpio /initramfs-6.19.8-200.fc43.x86_64.img
+```
+
+On Arch/Debian (GRUB):
+
+```bash
+# Add to /etc/default/grub:
+GRUB_EARLY_INITRD_LINUX_CUSTOM="acpi_override.cpio"
+
+# Regenerate GRUB
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg  # Fedora
+sudo grub-mkconfig -o /boot/grub/grub.cfg    # Arch
+sudo update-grub                              # Debian
+```
+
+**Step 3: Reboot and verify**
+
+```bash
+sudo reboot
+
+# After reboot, check C-states:
+ls /sys/devices/system/cpu/cpu0/cpuidle/
+# Should show state0, state1, state2, state3
+
+# Check P-states:
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+# Should show: 3200000 2550000 2325000 1960000 1820000 1600000 1271000 800000
+
+# Set recommended CPU governor:
+echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+```
+
+!!!warning "Kernel Update Note"
+    When you update to a new kernel, the BLS entry for the new kernel won't include the ACPI override. You'll need to edit the new entry or automate this with a kernel-install hook.
 
 ## Community Resources
 

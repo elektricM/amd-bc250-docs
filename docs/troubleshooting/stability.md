@@ -648,7 +648,7 @@ watch -n 1 sensors
 
 **Terminal 2 - Frequencies and voltages**:
 ```bash
-watch -n 1 'cat /sys/class/drm/card0/device/pp_od_clk_voltage'
+watch -n 1 'cat /sys/class/drm/card1/device/pp_od_clk_voltage'
 ```
 
 **Terminal 3 - Memory**:

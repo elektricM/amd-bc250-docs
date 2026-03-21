@@ -315,16 +315,21 @@ Quick DIY solution using cardboard or foam board.
 
 ## Fan Control
 
-### PWM Control with nct6683
+### PWM Control with nct6687
 
-The BC-250 uses the NCT6683 Super I/O chip for fan and sensor control.
+The BC-250 uses the NCT6686D Super I/O chip. For PWM fan control, you need the `nct6687` module ([Fred78290/nct6687d](https://github.com/Fred78290/nct6687d)). The in-kernel `nct6683` module is read-only and cannot set fan speeds.
 
 **Driver Installation:**
 
 ```bash
-# Load kernel module (requires force=true)
-echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
-echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
+# Build and install nct6687 module
+git clone https://github.com/Fred78290/nct6687d.git
+cd nct6687d && make && sudo make install
+
+# Blacklist nct6683 and enable nct6687
+echo 'blacklist nct6683' | sudo tee /etc/modprobe.d/sensors.conf
+echo 'options nct6687 force=true' | sudo tee -a /etc/modprobe.d/sensors.conf
+echo 'nct6687' | sudo tee /etc/modules-load.d/99-sensors.conf
 
 # Rebuild initramfs
 sudo dracut --regenerate-all --force  # Fedora
@@ -338,7 +343,7 @@ sudo reboot
 **Verify:**
 ```bash
 sensors
-# Should show nct6686-isa-0a20 with fan speeds
+# Should show nct6686-isa-0a20 with named fan speeds and temperatures
 ```
 
 ### CoolerControl (GUI Fan Curves)
@@ -393,12 +398,25 @@ The BIOS offers three fan modes:
 Set fan speed manually (for testing):
 
 ```bash
-# Set fan 1 to 80% speed
-echo 80 | sudo tee /sys/class/hwmon/hwmon*/pwm1
+# Find the hwmon for the nct6686 chip
+HWMON=$(grep -l nct6686 /sys/class/hwmon/hwmon*/name | head -1 | xargs dirname)
+
+# Enable manual PWM mode (required before writing PWM values)
+# Main fan is on pwm2 (Pump Fan header)
+echo 1 | sudo tee $HWMON/pwm2_enable
+
+# Set fan to 80% speed (value 0-255)
+echo 200 | sudo tee $HWMON/pwm2
 
 # Set to 100% (255 = full speed)
-echo 255 | sudo tee /sys/class/hwmon/hwmon*/pwm1
+echo 255 | sudo tee $HWMON/pwm2
 ```
+
+!!!warning "Requires nct6687 Module"
+    PWM fan control requires the `nct6687` module. The in-kernel `nct6683` module is read-only.
+
+!!!info "Fan Header Mapping"
+    The main cooling fan is typically connected to the **Pump Fan** header, which is `fan2`/`pwm2` in sysfs. `CPU Fan` (fan1) and `System Fan` headers (fan3+) are usually unused.
 
 ## Cooling Solutions by Budget
 

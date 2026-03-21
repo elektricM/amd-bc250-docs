@@ -14,12 +14,12 @@ Mesa provides the OpenGL and Vulkan drivers (RADV) required for BC-250 GPU suppo
 
 ### Recommended Version
 
-**Mesa 25.2.4+ recommended for stability**
+**Mesa 25.3.x+ recommended for stability**
 
-- Bug fixes and performance improvements over 25.1
-- Better compatibility
-- Mesa 25.2.4 confirmed working on Bazzite (Feb 2026)
-- Mesa 25.1.3+ is minimum, but 25.2.x is the validated stable target
+- Bug fixes and performance improvements over earlier versions
+- Better compatibility and performance
+- Mesa 25.3.6 confirmed working on Fedora 43 (March 2026)
+- Mesa 25.1.3+ is minimum, but 25.3.x is the current validated stable target
 
 !!!info "Mesa and Governor Independence"
     The cyan-skillfish-governor tool works independently of Mesa version and kernel version. Mesa 25.1+ is specifically required for GPU 3D acceleration (OpenGL/Vulkan), not for power management or fan control. These are separate concerns.
@@ -455,7 +455,8 @@ sudo dnf versionlock add mesa\*
 | 25.1.0 | ✅ Yes | First official support |
 | 25.1.3+ | ✅ Minimum | Stable, bug fixes |
 | 25.1.5+ | ✅ Good | Improvements over 25.1.3 |
-| 25.2.4+ | ✅ **Recommended** | Current stable (Feb 2026) |
+| 25.2.x | ✅ Good | Stable, Feb 2026 |
+| 25.3.x | ✅ **Recommended** | Current stable (March 2026, e.g. 25.3.6 on Fedora 43) |
 | 26.0 | ✅ Latest | Available on Debian sid/Ubuntu 26.04 daily |
 
 ## See Also

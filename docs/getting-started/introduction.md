@@ -9,7 +9,7 @@ The BC-250 was originally designed for cryptocurrency mining, likely Ethereum, b
 - **CPU:** 6x Zen 2 cores running at ~3.5GHz
 - **GPU:** 24 RDNA2 Compute Units (codename "Cyan Skillfish")
 - **Memory:** 16GB GDDR6 shared between CPU and GPU
-- **Connectivity:** DisplayPort, M.2 NVMe slot, USB 3.0 ports
+- **Connectivity:** 1x DisplayPort, 2x USB 3.0, 2x USB 2.0, 1x GbE Ethernet, M.2 NVMe/SATA slot
 - **Power:** PCIe 8-pin connector, 220W TDP
 
 ## Key Capabilities

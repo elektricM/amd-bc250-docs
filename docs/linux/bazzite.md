@@ -225,7 +225,7 @@ systemctl reboot
 
 ### Temperature Sensors
 
-Enable the nct6683 sensor module for temperature and fan monitoring:
+For **read-only monitoring** (temperatures, voltages, fan speeds):
 
 ```bash
 echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
@@ -233,11 +233,13 @@ echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
 systemctl reboot
 ```
 
+For **PWM fan control**, use the `nct6687` module instead — see the [Sensors Guide](../system/sensors.md) for full instructions.
+
 Verify:
 
 ```bash
 sensors
-# Should show nct6686-isa-0a20 with GPU temp, fan speeds
+# Should show nct6686-isa-0a20 with temperatures and fan speeds
 ```
 
 ### CoolerControl (Optional)
@@ -342,7 +344,7 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 sudo systemctl restart cyan-skillfish-governor-tt
 
 # Verify frequency scaling
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
 ### Boot Slow / Black Screen During Boot
@@ -386,7 +388,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Check temperatures
 sensors
@@ -406,7 +408,7 @@ vulkaninfo | grep deviceName
 nvtop
 
 # Check governor scaling
-watch -n 1 cat /sys/class/drm/card0/device/pp_dpm_sclk
+watch -n 1 cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
 ---
@@ -421,7 +423,7 @@ ujust update
 systemctl status cyan-skillfish-governor-tt
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Check temps
 sensors

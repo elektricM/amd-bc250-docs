@@ -14,7 +14,7 @@ sensors
 
 # Check GPU utilization and frequency
 watch -n 1 cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent
-watch -n 1 cat /sys/class/drm/card0/device/pp_dmu_clock
+watch -n 1 cat /sys/class/drm/card1/device/pp_dpm_mclk
 
 # Check if GPU driver is loaded
 lspci -k | grep -A 3 VGA
@@ -147,7 +147,7 @@ Apply to kernel source and recompile, or use a tool like `dkms` or CachyOS kerne
 
 **Verification:**
 ```bash
-cat /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card1/device/pp_od_clk_voltage
 # Should show range up to 2300MHz or higher
 ```
 
@@ -229,7 +229,7 @@ dmesg | grep amdgpu
 
 Common fix - ensure these kernel parameters are set (and `nomodeset` is removed):
 ```bash
-# Edit /etc/default/grub
+# Edit /etc/default/grub (sg_display=0 only needed for kernels < 6.10)
 GRUB_CMDLINE_LINUX_DEFAULT="amdgpu.sg_display=0"
 
 # Regenerate grub config
@@ -662,7 +662,7 @@ Use this checklist to verify your system is properly configured:
 **Quick test:**
 ```bash
 # This should show GPU scaling dynamically
-watch -n 0.5 'cat /sys/class/drm/card0/device/pp_dmu_clock && cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent'
+watch -n 0.5 'cat /sys/class/drm/card1/device/pp_dpm_mclk && cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent'
 
 # Run a game or benchmark
 # Frequency should scale from ~1000MHz idle to 2000+MHz under load

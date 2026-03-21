@@ -71,8 +71,8 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 !!!info "SMU Governor Alternative (No Kernel Patch Needed)"
     The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Best option for CachyOS/Arch. Install via AUR: `yay -S cyan-skillfish-governor-smu`
 
-!!!danger "ACPI Fix is Essential"
-    Install the BC-250 ACPI fix for proper C-State support and power management: [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix)
+!!!success "ACPI Fix — Recommended"
+    The [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) enables CPU C-States (idle power savings) and P-States (CPU frequency scaling 800-3200 MHz). Loaded via initrd override. See the [Governor page](../system/governor.md) for installation instructions.
 
 !!!warning "Governor Device Targeting"
     **Known Issue:** Governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration.
@@ -140,7 +140,7 @@ systemctl status cyan-skillfish-governor-tt
 # Should show: active (running)
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 # Should show multiple frequencies, one marked with *
 ```
 
@@ -189,7 +189,7 @@ This fixes graphical glitches in some games.
 **Solution:**
 
 1. Check governor is running: `systemctl status cyan-skillfish-governor-tt`
-2. Check GPU frequency: `cat /sys/class/drm/card0/device/pp_dpm_sclk`
+2. Check GPU frequency: `cat /sys/class/drm/card1/device/pp_dpm_sclk`
 3. Should NOT be stuck at 1500MHz
 
 ### High Temperatures

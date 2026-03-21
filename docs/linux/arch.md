@@ -173,16 +173,16 @@ sudo ./bc520-manjaro.sh
 2. **RADV Environment Configuration**
    - Creates `/etc/environment.d/99-radv-bc250.conf`:
      ```bash
-     RADV_DEBUG=nocompute
+     RADV_DEBUG=nohiz
      ```
-   - Disables broken compute queue (prevents glitches)
+   - Fixes Z-buffer glitches. Note: `nocompute` is no longer needed on Mesa 25.1+ (compute queue disabled automatically)
 
 3. **AMD GPU Kernel Module**
-   - Creates `/etc/modprobe.d/amdgpu-bc250.conf`:
+   - May create `/etc/modprobe.d/amdgpu-bc250.conf`:
      ```bash
      options amdgpu sg_display=0
      ```
-   - Only required for kernels < 6.10, safe to keep
+   - Only required for kernels < 6.10, harmless to keep on modern kernels
 
 4. **Temperature Sensors**
    - Loads nct6683 module
@@ -211,22 +211,25 @@ Find `GRUB_CMDLINE_LINUX_DEFAULT` and update:
 
 **Basic:**
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 ```
 
 **With performance boost:**
 ```
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0 mitigations=off"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
 ```
 
 **Remove nomodeset** (if added during install):
 ```
 # WRONG:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet nomodeset amdgpu.sg_display=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet nomodeset"
 
 # CORRECT:
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amdgpu.sg_display=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 ```
+
+!!!info "amdgpu.sg_display=0"
+    This parameter is only needed for kernels older than 6.10. On modern kernels (6.16+) it can be omitted.
 
 Update GRUB:
 ```bash
@@ -294,7 +297,7 @@ systemctl status oberon-governor              # legacy
 ### Check Frequency Scaling
 
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000MHz
@@ -327,17 +330,15 @@ sudo systemctl restart cyan-skillfish-governor-tt  # or oberon-governor
 sensors
 
 # Expected output:
-# nct6683-isa-0a20
-# GPU Temp: +45.0°C
-# SoC Temp: +42.0°C
-# Fan1: 1800 RPM
-# Fan2: 1800 RPM
+# nct6686-isa-0a20
+# With nct6687: CPU: +XX°C, System: +XX°C, Pump Fan: XXXX RPM
+# With nct6683: VIN0-16, fan1-fan5, AMD TSI, Thermistors
 ```
 
 **If not showing:**
 ```bash
-lsmod | grep nct6683
-sudo modprobe nct6683
+lsmod | grep -E 'nct6683|nct6687'
+# Load the appropriate module (see sensors guide for nct6687 PWM option)
 dmesg | grep nct6683
 ```
 
@@ -469,7 +470,7 @@ fastfetch
 nvtop
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Check governor (use whichever you installed)
 systemctl status cyan-skillfish-governor-tt

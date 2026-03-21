@@ -760,7 +760,7 @@ xrandr --listproviders
 
 # DRM devices
 ls -la /sys/class/drm/
-# Should show card0, card0-DP-1
+# Should show card1, card1-DP-1
 
 # Current display mode
 xrandr

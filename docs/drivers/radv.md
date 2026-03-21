@@ -38,13 +38,13 @@ The BC-250 **only works on Linux** for gaming and desktop use. There is no Windo
 
 BC-250 support was added upstream in Mesa 25.1.0. **Do not use older versions** - they will not work properly or at all.
 
-### Recommended: Mesa 25.2.4+
+### Recommended: Mesa 25.3.6+
 
-For stability and performance, use Mesa 25.2.4 or newer:
+For stability and performance, use Mesa 25.3.6 or newer:
 
 - **25.1.0** - Initial BC-250 support
 - **25.1.3+** - Minimum recommended
-- **25.2.4** - Confirmed working (Bazzite Feb 2026), current stable target
+- **25.3.6** - Confirmed working (Fedora 43, March 2026), current stable target
 
 ### What Changed in Mesa 25.1?
 
@@ -727,7 +727,7 @@ unset MESA_SHADER_CACHE_DISABLE
 **Quick Check:**
 ```bash
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Should show multiple frequency levels with * at current:
 # 0: 1000Mhz

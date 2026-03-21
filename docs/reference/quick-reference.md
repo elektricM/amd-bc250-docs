@@ -51,13 +51,13 @@ Fast answers to common questions. For detailed information, see the full documen
 ### Kernel Parameters
 
 ```bash
-# Required in /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT:
+# Standard in /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT:
 quiet
 
-# Optional performance boost:
+# Optional performance boost (+18 FPS in some games):
 mitigations=off
 
-# For older kernels <6.10 only:
+# For older kernels < 6.10 only (not needed on 6.10+):
 amdgpu.sg_display=0
 ```
 
@@ -117,8 +117,8 @@ amdgpu.sg_display=0
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| Mesa | 25.1.0 | 25.2.4+ |
-| Kernel | 6.12.x | 6.18.18 LTS or 6.17.11+ |
+| Mesa | 25.1.0 | 25.3.x+ (25.3.6 on Fedora 43) |
+| Kernel | 6.12.x | 6.18.18 LTS or 6.19.x stable |
 | Governor | Any | cyan-skillfish-governor-tt or -smu |
 
 [Linux setup guide →](../linux/distributions.md)
@@ -202,8 +202,11 @@ sudo systemctl restart cyan-skillfish-governor-tt
 
 ### Check GPU Frequency
 
+!!!note "GPU Card Number"
+    The BC-250 GPU is typically `card1` (not `card0`). Verify with: `ls /sys/class/drm/ | grep "^card"`. All sysfs paths in this documentation use `card1`.
+
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 # Should show multiple frequencies, current one marked with *
 ```
 
@@ -227,7 +230,7 @@ vulkaninfo | grep deviceName
 
 # Check RAM/VRAM split
 free -h
-cat /sys/class/drm/card0/device/mem_info_vram_total
+cat /sys/class/drm/card1/device/mem_info_vram_total
 
 # Check temperatures
 sensors
@@ -281,9 +284,9 @@ For most games:
 RADV_DEBUG=nohiz %command%
 ```
 
-For games with visual glitches:
+For games with visual glitches (Mesa < 25.1 only — `nocompute` is automatic on 25.1+):
 ```
-RADV_DEBUG=nohiz,nocompute %command%
+RADV_DEBUG=nohiz %command%
 ```
 
 ### Expected FPS (1080p)
@@ -359,7 +362,7 @@ RADV_DEBUG=nohiz,nocompute %command%
     4. **Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10** (GPU driver fails)
     5. **700mV minimum voltage** (GPU locks to 1500MHz below this)
     6. **Active DP-HDMI adapters break audio**
-    7. **ACPI fix is essential** — required for C-State support and power management ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
+    7. **ACPI fix recommended** — SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
     8. **No HW video encode/decode** — VCN firmware blocked by Sony, software decoding only
     9. **Do NOT use Smokeless_UMAF** — may cause permanent damage to the board
 

@@ -183,7 +183,7 @@ sudo systemctl enable --now oberon-governor.service
 
 **Verify it's working:**
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card1/device/pp_dpm_sclk
 # Should show multiple frequencies, * moves based on load
 # Note: Your GPU may be card1 instead - check /sys/class/drm/ if card0 doesn't work
 ```
@@ -195,17 +195,24 @@ cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```bash
 # Install lm_sensors
 sudo pacman -S lm_sensors
+```
 
-# Load nct6683 sensor module (requires force=true)
+For **read-only monitoring** (temperatures, voltages, fan speeds):
+
+```bash
 echo 'nct6683' | sudo tee /etc/modules-load.d/nct6683.conf
 echo 'options nct6683 force=true' | sudo tee /etc/modprobe.d/sensors.conf
-
-# Rebuild initramfs
 sudo mkinitcpio -P
 sudo reboot
+```
 
-# Verify
+For **PWM fan control**, use the `nct6687` module instead — see the [Sensors Guide](../system/sensors.md) for full instructions.
+
+Verify:
+
+```bash
 sensors
+# Should show nct6686-isa-0a20 with temperatures and fan speeds
 ```
 
 ---
@@ -345,7 +352,7 @@ vulkaninfo | grep deviceName  # Expected: AMD Radeon Graphics (RADV GFX1013)
 systemctl status cyan-skillfish-governor-tt  # Expected: active (running)
 
 # 5. Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk  # Expected: Multiple frequencies
+cat /sys/class/drm/card1/device/pp_dpm_sclk  # Expected: Multiple frequencies
 
 # 6. Check sensors
 sensors  # Expected: nct6686-isa-0a20, GPU temp, fan speeds

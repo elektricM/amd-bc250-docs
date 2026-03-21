@@ -505,7 +505,7 @@ xrandr
 
 # Check DRM
 ls /sys/class/drm/
-# Should show card0, card0-DP-1, etc.
+# Should show card1, card1-DP-1, etc.
 ```
 
 ### Check GPU Initialization
