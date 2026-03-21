@@ -357,18 +357,52 @@ CoolerControl provides a GUI for creating custom fan curves.
 ujust install-coolercontrol
 
 # Fedora
-sudo dnf copr enable terra/terra
-sudo dnf install liquidctl coolercontrol
+sudo dnf copr enable codifryed/CoolerControl
+sudo dnf install coolercontrol
+sudo systemctl enable --now coolercontrold
 
 # Arch
 yay -S coolercontrol
 ```
 
+Web UI available at `https://localhost:11987` after installation.
+
 **Configuration:**
-1. Launch CoolerControl
-2. Select BC-250 fan header
-3. Create custom curve (e.g., 30% at 50°C, 100% at 80°C)
+1. Open CoolerControl web UI or launch the GUI app
+2. Select the nct6686 device (BC-250's SuperIO chip)
+3. Create custom curve on pwm2 (Pump Fan header) using k10temp Tctl as source
 4. Apply and test
+
+### Systemd Fan Curve (Lightweight Alternative)
+
+If you prefer a simple script without a GUI:
+
+```bash
+# Create fan curve script
+sudo tee /usr/local/bin/bc250-fancurve << 'SCRIPT'
+#!/bin/bash
+HWMON_PWM=/sys/class/hwmon/hwmon1/pwm2
+HWMON_ENABLE=/sys/class/hwmon/hwmon1/pwm2_enable
+TEMP_INPUT=/sys/class/hwmon/hwmon3/temp1_input
+echo 1 > $HWMON_ENABLE
+while true; do
+    TEMP=$(($(cat $TEMP_INPUT) / 1000))
+    if [ $TEMP -le 40 ]; then PWM=60
+    elif [ $TEMP -le 50 ]; then PWM=80
+    elif [ $TEMP -le 60 ]; then PWM=120
+    elif [ $TEMP -le 70 ]; then PWM=160
+    elif [ $TEMP -le 80 ]; then PWM=200
+    elif [ $TEMP -le 85 ]; then PWM=230
+    else PWM=255; fi
+    echo $PWM > $HWMON_PWM
+    sleep 3
+done
+SCRIPT
+sudo chmod +x /usr/local/bin/bc250-fancurve
+```
+
+!!!note "hwmon numbering"
+    hwmon paths may change between kernel versions or reboots. Verify `cat /sys/class/hwmon/hwmon*/name` to find the correct hwmon for nct6686 (fan control) and k10temp (CPU temperature).
 
 ### BIOS Fan Settings
 

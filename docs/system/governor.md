@@ -641,11 +641,61 @@ sudo systemctl restart cyan-skillfish-governor-tt
 # Monitor temperatures
 ```
 
-**Known Limits:**
-- **1000 MHz:** Minimum safe frequency on stock kernel
+**Known GPU Limits:**
+- **350 MHz:** Minimum with kernel frequency range patch
+- **1000 MHz:** Minimum on stock kernel
 - **2000 MHz @ 1000mV:** Safe starting point
 - **2100-2175 MHz @ 1025mV:** Works on many boards, test thoroughly
-- **2230 MHz:** Maximum with kernel patch, requires good cooling
+- **2230 MHz:** Maximum confirmed stable with kernel patch, requires good cooling
+
+## CPU Overclocking with bc250_smu_oc
+
+The [bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) tool overclocks the CPU via SMU commands. It raises the boost clock ceiling while keeping dynamic frequency scaling intact.
+
+### Installation
+
+```bash
+git clone https://github.com/bc250-collective/bc250_smu_oc.git
+cd bc250_smu_oc
+pip install --user .
+```
+
+### Testing Frequencies
+
+```bash
+# Test 3700 MHz (auto-tunes voltage)
+sudo bc250-detect -f 3700 -v 1231
+
+# Test with --keep to maintain OC after tool exits
+sudo bc250-detect -f 3900 -v 1280 -k
+```
+
+### Verified CPU Overclock Results (Fedora 43, kernel 6.19.8)
+
+| Frequency | Auto-Tuned Voltage | 7zip MIPS | Temp (full load) | vs Stock |
+|-----------|-------------------|-----------|------------------|----------|
+| 3500 (stock) | auto | 26,062 | 60°C | baseline |
+| 3600 MHz | 1150 mV | 26,518 | 65°C | +1.7% |
+| 3700 MHz | 1199 mV | 27,212 | 68°C | +4.4% |
+| 3800 MHz | 1250 mV | 27,919 | 72°C | +7.1% |
+| 3900 MHz | 1275 mV | 28,410 | 75°C | +9.0% |
+| 4000 MHz | — | throttles | 77°C | ❌ |
+
+!!!note "Cooling Matters"
+    These results were obtained with a fan curve service ramping PWM based on temperature. With the stock fan at PWM 80 (~1400 RPM), 3900 MHz throttles. Good cooling extends the OC headroom.
+
+### Making CPU OC Permanent
+
+```bash
+# Test and generate config
+sudo bc250-detect -f 3900 -v 1280 -k -c /etc/bc250-overclock.conf
+
+# Install as systemd service
+sudo bc250-apply -a -i /etc/bc250-overclock.conf
+sudo systemctl enable bc250-smu-oc
+```
+
+The OC service raises the boost ceiling at boot. Combined with ACPI P-States and the `schedutil` governor, the CPU scales dynamically: **800 MHz at idle → 3900 MHz under load**.
 
 !!!warning "Overclocking Risks"
     Overclocking can cause instability, crashes, and potentially hardware damage. Always monitor temperatures and test thoroughly.
@@ -736,4 +786,4 @@ echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 
 ---
 
-**Last Updated:** 2026-03-18
+**Last Updated:** 2026-03-21
