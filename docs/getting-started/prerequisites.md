@@ -99,7 +99,7 @@ The BC-250 requires Linux for GPU support. Windows has NO drivers.
 
 **Recommended (easiest setup):**
 
-- **Fedora 42 or 43 Workstation** - Most tested, good documentation
+- **Fedora 43 Workstation** - Most tested, good documentation (Fedora 42 is EOL)
 - **Bazzite** - Gaming-focused, works out-of-box
 
 **Also work well:**
@@ -112,7 +112,7 @@ The BC-250 requires Linux for GPU support. Windows has NO drivers.
 
 **Avoid:**
 
-- Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU driver issues)
+- Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 (GPU driver issues — fixed in 6.17.11+)
 
 [Full distribution comparison →](../linux/distributions.md)
 
@@ -166,6 +166,9 @@ The board has NO built-in wireless.
 - **Budget:** Any USB WiFi dongle
 - **Recommended:** Realtek RTL8822BU chipset (in-kernel driver as of 6.12+)
 - **Alternative:** USB-C DAC/headphones for audio
+
+!!!warning "WiFi and Custom Kernels"
+    Some custom kernel builds or patched images (e.g., Bazzite "performance mode") may not include your WiFi adapter's driver. If WiFi stops working after a kernel change or image rebase, connect via Ethernet and reinstall the driver. Choose adapters with in-kernel drivers (like RTL8822BU) for best compatibility.
 
 ### Case/Mounting
 
