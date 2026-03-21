@@ -20,7 +20,7 @@ Display problems are the #1 issue new BC-250 users encounter. This guide covers 
 2. BIOS settings not applied (CMOS not cleared)
 3. Incompatible display adapter (active DP-HDMI)
 4. IOMMU enabled in BIOS
-5. Broken kernel version (6.15.0-6.15.6 or 6.17.8+) driver issues
+5. Broken kernel version (6.15.0-6.15.6 or 6.17.8-6.17.10) driver issues
 
 ---
 
@@ -102,14 +102,14 @@ After booting with nomodeset:
 
 ```bash
 # Install drivers (distro-specific)
-# Fedora 42/43 - Mesa 25.1+ included in repos:
+# Fedora 43 - Mesa 25.1+ included in repos:
 sudo dnf update
 sudo dnf install mesa-vulkan-drivers mesa-dri-drivers
 
-# Install GPU governor
-sudo dnf copr enable @exotic-soc/oberon-governor
-sudo dnf install oberon-governor
-sudo systemctl enable --now oberon-governor.service
+# Install GPU governor (recommended)
+sudo dnf copr enable filippor/bazzite
+sudo dnf install cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 # Then remove nomodeset:
 sudo nano /etc/default/grub
@@ -142,20 +142,19 @@ Check kernel version:
 uname -r
 ```
 
-If kernel is 6.15.0-6.15.6 or 6.17.8+:
+If kernel is 6.15.0-6.15.6 or 6.17.8-6.17.10:
 ```bash
 # Install working kernel
 # Fedora:
-sudo dnf install kernel-6.16.5-*  # or any 6.15.7-6.17.7 version
-# Or for LTS stability:
-sudo dnf install kernel-6.14.x
+sudo dnf install kernel-6.18.18-*  # current LTS, recommended
+# Or: sudo dnf install kernel-6.17.11+
 
 # Update GRUB to use working kernel as default
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
 !!!danger "Broken Kernel Versions"
-    Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250. Use 6.15.7-6.17.7 for best performance or 6.12-6.14 LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.
 
 ---
 
@@ -241,9 +240,9 @@ If GPU >90°C:
 If using custom governor settings:
 
 ```bash
-# Edit /etc/oberon-config.yaml
+# Edit governor config (e.g., /etc/cyan-skillfish-governor-tt/config.toml)
 # Reduce max_frequency or increase voltage
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 **3. Power Supply Issues**
@@ -424,23 +423,23 @@ dmesg | grep -i iommu
 ### Broken Kernel Versions - No Display
 
 **Problem:**
-- Upgraded kernel to 6.15.0-6.15.6 or 6.17.8+
+- Upgraded kernel to 6.15.0-6.15.6 or 6.17.8-6.17.10
 - Now no display after boot
 
 **Cause:**
-Kernel 6.15.0-6.15.6 and 6.17.8+ have driver incompatibility with BC-250.
+Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 have driver incompatibility with BC-250. Use 6.18.18 LTS or 6.17.11+.
 
 **Solution:**
 
 Boot working kernel:
 1. At GRUB, select "Advanced options"
-2. Select kernel in 6.15.7-6.17.7 range (if available) or 6.12-6.14 LTS
+2. Select kernel 6.18.x LTS, 6.17.11+, or 6.12-6.14 LTS
 3. Boot
 
 Make working kernel default:
 ```bash
 # Fedora:
-sudo grubby --set-default /boot/vmlinuz-6.16.x  # or 6.14.x for LTS
+sudo grubby --set-default /boot/vmlinuz-6.18.*  # 6.18.18 LTS recommended
 
 # Or remove broken kernel entirely
 sudo dnf remove kernel-6.15.5\* kernel-6.17.8\*  # example versions
@@ -506,7 +505,7 @@ xrandr
 
 # Check DRM
 ls /sys/class/drm/
-# Should show card0, card0-DP-1, etc.
+# Should show card1, card1-DP-1, etc. (or card0 on some systems)
 ```
 
 ### Check GPU Initialization
@@ -574,7 +573,7 @@ vulkaninfo | grep deviceName
 ## FAQ
 
 **Q: Display worked yesterday, now doesn't. What changed?**
-A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8+, boot working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS).
+A: Check if kernel updated (`uname -r`). If now on 6.15.0-6.15.6 or 6.17.8-6.17.10, boot working kernel (6.18.18 LTS or 6.17.11+).
 
 **Q: Can I use HDMI directly?**
 A: No, board only has DisplayPort. Must use DP cable or adapter.
@@ -587,6 +586,23 @@ A: BIOS uses UEFI framebuffer. Linux tries to use GPU drivers which may be missi
 
 **Q: Display sometimes works, sometimes doesn't?**
 A: Likely loose cable, bad adapter, or overheating. Check all connections and temps.
+
+---
+
+## Normal dmesg Errors (Not Bugs)
+
+The following errors appear in `dmesg` on every BC-250 boot and are **harmless** — do not panic:
+
+```
+amdgpu: [drm] *ERROR* dal_irq_service_dummy_set: called for non-implemented irq source
+amdgpu: [drm] *ERROR* Failed to clear hpd(rx) source=10 on init
+amdgpu: [drm] *ERROR* Failed to clear hpd(rx) source=11 on init
+amdgpu: [drm] *ERROR* Failed to clear hpd(rx) source=12 on init
+amdgpu: Failed to setup vendor infoframe on connector DP-1: -22
+[drm] Failed to add display topology, DTM TA is not initialized.
+```
+
+These are caused by the BC-250's cut-down display controller (missing HPD interrupt sources and DTM firmware from PS5). They do not affect display functionality.
 
 ---
 
