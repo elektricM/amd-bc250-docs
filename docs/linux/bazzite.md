@@ -333,14 +333,15 @@ sudo systemctl restart cyan-skillfish-governor-tt
 **Solution:**
 
 ```bash
-# Check governor status
-systemctl status cyan-skillfish-governor-smu
+# Check governor status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # If not running:
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
 # Restart if running:
-sudo systemctl restart cyan-skillfish-governor-smu
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # Verify frequency scaling
 cat /sys/class/drm/card1/device/pp_dpm_sclk
@@ -441,7 +442,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-pa
 - **Bazzite Official:** [bazzite.gg](https://bazzite.gg)
 - **Setup script:** [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation)
 - **Patched images:** [vietsman/bazzite-patched](https://github.com/vietsman/bazzite-patched)
-- **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor) (recommended, no kernel patch needed)
+- **GPU Governor:** [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 

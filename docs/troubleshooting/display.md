@@ -254,7 +254,7 @@ sudo systemctl restart cyan-skillfish-governor-tt
 Test with lower power limit:
 ```bash
 # Limit max frequency to reduce power draw
-# Edit /etc/cyan-skillfish-governor-smu/config.toml
+# Edit /etc/oberon-config.yaml
 max_frequency: 1500
 ```
 

@@ -23,7 +23,9 @@ lspci -k | grep -A 3 VGA
 glxinfo | grep "OpenGL version"
 
 # Check governor status
-systemctl status cyan-skillfish-governor-smu
+systemctl status cyan-skillfish-governor-tt
+# or if using legacy governor:
+# systemctl status oberon-governor
 ```
 
 ---

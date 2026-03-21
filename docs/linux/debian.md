@@ -210,29 +210,50 @@ A GPU governor is required for proper GPU frequency scaling.
 
 The SMU governor is available as a .deb package from [filippor's COPR](https://github.com/filippor/cyan-skillfish-governor). It bypasses kernel patching entirely.
 
-**Option 2: Build cyan-skillfish-governor-smu from source**
+**Option 2: Build oberon-governor from source (legacy)**
 
 ```bash
 # Install dependencies
-sudo apt install build-essential cmake git libdrm-dev
+sudo apt install build-essential cmake git libdrm-dev libyaml-cpp-dev
 
 # Clone and build
-git clone https://github.com/filippor/cyan-skillfish-governor.git
-cd cyan-skillfish-governor
-git checkout smu
+git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
+cd oberon-governor
 cmake .
 make -j$(nproc)
 sudo make install
 
-# Enable and start
+# Create systemd service
+sudo nano /etc/systemd/system/oberon-governor.service
+```
+
+Add the following content:
+
+```ini
+[Unit]
+Description=Oberon GPU Governor
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/oberon-governor
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start:
+
+```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
+sudo systemctl enable --now oberon-governor.service
 ```
 
 Verify:
 
 ```bash
-systemctl status cyan-skillfish-governor-smu
+systemctl status oberon-governor
 cat /sys/class/drm/card1/device/pp_dpm_sclk
 ```
 
@@ -350,8 +371,8 @@ uname -r
 ### Check Governor
 
 ```bash
-# Service status
-systemctl status cyan-skillfish-governor-smu
+# Service status (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # GPU frequency
 cat /sys/class/drm/card1/device/pp_dpm_sclk
@@ -472,14 +493,15 @@ sudo apt install -t experimental mesa-vulkan-drivers libgl1-mesa-dri --reinstall
 ### Governor Not Working
 
 ```bash
-# Check service
-systemctl status cyan-skillfish-governor-smu
+# Check service (use whichever you installed)
+systemctl status oberon-governor          # legacy
+systemctl status cyan-skillfish-governor-smu  # SMU variant
 
 # Check logs
-journalctl -u cyan-skillfish-governor-smu -f
+journalctl -u oberon-governor -f
 
 # Restart service
-sudo systemctl restart cyan-skillfish-governor-smu
+sudo systemctl restart oberon-governor
 ```
 
 ---
@@ -521,7 +543,7 @@ sudo apt install htop
 - **Debian:** [debian.org](https://www.debian.org/)
 - **PikaOS:** [pikaos.org](https://pikaos.org)
 - **Xanmod Kernel:** [xanmod.org](https://xanmod.org/)
-- **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor) (recommended, no kernel patch needed)
+- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
@@ -537,8 +559,8 @@ glxinfo | grep "OpenGL version"
 # Check GPU
 vulkaninfo | grep deviceName
 
-# Check governor
-systemctl status cyan-skillfish-governor-smu
+# Check governor (use whichever you installed)
+systemctl status cyan-skillfish-governor-smu  # or oberon-governor
 
 # Check GPU frequency
 cat /sys/class/drm/card1/device/pp_dpm_sclk

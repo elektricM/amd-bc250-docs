@@ -141,9 +141,9 @@ Apply changes:
 sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
-**Cyan Skillfish Governor SMU Configuration:**
+**Oberon Governor Configuration (legacy):**
 
-Default configuration file: `/etc/cyan-skillfish-governor-smu/config.toml` — see [Governor page](governor.md) for details.
+Default configuration file: `/etc/oberon-config.yaml` — see [Governor page](governor.md) for details.
 
 **More Granular Control:**
 
@@ -475,24 +475,25 @@ voltage = 1035
 
 ### Governor Behavior Comparison
 
-**Cyan Skillfish Governor SMU (recommended):**
-- Manages clock speeds through SMU firmware calls
-- No kernel patch needed on any distro
-- Available on AUR, COPR, .deb, .rpm, Nix
-- Best option for all users
+**Oberon Governor (legacy):**
+- Binary mode: Switches between min and max frequency
+- Set point: 20-40% GPU load (with hysteresis)
+- Response time: 100 ms to burst to max
+- CPU usage: 0.4% idle, 0.4% under load
+- Simple, stable, proven
 
-**Cyan Skillfish Governor TT (alternative):**
+**Cyan Skillfish Governor TT (recommended):**
 - Continuous adjustment between multiple frequency steps
 - Set point: 70-95% GPU load (configurable)
 - Response time: 20-24 ms to burst to max
 - CPU usage: 0.9% idle, 1.3% under load
 - Granular control, more responsive, thermal throttling aware
-- Requires kernel frequency range patch (pre-included in Bazzite)
 
 **Which to Choose:**
 
-- **Cyan Skillfish SMU**: Recommended default — no kernel patches needed, bypasses kernel frequency/voltage limits via SMU firmware
-- **Cyan Skillfish TT**: Alternative — better power efficiency, smoother performance, thermal throttling support (requires kernel patch)
+- **Cyan Skillfish TT**: Recommended default — better power efficiency, smoother performance, thermal throttling support
+- **Cyan Skillfish SMU**: No kernel patches needed — bypasses kernel frequency/voltage limits via SMU firmware
+- **Oberon**: Legacy option — lower CPU overhead, simpler config
 
 ---
 
@@ -554,8 +555,9 @@ max_voltage = 1025    # Increased from 1000
 **Solutions:**
 ```bash
 # Increase voltage in 25 mV steps
-# Edit /etc/cyan-skillfish-governor-smu/config.toml
-# Increase max voltage until stable
+# Edit /etc/oberon-config.yaml
+  - voltage:
+    - max: 1025  # Increase until stable
 ```
 
 **4. High Idle Power (>100W)**
@@ -736,7 +738,9 @@ Expected results:
 
 **Check Governor Status:**
 ```bash
-systemctl status cyan-skillfish-governor-smu
+systemctl status cyan-skillfish-governor-tt
+# or if using legacy governor:
+# systemctl status oberon-governor
 ```
 
 **Check Current Power State:**
@@ -789,6 +793,7 @@ sensors | grep PPT
 
 **Governor Projects:**
 - [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (recommended)
+- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 **Power Monitoring:**
 - [CoolerControl](https://gitlab.com/coolercontrol/coolercontrol)

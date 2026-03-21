@@ -82,8 +82,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 ```bash
 # After installation, install governor:
-rpm-ostree install cyan-skillfish-governor-smu
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
+curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
 
 # Pin working version after successful boot:
 rpm-ostree pin 0

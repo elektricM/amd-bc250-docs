@@ -134,8 +134,9 @@ glxinfo | grep "OpenGL version"
 vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
-# Check governor running
-systemctl status cyan-skillfish-governor-smu
+# Check governor running (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 # Should show: active (running)
 
 # Check GPU frequency

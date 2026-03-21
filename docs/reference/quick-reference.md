@@ -169,23 +169,22 @@ The governor controls GPU frequency and voltage. **Required for gaming performan
 ### Installation
 
 ```bash
-# Fedora (recommended):
+# Fedora/Bazzite (recommended):
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-smu
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
+sudo dnf install cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
-# Bazzite:
-rpm-ostree install cyan-skillfish-governor-smu
-sudo systemctl enable --now cyan-skillfish-governor-smu.service
+# Bazzite (automated script):
+curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
 
-# Arch/CachyOS:
+# Arch/CachyOS (SMU - no kernel patch needed):
 yay -S cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 ### Configuration
 
-Edit `/etc/cyan-skillfish-governor-smu/config.toml`:
+Edit `/etc/cyan-skillfish-governor-tt/config.toml`:
 
 ```toml
 # Safe starting point:
@@ -259,18 +258,19 @@ sudo reboot
 ### Governor Management
 
 ```bash
-# Check status
-systemctl status cyan-skillfish-governor-smu
+# Check status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Start/stop
-sudo systemctl start cyan-skillfish-governor-smu
-sudo systemctl stop cyan-skillfish-governor-smu
+sudo systemctl start cyan-skillfish-governor-tt
+sudo systemctl stop cyan-skillfish-governor-tt
 
 # Restart after config change
-sudo systemctl restart cyan-skillfish-governor-smu
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # View logs
-journalctl -u cyan-skillfish-governor-smu -f
+journalctl -u cyan-skillfish-governor-tt -f
 ```
 
 ---
@@ -373,7 +373,7 @@ RADV_DEBUG=nohiz %command%
 ### Official Documentation
 - **GitHub:** https://github.com/mothenjoyer69/bc250-documentation
 - **BIOS Repo:** https://gitlab.com/TuxThePenguin0/bc250-bios/
-- **Governor:** [Cyan Skillfish Governor SMU](https://github.com/filippor/cyan-skillfish-governor) (recommended)
+- **Governor:** Multiple forks (Oberon, Cyan Skillfish)
 
 ### Community
 - **Discord:** Active community, link in GitHub
@@ -382,7 +382,8 @@ RADV_DEBUG=nohiz %command%
 ### Key Contributors
 - mothenjoyer69 - Setup scripts
 - Average Data Hoarder - Modded BIOS
-- FilippoR - Cyan Skillfish Governor, COPR packages, Bazzite integration
+- Segfault - Oberon Governor
+- FilippoR - COPR packages, Bazzite integration
 
 ---
 

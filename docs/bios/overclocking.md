@@ -427,11 +427,12 @@ Higher clocks mean more heat and power draw. Keep GPU below 85°C under load. Se
 
 **Check:**
 ```bash
-# Verify governor running
-systemctl status cyan-skillfish-governor-smu
+# Verify governor running (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Restart governor
-sudo systemctl restart cyan-skillfish-governor-smu
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # Check applied settings
 cat /sys/class/drm/card1/device/pp_od_clk_voltage
