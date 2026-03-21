@@ -88,7 +88,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 **Repository:** [github.com/NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine)
 
-Installs cyan-skillfish-governor-tt + zram + CPU mitigations. De facto standard for Bazzite beginners.
+Installs cyan-skillfish-governor-smu + zram + CPU mitigations. De facto standard for Bazzite beginners.
 
 ### PS5GPU-BC250 (GUI Controller — New)
 
