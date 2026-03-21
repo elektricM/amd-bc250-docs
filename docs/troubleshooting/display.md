@@ -108,8 +108,8 @@ sudo dnf install mesa-vulkan-drivers mesa-dri-drivers
 
 # Install GPU governor (recommended)
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now cyan-skillfish-governor-tt.service
+sudo dnf install cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 # Then remove nomodeset:
 sudo nano /etc/default/grub
@@ -240,9 +240,9 @@ If GPU >90°C:
 If using custom governor settings:
 
 ```bash
-# Edit governor config (e.g., /etc/cyan-skillfish-governor-tt/config.toml)
+# Edit governor config (e.g., /etc/cyan-skillfish-governor-smu/config.toml)
 # Reduce max_frequency or increase voltage
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 **3. Power Supply Issues**
@@ -254,8 +254,8 @@ sudo systemctl restart cyan-skillfish-governor-tt
 Test with lower power limit:
 ```bash
 # Limit max frequency to reduce power draw
-# Edit /etc/oberon-config.yaml
-max_frequency: 1500
+# Edit /etc/cyan-skillfish-governor-smu/config.toml
+# Set max safe-point to 1500 MHz
 ```
 
 **4. Display Adapter Overheating**

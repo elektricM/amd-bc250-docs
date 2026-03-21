@@ -53,14 +53,14 @@ Before diving into specific issues, check these common causes:
    - Some boards freeze at 60-65°C if cooling is inadequate
 
 4. **Test with locked frequency**
-   - Edit your governor config (e.g., `/etc/cyan-skillfish-governor-tt/config.toml`):
+   - Edit your governor config (e.g., `/etc/cyan-skillfish-governor-smu/config.toml`):
    ```toml
    min_frequency = 1500
    max_frequency = 1500
    min_voltage = 900
    max_voltage = 900
    ```
-   - Restart governor: `systemctl restart cyan-skillfish-governor-tt`
+   - Restart governor: `systemctl restart cyan-skillfish-governor-smu`
    - If stable at locked frequency, it's a governor tuning issue
 
 ### Thermal-Related Freezes
@@ -141,9 +141,9 @@ Before diving into specific issues, check these common causes:
 
 1. **Disable governor before playing crash-prone games**
    ```bash
-   sudo systemctl stop cyan-skillfish-governor-tt
+   sudo systemctl stop cyan-skillfish-governor-smu
    ```
-   Re-enable after: `sudo systemctl start cyan-skillfish-governor-tt`
+   Re-enable after: `sudo systemctl start cyan-skillfish-governor-smu`
 
 2. **Use stable voltage/frequency settings** to reduce the chance of GPU crashes in the first place — see the voltage-related instability section below.
 
@@ -158,7 +158,7 @@ Before diving into specific issues, check these common causes:
 **Common issues**:
 
 1. **Governor not starting correctly**
-   - Check status: `systemctl status cyan-skillfish-governor-tt`
+   - Check status: `systemctl status cyan-skillfish-governor-smu`
    - If failing, governor may be installed in wrong location
    - Reinstall following distribution-specific guide
 
@@ -170,7 +170,7 @@ Before diving into specific issues, check these common causes:
 3. **Frequency/voltage mismatch**
    - Symptom: Crashes when GPU load increases/decreases
    - Solution: Reduce frequency range or increase voltage headroom
-   - Example fix (cyan-skillfish-governor-tt config.toml):
+   - Example fix (cyan-skillfish-governor-smu config.toml):
    ```toml
    min_frequency = 1000
    max_frequency = 2000
@@ -785,7 +785,7 @@ If problems persist after trying these solutions:
      echo "=== Temperatures ==="
      sensors
      echo "=== Governor Status ==="
-     systemctl status cyan-skillfish-governor-tt
+     systemctl status cyan-skillfish-governor-smu
      echo "=== Recent Errors ==="
      journalctl -p err -n 50
    } > bc250-diagnostic.txt

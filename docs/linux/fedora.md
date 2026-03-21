@@ -122,26 +122,14 @@ dnf list mesa-\*
 **Option 1: COPR (Recommended)**
 
 ```bash
-# Use filippor/bazzite COPR with cyan-skillfish-governor-tt
+# Use filippor/bazzite COPR with cyan-skillfish-governor-smu
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now cyan-skillfish-governor-tt
+sudo dnf install cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu
 ```
 
-!!!info "Governor Package Update"
-    The `filippor/bazzite` COPR now provides `cyan-skillfish-governor-tt` (Skillfish-TT optimized), which is confirmed stable as of Dec 2025. This is now the community default (Jan 2026+).
-
-!!!info "Alternative COPR Option"
-    You can also use `@exotic-soc/oberon-governor` for the original oberon-governor package if preferred.
-
-**Option 2: Build oberon-governor from source (legacy)**
-
-```bash
-git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
-cd oberon-governor
-cmake . && make && sudo make install
-sudo systemctl enable --now oberon-governor.service
-```
+!!!info "Governor Package"
+    The `filippor/bazzite` COPR provides both `cyan-skillfish-governor-smu` (recommended, no kernel patch needed) and `cyan-skillfish-governor-tt` (alternative, requires kernel patch). Confirmed stable as of Mar 2026.
 
 ### Step 5: Configure Sensors
 
@@ -202,7 +190,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check governor running
-systemctl status cyan-skillfish-governor-tt
+systemctl status cyan-skillfish-governor-smu
 # Should show: active (running)
 
 # Check sensors
@@ -280,13 +268,13 @@ glxinfo | grep -i "opengl renderer"
 
 ```bash
 # Check governor service
-sudo systemctl status cyan-skillfish-governor-tt
+sudo systemctl status cyan-skillfish-governor-smu
 
 # Check logs
-sudo journalctl -u cyan-skillfish-governor-tt
+sudo journalctl -u cyan-skillfish-governor-smu
 
 # Restart service
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ### Low FPS in Games
@@ -347,7 +335,7 @@ sudo dnf install kernel-6.18.18-200
 sudo nano /etc/sysctl.conf
 
 # Add:
-vm.swappiness=10
+vm.swappiness=180
 vm.vfs_cache_pressure=50
 
 # Apply

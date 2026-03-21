@@ -87,25 +87,25 @@ See [BIOS Flashing Guide](../bios/flashing.md) for details.
 # Add COPR repository
 sudo dnf copr enable filippor/bazzite
 
-# Install governor (use cyan-skillfish-governor-tt)
-rpm-ostree install cyan-skillfish-governor-tt
+# Install governor (SMU variant — recommended, no kernel patch needed)
+rpm-ostree install cyan-skillfish-governor-smu
 
 # Reboot to apply
 systemctl reboot
 
 # Enable service after reboot
-sudo systemctl enable --now cyan-skillfish-governor-tt.service
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-!!!info "SMU Governor Alternative (No Kernel Patch Needed)"
-    The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Available on AUR, COPR (`filippor/bazzite`), .deb, .rpm, and Nix.
+!!!info "TT Governor Alternative"
+    The `cyan-skillfish-governor-tt` is also available via the same COPR. It requires the kernel frequency range patch (pre-included in Bazzite). Use `rpm-ostree install cyan-skillfish-governor-tt` if you prefer the TT variant.
 
 !!!warning "GPU Card Naming Issue"
     The governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration if frequency scaling doesn't work.
 
 ### Voltage Configuration
 
-Default configuration (`/etc/cyan-skillfish-governor-tt/config.toml`):
+Default configuration (`/etc/cyan-skillfish-governor-smu/config.toml`):
 
 ```yaml
 voltage:
@@ -138,7 +138,7 @@ Some boards are unstable at lower voltages. The script defaults to 1000mV to pre
 
 ### Prerequisites
 
-If you already have Bazzite installed with an older governor:
+If you already have Bazzite installed with an older governor (oberon), migrate first:
 
 ```bash
 # Remove existing oberon installation (if applicable)
@@ -181,7 +181,7 @@ After rebase:
 
 ```bash
 systemctl reboot
-systemctl status cyan-skillfish-governor-tt  # Verify running
+systemctl status cyan-skillfish-governor-smu  # Verify running
 ```
 
 !!!warning "WiFi May Be Killed by Performance Setup (Issue #10)"
@@ -195,7 +195,7 @@ Performance patch increases power draw and temperatures:
 - **Cooling:** High static pressure fans required
 - **Temps:** Expect 85-95°C under full load (normal for this board)
 
-To reduce power consumption, edit `/etc/cyan-skillfish-governor-tt/config.toml`:
+To reduce power consumption, edit `/etc/cyan-skillfish-governor-smu/config.toml`:
 
 ```yaml
 voltage:
@@ -205,7 +205,7 @@ frequency:
   - max: 1800  # Reduced from 2230
 ```
 
-Then restart: `sudo systemctl restart cyan-skillfish-governor-tt`
+Then restart: `sudo systemctl restart cyan-skillfish-governor-smu`
 
 ### Disable CPU Mitigations (Optional)
 
@@ -311,13 +311,13 @@ systemctl reboot
 **Solution:**
 
 ```bash
-sudo nano /etc/cyan-skillfish-governor-tt/config.toml
+sudo nano /etc/cyan-skillfish-governor-smu/config.toml
 
 # Increase voltage if unstable:
 # min_voltage = 1000
 # max_voltage = 1000
 
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ### Flatpak Apps Don't See GPU
@@ -334,14 +334,14 @@ sudo systemctl restart cyan-skillfish-governor-tt
 
 ```bash
 # Check governor status (use whichever you installed)
-systemctl status cyan-skillfish-governor-tt
-# Or: systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
+# Or: systemctl status cyan-skillfish-governor-tt
 
 # If not running:
-sudo systemctl enable --now cyan-skillfish-governor-tt.service
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 # Restart if running:
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 
 # Verify frequency scaling
 cat /sys/class/drm/card1/device/pp_dpm_sclk
@@ -420,7 +420,7 @@ watch -n 1 cat /sys/class/drm/card1/device/pp_dpm_sclk
 ujust update
 
 # Check governor
-systemctl status cyan-skillfish-governor-tt
+systemctl status cyan-skillfish-governor-smu
 
 # Check GPU frequency
 cat /sys/class/drm/card1/device/pp_dpm_sclk
@@ -442,7 +442,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-pa
 - **Bazzite Official:** [bazzite.gg](https://bazzite.gg)
 - **Setup script:** [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation)
 - **Patched images:** [vietsman/bazzite-patched](https://github.com/vietsman/bazzite-patched)
-- **GPU Governor:** [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
+- **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (recommended) or [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (alternative)
 
 ---
 

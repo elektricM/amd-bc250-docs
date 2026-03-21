@@ -137,11 +137,11 @@ If GPU remains at 1500 MHz after installing patched kernel:
 
 2. **Update governor configuration:**
    ```bash
-   # For cyan-skillfish-governor-tt:
-   sudo nano /etc/cyan-skillfish-governor-tt/config.toml
+   # For cyan-skillfish-governor-smu:
+   sudo nano /etc/cyan-skillfish-governor-smu/config.toml
    # Update safe-points to include extended range frequencies
 
-   sudo systemctl restart cyan-skillfish-governor-tt
+   sudo systemctl restart cyan-skillfish-governor-smu
    ```
 
 ### Recommended Settings
@@ -243,11 +243,21 @@ A community-developed SMU (System Management Unit) tool enables CPU overclocking
 
 ## Safe Overclocking Limits
 
-Start at 2000 MHz @ 1000 mV and work up. Stability varies by board (silicon lottery). General guidance:
+Start at 2000 MHz @ 1000 mV and work up. Stability varies by board (silicon lottery). Maximum achievable frequency depends on your cooling solution:
+
+**Air Cooled (conservative):**
 
 - **2000 MHz @ 1000 mV** — safe starting point for most boards
 - **2100-2175 MHz @ 1025-1050 mV** — works on many boards, test thoroughly
-- **2230 MHz @ 1035-1060 mV** — maximum hardware limit, requires good cooling
+- **2230 MHz @ 1060 mV** — conservative air-cooled maximum
+
+**Good Air Cooling (Arctic P12 Max or better):**
+
+- **2300 MHz @ 1075 mV** — achievable with high static pressure fans and good case airflow
+
+**Liquid Cooling:**
+
+- **2400 MHz @ 1125 mV** — per NexGen3D testing with liquid cooling setup
 
 ## Manual Overclocking
 
@@ -280,7 +290,7 @@ cat /sys/class/drm/card1/device/pp_od_clk_voltage
 
 **Edit config:**
 ```bash
-sudo nano /etc/cyan-skillfish-governor-tt/config.toml
+sudo nano /etc/cyan-skillfish-governor-smu/config.toml
 ```
 
 **Multi-voltage point configuration:**
@@ -291,12 +301,13 @@ safe-points = [
     [2000, 1000],  # 2000 MHz @ 1000 mV
     [2100, 1025],  # 2100 MHz @ 1025 mV
     [2175, 1050],  # 2175 MHz @ 1050 mV (overclock)
+    [2300, 1075],  # 2300 MHz @ 1075 mV (good air cooling)
 ]
 ```
 
 **Restart governor:**
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ## Testing Stability
@@ -428,11 +439,11 @@ Higher clocks mean more heat and power draw. Keep GPU below 85°C under load. Se
 **Check:**
 ```bash
 # Verify governor running (use whichever you installed)
-systemctl status cyan-skillfish-governor-tt
-# Or: systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
+# Or: systemctl status cyan-skillfish-governor-tt
 
 # Restart governor
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 
 # Check applied settings
 cat /sys/class/drm/card1/device/pp_od_clk_voltage
@@ -477,7 +488,7 @@ echo "c" | sudo tee /sys/class/drm/card1/device/pp_od_clk_voltage
 - [GPU Governor Setup](../system/governor.md) — start here
 - [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) — SMU governor (no kernel patch needed)
 - [PS5GPU-BC250](https://github.com/ZEROAESQUERDA/PS5GPU-BC250) — GUI GPU controller
-- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated setup for Bazzite
+- [NexGen3D SteamMachine Scripts](https://github.com/NexGen-3D-Printing/SteamMachine) — automated Bazzite setup; links to this documentation as the main guide
 - [DeathStalker Grimoire](https://github.com/DeathStalker471/bc250theGrimoire) — community step-by-step guide
 - [Cooling Solutions](../hardware/cooling.md)
 - [Power Requirements](../hardware/power.md)

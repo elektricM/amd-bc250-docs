@@ -116,9 +116,9 @@ Recommended Amps = 25A for safety margin
 
 The governor is essential for power management and efficiency.
 
-**Cyan Skillfish Governor TT Configuration (recommended):**
+**Cyan Skillfish Governor SMU Configuration (recommended):**
 
-Default location: `/etc/cyan-skillfish-governor-tt/config.toml`
+Default location: `/etc/cyan-skillfish-governor-smu/config.toml`
 
 ```toml
 min_frequency = 1000  # MHz
@@ -138,18 +138,18 @@ max_voltage = 950     # Lower max voltage
 
 Apply changes:
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
-**Oberon Governor Configuration (legacy):**
+**SMU Governor Configuration (recommended):**
 
-Default configuration file: `/etc/oberon-config.yaml` — see [Governor page](governor.md) for details.
+Default configuration file: `/etc/cyan-skillfish-governor-smu/config.toml` — see [Governor page](governor.md) for details.
 
 **More Granular Control:**
 
-Cyan Skillfish Governor TT supports multiple voltage/frequency points.
+Cyan Skillfish Governor SMU supports multiple voltage/frequency points.
 
-Default location: `/etc/cyan-skillfish-governor-tt/config.toml`
+Default location: `/etc/cyan-skillfish-governor-smu/config.toml`
 
 ```toml
 # Multiple safe-points for precise voltage control
@@ -177,7 +177,7 @@ max = 95
 
 Apply changes:
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ### Manual Power Limiting (Advanced)
@@ -186,7 +186,7 @@ sudo systemctl restart cyan-skillfish-governor-tt
 
 ```bash
 # Stop governor first
-sudo systemctl stop cyan-skillfish-governor-tt
+sudo systemctl stop cyan-skillfish-governor-smu
 
 # Set custom values
 echo "vc 0 1800 950" > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -272,15 +272,15 @@ Without governor: 105W idle
 With governor: 85W idle (20W savings)
 
 ```bash
-# Install cyan-skillfish-governor-tt (Fedora/Bazzite)
+# Install cyan-skillfish-governor-smu (Fedora/Bazzite)
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now cyan-skillfish-governor-tt
+sudo dnf install cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu
 ```
 
 **Step 2: Optimize Governor Settings**
 
-Edit `/etc/cyan-skillfish-governor-tt/config.toml` for lower idle power:
+Edit `/etc/cyan-skillfish-governor-smu/config.toml` for lower idle power:
 
 ```toml
 min_frequency = 1000  # Allow GPU to idle lower
@@ -425,7 +425,7 @@ Max frequencies (2000-2300 MHz): Voltage requirements vary by silicon
 **Conservative (Maximum Stability):**
 
 ```toml
-# Cyan Skillfish Governor TT
+# Cyan Skillfish Governor SMU
 min_frequency = 1000
 max_frequency = 2000
 min_voltage = 700
@@ -475,14 +475,13 @@ voltage = 1035
 
 ### Governor Behavior Comparison
 
-**Oberon Governor (legacy):**
-- Binary mode: Switches between min and max frequency
-- Set point: 20-40% GPU load (with hysteresis)
-- Response time: 100 ms to burst to max
-- CPU usage: 0.4% idle, 0.4% under load
-- Simple, stable, proven
+**Cyan Skillfish Governor SMU (recommended):**
+- Continuous adjustment between multiple frequency steps
+- Manages clocks through SMU firmware calls — no kernel patch needed
+- Same performance characteristics as TT variant
+- CPU usage: 0.9% idle, 1.3% under load
 
-**Cyan Skillfish Governor TT (recommended):**
+**Cyan Skillfish Governor TT (alternative):**
 - Continuous adjustment between multiple frequency steps
 - Set point: 70-95% GPU load (configurable)
 - Response time: 20-24 ms to burst to max
@@ -491,9 +490,9 @@ voltage = 1035
 
 **Which to Choose:**
 
-- **Cyan Skillfish TT**: Recommended default — better power efficiency, smoother performance, thermal throttling support
-- **Cyan Skillfish SMU**: No kernel patches needed — bypasses kernel frequency/voltage limits via SMU firmware
-- **Oberon**: Legacy option — lower CPU overhead, simpler config
+- **Cyan Skillfish SMU**: Recommended default — no kernel patches needed, bypasses kernel frequency/voltage limits via SMU firmware
+- **Cyan Skillfish TT**: Alternative — thermal throttling support, requires kernel patch (pre-included in Bazzite)
+- **Oberon**: Legacy option — migrate to SMU
 
 ---
 
@@ -516,7 +515,7 @@ voltage = 1035
 **Solutions:**
 ```toml
 # Option 1: Reduce max frequency
-# Edit /etc/cyan-skillfish-governor-tt/config.toml
+# Edit /etc/cyan-skillfish-governor-smu/config.toml
 max_frequency = 1800  # Reduced from 2000
 
 # Option 2: Increase voltage
@@ -553,11 +552,10 @@ max_voltage = 1025    # Increased from 1000
 - Unstable undervolt
 
 **Solutions:**
-```bash
+```toml
 # Increase voltage in 25 mV steps
-# Edit /etc/oberon-config.yaml
-  - voltage:
-    - max: 1025  # Increase until stable
+# Edit /etc/cyan-skillfish-governor-smu/config.toml
+# Increase max voltage in your safe-points until stable
 ```
 
 **4. High Idle Power (>100W)**
@@ -573,10 +571,10 @@ max_voltage = 1025    # Increased from 1000
 **Solutions:**
 ```bash
 # Check governor status
-systemctl status cyan-skillfish-governor-tt
+systemctl status cyan-skillfish-governor-smu
 
 # If not running
-sudo systemctl enable --now cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-smu
 
 # Verify GPU frequency scaling
 cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_dpm_sclk
@@ -603,7 +601,7 @@ cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_dpm_sclk
 **Temporary workaround (not recommended long-term):**
 ```yaml
 # Force governor to maintain frequency even when hot
-# Edit /etc/cyan-skillfish-governor-tt/config.toml to set min = max
+# Edit /etc/cyan-skillfish-governor-smu/config.toml to set min = max
 # min_frequency = 2000
 # max_frequency = 2000
 ```
@@ -622,6 +620,85 @@ cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_dpm_sclk
 - Software power capping via kernel modules
 
 **Current Status:** Community investigating, no reliable method yet.
+
+### Swap and ZRAM Optimization
+
+The BC-250 has only 8GB usable system RAM (with 512MB dynamic VRAM), so swap configuration matters for gaming stability.
+
+**Recommended: Disable ZRAM, enable zswap with lz4, create swap file**
+
+ZRAM compressed swap conflicts with 512MB dynamic VRAM allocation and causes crashes in memory-hungry games (RDR2, Company of Heroes 3). The recommended approach is to replace ZRAM with zswap and a disk-backed swap file.
+
+**Bazzite (rpm-ostree):**
+
+```bash
+# 1. Disable zram
+echo "" | sudo tee /etc/systemd/zram-generator.conf
+
+# 2. Create 16-32GB swap file (see https://docs.bazzite.gg/Advanced/swapfile/)
+sudo btrfs filesystem mkswapfile --size 16G /swap/swapfile
+sudo swapon /swap/swapfile
+echo '/swap/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
+
+# 3. Enable lz4 compression in initramfs
+rpm-ostree initramfs --enable \
+  --arg=--add-drivers \
+  --arg=lz4 \
+  --arg=--add-drivers \
+  --arg=lz4_compress
+
+# 4. Enable zswap and set swappiness
+rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
+
+# 5. Reboot, then set swappiness
+systemctl reboot
+echo 180 | sudo tee /proc/sys/vm/swappiness
+# Make permanent:
+echo 'vm.swappiness=180' | sudo tee -a /etc/sysctl.d/99-swap.conf
+```
+
+**Fedora (dnf):**
+
+```bash
+# 1. Disable zram
+sudo systemctl stop zram-swap
+sudo systemctl disable zram-swap
+
+# 2. Create swap file
+sudo dd if=/dev/zero of=/swapfile bs=1G count=16
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
+
+# 3. Enable zswap
+echo 'zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4' >> /etc/default/grub
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# 4. Set swappiness
+echo 'vm.swappiness=180' | sudo tee /etc/sysctl.d/99-swap.conf
+sudo sysctl -p /etc/sysctl.d/99-swap.conf
+```
+
+**Why vm.swappiness=180:**
+With zswap enabled, a swappiness of 180 (above the default 60) tells the kernel to prefer compressing and swapping pages over dropping file caches. This improves memory management on low-RAM systems like the BC-250 by keeping more application data resident while swapping out less-used pages efficiently.
+
+**Verify:**
+```bash
+# Check zswap is active
+grep -r . /sys/module/zswap/parameters/
+
+# Check swap is enabled
+swapon --show
+
+# Check swappiness
+cat /proc/sys/vm/swappiness
+```
+
+!!!info "Source"
+    Swap optimization approach based on [NexGen3D's SteamMachine script](https://github.com/NexGen-3D-Printing/SteamMachine).
+
+---
 
 ### Memory Power Management
 
@@ -645,7 +722,7 @@ cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_dpm_sclk
 **For Gaming (Balance Performance/Power):**
 
 ```toml
-# /etc/cyan-skillfish-governor-tt/config.toml
+# /etc/cyan-skillfish-governor-smu/config.toml
 min_frequency = 1000
 max_frequency = 2000
 min_voltage = 700
@@ -660,7 +737,7 @@ Expected results:
 **For Power Efficiency (Low Consumption):**
 
 ```toml
-# /etc/cyan-skillfish-governor-tt/config.toml
+# /etc/cyan-skillfish-governor-smu/config.toml
 [[safe-points]]
 frequency = 350
 voltage = 700
@@ -689,14 +766,12 @@ Expected results:
 
 **For Performance (Maximum FPS):**
 
-```yaml
-opps:
-  - frequency:
-    - min: 2000
-    - max: 2230
-  - voltage:
-    - min: 1000
-    - max: 1050
+```toml
+# /etc/cyan-skillfish-governor-smu/config.toml
+safe-points = [
+    [2000, 1000],
+    [2230, 1050],
+]
 ```
 
 Expected results:
@@ -738,9 +813,9 @@ Expected results:
 
 **Check Governor Status:**
 ```bash
-systemctl status cyan-skillfish-governor-tt
-# or if using legacy governor:
-# systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
+# or if using TT governor:
+# systemctl status cyan-skillfish-governor-smu
 ```
 
 **Check Current Power State:**
@@ -785,14 +860,14 @@ sensors | grep PPT
 | High temps + high power | Undervolt needed | Reduce max voltage by 50 mV |
 | Fan speed drops | PSU voltage droop | Upgrade PSU capacity |
 | Unstable after undervolt | Voltage too low | Increase voltage by 25 mV |
-| Governor not working | Service not running | `systemctl enable --now cyan-skillfish-governor-tt` |
+| Governor not working | Service not running | `systemctl enable --now cyan-skillfish-governor-smu` |
 
 ---
 
 ## Additional Resources
 
 **Governor Projects:**
-- [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (recommended)
+- [Cyan Skillfish Governor SMU](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (recommended)
 - [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 **Power Monitoring:**

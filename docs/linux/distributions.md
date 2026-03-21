@@ -38,8 +38,8 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 - Some users report MTG Arena crashes specifically on Fedora
 - Auto-updates can break things if not careful
 
-!!!info "Governor Installation Command Updated"
-    Use `sudo dnf copr enable filippor/bazzite && sudo dnf install cyan-skillfish-governor-tt` (confirmed Dec 2025).
+!!!info "Governor Installation Command"
+    Use `sudo dnf copr enable filippor/bazzite && sudo dnf install cyan-skillfish-governor-smu` (confirmed Mar 2026).
 
 ### Setup Resources
 
@@ -82,7 +82,10 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 
 ```bash
 # After installation, install governor:
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
+sudo dnf copr enable filippor/bazzite
+rpm-ostree install cyan-skillfish-governor-smu
+systemctl reboot
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
 # Pin working version after successful boot:
 rpm-ostree pin 0

@@ -23,7 +23,7 @@
 - **Gaming compatibility** - tested games, settings, FPS data
 - **Driver setup** - RADV configuration, environment variables
 - **Community cases catalogue** - 145 case/enclosure designs, searchable and filterable
-- **System configuration** - GPU governor (cyan-skillfish-governor-tt default, oberon-governor alternative), sensors, power management
+- **System configuration** - GPU governor (cyan-skillfish-governor-smu recommended), sensors, power management
 
 ## Building Locally
 

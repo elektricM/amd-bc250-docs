@@ -23,9 +23,9 @@ lspci -k | grep -A 3 VGA
 glxinfo | grep "OpenGL version"
 
 # Check governor status
-systemctl status cyan-skillfish-governor-tt
-# or if using legacy governor:
-# systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
+# or if using TT governor:
+# systemctl status cyan-skillfish-governor-tt
 ```
 
 ---
@@ -43,12 +43,12 @@ systemctl status cyan-skillfish-governor-tt
 
 The BC-250 requires a custom GPU governor to enable dynamic frequency scaling between 350-2300MHz (patched kernel) or 1000-2000MHz (unpatched kernel).
 
-### Option 1: Cyan Skillfish Governor TT (Recommended)
+### Option 1: Cyan Skillfish Governor SMU (Recommended)
 
 **Features:**
-- Continuous frequency adjustment (no steps)
+- Continuous frequency adjustment via SMU firmware calls
 - Maintains GPU utilization 70-95% (configurable)
-- Higher CPU overhead (0.9-1.3% CPU usage)
+- No kernel patch required on any distro
 - 24ms burst-to-max time
 - More responsive to burst loads
 
@@ -57,13 +57,11 @@ The BC-250 requires a custom GPU governor to enable dynamic frequency scaling be
 **Fedora/RPM:**
 ```bash
 dnf copr enable filippor/bazzite
-dnf install cyan-skillfish-governor-tt
+dnf install cyan-skillfish-governor-smu
 ```
 
 **Arch/AUR:**
 ```bash
-yay -S cyan-skillfish-governor-tt
-# Or for SMU variant (no kernel patch needed):
 yay -S cyan-skillfish-governor-smu
 ```
 
@@ -98,7 +96,7 @@ load_target = { min = 70, max = 95 }
 
     ```bash
     # Stop the governor
-    sudo systemctl stop cyan-skillfish-governor-tt
+    sudo systemctl stop cyan-skillfish-governor-smu
 
     # Manually set frequency/voltage
     echo vc 0 <CLOCK> <VOLTAGE> > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -109,7 +107,7 @@ load_target = { min = 70, max = 95 }
 
 Enable and start:
 ```bash
-sudo systemctl enable --now cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-smu
 ```
 
 ---
@@ -650,14 +648,14 @@ Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
 - [ ] Kernel 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
-- [ ] GPU governor installed and running (cyan-skillfish-governor-tt recommended)
+- [ ] GPU governor installed and running (cyan-skillfish-governor-smu recommended)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM
 - [ ] `glxinfo` shows RADV driver, not llvmpipe
 - [ ] Temperatures under 85C under load
 - [ ] Cooling with high static pressure fan (>2.0 mmH2O)
 - [ ] IOMMU disabled in BIOS
-- [ ] `systemctl status cyan-skillfish-governor-tt` shows active
+- [ ] `systemctl status cyan-skillfish-governor-smu` shows active
 
 **Quick test:**
 ```bash
@@ -681,7 +679,7 @@ If you're still experiencing performance issues after following this guide:
 uname -r                    # Kernel version
 glxinfo | grep -i mesa      # Mesa version
 sensors                     # Temperatures
-systemctl status cyan-skillfish-governor-tt  # Governor status
+systemctl status cyan-skillfish-governor-smu  # Governor status
 dmesg | grep amdgpu | tail -50    # Recent GPU messages
 ```
 

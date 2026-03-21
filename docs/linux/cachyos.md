@@ -153,7 +153,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 systemctl status cyan-skillfish-governor-smu
 ```
 
-**Method 2: TT Governor from AUR (Requires Kernel Patch)**
+**Method 2: TT Governor from AUR (Alternative — Requires Kernel Patch)**
 ```bash
 # Install cyan-skillfish-governor-tt
 yay -S cyan-skillfish-governor-tt
@@ -165,21 +165,9 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 systemctl status cyan-skillfish-governor-tt
 ```
 
-**Method 3: Build oberon-governor from source (legacy)**
-```bash
-# Install dependencies
-sudo pacman -S base-devel cmake git
+**Method 3: Build from source**
 
-# Clone and build
-git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
-cd oberon-governor
-cmake .
-make -j$(nproc)
-sudo make install
-
-# Enable and start
-sudo systemctl enable --now oberon-governor.service
-```
+See [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor) for build instructions. The SMU variant is in the `smu` branch.
 
 **Verify it's working:**
 ```bash
@@ -349,7 +337,7 @@ glxinfo | grep "OpenGL version"  # Expected: Mesa 25.1.x+
 vulkaninfo | grep deviceName  # Expected: AMD Radeon Graphics (RADV GFX1013)
 
 # 4. Check governor (use whichever you installed)
-systemctl status cyan-skillfish-governor-tt  # Expected: active (running)
+systemctl status cyan-skillfish-governor-smu  # Expected: active (running)
 
 # 5. Check GPU frequency
 cat /sys/class/drm/card1/device/pp_dpm_sclk  # Expected: Multiple frequencies
@@ -436,7 +424,7 @@ CachyOS now works well on BC-250 with standard installation. The complex custom 
 - **CachyOS Website:** [cachyos.org](https://cachyos.org/)
 - **CachyOS Wiki:** [wiki.cachyos.org](https://wiki.cachyos.org/)
 - **CachyOS GitHub:** [github.com/CachyOS](https://github.com/CachyOS)
-- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
+- **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (recommended) or [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (alternative)
 
 ---
 

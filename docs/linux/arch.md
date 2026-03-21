@@ -168,7 +168,7 @@ sudo ./bc520-manjaro.sh
 
 1. **Package Installation**
    - Installs base-devel, git, cmake, lm_sensors
-   - Installs build tools for Oberon governor
+   - Installs build tools for GPU governor
 
 2. **RADV Environment Configuration**
    - Creates `/etc/environment.d/99-radv-bc250.conf`:
@@ -189,9 +189,9 @@ sudo ./bc520-manjaro.sh
    - Creates `/etc/modules-load.d/nct6683-bc250.conf`
    - Enables temperature monitoring
 
-5. **Oberon Governor**
-   - Clones and compiles governor
-   - Enables dynamic frequency scaling (1000MHz-2000MHz+)
+5. **GPU Governor**
+   - Installs cyan-skillfish-governor-smu from AUR
+   - Enables dynamic frequency scaling (1000MHz-2300MHz+)
    - Without this, GPU is locked at 1500MHz
 
 6. **Initramfs Regeneration**
@@ -289,9 +289,9 @@ nvtop      # Real-time GPU monitoring
 
 ```bash
 # Use whichever governor you installed:
-systemctl status cyan-skillfish-governor-tt   # TT variant (recommended)
-systemctl status cyan-skillfish-governor-smu  # SMU variant
-systemctl status oberon-governor              # legacy
+systemctl status cyan-skillfish-governor-smu  # SMU variant (recommended)
+systemctl status cyan-skillfish-governor-tt   # TT variant (alternative)
+systemctl status oberon-governor              # legacy (migrate to SMU)
 ```
 
 ### Check Frequency Scaling
@@ -317,7 +317,7 @@ The `*` moves between frequencies based on load.
 
 **Manual start:**
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt  # or oberon-governor
+sudo systemctl restart cyan-skillfish-governor-smu  # or cyan-skillfish-governor-tt
 ```
 
 ---
@@ -455,8 +455,8 @@ IgnorePkg = linux
 - [pnbarbeito/bc250-arch](https://github.com/pnbarbeito/bc250-arch)
 
 **Governor projects:**
-- [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (AUR, recommended)
-- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
+- [Cyan Skillfish Governor SMU](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (AUR, recommended)
+- [Cyan Skillfish Governor TT](https://github.com/filippor/cyan-skillfish-governor) (AUR, alternative)
 
 ---
 
@@ -473,7 +473,7 @@ nvtop
 cat /sys/class/drm/card1/device/pp_dpm_sclk
 
 # Check governor (use whichever you installed)
-systemctl status cyan-skillfish-governor-tt
+systemctl status cyan-skillfish-governor-smu
 
 # Check temps
 sensors

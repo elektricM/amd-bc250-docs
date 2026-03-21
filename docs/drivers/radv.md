@@ -735,7 +735,7 @@ cat /sys/class/drm/card1/device/pp_dpm_sclk
 # 2: 2000Mhz
 
 # If stuck at 1500MHz, governor is not working
-systemctl status cyan-skillfish-governor-tt
+systemctl status cyan-skillfish-governor-smu
 ```
 
 **Solution:** Install and configure GPU governor (see [System Configuration](../system/governor.md) guide).

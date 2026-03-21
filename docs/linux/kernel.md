@@ -213,7 +213,7 @@ The cyan-skillfish-governor tools enable manual GPU frequency and voltage tuning
 **Installation (Fedora/Bazzite):**
 ```bash
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
+sudo dnf install cyan-skillfish-governor-smu
 ```
 
 **Important:** After installation, verify the governor is targeting the correct GPU device:

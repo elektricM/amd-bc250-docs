@@ -119,7 +119,7 @@ amdgpu.sg_display=0
 |-----------|---------|-------------|
 | Mesa | 25.1.0 | 25.3.x+ (25.3.6 on Fedora 43) |
 | Kernel | 6.12.x | 6.18.18 LTS or 6.19.x stable |
-| Governor | Any | cyan-skillfish-governor-tt or -smu |
+| Governor | Any | cyan-skillfish-governor-smu (recommended) |
 
 [Linux setup guide →](../linux/distributions.md)
 
@@ -169,22 +169,25 @@ The governor controls GPU frequency and voltage. **Required for gaming performan
 ### Installation
 
 ```bash
-# Fedora/Bazzite (recommended):
+# Fedora:
 sudo dnf copr enable filippor/bazzite
-sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now cyan-skillfish-governor-tt.service
+sudo dnf install cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
-# Bazzite (automated script):
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
+# Bazzite (rpm-ostree):
+sudo dnf copr enable filippor/bazzite
+rpm-ostree install cyan-skillfish-governor-smu
+systemctl reboot
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 
-# Arch/CachyOS (SMU - no kernel patch needed):
+# Arch/CachyOS:
 yay -S cyan-skillfish-governor-smu
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 ### Configuration
 
-Edit `/etc/cyan-skillfish-governor-tt/config.toml`:
+Edit `/etc/cyan-skillfish-governor-smu/config.toml`:
 
 ```toml
 # Safe starting point:
@@ -197,7 +200,7 @@ max_voltage = 1050    # mV
 Restart governor after changes:
 
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ### Check GPU Frequency
@@ -259,18 +262,18 @@ sudo reboot
 
 ```bash
 # Check status (use whichever you installed)
-systemctl status cyan-skillfish-governor-tt
-# Or: systemctl status oberon-governor
+systemctl status cyan-skillfish-governor-smu
+# Or: systemctl status cyan-skillfish-governor-tt
 
 # Start/stop
-sudo systemctl start cyan-skillfish-governor-tt
-sudo systemctl stop cyan-skillfish-governor-tt
+sudo systemctl start cyan-skillfish-governor-smu
+sudo systemctl stop cyan-skillfish-governor-smu
 
 # Restart after config change
-sudo systemctl restart cyan-skillfish-governor-tt
+sudo systemctl restart cyan-skillfish-governor-smu
 
 # View logs
-journalctl -u cyan-skillfish-governor-tt -f
+journalctl -u cyan-skillfish-governor-smu -f
 ```
 
 ---
@@ -322,7 +325,7 @@ RADV_DEBUG=nohiz %command%
 1. Mesa version ≥ 25.1: `glxinfo | grep Mesa`
 2. Kernel ≤ 6.14: `uname -r`
 3. nomodeset removed from GRUB
-4. Governor running: `systemctl status cyan-skillfish-governor-tt`
+4. Governor running: `systemctl status cyan-skillfish-governor-smu`
 
 ### BIOS Settings Don't Stick
 
@@ -373,7 +376,7 @@ RADV_DEBUG=nohiz %command%
 ### Official Documentation
 - **GitHub:** https://github.com/mothenjoyer69/bc250-documentation
 - **BIOS Repo:** https://gitlab.com/TuxThePenguin0/bc250-bios/
-- **Governor:** Multiple forks (Oberon, Cyan Skillfish)
+- **Governor:** [Cyan Skillfish Governor SMU](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (recommended)
 
 ### Community
 - **Discord:** Active community, link in GitHub
@@ -382,7 +385,7 @@ RADV_DEBUG=nohiz %command%
 ### Key Contributors
 - mothenjoyer69 - Setup scripts
 - Average Data Hoarder - Modded BIOS
-- Segfault - Oberon Governor
+- Magnap - Cyan Skillfish Governor
 - FilippoR - COPR packages, Bazzite integration
 
 ---
