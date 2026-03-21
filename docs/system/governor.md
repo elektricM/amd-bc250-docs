@@ -37,7 +37,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 ## Governor Options
 
-### Cyan-Skillfish Governor TT (Recommended)
+### (option A) Cyan-Skillfish Governor TT (Recommended)
 
 **Developer:** filippor (based on Magnap's work)
 **Type:** Multi-step governor with thermal throttling
@@ -60,7 +60,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
     sudo cp /etc/cyan-skillfish-governor/config.toml /etc/cyan-skillfish-governor-tt/config.toml
     ```
 
-### Cyan-Skillfish Governor SMU (Kernel-Patch Free)
+### (option B) Cyan-Skillfish Governor SMU (Kernel-Patch Free)
 
 **Developer:** filippor / Magnap
 **Type:** SMU-based governor — bypasses kernel patches entirely
@@ -75,7 +75,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 
 **Repository:** [github.com/filippor/cyan-skillfish-governor (smu branch)](https://github.com/filippor/cyan-skillfish-governor/tree/smu)
 
-### Oberon Governor (Legacy — Still Stable)
+### (option C) Oberon Governor (Legacy — Still Stable)
 
 **Developer:** mothenjoyer69 / TuxThePenguin0
 **Type:** Two-state governor (min/max frequency)
@@ -89,13 +89,13 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 **COPR:** `@exotic-soc/oberon-governor`
 **Repository:** [gitlab.com/mothenjoyer69/oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor)
 
-### NexGen3D Setup Script (Bazzite Beginners)
+### (option D) NexGen3D Setup Script (Bazzite Beginners)
 
 **Repository:** [github.com/NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine)
 
-Installs cyan-skillfish-governor-tt + zram + CPU mitigations. De facto standard for Bazzite beginners.
+Installs cyan-skillfish-governor-smu + zram + CPU mitigations. De facto standard for Bazzite beginners.
 
-### PS5GPU-BC250 (GUI Controller — New)
+### (option E) PS5GPU-BC250 (GUI Controller — New)
 
 **Developer:** ZEROAESQUERDA
 **Type:** GUI-based GPU controller with automatic and manual modes
@@ -134,7 +134,7 @@ sudo dnf install cyan-skillfish-governor-tt
 sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
-**For SMU Governor (No Kernel Patch Needed):**
+**For Cyan-Skillfish Governor SMU (No Kernel Patch Needed):**
 ```bash
 # Fedora/Bazzite:
 sudo dnf copr enable filippor/bazzite
