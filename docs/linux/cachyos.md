@@ -165,20 +165,21 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 systemctl status cyan-skillfish-governor-tt
 ```
 
-**Method 3: Build oberon-governor from source (legacy)**
+**Method 3: Build from source**
 ```bash
 # Install dependencies
 sudo pacman -S base-devel cmake git
 
 # Clone and build
-git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
-cd oberon-governor
+git clone https://github.com/filippor/cyan-skillfish-governor.git
+cd cyan-skillfish-governor
+git checkout smu
 cmake .
 make -j$(nproc)
 sudo make install
 
 # Enable and start
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 **Verify it's working:**
@@ -436,7 +437,7 @@ CachyOS now works well on BC-250 with standard installation. The complex custom 
 - **CachyOS Website:** [cachyos.org](https://cachyos.org/)
 - **CachyOS Wiki:** [wiki.cachyos.org](https://wiki.cachyos.org/)
 - **CachyOS GitHub:** [github.com/CachyOS](https://github.com/CachyOS)
-- **GPU Governor:** [cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) (recommended) or [oberon-governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
+- **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor) (recommended, no kernel patch needed)
 
 ---
 

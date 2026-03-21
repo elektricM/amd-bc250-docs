@@ -131,17 +131,8 @@ sudo systemctl enable --now cyan-skillfish-governor-tt
 !!!info "Governor Package Update"
     The `filippor/bazzite` COPR now provides `cyan-skillfish-governor-tt` (Skillfish-TT optimized), which is confirmed stable as of Dec 2025. This is now the community default (Jan 2026+).
 
-!!!info "Alternative COPR Option"
-    You can also use `@exotic-soc/oberon-governor` for the original oberon-governor package if preferred.
-
-**Option 2: Build oberon-governor from source (legacy)**
-
-```bash
-git clone https://gitlab.com/mothenjoyer69/oberon-governor.git
-cd oberon-governor
-cmake . && make && sudo make install
-sudo systemctl enable --now oberon-governor.service
-```
+!!!tip "SMU Variant (No Kernel Patch Needed)"
+    The `filippor/bazzite` COPR also provides `cyan-skillfish-governor-smu`, which manages GPU frequency via SMU firmware and does not require any kernel patch. Install with `sudo dnf install cyan-skillfish-governor-smu`.
 
 ### Step 5: Configure Sensors
 

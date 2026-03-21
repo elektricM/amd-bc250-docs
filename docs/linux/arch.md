@@ -168,7 +168,7 @@ sudo ./bc520-manjaro.sh
 
 1. **Package Installation**
    - Installs base-devel, git, cmake, lm_sensors
-   - Installs build tools for Oberon governor
+   - Installs build tools for GPU governor
 
 2. **RADV Environment Configuration**
    - Creates `/etc/environment.d/99-radv-bc250.conf`:
@@ -189,8 +189,8 @@ sudo ./bc520-manjaro.sh
    - Creates `/etc/modules-load.d/nct6683-bc250.conf`
    - Enables temperature monitoring
 
-5. **Oberon Governor**
-   - Clones and compiles governor
+5. **GPU Governor**
+   - Installs GPU frequency governor
    - Enables dynamic frequency scaling (1000MHz-2000MHz+)
    - Without this, GPU is locked at 1500MHz
 
@@ -288,10 +288,8 @@ nvtop      # Real-time GPU monitoring
 ### Verify Governor Running
 
 ```bash
-# Use whichever governor you installed:
-systemctl status cyan-skillfish-governor-tt   # TT variant (recommended)
-systemctl status cyan-skillfish-governor-smu  # SMU variant
-systemctl status oberon-governor              # legacy
+# Check governor status:
+systemctl status cyan-skillfish-governor-smu
 ```
 
 ### Check Frequency Scaling
@@ -317,7 +315,7 @@ The `*` moves between frequencies based on load.
 
 **Manual start:**
 ```bash
-sudo systemctl restart cyan-skillfish-governor-tt  # or oberon-governor
+sudo systemctl restart cyan-skillfish-governor-smu
 ```
 
 ---
@@ -456,7 +454,6 @@ IgnorePkg = linux
 
 **Governor projects:**
 - [Cyan Skillfish Governor TT/SMU](https://github.com/filippor/cyan-skillfish-governor) (AUR, recommended)
-- [Oberon Governor](https://gitlab.com/mothenjoyer69/oberon-governor) (legacy)
 
 ---
 
