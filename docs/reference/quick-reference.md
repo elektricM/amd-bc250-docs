@@ -44,8 +44,8 @@ Fast answers to common questions. For detailed information, see the full documen
 
 ### Kernel Requirements
 
-- **Use:** Kernel 6.15.7 - 6.17.7 (best) or 6.12.x - 6.14.x LTS (stable)
-- **Avoid:** Kernel 6.15.0-6.15.6 and 6.17.8+ (GPU initialization fails)
+- **Use:** Kernel 6.18.18 LTS (recommended), 6.19.x (confirmed working), 6.17.11+, or 6.12.x-6.14.x LTS (stable)
+- **Avoid:** Kernel 6.15.0-6.15.6, 6.17.8-6.17.10 (GPU fails)
 - **Boot parameter:** `nomodeset` during install, remove after drivers installed
 
 ### Kernel Parameters
@@ -101,7 +101,7 @@ amdgpu.sg_display=0
 ### Operating System
 
 **Recommended:**
-- Fedora 42/43 Workstation (easiest)
+- Fedora 43 Workstation (easiest)
 - Bazzite (best for gaming)
 - CachyOS (best performance, harder setup)
 
@@ -117,9 +117,9 @@ amdgpu.sg_display=0
 
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
-| Mesa | 25.1.3 | 25.1.5+ |
-| Kernel | 6.12.x | 6.12-6.14 LTS |
-| Governor | Any | Latest from COPR |
+| Mesa | 25.1.0 | 25.2.x (Fedora 43 ships 25.2.7) |
+| Kernel | 6.12.x | 6.18.18 LTS, 6.19.x, or 6.17.11+ |
+| Governor | Any | cyan-skillfish-governor-tt or -smu |
 
 [Linux setup guide →](../linux/distributions.md)
 
@@ -169,39 +169,41 @@ The governor controls GPU frequency and voltage. **Required for gaming performan
 ### Installation
 
 ```bash
-# Fedora:
+# Fedora/Bazzite (recommended):
 sudo dnf copr enable filippor/bazzite
-sudo dnf install oberon-governor
+sudo dnf install cyan-skillfish-governor-tt
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 
-# Bazzite:
+# Bazzite (automated script):
 curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
 
-# Arch:
-# Build from source - see full guide
+# Arch/CachyOS (SMU - no kernel patch needed):
+yay -S cyan-skillfish-governor-smu
+sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 ### Configuration
 
-Edit `/etc/oberon-config.yaml`:
+Edit `/etc/cyan-skillfish-governor-tt/config.toml`:
 
-```yaml
+```toml
 # Safe starting point:
-min_frequency: 1000  # MHz
-max_frequency: 2000  # MHz
-min_voltage: 700     # mV (hard minimum, don't go lower)
-max_voltage: 1050    # mV
+min_frequency = 1000  # MHz
+max_frequency = 2000  # MHz
+min_voltage = 700     # mV (hard minimum, don't go lower)
+max_voltage = 1050    # mV
 ```
 
 Restart governor after changes:
 
 ```bash
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 ```
 
 ### Check GPU Frequency
 
 ```bash
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 # Should show multiple frequencies, current one marked with *
 ```
 
@@ -225,7 +227,7 @@ vulkaninfo | grep deviceName
 
 # Check RAM/VRAM split
 free -h
-cat /sys/class/drm/card0/device/mem_info_vram_total
+cat /sys/class/drm/card*/device/mem_info_vram_total
 
 # Check temperatures
 sensors
@@ -253,18 +255,19 @@ sudo reboot
 ### Governor Management
 
 ```bash
-# Check status
-systemctl status oberon-governor
+# Check status (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 
 # Start/stop
-sudo systemctl start oberon-governor
-sudo systemctl stop oberon-governor
+sudo systemctl start cyan-skillfish-governor-tt
+sudo systemctl stop cyan-skillfish-governor-tt
 
 # Restart after config change
-sudo systemctl restart oberon-governor
+sudo systemctl restart cyan-skillfish-governor-tt
 
 # View logs
-journalctl -u oberon-governor -f
+journalctl -u cyan-skillfish-governor-tt -f
 ```
 
 ---
@@ -316,7 +319,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 1. Mesa version ≥ 25.1: `glxinfo | grep Mesa`
 2. Kernel ≤ 6.14: `uname -r`
 3. nomodeset removed from GRUB
-4. Governor running: `systemctl status oberon-governor`
+4. Governor running: `systemctl status cyan-skillfish-governor-tt`
 
 ### BIOS Settings Don't Stick
 
@@ -333,7 +336,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 1. VRAM allocation (try 10GB/6GB fixed if using 512MB dynamic with ZRAM)
 2. Disable ZRAM: `sudo systemctl disable zram-swap`
 3. Update Mesa to latest
-4. Check kernel version (use 6.15.7-6.17.7 or 6.12-6.14 LTS)
+4. Check kernel version (use 6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS)
 
 ### High Temperatures
 
@@ -353,9 +356,12 @@ RADV_DEBUG=nohiz,nocompute %command%
     1. **Always clear CMOS after USB BIOS flash**
     2. **Disable IOMMU in BIOS** (IOMMU is broken - MUST disable)
     3. **Use nomodeset during install, remove after drivers installed**
-    4. **Avoid kernel 6.15.0-6.15.6 and 6.17.8+** (GPU driver fails)
-    5. **700mV minimum voltage** (crashes below this)
+    4. **Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10** (GPU driver fails) — 6.19.x works fine
+    5. **700mV minimum voltage** (GPU locks to 1500MHz below this)
     6. **Active DP-HDMI adapters break audio**
+    7. **ACPI fix is essential** — required for C-State support and power management ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
+    8. **No HW video encode/decode** — VCN firmware blocked by Sony, software decoding only
+    9. **Do NOT use Smokeless_UMAF** — may cause permanent damage to the board
 
 ---
 
@@ -367,7 +373,7 @@ RADV_DEBUG=nohiz,nocompute %command%
 - **Governor:** Multiple forks (Oberon, Cyan Skillfish)
 
 ### Community
-- **Discord:** 1000+ members, link in GitHub
+- **Discord:** Active community, link in GitHub
 - **TheRetroWeb:** https://theretroweb.com/motherboards/s/amd-bc-250
 
 ### Key Contributors
