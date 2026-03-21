@@ -8,7 +8,7 @@ This guide addresses system crashes, freezes, random reboots, and instability is
 
 Before diving into specific issues, check these common causes:
 
-1. **Kernel version**: Are you running kernel 6.15.0-6.15.6 or 6.17.8+? (Known to cause GPU crashes)
+1. **Kernel version**: Are you running kernel 6.15.0-6.15.6 or 6.17.8-6.17.10? (Known to cause GPU crashes)
 2. **BIOS settings**: Did you clear CMOS after flashing BIOS?
 3. **VRAM allocation**: Are you using 512MB dynamic with ZRAM enabled?
 4. **IOMMU**: Is it disabled in BIOS?
@@ -34,8 +34,8 @@ Before diving into specific issues, check these common causes:
    ```bash
    uname -r
    ```
-   - **AVOID kernel 6.15.0-6.15.6 and 6.17.8+** - Known to cause random GPU crashes under load
-   - **Recommended**: 6.15.7-6.17.7 (best performance) or 6.12.x-6.14.x LTS (stable)
+   - **AVOID kernel 6.15.0-6.15.6 and 6.17.8-6.17.10** - Known to cause random GPU crashes under load
+   - **Recommended**: 6.18.18 LTS (recommended) or 6.17.11+
    - If on broken version, install working kernel immediately
 
 2. **Verify governor voltage stability**
@@ -53,17 +53,14 @@ Before diving into specific issues, check these common causes:
    - Some boards freeze at 60-65°C if cooling is inadequate
 
 4. **Test with locked frequency**
-   - Edit `/etc/oberon-config.yaml`:
-   ```yaml
-   opps:
-     - frequency:
-       - min: 1500
-       - max: 1500
-     - voltage:
-       - min: 900
-       - max: 900
+   - Edit your governor config (e.g., `/etc/cyan-skillfish-governor-tt/config.toml`):
+   ```toml
+   min_frequency = 1500
+   max_frequency = 1500
+   min_voltage = 900
+   max_voltage = 900
    ```
-   - Restart governor: `systemctl restart oberon-governor`
+   - Restart governor: `systemctl restart cyan-skillfish-governor-tt`
    - If stable at locked frequency, it's a governor tuning issue
 
 ### Thermal-Related Freezes
@@ -105,9 +102,8 @@ Before diving into specific issues, check these common causes:
    - If crashes occur, add 10-15mV voltage
 
 2. **Known frequency issues**
-   - 980MHz: "Very wonky on any voltage"
    - 1000MHz: "Sometimes wonky but give it more voltage or change loadline in BIOS"
-   - 700mV: Hard minimum voltage cap
+   - 700mV: Hard minimum voltage cap — setting min voltage below 700mV locks GPU to 1500MHz
    - 2230MHz+: Most boards require 1050mV+, some need 1100mV
 
 3. **Example stable configurations** (varies by silicon lottery):
@@ -135,6 +131,26 @@ Before diving into specific issues, check these common causes:
    ```
    Note: These are NOT universal - test your own board
 
+### Black Screen on GPU Reset (Governor Running)
+
+**Symptoms**: GPU crashes, screen goes black, system never recovers — hard reboot required
+
+**Cause**: If the GPU crashes while the governor (cyan-skillfish) is running, the governor continues writing to sysfs during the GPU reset attempt, preventing recovery. The GPU gets stuck in a failed reset loop and the screen stays black.
+
+**Workaround**:
+
+1. **Disable governor before playing crash-prone games**
+   ```bash
+   sudo systemctl stop cyan-skillfish-governor-tt
+   ```
+   Re-enable after: `sudo systemctl start cyan-skillfish-governor-tt`
+
+2. **Use stable voltage/frequency settings** to reduce the chance of GPU crashes in the first place — see the voltage-related instability section below.
+
+*Source: Discord user nohanmv, Feb 26 2026*
+
+---
+
 ### Governor-Related Instability
 
 **Symptoms**: Random crashes during load changes, frequency spikes, voltage issues
@@ -142,27 +158,24 @@ Before diving into specific issues, check these common causes:
 **Common issues**:
 
 1. **Governor not starting correctly**
-   - Check status: `systemctl status oberon-governor`
+   - Check status: `systemctl status cyan-skillfish-governor-tt`
    - If failing, governor may be installed in wrong location
    - Reinstall following distribution-specific guide
 
 2. **Voltage too low at startup**
    - Some boards crash on "default governor settings"
-   - Edit `/etc/oberon-config.yaml` to increase min voltage
+   - Edit your governor config to increase min voltage
    - Quote: "Hey all, my board crashes on default governor settings. Did I loose the silicon lottery?"
 
 3. **Frequency/voltage mismatch**
    - Symptom: Crashes when GPU load increases/decreases
    - Solution: Reduce frequency range or increase voltage headroom
-   - Example fix:
-   ```yaml
-   opps:
-     - frequency:
-       - min: 1000
-       - max: 2000
-     - voltage:
-       - min: 750
-       - max: 1000
+   - Example fix (cyan-skillfish-governor-tt config.toml):
+   ```toml
+   min_frequency = 1000
+   max_frequency = 2000
+   min_voltage = 750
+   max_voltage = 1000
    ```
 
 ---
@@ -214,18 +227,18 @@ Before diving into specific issues, check these common causes:
 
 ### Broken Kernel Versions - GPU Driver Failures
 
-**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8+
+**Symptoms**: Kernel panics, GPU errors in dmesg, system crashes under GPU load on 6.15.0-6.15.6 or 6.17.8-6.17.10
 
-**Critical issue**: Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support for BC-250
+**Critical issue**: Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support for BC-250
 
 **Solution**:
 
-1. **Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS)**
+1. **Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS)**
 
    **Arch/Manjaro**:
    ```bash
-   # Option 1: Install working 6.15.7-6.17.7 kernel
-   sudo pacman -S linux  # Check version is in working range
+   # Option 1: Install working kernel (6.17.11+ or 6.18.x)
+   sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
    # Option 2: Install LTS kernel for guaranteed stability
    sudo pacman -S linux-lts linux-lts-headers
 
@@ -236,10 +249,10 @@ Before diving into specific issues, check these common causes:
    **Fedora**:
    ```bash
    # Install older kernel
-   sudo dnf install kernel-6.14.x
+   sudo dnf install kernel-6.18.18-*
 
    # Set as default
-   sudo grubby --set-default /boot/vmlinuz-6.14.x
+   sudo grubby --set-default /boot/vmlinuz-6.18.*
    ```
 
    **CachyOS**: Use LTS kernel option during installation
@@ -418,6 +431,9 @@ zram-size = 4096  # 4GB instead of 8GB
 
 **Quote**:
 > "Its not actually 450, its like 1750, but you can modify it. I wouldn't recommend it though, ppl over in the russian BC250 chat reported that unstable ram settings would frequently result in BIOS corruption, requiring the BIOS to be reflashed"
+
+!!!danger "P5.00 BIOS More Susceptible to Bricking"
+    Community reports (from the Mem Timing Utility channel) indicate **P5.00 BIOS** is more susceptible to permanent bricking from aggressive memory timings, requiring a full reflash. **P3.00 BIOS** typically triggers a watchdog reset instead. The most rewarding timing to tune is tREF; other UDIMM timings yield minimal gains. The BC-250's GDDR6 ICs are bottom-binned Micron parts with limited overclocking headroom.
 
 **If you must overclock RAM**:
 1. Have hardware flasher ready (CH341A or Raspberry Pi Pico)
@@ -632,7 +648,7 @@ watch -n 1 sensors
 
 **Terminal 2 - Frequencies and voltages**:
 ```bash
-watch -n 1 'cat /sys/class/drm/card0/device/pp_od_clk_voltage'
+watch -n 1 'cat /sys/class/drm/card*/device/pp_od_clk_voltage'
 ```
 
 **Terminal 3 - Memory**:
@@ -650,8 +666,8 @@ journalctl -f | grep -i "error\|fail\|crash\|amdgpu"
 ## Common Error Messages
 
 ### "GPU reset failed"
-- **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8+, overclocking instability, or GPU crash
-- **Fix**: Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS), reduce frequency/increase voltage
+- **Cause**: Kernel 6.15.0-6.15.6 or 6.17.8-6.17.10, overclocking instability, or GPU crash
+- **Fix**: Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS), reduce frequency/increase voltage
 
 ### "Out of memory"
 - **Cause**: VRAM exhausted, BIOS settings not applied, ZRAM conflict
@@ -712,7 +728,7 @@ Silicon lottery is real - some boards are less stable than others.
 1. **Check thermal paste every 6 months** (or use PTM7950)
 2. **Clean heatsink fins** from dust buildup
 3. **Verify fan operation** regularly
-4. **Monitor kernel updates** (avoid 6.15.0-6.15.6 and 6.17.8+)
+4. **Monitor kernel updates** (avoid 6.15.0-6.15.6 and 6.17.8-6.17.10)
 5. **Back up working configurations** (BIOS settings, governor config)
 
 ### Documentation
@@ -769,7 +785,7 @@ If problems persist after trying these solutions:
      echo "=== Temperatures ==="
      sensors
      echo "=== Governor Status ==="
-     systemctl status oberon-governor
+     systemctl status cyan-skillfish-governor-tt
      echo "=== Recent Errors ==="
      journalctl -p err -n 50
    } > bc250-diagnostic.txt
@@ -785,7 +801,7 @@ If problems persist after trying these solutions:
 
 | Problem | Most Likely Fix |
 |---------|----------------|
-| Random GPU crashes | Install working kernel (6.15.7-6.17.7 or 6.12-6.14 LTS) |
+| Random GPU crashes | Install working kernel (6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS) |
 | BIOS settings not sticking | Clear CMOS after flashing |
 | Games crashing with ZRAM | Disable ZRAM or use fixed VRAM allocation |
 | General instability | Disable IOMMU in BIOS |

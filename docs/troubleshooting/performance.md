@@ -14,7 +14,7 @@ sensors
 
 # Check GPU utilization and frequency
 watch -n 1 cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent
-watch -n 1 cat /sys/class/drm/card0/device/pp_dmu_clock
+watch -n 1 cat /sys/class/drm/card*/device/pp_dmu_clock
 
 # Check if GPU driver is loaded
 lspci -k | grep -A 3 VGA
@@ -22,10 +22,10 @@ lspci -k | grep -A 3 VGA
 # Verify Mesa version
 glxinfo | grep "OpenGL version"
 
-# Check governor status (if installed)
-systemctl status oberon-governor
-# or
-systemctl status cyan-skillfish-governor
+# Check governor status
+systemctl status cyan-skillfish-governor-tt
+# or if using legacy governor:
+# systemctl status oberon-governor
 ```
 
 ---
@@ -43,55 +43,7 @@ systemctl status cyan-skillfish-governor
 
 The BC-250 requires a custom GPU governor to enable dynamic frequency scaling between 350-2300MHz (patched kernel) or 1000-2000MHz (unpatched kernel).
 
-### Option 1: Oberon Governor (Recommended for most users)
-
-**Features:**
-- Multi-step frequency scaling
-- Maintains GPU usage between 45-70%
-- Lower CPU overhead (0.4% CPU usage)
-- 100ms burst-to-max time
-
-**Installation:**
-
-**Fedora/Bazzite:**
-```bash
-dnf copr enable @exotic-soc/oberon-governor
-dnf install oberon-governor
-systemctl enable --now oberon-governor
-```
-
-**Arch/Manjaro:**
-```bash
-yay -S oberon-governor
-systemctl enable --now oberon-governor
-```
-
-**Configuration:**
-
-Edit `/etc/oberon-config.yaml`:
-
-```yaml
-opps:
-  - frequency:
-    - min: 1000
-    - max: 2000
-  - voltage:
-    - min: 700
-    - max: 1000
-```
-
-Restart the service:
-```bash
-sudo systemctl restart oberon-governor
-```
-
-**Verify it's working:**
-```bash
-oberon-governor --help  # Should show v0.1.4 or higher
-systemctl status oberon-governor
-```
-
-### Option 2: Cyan Skillfish Governor (Advanced users)
+### Option 1: Cyan Skillfish Governor TT (Recommended)
 
 **Features:**
 - Continuous frequency adjustment (no steps)
@@ -105,12 +57,14 @@ systemctl status oberon-governor
 **Fedora/RPM:**
 ```bash
 dnf copr enable filippor/bazzite
-dnf install cyan-skillfish-governor
+dnf install cyan-skillfish-governor-tt
 ```
 
 **Arch/AUR:**
 ```bash
-yay -S cyan-skillfish-governor
+yay -S cyan-skillfish-governor-tt
+# Or for SMU variant (no kernel patch needed):
+yay -S cyan-skillfish-governor-smu
 ```
 
 **Debian:**
@@ -144,7 +98,7 @@ load_target = { min = 70, max = 95 }
 
     ```bash
     # Stop the governor
-    sudo systemctl stop cyan-skillfish-governor
+    sudo systemctl stop cyan-skillfish-governor-tt
 
     # Manually set frequency/voltage
     echo vc 0 <CLOCK> <VOLTAGE> > /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/pp_od_clk_voltage
@@ -155,7 +109,7 @@ load_target = { min = 70, max = 95 }
 
 Enable and start:
 ```bash
-sudo systemctl enable --now cyan-skillfish-governor
+sudo systemctl enable --now cyan-skillfish-governor-tt
 ```
 
 ---
@@ -193,7 +147,7 @@ Apply to kernel source and recompile, or use a tool like `dkms` or CachyOS kerne
 
 **Verification:**
 ```bash
-cat /sys/class/drm/card0/device/pp_od_clk_voltage
+cat /sys/class/drm/card*/device/pp_od_clk_voltage
 # Should show range up to 2300MHz or higher
 ```
 
@@ -226,12 +180,8 @@ Solution: Upgrade to Mesa 25.1.3 or newer
 sudo dnf update mesa*
 ```
 
-**Fedora 42:**
-```bash
-# Use COPR for Mesa 25.1+
-sudo dnf copr enable @exotic-soc/bc250-mesa
-sudo dnf update mesa*
-```
+!!!warning "Fedora 42 is End of Life"
+    Upgrade to Fedora 43 which ships Mesa 25.x in repos.
 
 **Arch/Manjaro:**
 ```bash
@@ -311,19 +261,19 @@ See "GPU Locked at 1500MHz" section above.
 - Previously working setup suddenly has poor performance after kernel update
 - Random GPU crashes under load
 - System freezes during gaming
-- Running kernel 6.15.0-6.15.6 or 6.17.8+
+- Running kernel 6.15.0-6.15.6 or 6.17.8-6.17.10
 
 **Solution:**
 
 **Install Working Kernel**
 
 !!! danger "AVOID BROKEN KERNEL VERSIONS"
-    Kernel 6.15.0-6.15.6 and 6.17.8+ break GPU driver support. Use 6.15.7-6.17.7 for best performance or 6.12.x-6.14.x LTS for stability.
+    Kernel 6.15.0-6.15.6 and 6.17.8-6.17.10 break GPU driver support. Use 6.18.18 LTS (recommended) or 6.17.11+ for best performance.
 
 **Arch/Manjaro:**
 ```bash
-# Option 1: Install working 6.15.7-6.17.7 kernel
-sudo pacman -S linux  # Check version is in working range
+# Option 1: Install working kernel (6.17.11+ or 6.18.x)
+sudo pacman -S linux  # Check version is 6.17.11+ or 6.18.x
 # Option 2: Install LTS kernel for guaranteed stability
 sudo pacman -S linux-lts linux-lts-headers
 # Set as default in bootloader
@@ -332,7 +282,7 @@ sudo pacman -S linux-lts linux-lts-headers
 **CachyOS:**
 ```bash
 # Check version first
-paru -S linux-cachyos  # Ensure it's 6.15.7-6.17.7
+paru -S linux-cachyos  # Ensure it's 6.17.11+ or 6.18.x
 # Or for LTS stability:
 paru -S linux-cachyos-lts linux-cachyos-lts-headers
 ```
@@ -363,26 +313,9 @@ Disable IOMMU in BIOS (required), or add kernel parameter as backup:
 amd_iommu=off
 ```
 
-### Issue: RADV_DEBUG Environment Variable
-
-Some older setup guides recommend setting `RADV_DEBUG=nocompute` globally. This may not be needed on Mesa 25.1+.
-
-**Test without it:**
-```bash
-# Remove from Steam launch options
-# Remove from /etc/environment if set there
-```
-
 ### Issue: Game-Specific Optimizations
 
 **Steam Launch Options:**
-
-Most games work with:
-```bash
-RADV_DEBUG=nocompute %command%
-```
-
-For better performance, try:
 ```bash
 # FSR enabled
 WINE_FULLSCREEN_FSR=1 %command%
@@ -488,13 +421,43 @@ sudo systemctl stop zram-swap
 sudo systemctl disable zram-swap
 ```
 
-**Solution 3: Increase VRAM Visibility (Advanced)**
+**Solution 3: Replace ZRAM with zswap (Better for RAM-Hungry Games)**
+
+zswap compresses swap in RAM before writing to disk, avoiding ZRAM's VRAM conflicts while still helping with memory pressure. Community reports this made games like AoE2:DE with UHD textures playable at 4K.
+
+**Bazzite setup:**
+```bash
+# Disable zram
+echo "" | sudo tee /etc/systemd/zram-generator.conf
+
+# Set up swapfile first (see https://docs.bazzite.gg/Advanced/swapfile/)
+
+# Enable lz4 drivers in initramfs
+rpm-ostree initramfs --enable \
+  --arg=--add-drivers \
+  --arg=lz4 \
+  --arg=--add-drivers \
+  --arg=lz4_compress
+
+# Add kernel parameters
+rpm-ostree kargs --append-if-missing="zswap.enabled=1 zswap.max_pool_percent=25 zswap.compressor=lz4"
+
+# Reboot, then set swappiness
+echo 180 | sudo tee /proc/sys/vm/swappiness
+```
+
+**Verify:** `grep -r . /sys/module/zswap/parameters/`
+
+!!!warning "zswap and SSD Wear"
+    zswap eventually writes to your swap file on disk. Not recommended on slow storage devices.
+
+**Solution 4: Increase VRAM Visibility (Advanced)**
 
 For LLM/AI workloads that need more than 12GB VRAM:
 
 Add to kernel command line:
 ```bash
-amdgpu.gttsize=14750 ttm.pages_limit=3776000 ttm.page_pool_size=3776000
+amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
 ```
 
 This allows GPU to allocate up to ~14.75GB VRAM. Limit usage to 14.25-14.5GB in applications to avoid crashes.
@@ -686,20 +649,20 @@ rpm-ostree rollback
 Use this checklist to verify your system is properly configured:
 
 - [ ] Mesa version 25.1.3 or higher
-- [ ] Kernel 6.15.7-6.17.7 or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8+)
-- [ ] GPU governor installed and running (oberon or cyan-skillfish)
+- [ ] Kernel 6.18.18 LTS (recommended), 6.17.11+, or 6.12.x-6.14.x LTS (NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
+- [ ] GPU governor installed and running (cyan-skillfish-governor-tt recommended)
 - [ ] `nomodeset` removed from kernel parameters
 - [ ] BIOS flashed to P3.00 with 512MB dynamic or 4-12GB fixed VRAM
 - [ ] `glxinfo` shows RADV driver, not llvmpipe
 - [ ] Temperatures under 85C under load
 - [ ] Cooling with high static pressure fan (>2.0 mmH2O)
 - [ ] IOMMU disabled in BIOS
-- [ ] `systemctl status oberon-governor` shows active
+- [ ] `systemctl status cyan-skillfish-governor-tt` shows active
 
 **Quick test:**
 ```bash
 # This should show GPU scaling dynamically
-watch -n 0.5 'cat /sys/class/drm/card0/device/pp_dmu_clock && cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent'
+watch -n 0.5 'cat /sys/class/drm/card*/device/pp_dmu_clock && cat /sys/devices/pci0000:00/0000:00:08.1/0000:01:00.0/gpu_busy_percent'
 
 # Run a game or benchmark
 # Frequency should scale from ~1000MHz idle to 2000+MHz under load
@@ -718,8 +681,7 @@ If you're still experiencing performance issues after following this guide:
 uname -r                    # Kernel version
 glxinfo | grep -i mesa      # Mesa version
 sensors                     # Temperatures
-systemctl status oberon-governor  # Governor status
-cat /etc/oberon-config.yaml       # Governor config
+systemctl status cyan-skillfish-governor-tt  # Governor status
 dmesg | grep amdgpu | tail -50    # Recent GPU messages
 ```
 
