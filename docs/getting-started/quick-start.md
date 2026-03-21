@@ -32,19 +32,19 @@ Boot into BIOS (Del key during startup) and configure:
 - **IOMMU:** **Disabled** (MUST disable - IOMMU is broken)
 - **Boot Mode:** UEFI
 
-!!!danger "Backplate Active Cooling Required"
-    The VRAM chips on the backplate have no temperature sensor and will overheat under load, causing graphical glitches and instability. Install an 80mm fan on the backplate before gaming or intensive workloads. Passive cooling is insufficient.
+!!!info "Backplate Cooling Recommended"
+    The VRAM chips on the backplate have no temperature sensor. Ensure airflow over the backplate for gaming workloads. If you see pixel artifacts, VRAM may be overheating — add a fan or improve case airflow.
 
 [VRAM configuration guide →](../bios/vram.md)
 
 ### Step 3: Install Linux
 
 !!!tip "Recommended: Fedora or Bazzite"
-    Fedora 42/43 and Bazzite have the best out-of-box support. Other distros work but need more manual setup.
+    Fedora 43 and Bazzite have the best out-of-box support. Other distros work but need more manual setup.
 
 **Fedora Installation:**
 
-1. Download Fedora 42 or 43 Workstation
+1. Download Fedora 43 Workstation (or Fedora 44 Beta)
 2. Boot installer in "Basic Graphics Mode" (enables nomodeset automatically)
 3. Complete installation normally
 4. Reboot
@@ -58,33 +58,24 @@ Boot into BIOS (Del key during startup) and configure:
 Run the automated setup script:
 
 ```bash
-# For Fedora 42/43
-# Mesa 25.1+ is included in Fedora 43 repos - no additional setup needed
+# For Fedora 43 (Fedora 42 is EOL — upgrade if still on it)
+# Mesa 25.x is included in Fedora 43 repos - no additional setup needed
 sudo dnf update
 
 # Install governor from COPR (updated Dec 2025)
 sudo dnf copr enable filippor/bazzite
 sudo dnf install cyan-skillfish-governor-tt
-sudo systemctl enable --now oberon-governor.service
+sudo systemctl enable --now cyan-skillfish-governor-tt.service
 ```
 
-!!!info "SMU Governor as Emerging Alternative"
-    The SMU governor is an emerging alternative that works on CachyOS without requiring a kernel patch. Monitor community feedback for stability updates.
+!!!info "SMU Governor Alternative (No Kernel Patch Needed)"
+    The `cyan-skillfish-governor-smu` bypasses kernel patches entirely via SMU firmware calls. Best option for CachyOS/Arch. Install via AUR: `yay -S cyan-skillfish-governor-smu`
+
+!!!danger "ACPI Fix is Essential"
+    Install the BC-250 ACPI fix for proper C-State support and power management: [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix)
 
 !!!warning "Governor Device Targeting"
     **Known Issue:** Governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration.
-
-```bash
-# For Bazzite
-curl -s https://raw.githubusercontent.com/vietsman/bc250-documentation/refs/heads/main/oberon-setup.sh | sudo sh
-```
-
-This installs:
-
-- Mesa 25.1+ drivers (already in Fedora 43+ / Bazzite)
-- Oberon GPU governor (required for performance)
-- Sensor drivers (lm-sensors package)
-- System optimizations
 
 **Difficulty:** Easy
 
@@ -93,6 +84,7 @@ This installs:
 !!!warning "Critical Step"
     After drivers are installed, you MUST remove nomodeset or the GPU won't work properly.
 
+**Fedora / Standard GRUB distributions:**
 ```bash
 sudo nano /etc/default/grub
 
@@ -109,6 +101,27 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 sudo reboot
 ```
 
+**Bazzite / Fedora Atomic (rpm-ostree):**
+
+Bazzite does not use `/etc/default/grub` — editing it directly has no effect. Use `rpm-ostree kargs` instead:
+
+```bash
+# Remove nomodeset if it was added
+rpm-ostree kargs --delete-if-present="nomodeset"
+
+# Reboot
+systemctl reboot
+```
+
+Alternatively, create or edit `/etc/default/grub.d/user.cfg` for persistent kernel parameter changes:
+
+```bash
+echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet"' | sudo tee /etc/default/grub.d/user.cfg
+```
+
+!!!info "Bazzite Usually Doesn't Need nomodeset"
+    Bazzite typically boots correctly without nomodeset. If you didn't add it, you can skip this step.
+
 ### Step 6: Verify Installation
 
 Check that everything works:
@@ -121,12 +134,13 @@ glxinfo | grep "OpenGL version"
 vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
-# Check governor running
-systemctl status oberon-governor
+# Check governor running (use whichever you installed)
+systemctl status cyan-skillfish-governor-tt
+# Or: systemctl status oberon-governor
 # Should show: active (running)
 
 # Check GPU frequency
-cat /sys/class/drm/card0/device/pp_dpm_sclk
+cat /sys/class/drm/card*/device/pp_dpm_sclk
 # Should show multiple frequencies, one marked with *
 ```
 
@@ -166,7 +180,7 @@ This fixes graphical glitches in some games.
 **Solution:**
 
 1. Verify Mesa 25.1+ installed: `dnf list mesa-*`
-2. Check kernel version: `uname -r` (should be 6.15.7-6.17.7 or 6.12-6.14 LTS, NOT 6.15.0-6.15.6 or 6.17.8+)
+2. Check kernel version: `uname -r` (should be 6.18.18 LTS, 6.17.11+, or 6.12-6.14 LTS — NOT 6.15.0-6.15.6 or 6.17.8-6.17.10)
 3. Verify nomodeset was removed from GRUB
 
 ### Poor Performance / Low FPS
@@ -174,8 +188,8 @@ This fixes graphical glitches in some games.
 **Problem:** Games running at 15-20 FPS
 **Solution:**
 
-1. Check governor is running: `systemctl status oberon-governor`
-2. Check GPU frequency: `cat /sys/class/drm/card0/device/pp_dpm_sclk`
+1. Check governor is running: `systemctl status cyan-skillfish-governor-tt`
+2. Check GPU frequency: `cat /sys/class/drm/card*/device/pp_dpm_sclk`
 3. Should NOT be stuck at 1500MHz
 
 ### High Temperatures
@@ -191,14 +205,6 @@ This fixes graphical glitches in some games.
 [Full troubleshooting guide →](../troubleshooting/display.md)
 
 ---
-
-## Performance Targets
-
-You should achieve:
-
-- **Idle:** 40-60°C, 50-80W power draw
-- **Gaming:** 70-85°C, 150-200W power draw
-- **FPS:** 60+ in most games at 1080p medium-high settings
 
 ## Next Steps
 
