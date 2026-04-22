@@ -302,6 +302,21 @@ systemctl reboot
    - Confirm it worked by verifying that the time/clock in the BIOS was reset and shows the wrong value
 - Reapply the BIOS settings changes, such as the VRAM allocation
 
+### Consistent Micro-stuttering during Gameplay
+
+**Symptom:** Consistent micro-stutters every couple of seconds even for the least demanding 2D games.
+
+**Cause:** The built-in Bazzite Handheld Daemon fails to load required functionality (not present on BC-250), and inevitably fails and restarts continually.
+
+**Solution:** Disable the Handheld Daemon (HHD).
+
+```bash
+sudo systemctl disable --now hhd
+
+# Prevent from being re-enabled in future update
+sudo systemctl mask hhd
+```
+
 ### Governor Voltage Instability
 
 **Symptom:** Graphics artifacts, crashes, black screens
