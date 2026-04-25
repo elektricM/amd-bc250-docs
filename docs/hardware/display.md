@@ -251,7 +251,7 @@ glxinfo | grep "OpenGL renderer"
 ### Tested MST Hubs Compatibility  
 | Adapter | Display-out | DP Version | Display Works | Audio Works | Notes |
 |------------------|-----------|---------|----------|-------|------------|
-| Starlink MST14DP122DP | DP (2) | 1.4 | Yes | Yes | Worked consistently with different monitors and DP cables |
+| StarTech MST14DP122DP | DP (2) | 1.4 | Yes | Yes | Worked consistently with different monitors and DP cables |
 | Monoprice 21972 | DP (2) | 1.2 | Mirror only | Yes | Was only able to get displays to mirror |
 | ENBUER | DP (2) | 1.2? | Mirror only | Yes | Was only able to get displays to mirror |
 | Generic | HDMI (2) | N/A | No | No | No audio or video output |
