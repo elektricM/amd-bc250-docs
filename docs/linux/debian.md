@@ -27,9 +27,6 @@ Debian and PikaOS offer stable, low-power options for the BC-250. While requirin
 - More manual configuration needed
 - Kernel selection critical
 
-!!!info "Pre-built Debian Image Available"
-    A pre-built Debian image exists with kernel 6.18.3, Mesa 26, and GPU patches pre-applied. This significantly reduces setup complexity for new users. Check community resources for access.
-
 ### PikaOS
 
 **Advantages:**

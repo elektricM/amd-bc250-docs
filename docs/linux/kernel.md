@@ -365,6 +365,36 @@ Required for:
 
 **Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS) or use the SMU governor
 
+### 40 CU Unlock Patch (Experimental)
+
+**Purpose:** Re-enables all 40 RDNA2 CUs on the BC-250 (stock ships with 24 of 40 active).
+
+**Status:** Experimental. Submitted as [CachyOS/kernel-patches#159](https://github.com/CachyOS/kernel-patches/pull/159) by duggasco. Not yet merged upstream.
+
+**How it works:** Writes two hardware registers during `gfx_v10_0_get_cu_info()`:
+
+- `CC_GC_SHADER_ARRAY_CONFIG` — clears the harvest enumeration mask
+- `SPI_PG_ENABLE_STATIC_WGP_MASK` — enables SPI wave dispatch to all 5 WGPs per shader array
+
+Both registers must be written together — neither alone produces compute scaling.
+
+**Safety:**
+
+- Default off, opt-in via `amdgpu.bc250_cc_write_mode=3` kernel parameter
+- Guarded by PCI device ID `0x13FE` (BC-250 only)
+- No permanent hardware change — rebooting without the parameter returns to stock
+
+**Reported results** (Vulkan llama-bench pp512, same board):
+
+| State                              | pp512 tok/s | Power |
+|------------------------------------|-------------|-------|
+| Stock (24 CU)                      | 302         | 56 W  |
+| **Both registers (40 CU)**         | **466**     | **181 W** |
+
+At 1500 MHz / 900 mV: 230 → 372 tok/s (1.61x). Power draw goes up significantly — only worth it for compute-heavy workloads.
+
+**Reference:** Full writeup at [duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock).
+
 ### TKG Kernel (Arch-based)
 
 For Arch users, linux-tkg provides easy custom kernel building:

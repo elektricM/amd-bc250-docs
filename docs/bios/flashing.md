@@ -1,6 +1,9 @@
 # BIOS Flashing Guide
 
-Flashing the modded BIOS is essential for unlocking the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
+Flashing the modded BIOS is the recommended way to unlock the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
+
+!!!tip "Not always required"
+    If your only goal is changing VRAM size, you can do that from Linux on the stock P3.00 / P5.00 BIOS using [bc250_memcfg](https://github.com/fanoush/bc250_memcfg). See [VRAM Configuration](vram.md#changing-vram-allocation) for details. Flashing is only needed if you want the unlocked chipset menus or features beyond VRAM sizing.
 
 !!!danger "Hardware Safety: GPU Power Connector"
     Ensure the 8-pin PCIe power connector is wired correctly BEFORE attempting to flash.

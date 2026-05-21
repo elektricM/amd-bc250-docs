@@ -122,6 +122,20 @@ CPU-favoring split.
 !!!warning "Takes Effect Immediately"
     The new allocation applies on reboot. No need to reflash BIOS or reinstall OS.
 
+### From Linux (no BIOS flash needed)
+
+If you only need to change VRAM size, you can set it from a running Linux system on the stock P3.00 or P5.00 BIOS using [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg):
+
+```bash
+git clone https://github.com/fanoush/bc250_memcfg
+cd bc250_memcfg
+make
+sudo ./bc250memcfg UMA_SIZE 512    # 512MB dynamic
+# values: 512, 4096, 6144, 8192
+```
+
+Reboot for the new allocation to apply. Useful if you want VRAM sizing without flashing a modded BIOS.
+
 ### Verification in Linux
 
 Check current allocation:
