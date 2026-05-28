@@ -139,6 +139,7 @@ nav:
     - Debian Setup: linux/debian.md
     - Kernel Configuration: linux/kernel.md
     - Mesa Installation: linux/mesa.md
+    - Fedora CoreOS Setup: linux/fedora-coreos.md
 
   - Drivers & Graphics:
     - RADV Driver: drivers/radv.md
