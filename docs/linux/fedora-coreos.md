@@ -12,7 +12,7 @@ I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-cor
 
 **Operating System:** This is the base that Bazzite is built upon, so one can easily 'rebase' to Bazzite in the future.
 
-**Kernel and Software Versions:** As of this writing, [6.19.14 is being used](https://fedoraproject.org/coreos/release-notes/?arch=x86_64&stream=stable).  Next version will use Kernel 7.0.8, more info.
+**Kernel and Software Versions:** As of this writing, [6.19.14 is being used](https://fedoraproject.org/coreos/release-notes/?arch=x86_64&stream=stable).  Next version will use Kernel 7.0.8.
 
 ---
 
@@ -30,8 +30,11 @@ I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-cor
 ## BIOS Requirements
 
 **REQUIRED before installing:**
+
 1. Flash modified BIOS (P3.00 recommended)
+
 2. Set VRAM allocation (512MB dynamic recommended)
+
 3. **Disable IOMMU** (IOMMU is broken - MUST disable)
 
 See [BIOS Flashing Guide](../bios/flashing.md).
@@ -49,7 +52,7 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 ### Installation Steps
 
 !!!info "Follow the Fedora CoreOS Installation Guides"
-    Fedora CoreOS installation should be done following the official [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide).  There is no specific deviations or customizations needed to install CoreOS on a BC-250.  All customization is post-installation.
+    Fedora CoreOS installation should be done following the official [Fedora CoreOS Installation Guide](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/).  There is no specific deviations or customizations needed to install CoreOS on a BC-250.  All customization is post-installation.
 
 ---
 
