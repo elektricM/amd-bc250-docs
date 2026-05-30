@@ -610,6 +610,36 @@ Popular community test - consistent results:
 - 2.22GHz: ~60 FPS
 - With mitigations=off: +15-20 FPS
 
+### Testing GPU Load on a Headless BC-250
+
+A lot of BC-250 builds run headless (LLM server, render farm, etc). When you want to verify the GPU is actually being loaded by your workload, two pitfalls to avoid:
+
+!!!warning "Don't use `glmark2 --off-screen` to test GPU load on a headless box"
+    Without a display, `glmark2 --off-screen` silently falls back to **LLVMpipe** (CPU software rendering). The GPU does nothing, `gpu_busy_percent` stays at 0, the governor never boosts, and you may chase a phantom "governor doesn't work" bug for hours. This is documented experience from BC-250 maintainers.
+
+Use one of these to load the GPU for real:
+
+```bash
+# Vulkan compute, deterministic
+clpeak
+
+# Real-world Vulkan workload
+llama-bench -m model.gguf -ngl 99
+
+# Vulkan rendering benchmark (offscreen works correctly)
+vkmark
+```
+
+To confirm the GPU is genuinely loaded before drawing any conclusions from a test, check the GPU clock and power are actually climbing:
+
+```bash
+# In another terminal while your test runs
+watch -n 1 cat /sys/kernel/debug/dri/0/amdgpu_pm_info 2>/dev/null \
+    | grep -E "GFX|SCLK|MCLK|^[[:space:]]*[0-9]+\.[0-9]+ W"
+```
+
+If SCLK stays at idle and power stays under 60 W during your "load test", the test isn't loading the GPU and any conclusions you draw from it are noise.
+
 ---
 
 ## Distribution-Specific Issues
