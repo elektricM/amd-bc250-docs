@@ -104,9 +104,45 @@ This documentation is built from the collective knowledge of the BC250 community
 - **Active Discord community** sharing real-world testing and troubleshooting
 - **Multiple distribution-specific setup guides**
 
-### Contributing
+### Get Involved
 
-This documentation is based on community Discord discussions and the [BC250 GitHub repository](https://github.com/mothenjoyer69/bc250-documentation). If you find errors or have improvements, please contribute!
+This is a community project and it gets better every time someone shows up with a fix, a benchmark, a build photo or a question that pushes a section to be clearer. A few low-effort things that help a lot:
+
+<div class="grid cards" markdown>
+
+-   :material-star:{ .lg .middle } __Star the repo__
+
+    ---
+
+    If this saved you a few hours of digging through Discord, a star helps other people find it too.
+
+    [:octicons-arrow-right-24: GitHub](https://github.com/elektricM/amd-bc250-docs)
+
+-   :material-forum:{ .lg .middle } __Join the Discussions__
+
+    ---
+
+    Got a working cooling setup, a benchmark, a weird issue, or a question that doesn't quite fit an issue? Drop it in Discussions. It is much easier to find later than Discord scrollback.
+
+    [:octicons-arrow-right-24: Discussions](https://github.com/elektricM/amd-bc250-docs/discussions)
+
+-   :material-source-pull:{ .lg .middle } __Open a PR__
+
+    ---
+
+    Found a typo, a broken command, a missing distro guide, or a hardware quirk that should be documented? PRs welcome, even tiny ones.
+
+    [:octicons-arrow-right-24: Contribute](https://github.com/elektricM/amd-bc250-docs/pulls)
+
+-   :material-bug:{ .lg .middle } __Report an issue__
+
+    ---
+
+    Something in the docs is wrong, outdated, or actively misleading? File an issue and it gets fixed.
+
+    [:octicons-arrow-right-24: Issues](https://github.com/elektricM/amd-bc250-docs/issues)
+
+</div>
 
 ## Documentation Status
 
