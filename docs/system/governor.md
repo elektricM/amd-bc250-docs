@@ -199,8 +199,8 @@ safe-points = [
     [1000, 700],   # 1000 MHz @ 700 mV (idle)
     [1500, 900],   # 1500 MHz @ 900 mV
     [2000, 1000],  # 2000 MHz @ 1000 mV (gaming)
-    [2175, 1025],  # 2175 MHz @ 1025 mV (boost)
-    [2300, 1075],  # 2300 MHz @ 1075 mV (OC, good air cooling)
+    [2150, 1000],  # 2150 MHz @ 1000 mV (boost, community-validated ceiling)
+    [2200, 1000],  # 2200 MHz @ 1000 mV (max stable on stock cooling)
 ]
 
 # GPU load target range (70-95%)
@@ -213,6 +213,9 @@ max = 0.95
 interval_ms = 50       # Sampling interval
 burst_samples = 20     # Samples before burst to max
 ```
+
+!!!tip "Voltage ceiling at 1000 mV"
+    Community testing on Discord and live verification on a 40 CU board converge on the same finding: 1000 mV is enough to hold 2150-2200 MHz under sustained load. Earlier guides that recommended 1025-1075 mV at those frequencies are overvolted, which only adds heat without buying stability. Run a sustained workload (`vkmark`, `llama-bench` 10 min, your game of choice) and if it stays stable, leave the curve flat at 1000 mV.
 
 **Restart after changes:**
 ```bash
@@ -230,7 +233,7 @@ safe-points = [
     [1000, 700],   # 1000 MHz @ 700 mV (idle)
     [1500, 900],   # 1500 MHz @ 900 mV
     [2000, 1000],  # 2000 MHz @ 1000 mV (gaming)
-    [2175, 1025],  # 2175 MHz @ 1025 mV (boost)
+    [2150, 1000],  # 2150 MHz @ 1000 mV (max boost, community-validated)
 ]
 
 # GPU load target range (70-95%)
@@ -452,32 +455,37 @@ cat /sys/class/drm/card1/device/pp_dpm_sclk
 - Overheating
 - Unstable overclock
 
-**Solutions:**
+**Solutions, in order:**
 
-**1. Increase voltage:**
-```toml
-# Edit /etc/cyan-skillfish-governor-smu/config.toml
-# Increase max voltage in safe-points
-safe-points = [
-    [1000, 700],
-    [2000, 1050],  # Increase from 1000 to 1050
-]
-```
-
-**2. Reduce max frequency:**
-```toml
-# Remove or lower the highest safe-point
-safe-points = [
-    [1000, 700],
-    [1900, 1000],  # Reduce from 2000
-]
-```
-
-**3. Check temperatures:**
+**1. Check temperatures first.** Almost always the real cause on stock cooling.
 ```bash
 sensors
-# GPU should be < 85°C
+# GPU edge should stay < 90 °C under sustained load. 95 °C+ is thermal throttle.
 ```
+
+If you're hitting 95-100 °C, the fix is cooling (better fans, repaste, case airflow), not voltage. Adding voltage when you're thermal-limited makes things worse.
+
+**2. Reduce max frequency** if your cooling is at its limit:
+```toml
+# Edit /etc/cyan-skillfish-governor-smu/config.toml
+safe-points = [
+    [1000, 700],
+    [1500, 900],
+    [2000, 1000],  # cap here, drop the 2150/2200 points
+]
+```
+
+**3. Only then consider voltage.** If temps are fine but you still crash at 2150-2200 MHz, your specific board may need a small bump:
+```toml
+safe-points = [
+    [1000, 700],
+    [1500, 900],
+    [2000, 1000],
+    [2200, 1025],  # try +25 mV at the top only
+]
+```
+
+Going beyond 1025 mV at 2200 MHz is rarely a stability fix and almost always just adds heat. If +25 mV doesn't help, drop the top point and live with 2 GHz.
 
 ### Governor High CPU Usage
 
