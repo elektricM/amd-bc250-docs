@@ -312,6 +312,23 @@ For ATX PSUs, the 24-pin connector includes a power-on signal.
 | **Reuse Existing** | ATX 400W+ |
 | **Multi-Board** | Server PSU + breakout |
 
+## Community PCBs and Adapters
+
+The BC-250 has no native ATX `PS_ON` circuitry, so wiring it to a standard ATX PSU normally needs a jumper or a button on the green wire. A few community projects have built proper adapters that turn the board on and off cleanly when the BC-250 itself signals it wants power.
+
+### ATX soft-power adapters
+
+| Project | Best for | Approach | Notes |
+|---------|----------|----------|-------|
+| [mosfetparty/bc250-psu-adapter](https://github.com/mosfetparty/bc250-psu-adapter) | Plug-and-play install | Drop-in PCB, FSP500-30AS variant (24-pin ATX variant in progress, DIY universal mini version available) | Sold assembled at [mosfet.party](https://mosfet.party/), [install video](https://youtube.com/shorts/l6obiqGzoOI) |
+| [suapapa/rusty-bc250-atx](https://github.com/suapapa/rusty-bc250-atx) | DIY / firmware tinkerers | CH32V003 microcontroller + Rust firmware, optocoupler-isolated PS_ON + HOST_ON sense, debounced button with long-press force-off | KiCad sources + 3D-printed PCB prototype, [demo video](https://www.youtube.com/watch?v=EkOmVfLqIu4) |
+
+Both solutions detect when the BC-250 signals `HOST_ON` and drive ATX `PS_ON` accordingly, which means the PSU only delivers power when the board actually wants it (not the rough "PSU always on, green wire jumpered" workaround you see in a lot of early builds).
+
+### Power distribution
+
+[Needleroozer/bc250-power-board](https://github.com/Needleroozer/bc250-power-board) ships power distribution PCBs for multi-board setups. Useful if you're feeding several BC-250s from a single server PSU and want clean 12 V splits to each board.
+
 ## See Also
 
 - [Hardware Specifications](specifications.md)
