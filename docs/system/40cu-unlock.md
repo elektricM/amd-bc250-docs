@@ -28,17 +28,22 @@ From duggasco's controlled A/B/A testing on Vulkan llama-bench `pp512`:
 | **40 CU unlocked** | **1500 MHz** | **874 mV** | **371.6** | **125 W** | **83 °C** |
 | Ratio | same | same | **1.61x** | +30 W | +4 °C |
 
-At 2 GHz (governor default) it scales to 466 tok/s but climbs to 96 °C and 181 W. **1500 MHz / 900 mV is the recommended operating point** because it captures close to the theoretical 1.67x scaling without thermal trouble.
+At 2 GHz the same test bursts to 466 tok/s, but it also draws around 181 W and hits 96 °C in duggasco's controlled instantaneous measurement. Under sustained real-world load (10-min `llama-bench`) with the governor allowed to drift up to 2060-2130 MHz, peak draw goes to 220-230 W and the package thermal-throttles after a few minutes (see [thermal reality](#thermal-reality-check) below). **1500 MHz / 900 mV is the recommended operating point** because it captures close to the theoretical 1.67x scaling without thermal trouble.
 
 Graphics workloads see much less benefit (`glmark2` +4.4%), because 3D rendering is fill-rate bound rather than CU-bound. This is a compute unlock, not a gaming unlock.
 
 ## Requirements and Caveats
 
+!!!warning "Not all boards will unlock cleanly"
+    The 16 fused-off CUs are not necessarily silicon-healthy. Boards with a **contiguous harvest pattern** (CU 0-5 active, CU 6-9 fused, the same on all 4 shader arrays) tend to unlock the full 40 CUs and pass compute correctness tests. Boards with a **scattered harvest pattern** may have actually defective CUs that pass enumeration but fail under load. The community has been collecting harvest maps and the contiguous case appears common but not universal.
+
+    Before flashing modprobe configs around: run `./scripts/cu_map.sh` from duggasco's repo to see your harvest pattern. If it's scattered, plan on running the per-WGP health test (see [selective CU masking](#selective-cu-masking)) and probably ending up with somewhere between 24 and 40 stable CUs rather than the full 40.
+
 Before you enable this:
 
 - This rebuilds the `amdgpu` kernel module out-of-tree. Every kernel update reverts the change. Plan to rebuild after upgrades or pin your kernel.
 - Sustained 40 CU at 2 GHz on the stock heatsink will throttle. Plan for a governor cap at 1500 MHz, better cooling, or both. See the [thermal reality check](#thermal-reality-check) below.
-- Compute is rock solid, graphics has not been as widely tested. If you hit corruption in games, drop back to 24 CU or mask suspect CUs (see [selective CU masking](#selective-cu-masking)).
+- Compute is rock solid on boards where the unlock holds, graphics has not been as widely tested. If you hit corruption in games, drop back to 24 CU or mask suspect CUs.
 - Secure Boot must be off or you need to sign the rebuilt module yourself.
 
 ## Installation
@@ -155,7 +160,7 @@ If `active_cu_number` is 24 or `num_cu` is 24, the patched module did not load. 
 
 ## Governor Settings for Sustained Operation
 
-40 CU at the governor's default 2 GHz draws ~181 W and pushes 96 °C on stock cooling. To run sustained workloads, cap frequency at 1500 MHz and use the community-recommended voltage curve. From a working `cyan-skillfish-governor-smu` config tested under sustained Vulkan compute:
+40 CU at the governor's default 2 GHz draws around 181 W in instantaneous measurement and 220-230 W under sustained load, pushing 96-100 °C on stock cooling. To run sustained workloads, cap frequency at 1500 MHz and use the community-recommended voltage curve. From a working `cyan-skillfish-governor-smu` config tested under sustained Vulkan compute:
 
 ```toml
 # /etc/cyan-skillfish-governor-smu/config.toml
