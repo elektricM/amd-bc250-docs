@@ -333,17 +333,26 @@ sudo flashrom -p ch341a_spi -v backup_$(date +%Y%m%d).bin
 
 ```bash
 # Linux
-sha256sum P3.00_mod.bin
+sha256sum BC250_3.00_CHIPSETMENU.ROM
 
 # Windows (PowerShell)
-Get-FileHash P3.00_mod.bin -Algorithm SHA256
-
-# Compare with known-good hash from community
+Get-FileHash BC250_3.00_CHIPSETMENU.ROM -Algorithm SHA256
 ```
 
+**Known-good hashes (compare against your file):**
+
+| File | SHA256 |
+|------|--------|
+| `BC250_3.00_CHIPSETMENU.ROM` (Modded P3.00) | `48fbe5d366e6a56e2fdffdca848426216ba1f083610dab63db89d2f4e6c940b5` |
+| `Robin5.00` (Stock P5.00) | `0d6f136cb120cf3b2de26d5c4d7f255604fdbf4b9442af5ba55419b95b89aa82` |
+| `BC250_3.00.ROM` (Stock P3.00) | `07595ca3aecf8a4caa28a397b5298f3946a1b769f87b16f67adc369c3f69045c` |
+| `BC250_2.00.bin` (Stock P2.00) | `ee6150dfed33bd05ea46063a352549416fdf3f45fa0e5edac2a68ef78d71083c` |
+
+See [Verified BIOS Sources and SHA256 Hashes](flashing.md#verified-bios-sources-and-sha256-hashes) for repository links.
+
 **File size:**
-- Typical BIOS file: 8-16 MB
-- If file is wrong size, it's likely corrupted
+- All known BC-250 BIOS files: exactly 16 MB (16777216 bytes)
+- If your file is a different size, it is either corrupted, a tool/patch (not the full BIOS), or an unrelated file
 
 ## Community Resources
 

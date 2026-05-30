@@ -31,8 +31,8 @@ There are two main versions of the modded BIOS floating around the community:
 *   **P3.00 Chipset Menu (Recommended):** This is the community standard. It is the most stable and tested version. It successfully unlocks VRAM allocation and chipset settings without introducing unnecessary instability.
 *   **P5.00_clv:** Based on a newer stock code base. It specifically unlocks **Everything**—every hidden menu and setting available. This includes experimental options like ReBAR (Resizable BAR). However, because it exposes critical debug and chipset settings, it is very easy to brick the board if you change the wrong thing. **Stick to P3.00 unless you are an advanced user who knows exactly what they are doing.**
 
-!!!info "P5.00_clv Source Credibility"
-    Note: P5.00_clv is community-maintained. Verify availability in the official repository before flashing. If only available as a community attachment, exercise caution and test on a non-critical system first.
+!!!warning "P5.00_clv availability"
+    As of this writing, `P5.00_clv` is not published in any public repository we know of (GitHub, GitLab, archive.org, community wikis). It only circulates as a Discord attachment, which means there is no canonical hash anyone can hand you for verification. If you want to run it, the safest approach is to ask in the BC-250 Discord for at least two people running it independently, get a copy from each, and confirm both copies have the same SHA256 before flashing. If you only need VRAM unlock or chipset settings, `BC250_3.00_CHIPSETMENU.ROM` covers it and has multiple verified public sources (see below).
 
 ---
 
@@ -92,11 +92,26 @@ You need two things: the **Flashing Tools** (EFI shell utilities) and the **Modd
     *   [**TuxThePenguin0 GitLab**](https://gitlab.com/TuxThePenguin0/bc250-bios/)
     *   Download the recommended version (**BC250_3.00_CHIPSETMENU.ROM**).
 
-### Stock BIOS Sources (For Recovery/Reversion)
-If you need to revert to stock or recover a board, stock files can be found here:
-*   **Stock P5.00:** Included in the flashing tool ZIP linked above.
-*   **Stock P3.00:** Available from user **Segfault**.
-*   **Other Versions:** The community **Discord** archives contain various other stock versions (P2.00, etc.).
+### Verified BIOS Sources and SHA256 Hashes
+
+If you want to verify a file before flashing (and you really should), here are the BIOS files that are publicly hosted on at least one community repo, with hashes confirmed across multiple independent sources where available. Always run `sha256sum your_file.rom` and compare before doing anything to your board.
+
+| File | Type | SHA256 | Sources |
+|------|------|--------|---------|
+| `BC250_3.00_CHIPSETMENU.ROM` | Modded P3.00 (VRAM + chipset unlock, **recommended**) | `48fbe5d366e6a56e2fdffdca848426216ba1f083610dab63db89d2f4e6c940b5` | [TuxThePenguin0 (GitLab)](https://gitlab.com/TuxThePenguin0/bc250-bios/-/blob/main/BC250_3.00_CHIPSETMENU.ROM), [forgenam](https://github.com/forgenam/BC250-Bios-Update-Guide), [tipitochen](https://github.com/tipitochen/debiantools_bc250flash), [csabakecskemeti](https://github.com/csabakecskemeti/amd_bc-250_how-to) (named `Robin3.00` in his repo), [scrakcho](https://github.com/scrakcho/BC-250) |
+| `Robin5.00` | Stock P5.00 (16 MB) | `0d6f136cb120cf3b2de26d5c4d7f255604fdbf4b9442af5ba55419b95b89aa82` | [forgenam](https://github.com/forgenam/BC250-Bios-Update-Guide), [MrrZed0](https://github.com/MrrZed0/bc-250-bios), [csabakecskemeti](https://github.com/csabakecskemeti/amd_bc-250_how-to), [scrakcho](https://github.com/scrakcho/BC-250) (inside the UEFI MOD zip) |
+| `BC250_3.00.ROM` | Stock P3.00 (16 MB) | `07595ca3aecf8a4caa28a397b5298f3946a1b769f87b16f67adc369c3f69045c` | [TuxThePenguin0 (GitLab)](https://gitlab.com/TuxThePenguin0/bc250-bios/-/blob/main/BC250_3.00.ROM) |
+| `BC250_2.00.bin` | Stock P2.00 (16 MB) | `ee6150dfed33bd05ea46063a352549416fdf3f45fa0e5edac2a68ef78d71083c` | [kenavru](https://github.com/kenavru/BC-250) |
+| `P5.00_clv` | Modded P5.00 (unlock everything) | not published anywhere we can find | Discord only, no public hash |
+
+A few notes:
+
+- The Modded P3.00 file shows up under different names in different repos (`BC250_3.00_CHIPSETMENU.ROM`, `BC250CHIPSETMENU.ROM`, `Robin3.00`). They all hash to the same value above, so don't worry about the naming.
+- `Robin5.00` is the **stock** P5.00, not the modded P5.00_clv. They are different files.
+- If your dump from `AfuEfix64` matches one of these hashes, you have a known-good copy. If it doesn't, your board may be running a different stock revision or a custom mod, and you should treat anything you flash with extra care.
+
+!!!tip "Quick reference for what to flash"
+    For 99% of users, the answer is `BC250_3.00_CHIPSETMENU.ROM` (hash above). It unlocks VRAM allocation and the chipset menu, which is what people actually want from a modded BIOS.
 
 ### Step 2: Prepare the USB Stick
 
