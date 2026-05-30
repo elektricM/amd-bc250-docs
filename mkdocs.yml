@@ -13,6 +13,7 @@ edit_uri: edit/main/docs/
 # Theme
 theme:
   name: material
+  custom_dir: overrides
   palette:
     # Palette toggle for automatic light/dark mode
     - media: "(prefers-color-scheme)"
@@ -53,6 +54,7 @@ theme:
     - content.tabs.link
     - content.action.edit
     - content.action.view
+    - announce.dismiss
 
   icon:
     repo: fontawesome/brands/github
