@@ -92,6 +92,25 @@ sudo reboot
 
 Apply `patch/bc250-40cu-amdgpu.patch` to your kernel PKGBUILD patch set, rebuild the kernel package, install, then add the modprobe config. duggasco's `scripts/bc250-enable-40cu-arch.sh` automates this if you build from CachyOS or Arch kernel sources.
 
+### Option 4: Runtime UMR (no kernel rebuild)
+
+If you don't want to rebuild the `amdgpu` module on every kernel update, **[WinnieLV/bc250-cu-live-manager](https://github.com/WinnieLV/bc250-cu-live-manager)** writes the same three registers (CC + SPI + RLC) from userspace via `umr` after the driver has booted, with a TUI for routing decisions and a systemd unit for boot persistence.
+
+```bash
+curl -L -o bc250-cu-live-manager.sh https://raw.githubusercontent.com/WinnieLV/bc250-cu-live-manager/refs/heads/main/bc250-cu-live-manager.sh
+chmod +x bc250-cu-live-manager.sh
+sudo ./bc250-cu-live-manager.sh
+```
+
+The script installs `umr` itself if missing (pacman / dnf / rpm-ostree supported), then opens a dashboard. Pick *Full dispatch* (`f`) to route all 20 WGPs (40 CUs) live, *Write table* (`w`) to save the layout to `/etc/bc250-cu-live-manager.conf`, and *Install service* (`i`) to enable the systemd unit that replays the saved table on boot.
+
+When to pick runtime over the kernel patch:
+
+- **Pick runtime UMR if:** you don't want to rebuild `amdgpu` after every kernel update, you want to A/B different WGP layouts live (per-WGP toggle), or you're on a board with a scattered harvest pattern and you want to experiment safely without rebooting between each test.
+- **Pick the kernel patch if:** you want `active_cu_number 40` reflected in the driver topology from boot 0, you want everything to go through standard module loading without an extra service, or you're packaging this into a distro image.
+
+Both approaches end at the same hardware state when applied. The runtime tool reads the driver's factory topology as the baseline and refuses to disable driver-active WGPs live, which makes per-board experimentation noticeably safer than hand-running `umr -w` commands.
+
 ## Distro-Specific Notes
 
 ### Fedora 43 / 44 (kernel build)
