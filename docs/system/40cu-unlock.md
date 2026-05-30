@@ -28,7 +28,13 @@ From duggasco's controlled A/B/A testing on Vulkan llama-bench `pp512`:
 | **40 CU unlocked** | **1500 MHz** | **874 mV** | **371.6** | **125 W** | **83 °C** |
 | Ratio | same | same | **1.61x** | +30 W | +4 °C |
 
-At 2 GHz the same test bursts to 466 tok/s, but it also draws around 181 W and hits 96 °C in duggasco's controlled instantaneous measurement. Under sustained real-world load (10-min `llama-bench`) with the governor allowed to drift up to 2060-2130 MHz, peak draw goes to 220-230 W and the package thermal-throttles after a few minutes (see [thermal reality](#thermal-reality-check) below). **1500 MHz / 900 mV is the recommended operating point** because it captures close to the theoretical 1.67x scaling without thermal trouble.
+At 2 GHz the same test bursts to 466 tok/s, but power and temps go up substantially. **1500 MHz / 900 mV is the recommended operating point** because it captures close to the theoretical 1.67x scaling without thermal trouble. Power draw at 2 GHz depends a lot on the workload:
+
+- duggasco's controlled `llama-bench pp512` instantaneous snapshot: ~181 W, 96 °C
+- 10-minute sustained `llama-bench` with governor allowed to drift to 2060-2130 MHz: 220-230 W peak, package thermal-throttles after a few minutes
+- Heavier graphics workloads can push higher: the existing [power table](../hardware/power.md#measured-power-consumption) shows stock 24 CU Cyberpunk 2077 at 235 W and Furmark OC at 320 W, so a 40 CU board under similar load is reasonably expected to land above those numbers, not below
+
+Don't read the 181 W figure as a typical sustained draw, it's a single A/B-test snapshot. Plan PSU and cooling for the upper end (see [thermal reality](#thermal-reality-check) below).
 
 Graphics workloads see much less benefit (`glmark2` +4.4%), because 3D rendering is fill-rate bound rather than CU-bound. This is a compute unlock, not a gaming unlock.
 
@@ -160,7 +166,7 @@ If `active_cu_number` is 24 or `num_cu` is 24, the patched module did not load. 
 
 ## Governor Settings for Sustained Operation
 
-40 CU at the governor's default 2 GHz draws around 181 W in instantaneous measurement and 220-230 W under sustained load, pushing 96-100 °C on stock cooling. To run sustained workloads, cap frequency at 1500 MHz and use the community-recommended voltage curve. From a working `cyan-skillfish-governor-smu` config tested under sustained Vulkan compute:
+40 CU at the governor's default 2 GHz pushes 96-100 °C on stock cooling, with sustained `llama-bench` peaking at 220-230 W and heavier workloads (gaming, Furmark) reasonably expected to draw more. To run sustained workloads, cap frequency at 1500 MHz and use the community-recommended voltage curve. From a working `cyan-skillfish-governor-smu` config tested under sustained Vulkan compute:
 
 ```toml
 # /etc/cyan-skillfish-governor-smu/config.toml
