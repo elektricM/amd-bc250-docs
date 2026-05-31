@@ -47,11 +47,11 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 **Features:**
 - Multiple frequency steps with thermal throttling
 - Maintains GPU usage in optimal range
-- Available as COPR/RPM, AUR, .deb, Nix
+- Available as COPR/RPM and AUR
 - Requires kernel frequency range patch (pre-included in Bazzite)
 
 **COPR:** `filippor/bazzite`
-**Repository:** [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor)
+**Repository:** [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor)
 
 !!!warning "Service Name Changed (Dec 2025)"
     filippor renamed the service from `cyan-skillfish-governor` to `cyan-skillfish-governor-tt` on Dec 13, 2025. Config folder moved from `/etc/cyan-skillfish-governor/` to `/etc/cyan-skillfish-governor-tt/`. If upgrading, migrate your config:
@@ -71,7 +71,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 **Features:**
 - Manages clock speeds through SMU firmware calls
 - **Does NOT require kernel frequency range patch on any distro**
-- Available on AUR (`cyan-skillfish-governor-smu`), COPR (`filippor/bazzite`), .deb, .rpm, Nix
+- Available on AUR (`cyan-skillfish-governor-smu`) and COPR (`filippor/bazzite`); release tarball for all other distros
 - Works on all distros without kernel patching
 - Community recommended default (Mar 2026+)
 
@@ -172,19 +172,21 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 !!!info "COPR Package Status"
     The `filippor/bazzite` COPR provides both `cyan-skillfish-governor-smu` (recommended) and `cyan-skillfish-governor-tt` (alternative). Confirmed working as of Mar 2026.
 
-### Option 2: Debian/Ubuntu (.deb)
+### Option 2: Debian/Ubuntu/Generic Linux (release tarball)
+
+Upstream does not ship a `.deb`. Use the release tarball from [filippor's releases page](https://github.com/filippor/cyan-skillfish-governor/releases):
 
 ```bash
-# Download .deb from GitHub releases
-# Check https://github.com/Magnap/cyan-skillfish-governor/releases for latest
-wget https://github.com/Magnap/cyan-skillfish-governor/releases/latest/download/cyan-skillfish-governor-smu_amd64.deb
-sudo dpkg -i cyan-skillfish-governor-smu_amd64.deb
+# Grab the latest cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz, then:
+tar -xf cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz
+cd cyan-skillfish-governor-smu-*/
+sudo ./scripts/install.sh
 sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
-### Option 3: Other Distros / Build from Source
+### Option 3: Build from Source
 
-See [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor) for build instructions. The SMU variant is in the `smu` branch.
+See [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) for build instructions. The SMU variant lives on the `smu` branch and builds with `cargo build --release`.
 
 ## Configuration
 
