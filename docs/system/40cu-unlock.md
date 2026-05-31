@@ -54,15 +54,22 @@ Before you enable this:
 
 ## Installation
 
-### Option 1: Build Script (recommended, any distro)
+### Option 1: Build Script (recommended)
 
-The cleanest path. duggasco's `bc250-enable-40cu.sh` handles the patch, build, install, modprobe config, and a backup of the stock module.
+The cleanest path. duggasco's repo ships one script per distro family, each handling the patch, build, install, modprobe config, and a backup of the stock module.
+
+| Distro | Script | Tested kernel |
+|---|---|---|
+| Debian / Ubuntu | `bc250-enable-40cu.sh` | Debian Forky 6.19.14 |
+| Fedora 43+ | `bc250-enable-40cu-fedora.sh` | Fedora 43 / 7.0.9-105.fc43 |
+| Arch / CachyOS | `bc250-enable-40cu-arch.sh` | Arch / CachyOS |
 
 ```bash
 git clone https://github.com/duggasco/bc250-40cu-unlock.git
 cd bc250-40cu-unlock
-sudo ./scripts/bc250-enable-40cu.sh build
-sudo ./scripts/bc250-enable-40cu.sh enable    # writes modprobe config and reboots
+# pick the script for your distro
+sudo ./scripts/bc250-enable-40cu-fedora.sh build
+sudo ./scripts/bc250-enable-40cu-fedora.sh enable    # writes modprobe config and reboots
 ```
 
 Requirements: `gcc`, `make`, `zstd`, and your kernel headers (`linux-headers-$(uname -r)` on Debian/Ubuntu, `kernel-devel` on Fedora, `linux-headers` on Arch).
@@ -113,40 +120,21 @@ Both approaches end at the same hardware state when applied. The runtime tool re
 
 ## Distro-Specific Notes
 
-### Fedora 43 / 44 (kernel build)
+### Fedora 43 / 44
 
-Fedora's `kernel-devel` package is incomplete for building out-of-tree amdgpu modules. Two symptoms and their fixes, both verified on Fedora 43 with kernel `7.0.9-105.fc43.x86_64`:
-
-**1. Missing scripts in `/usr/src/kernels/...`**
-
-`kernel-devel` ships without `arch/x86/tools/cpufeaturemasks.awk` and parts of `scripts/`. You need the full kernel source instead.
+Use `scripts/bc250-enable-40cu-fedora.sh` from duggasco's repo. It needs `kernel-devel`, `gcc`, `make`, `zstd`, and `curl`:
 
 ```bash
-# Install the full source RPM
-sudo dnf install kernel-debuginfo-common-$(uname -r) kernel-debuginfo-$(uname -r)
-# Or get the source tarball from koji and unpack into /usr/src/linux-$(uname -r)
+sudo dnf install kernel-devel gcc make zstd curl
+sudo ./scripts/bc250-enable-40cu-fedora.sh build
+sudo ./scripts/bc250-enable-40cu-fedora.sh enable
 ```
 
-**2. `vermagic` mismatch after build (`7.0.9` instead of `7.0.9-105.fc43.x86_64`)**
+Verified on Fedora 43, kernel `7.0.9-105.fc43.x86_64`. On this kernel `kernel-devel` ships complete (`cpufeaturemasks.awk` + `scripts/` are present), so the standard `make -C $kbuild M=$src` path works without any source-tree patching.
 
-The full source has `EXTRAVERSION =` empty in the Makefile and a stale `include/generated/utsrelease.h`. Without fixing both, your module loads but the kernel rejects it for vermagic mismatch.
+??? note "Historical: older Fedora kernels (pre-7.0)"
 
-```bash
-cd /usr/src/linux-$(uname -r)
-
-# Fix EXTRAVERSION in the top-level Makefile
-sed -i 's/^EXTRAVERSION =.*/EXTRAVERSION = -105.fc43.x86_64/' Makefile
-
-# Force the right UTS_RELEASE
-cat > include/generated/utsrelease.h <<EOF
-#define UTS_RELEASE "$(uname -r)"
-EOF
-
-# Build amdgpu only
-make M=drivers/gpu/drm/amd/amdgpu modules
-```
-
-Adjust `-105.fc43.x86_64` to match your actual `uname -r` suffix.
+    Earlier Fedora `kernel-devel` packages were missing `arch/x86/tools/cpufeaturemasks.awk` and parts of `scripts/`, and the full source RPM shipped with an empty `EXTRAVERSION` plus a stale `include/generated/utsrelease.h`, causing `vermagic` mismatches. If you hit that on an older kernel, install `kernel-debuginfo-common-$(uname -r)`, then in `/usr/src/linux-$(uname -r)` set `EXTRAVERSION = -<your suffix>` in the top-level Makefile and overwrite `include/generated/utsrelease.h` with `#define UTS_RELEASE "$(uname -r)"` before building. The merged Fedora script avoids all of this by building against `kernel-devel` directly.
 
 ### Ubuntu / Debian
 
