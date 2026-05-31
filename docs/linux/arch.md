@@ -297,7 +297,7 @@ systemctl status oberon-governor              # legacy (migrate to SMU)
 ### Check Frequency Scaling
 
 ```bash
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000MHz
@@ -470,7 +470,7 @@ fastfetch
 nvtop
 
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Check governor (use whichever you installed)
 systemctl status cyan-skillfish-governor-smu

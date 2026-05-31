@@ -359,7 +359,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 sudo systemctl restart cyan-skillfish-governor-smu
 
 # Verify frequency scaling
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```
 
 ### Boot Slow / Black Screen During Boot
@@ -403,7 +403,7 @@ vulkaninfo | grep deviceName
 # Should show: AMD Radeon Graphics (RADV GFX1013)
 
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Check temperatures
 sensors
@@ -423,7 +423,7 @@ vulkaninfo | grep deviceName
 nvtop
 
 # Check governor scaling
-watch -n 1 cat /sys/class/drm/card1/device/pp_dpm_sclk
+watch -n 1 cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```
 
 ---
@@ -438,7 +438,7 @@ ujust update
 systemctl status cyan-skillfish-governor-smu
 
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Check temps
 sensors

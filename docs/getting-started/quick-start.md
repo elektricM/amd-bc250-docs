@@ -140,7 +140,7 @@ systemctl status cyan-skillfish-governor-smu
 # Should show: active (running)
 
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies, one marked with *
 ```
 
@@ -189,7 +189,7 @@ This fixes graphical glitches in some games.
 **Solution:**
 
 1. Check governor is running: `systemctl status cyan-skillfish-governor-smu`
-2. Check GPU frequency: `cat /sys/class/drm/card1/device/pp_dpm_sclk`
+2. Check GPU frequency: `cat /sys/class/drm/card0/device/pp_dpm_sclk`
 3. Should NOT be stuck at 1500MHz
 
 ### High Temperatures

@@ -352,7 +352,7 @@ systemctl status cyan-skillfish-governor-smu
 
 ```bash
 # View current GPU frequencies
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Example output:
 # 0: 1000Mhz
@@ -384,7 +384,7 @@ Shows real-time GPU frequency, voltage, and temperature.
 **Command Line:**
 ```bash
 # Watch frequency changes
-watch -n 1 'cat /sys/class/drm/card1/device/pp_dpm_sclk'
+watch -n 1 'cat /sys/class/drm/card0/device/pp_dpm_sclk'
 ```
 
 **MangoHud (In-Game Overlay):**
@@ -496,7 +496,7 @@ systemctl status cyan-skillfish-governor-smu
 **Verify fix:**
 ```bash
 # Should show 1000 MHz at idle (not stuck at 1500 MHz)
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```
 
 !!!note "GPU Card Number"

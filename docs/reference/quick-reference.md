@@ -206,10 +206,10 @@ sudo systemctl restart cyan-skillfish-governor-smu
 ### Check GPU Frequency
 
 !!!note "GPU Card Number"
-    The BC-250 GPU is typically `card1` (not `card0`). Verify with: `ls /sys/class/drm/ | grep "^card"`. All sysfs paths in this documentation use `card1`.
+    The BC-250 GPU is typically `card0`. On systems where another GPU (an iGPU) is also enumerated, it may be `card1`. Verify with: `ls /sys/class/drm/ | grep "^card"`.
 
 ```bash
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies, current one marked with *
 ```
 
@@ -233,7 +233,7 @@ vulkaninfo | grep deviceName
 
 # Check RAM/VRAM split
 free -h
-cat /sys/class/drm/card1/device/mem_info_vram_total
+cat /sys/class/drm/card0/device/mem_info_vram_total
 
 # Check temperatures
 sensors

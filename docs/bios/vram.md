@@ -146,7 +146,7 @@ free -h
 # Should show ~10-15GB depending on allocation
 
 # Check VRAM
-cat /sys/class/drm/card1/device/mem_info_vram_total
+cat /sys/class/drm/card0/device/mem_info_vram_total
 # Shows GPU memory in bytes
 
 # Check both
@@ -259,7 +259,7 @@ After changing allocation, verify it works:
 ```bash
 # 1. Check allocation took effect
 free -h
-cat /sys/class/drm/card1/device/mem_info_vram_total
+cat /sys/class/drm/card0/device/mem_info_vram_total
 
 # 2. Run stress test
 vkmark  # Vulkan benchmark

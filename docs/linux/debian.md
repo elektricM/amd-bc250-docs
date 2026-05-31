@@ -219,7 +219,7 @@ Verify:
 
 ```bash
 systemctl status cyan-skillfish-governor-smu
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```
 
 ---
@@ -340,7 +340,7 @@ uname -r
 systemctl status cyan-skillfish-governor-smu  # or cyan-skillfish-governor-tt
 
 # GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies with * moving
 ```
 
@@ -527,7 +527,7 @@ vulkaninfo | grep deviceName
 systemctl status cyan-skillfish-governor-smu
 
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Check temps
 sensors

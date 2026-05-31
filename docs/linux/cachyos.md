@@ -171,9 +171,9 @@ See [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cy
 
 **Verify it's working:**
 ```bash
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show multiple frequencies, * moves based on load
-# Note: Your GPU may be card1 instead - check /sys/class/drm/ if card0 doesn't work
+# Note: Verify with: ls /sys/class/drm/  (BC-250 is usually card0 unless an iGPU is enumerated first)
 ```
 
 ---
@@ -340,7 +340,7 @@ vulkaninfo | grep deviceName  # Expected: AMD Radeon Graphics (RADV GFX1013)
 systemctl status cyan-skillfish-governor-smu  # Expected: active (running)
 
 # 5. Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk  # Expected: Multiple frequencies
+cat /sys/class/drm/card0/device/pp_dpm_sclk  # Expected: Multiple frequencies
 
 # 6. Check sensors
 sensors  # Expected: nct6686-isa-0a20, GPU temp, fan speeds

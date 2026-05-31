@@ -727,7 +727,7 @@ unset MESA_SHADER_CACHE_DISABLE
 **Quick Check:**
 ```bash
 # Check GPU frequency
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Should show multiple frequency levels with * at current:
 # 0: 1000Mhz

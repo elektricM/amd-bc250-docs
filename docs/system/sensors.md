@@ -253,7 +253,7 @@ This updates every second. Press `Ctrl+C` to exit.
 Read GPU temperature directly:
 
 ```bash
-cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
+cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
 ```
 
 This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
@@ -261,7 +261,7 @@ This returns temperature in millidegrees Celsius (e.g., `63000` = 63°C)
 Convert to Celsius:
 
 ```bash
-awk '{print $1/1000 "°C"}' /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
+awk '{print $1/1000 "°C"}' /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
 ```
 
 ### GPU Power Consumption
@@ -269,13 +269,13 @@ awk '{print $1/1000 "°C"}' /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
 Read current GPU power draw:
 
 ```bash
-cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average
+cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
 ```
 
 Returns power in microwatts. Convert to watts:
 
 ```bash
-awk '{print $1/1000000 "W"}' /sys/class/drm/card1/device/hwmon/hwmon*/power1_average
+awk '{print $1/1000000 "W"}' /sys/class/drm/card0/device/hwmon/hwmon*/power1_average
 ```
 
 ### GPU Clock Speeds
@@ -283,7 +283,7 @@ awk '{print $1/1000000 "W"}' /sys/class/drm/card1/device/hwmon/hwmon*/power1_ave
 Check current GPU frequency:
 
 ```bash
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 ```
 
 Example output:
@@ -683,7 +683,7 @@ From Discord testing:
 
 3. Check amdgpu sysfs directly:
    ```bash
-   cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input
+   cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input
    ```
 
 4. Ensure Mesa 25.1+ is installed:
@@ -741,9 +741,9 @@ echo "Timestamp,GPU_Temp,CPU_Temp,GPU_Power" > "$LOGFILE"
 
 while true; do
     TIMESTAMP=$(date +%s)
-    GPU_TEMP=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
     CPU_TEMP=$(sensors k10temp-pci-00c3 -u 2>/dev/null | grep temp1_input | awk '{print $2}')
-    GPU_POWER=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
+    GPU_POWER=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average 2>/dev/null | awk '{print $1/1000000}')
 
     echo "$TIMESTAMP,$GPU_TEMP,$CPU_TEMP,$GPU_POWER" >> "$LOGFILE"
     sleep 5
@@ -771,7 +771,7 @@ Save as `~/temp-alert.sh`:
 THRESHOLD=85
 
 while true; do
-    GPU_TEMP=$(cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
+    GPU_TEMP=$(cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input 2>/dev/null | awk '{print $1/1000}')
 
     if (( $(echo "$GPU_TEMP > $THRESHOLD" | bc -l) )); then
         notify-send -u critical "BC-250 Temperature Alert" "GPU temp: ${GPU_TEMP}°C (threshold: ${THRESHOLD}°C)"
@@ -795,13 +795,13 @@ sensors
 watch -n 1 sensors
 
 # GPU temperature only
-cat /sys/class/drm/card1/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
+cat /sys/class/drm/card0/device/hwmon/hwmon*/temp1_input | awk '{print $1/1000 "°C"}'
 
 # GPU power consumption
-cat /sys/class/drm/card1/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
+cat /sys/class/drm/card0/device/hwmon/hwmon*/power1_average | awk '{print $1/1000000 "W"}'
 
 # GPU clock speed
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 
 # Launch nvtop
 nvtop

@@ -285,7 +285,7 @@ sudo systemctl restart cyan-skillfish-governor-smu
 mangohud steam
 
 # Check GPU frequency scaling
-cat /sys/class/drm/card1/device/pp_dpm_sclk
+cat /sys/class/drm/card0/device/pp_dpm_sclk
 # Should show frequencies changing under load
 ```
 

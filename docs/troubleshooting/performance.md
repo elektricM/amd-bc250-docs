@@ -150,7 +150,7 @@ Apply to kernel source and recompile, or use a tool like `dkms` or CachyOS kerne
 
 **Verification:**
 ```bash
-cat /sys/class/drm/card1/device/pp_od_clk_voltage
+cat /sys/class/drm/card0/device/pp_od_clk_voltage
 # Should show range up to 2300MHz or higher
 ```
 
