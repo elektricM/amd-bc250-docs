@@ -41,7 +41,7 @@ The AMD BC250 is a compact motherboard built around AMD's "Cyan Skillfish" APU, 
 
     ---
 
-    Distribution guides, kernel configuration, Mesa installation for Fedora, Bazzite, Arch, and more.
+    Distribution guides, kernel configuration, Mesa installation for Fedora, Bazzite, Arch, Alpine, and more.
 
     [:octicons-arrow-right-24: Linux Setup](linux/distributions.md)
 
