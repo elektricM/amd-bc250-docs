@@ -569,6 +569,22 @@ mangohud %command%
 # Or global config in ~/.config/MangoHud/MangoHud.conf
 ```
 
+!!! warning "MangoHud reports 655% GPU usage on BC-250"
+
+    The BC-250's `amdgpu` driver does not populate `gpu_busy_percent` correctly, so MangoHud's GPU load readout pegs at 655% (or random high values) and is meaningless on stock.
+
+    Fix: run `cyan-skillfish-governor-smu` (smu branch) with its defaults. The governor patches GPU usage metrics by sampling the GPU's busy flag and writing back a usable percent. Both `gpu-usage.fix-metrics` and `gpu-usage.method = "busy-flag"` are upstream defaults, so no config change is needed beyond installing and enabling the service. Verified live on Fedora 43 / kernel 7.0.9 with cyan-skillfish-governor-smu running.
+
+    ```toml
+    # /etc/cyan-skillfish-governor-smu/config.toml — defaults shown for reference
+    [gpu-usage]
+    fix-metrics = true
+    method = "busy-flag"
+    flush-every = 10
+    ```
+
+    Source: [filippor/cyan-skillfish-governor `smu` branch README](https://github.com/filippor/cyan-skillfish-governor/blob/smu/README.md).
+
 **Radeontop (terminal):**
 ```bash
 sudo dnf install radeontop
