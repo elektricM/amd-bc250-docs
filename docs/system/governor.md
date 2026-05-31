@@ -264,8 +264,16 @@ frequency = 2200
 voltage = 1000     # max stable on stock cooling
 ```
 
-!!!tip "Voltage ceiling at 1000 mV"
-    Community testing on Discord and live verification on a 40 CU board converge on the same finding: 1000 mV is enough to hold 2150-2200 MHz under sustained load. Earlier guides that recommended 1025-1075 mV at those frequencies are overvolted, which only adds heat without buying stability. Run a sustained workload (`vkmark`, `llama-bench` 10 min, your game of choice) and if it stays stable, leave the curve flat at 1000 mV.
+!!!tip "Voltage ceiling: try 1000 mV first, raise per-board if needed"
+    Some 40 CU boards hold 2150-2200 MHz at a flat 1000 mV under sustained load (verified live on one board). Others need a small bump at the top (~1025 mV at 2150, ~1050 mV at 2200) to stay stable. The "right" curve is board-specific because the GDDR6 and SoC bins vary.
+
+    Recommended approach:
+
+    1. Start with a flat 1000 mV at the top of the curve.
+    2. Run a sustained Vulkan workload for 10+ minutes — `memtest_vulkan` works headless and stresses VRAM, `llama-bench` covers compute, your game of choice covers real-world load.
+    3. If it crashes, hangs, or shows memory errors: raise the top point by 15-25 mV at a time, rerun. Don't go past 1075 mV at 2200 — beyond that you're adding heat without buying stability, and you should drop the top frequency point instead.
+
+    Earlier guides that prescribed 1025-1075 mV across the board were universally conservative. The 2026 finding is that **many boards don't need it**, not that no board does.
 
 **Restart after changes:**
 ```bash
