@@ -65,8 +65,8 @@ dnf install cyan-skillfish-governor-smu
 yay -S cyan-skillfish-governor-smu
 ```
 
-**Debian:**
-Download `.deb` from [GitHub releases](https://github.com/Magnap/cyan-skillfish-governor/releases)
+**Debian/Ubuntu:**
+Upstream does not ship a `.deb`. Grab the latest `cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz` from [filippor's releases](https://github.com/filippor/cyan-skillfish-governor/releases), extract it, and run `sudo ./scripts/install.sh`.
 
 **Configuration:**
 

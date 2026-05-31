@@ -167,7 +167,7 @@ systemctl status cyan-skillfish-governor-tt
 
 **Method 3: Build from source**
 
-See [github.com/Magnap/cyan-skillfish-governor](https://github.com/Magnap/cyan-skillfish-governor) for build instructions. The SMU variant is in the `smu` branch.
+See [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor) for build instructions. The SMU variant lives on the `smu` branch.
 
 **Verify it's working:**
 ```bash
