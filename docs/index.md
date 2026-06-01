@@ -144,15 +144,6 @@ This is a community project and it gets better every time someone shows up with 
 
 </div>
 
-## Documentation Status
-
-!!! success "Content Sources"
-    - **Primary:** BC250 Discord community
-    - **Secondary:** [mothenjoyer69/bc250-documentation](https://github.com/mothenjoyer69/bc250-documentation) — hardware pinouts, specifications
-    - **Last Updated:** March 2026
-
----
-
 ## Quick Start Checklist
 
 For those eager to get started, here's a minimal checklist:
