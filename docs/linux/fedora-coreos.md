@@ -8,7 +8,7 @@ I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-cor
 
 **Status:** Fully Working
 
-**Difficulty:** Specialized Setup (its not a destkop, its a headless server platform)
+**Difficulty:** Specialized Setup (its not a desktop, its a headless server platform)
 
 **Operating System:** This is the base that Bazzite is built upon, so one can easily 'rebase' to Bazzite in the future.
 
@@ -23,7 +23,7 @@ I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-cor
 - **Rolling release** - Rolling Releases and Managed Upgrades
 - **Low RAM usage** - Less than 1GB typical for a freshly provisioned machine.
 - **Immutable Base** - All the rpm-ostree advantages.
-- **Build for Container Optimized Workloads** - Some of my uses are; Games on Whales, Frigate, Home Assistant, *Claw, and llama-server
+- **Built for Container Optimized Workloads** - Some of my uses are; Games on Whales, Frigate, Home Assistant, *Claw, and llama-server
 
 ---
 
@@ -72,7 +72,7 @@ mkdir -p /etc/dracut.conf.d/acpi/
 ```
 3. copy the *.aml files into /etc/dracut.conf.d/acpi/
 ```
-cp bc250-acpi-fix/*.aml /etc/dracut/conf.d/acpi/
+cp bc250-acpi-fix/*.aml /etc/dracut.conf.d/acpi/
 ```
 4. create a new file /etc/dracut.conf.d/99-acpi-override.conf with the following content
 ```
@@ -103,7 +103,7 @@ Beware of setting this above 2000 and enabling all GPU Compute Units.
    ```
    curl --output-dir /etc/yum.repos.d/ -O https://copr.fedorainfracloud.org/coprs/filippor/bazzite/repo/fedora-44/filippor-bazzite-fedora-44.repo
    ```
-2. Install the cyan-skillfish-govenor-smu package
+2. Install the cyan-skillfish-governor-smu package
    ```
    rpm-ostree install cyan-skillfish-governor-smu
    ```
@@ -148,7 +148,7 @@ root@localhost:~# dmesg | grep nct6683
 ```
 ### Enable Additional Core Unlock
 
-As mentioned before **CARE** is needed when enabling the 40 Compute Units and cooling/power.  This *WILL* cause issues if you're unprepared.  It is recommeneded you keep the govenor between 350mhz and 1500mhz if you enable this.  This will need to be loaded once per reboot.
+As mentioned before **CARE** is needed when enabling the 40 Compute Units and cooling/power.  This *WILL* cause issues if you're unprepared.  It is recommeneded you keep the governor between 350mhz and 1500mhz if you enable this.  This will need to be loaded once per reboot.  As an alternative, you can reference a [kernel patch](kernel.md) to accomplish the same goal (which may be more involed in maintaining this patch for future updates).
 
 1. Install the AMD User Mode Register (UMR) Utility
 ```
@@ -192,7 +192,7 @@ systemctl restart gpu-unlock.service
 ```
 ### Enable 14.75GB Allocation of VRAM
 
-This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.
+This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.  There exists more [VRAM Configuration](../bois/vram.md) settings, please review the linked docs for additional information.
 
 1. Create the modprobe config with the following
 ```
@@ -212,7 +212,7 @@ This allows for some CPU speed-ups.
 
 1.  Configure kernel commandline settings
 ```
-rpm-ostree kargs --replace=mitigiatons=auto,nosmc=off
+rpm-ostree kargs --replace=mitigations=auto,nosmt=off
 ```
 2. reboot
 ```
