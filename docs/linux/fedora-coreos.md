@@ -192,7 +192,7 @@ systemctl restart gpu-unlock.service
 ```
 ### Enable 14.75GB Allocation of VRAM
 
-This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.  There exists more [VRAM Configuration](../bois/vram.md) settings, please review the linked docs for additional information.
+This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.  There exists more [VRAM Configuration](../bios/vram.md) settings, please review the linked docs for additional information.
 
 1. Create the modprobe config with the following
 ```
