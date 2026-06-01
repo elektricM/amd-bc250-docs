@@ -1,13 +1,6 @@
 # Contributing to BC250 Documentation
 
-**Help us improve the BC250 documentation!** Instead of posting solutions in Discord where they get lost, add them here so everyone can find them.
-
-## Why Contribute?
-
-- **Searchable:** Documentation is indexed by search engines
-- **Organized:** Information is categorized and easy to find
-- **Permanent:** Won't get lost in chat history
-- **Collaborative:** Everyone benefits from improvements
+Solutions posted only in Discord get lost. Adding them here makes them searchable, versioned, and easier for the next person hitting the same problem to find.
 
 ## Quick Start (No Git Knowledge Required)
 
@@ -32,31 +25,24 @@ Found incorrect information or missing content?
 
 We'll fix it or add the missing information.
 
-## What to Contribute
+## What's Most Useful
 
-### High Priority
+Anything that helps the next person fix a problem faster:
 
-- **Tested hardware configurations** (power supplies, cooling solutions, displays)
-- **Game compatibility** (FPS, settings, issues, workarounds)
-- **Troubleshooting solutions** (especially if you solved something not documented)
-- **Distribution-specific setup steps** (if you got a distro working)
-- **BIOS settings** that work well
-- **Benchmark results** with your configuration
+- Tested hardware (power supplies, cooling, displays, adapters)
+- Game compatibility (FPS, settings, issues, workarounds)
+- Troubleshooting solutions you've actually used
+- Distribution-specific setup steps
+- BIOS settings for specific use cases
+- Benchmark results with your configuration
+- Typo fixes, clearer explanations, missing commands
+- Screenshots, diagrams, dmesg or sensor captures
 
-### Also Welcome
+### Please don't
 
-- **Fixing typos or unclear explanations**
-- **Adding missing commands or steps**
-- **Updating outdated information**
-- **Adding screenshots or diagrams**
-- **Improving organization**
-
-### Don't Contribute
-
-- ❌ Speculation or unverified claims
-- ❌ Proprietary/copyrighted BIOS files
-- ❌ Instructions for illegal activities
-- ❌ Personal opinions without technical basis
+- Add unverified claims or speculation. If you didn't test it, say "reportedly" and cite the source.
+- Copy proprietary BIOS files or copyrighted content.
+- Mix unrelated changes in one PR.
 
 ## Documentation Structure
 
@@ -102,14 +88,55 @@ git checkout -b fix-something
 # Stage your changes
 git add docs/
 
-# Commit with clear message
-git commit -m "Fix Fedora setup instructions for Mesa 25.1"
+# Commit with a clear message (see Pull Request Guidelines below for the prefix)
+git commit -m "fix: correct Fedora setup instructions for Mesa 25.1"
 
 # Push to your fork
 git push origin fix-something
 
 # Create pull request on GitHub
 ```
+
+## Pull Request Guidelines
+
+A few conventions that keep the docs reviewable and the commit history readable.
+
+### Commit messages
+
+Short single-line subject prefixed by type, blank line, then a body explaining what changed and why.
+
+Allowed prefixes, lowercase, no subscope:
+
+- `docs:` documentation add or edit
+- `fix:` correcting an error or outdated information
+- `feat:` new site feature (theme override, plugin, nav change)
+- `chore:` refactor, dependency bumps, non-functional mkdocs.yml cleanup
+
+Examples:
+
+- `docs: add Alpine Linux setup guide`
+- `fix: correct VRAM pages_limit value in Fedora CoreOS guide`
+- `chore: bump mkdocs-material to 9.5`
+
+### One change per PR
+
+Keep each PR focused on one logical change. Typo fix and new distro guide should be two PRs. Mixed PRs are slower to review and harder to revert.
+
+### Hardware-verified claims
+
+If you add a command, parameter, kernel option, or BIOS setting, run it on a BC-250 first and confirm the outcome. Real output (sensors, dmesg, benchmark scores) is better than paraphrase.
+
+### Cite the source
+
+For non-obvious claims (performance numbers, kernel-version requirements, "stable up to X MHz"), say where the information came from: your own bench, a Discord thread, an upstream kernel commit. "Reportedly" is fine for unconfirmed claims as long as it's flagged.
+
+### Cross-reference, don't duplicate
+
+If a step is already documented elsewhere (governor setup, BIOS flashing, kernel choice), link to that page instead of copying the steps. Keeps the site maintainable.
+
+### PR title matches the commit subject
+
+Use the same line for the PR title and the commit subject. If the PR has multiple commits and we squash-merge, that subject becomes the merged commit.
 
 ### Writing Guidelines
 
@@ -223,12 +250,11 @@ Then add to `mkdocs.yml`:
 
 ## Review Process
 
-1. **Submit pull request** (PR)
-2. **Automated checks** verify documentation builds
-3. **Maintainers review** for accuracy and clarity
-4. **Feedback/changes** may be requested
-5. **Merged** once approved
-6. **Published** automatically to https://elektricM.github.io/amd-bc250-docs/
+1. Submit your PR
+2. Automated checks verify the site builds
+3. Maintainer review for accuracy and clarity
+4. Feedback if changes are needed
+5. Merge, automatic publish to https://elektricM.github.io/amd-bc250-docs/
 
 ## Questions?
 
@@ -238,12 +264,4 @@ Then add to `mkdocs.yml`:
 
 ## License
 
-By contributing, you agree your contributions will be licensed under:
-- **Documentation:** CC BY-SA 4.0
-- **Code examples:** MIT
-
----
-
-**Thank you for helping make BC250 documentation better for everyone!**
-
-Instead of answering the same questions in Discord, let's build a knowledge base that helps everyone.
+By contributing, you agree your contributions will be licensed under CC BY-SA 4.0 for documentation and MIT for code examples.

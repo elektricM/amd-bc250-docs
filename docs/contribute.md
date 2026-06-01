@@ -1,27 +1,16 @@
 # How to Contribute
 
-**Help us make BC250 documentation better!** Instead of posting solutions only in Discord, add them here where everyone can find them.
-
-## Why Contribute to the Docs?
-
-| Discord Posts | Documentation |
-|--------------|---------------|
-| Gets buried in chat history | Searchable forever |
-| Hard to find later | Organized by topic |
-| Same questions repeated | One permanent answer |
-| Limited formatting | Code blocks, images, tables |
-| No version control | Track changes, revert mistakes |
+Solutions posted only in Discord get lost. Adding them here makes them searchable, versioned, and easier for the next person hitting the same problem to find.
 
 ## Easy Ways to Contribute
 
-### 1. Edit This Page (Easiest!)
+### 1. Edit on GitHub (no Git knowledge needed)
 
 1. Click the **edit icon** (✏️) in the top right of any page
 2. Make your changes in the GitHub editor
 3. Click "Propose changes" → "Create pull request"
-4. Done! We'll review and merge it
 
-**No Git knowledge required!**
+We'll review and merge it.
 
 ### 2. Report Issues
 
@@ -51,30 +40,24 @@ Got BC250 working well? Share your setup:
 
 **Add it to the relevant page!**
 
-## What We Need Most
+## What's Most Useful
 
-### 🔥 High Priority
+Anything that helps the next person fix a problem faster:
 
-- **Game compatibility reports** (FPS, settings, issues)
-- **Troubleshooting solutions** you've discovered
-- **Hardware testing** (PSUs, coolers, displays that work)
-- **Distribution guides** for distros not yet documented
-- **BIOS settings** that work well for different use cases
+- Game compatibility reports (FPS, settings, known issues)
+- Troubleshooting solutions you've actually used
+- Hardware that works (PSUs, coolers, displays, adapters)
+- Distribution guides for distros not yet documented
+- BIOS settings for specific use cases
+- Benchmark results with your configuration
+- Typo fixes, clearer explanations, missing commands
+- Screenshots, diagrams, dmesg or sensor captures
 
-### ✅ Also Welcome
+### Please don't
 
-- Fixing typos and unclear explanations
-- Adding missing commands or configuration steps
-- Updating outdated information
-- Screenshots or diagrams
-- Benchmark results
-
-### ❌ Please Don't
-
-- Post speculation without testing
-- Copy proprietary content
-- Add unverified claims
-- Include personal opinions without technical basis
+- Add unverified claims or speculation. If you didn't test it, say "reportedly" and cite the source.
+- Copy proprietary BIOS files or copyrighted content.
+- Mix unrelated changes in one PR.
 
 ## Contribution Examples
 
@@ -169,14 +152,54 @@ docs/
 └── reference/         # Quick references, cheatsheets
 ```
 
+## Pull Request Guidelines
+
+A few conventions that keep the docs reviewable and the commit history readable.
+
+### Commit messages
+
+Short single-line subject prefixed by type, blank line, then a body explaining what changed and why.
+
+Allowed prefixes, lowercase, no subscope:
+
+- `docs:` documentation add or edit
+- `fix:` correcting an error or outdated information
+- `feat:` new site feature (theme override, plugin, nav change)
+- `chore:` refactor, dependency bumps, non-functional mkdocs.yml cleanup
+
+Examples:
+
+- `docs: add Alpine Linux setup guide`
+- `fix: correct VRAM pages_limit value in Fedora CoreOS guide`
+- `chore: bump mkdocs-material to 9.5`
+
+### One change per PR
+
+Keep each PR focused on one logical change. Typo fix and new distro guide should be two PRs. Mixed PRs are slower to review and harder to revert.
+
+### Hardware-verified claims
+
+If you add a command, parameter, kernel option, or BIOS setting, run it on a BC-250 first and confirm the outcome. Real output (sensors, dmesg, benchmark scores) is better than paraphrase.
+
+### Cite the source
+
+For non-obvious claims (performance numbers, kernel-version requirements, "stable up to X MHz"), say where the information came from: your own bench, a Discord thread, an upstream kernel commit. "Reportedly" is fine for unconfirmed claims as long as it's flagged.
+
+### Cross-reference, don't duplicate
+
+If a step is already documented elsewhere (governor setup, BIOS flashing, kernel choice), link to that page instead of copying the steps. Keeps the site maintainable.
+
+### PR title matches the commit subject
+
+Use the same line for the PR title and the commit subject. If the PR has multiple commits and we squash-merge, that subject becomes the merged commit.
+
 ## Review Process
 
-1. **Submit** your contribution
-2. **Automated checks** verify it builds correctly
-3. **Review** by maintainers (usually within 48 hours)
-4. **Feedback** if changes needed
-5. **Merged** and automatically published
-6. **Live** at https://elektricM.github.io/amd-bc250-docs/
+1. Submit your PR
+2. Automated checks verify the site builds
+3. Maintainer review (usually within 48 hours)
+4. Feedback if changes are needed
+5. Merge, automatic publish to https://elektricM.github.io/amd-bc250-docs/
 
 ## Questions?
 
@@ -186,10 +209,4 @@ docs/
 
 ---
 
-## Thank You!
-
-Every contribution helps someone avoid hours of troubleshooting.
-
-**Instead of answering the same questions in Discord, let's build a knowledge base that helps everyone.**
-
-[Start Contributing →](https://github.com/elektricM/amd-bc250-docs)
+[Start contributing →](https://github.com/elektricM/amd-bc250-docs)
