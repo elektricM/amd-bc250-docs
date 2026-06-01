@@ -16,7 +16,7 @@
 
 ## What's Included
 
-- **Linux setup guides** for 7+ distributions (Fedora, Bazzite, CachyOS, Arch, Debian, etc.)
+- **Linux setup guides** for 7+ distributions (Fedora, Bazzite, CachyOS, Arch, Debian, Alpine, etc.)
 - **BIOS flashing** and configuration (including GPU frequency patch)
 - **Hardware specs** - power requirements, cooling, display compatibility
 - **Troubleshooting** - boot issues, performance problems, stability fixes

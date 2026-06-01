@@ -139,6 +139,7 @@ nav:
     - CachyOS Setup: linux/cachyos.md
     - Arch Linux Setup: linux/arch.md
     - Debian Setup: linux/debian.md
+    - Alpine Setup: linux/alpine.md
     - Kernel Configuration: linux/kernel.md
     - Mesa Installation: linux/mesa.md
 

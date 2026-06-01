@@ -11,6 +11,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 | **Performance** | CachyOS | Optimized packages, best frame times |
 | **Advanced Users** | Arch Linux | Full control, latest packages |
 | **Stability** | Debian/PikaOS | Rock-solid, good for production work |
+| **Minimal / DIY** | Alpine Linux | Tiny OpenRC-based system for advanced manual setups |
 
 ## Fedora 43 (Most Recommended for Beginners)
 
@@ -236,6 +237,45 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 - Works mostly out-of-box
 - Install governor manually
 
+## Alpine Linux (Minimal Advanced Option)
+
+### Overview
+
+**Status:** Viable, but lightly tested and fully manual
+- **Base:** Alpine Linux
+- **Init:** OpenRC
+- **Kernel:** `linux-lts` recommended (canonical Alpine kernel package)
+- **Mesa:** Use a branch with Mesa 25.1+ available
+
+### Pros
+
+- Extremely small base install
+- Clean package management
+- Good for custom appliances or lean desktops
+- Lower background overhead than heavier desktop distros
+
+### Cons
+
+- Not beginner-friendly
+- Much less BC-250 testing than Fedora/Bazzite/Arch/Debian
+- Manual governor integration
+- Desktop stack and firmware setup take extra work
+
+### Setup
+
+```bash
+# Install graphics stack and firmware
+sudo apk add linux-lts linux-firmware-amdgpu mesa-dri-gallium mesa-vulkan-ati mesa-gl
+
+# Add BC-250-safe kernel parameter
+# /etc/update-extlinux.conf
+default_kernel_opts="quiet amdgpu.sg_display=0 mitigations=off"
+
+sudo update-extlinux
+```
+
+See the [Detailed Alpine Setup Guide](alpine.md).
+
 ## Manjaro (Easy Arch Alternative)
 
 ### Overview
@@ -321,14 +361,14 @@ sudo apt update && sudo apt upgrade
 
 ## Distribution Comparison Table
 
-| Feature | Fedora | Bazzite | CachyOS | Arch | Debian |
-|---------|--------|---------|---------|------|--------|
-| **Ease of Setup** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ |
-| **Gaming Performance** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
-| **Stability** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Documentation** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **Power Efficiency** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Customization** | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| Feature | Fedora | Bazzite | CachyOS | Arch | Debian | Alpine |
+|---------|--------|---------|---------|------|--------|--------|
+| **Ease of Setup** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐ |
+| **Gaming Performance** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
+| **Stability** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| **Documentation** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
+| **Power Efficiency** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Customization** | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
 
 ## Desktop Environment Recommendations
 
@@ -427,6 +467,7 @@ If you want to try a different distribution:
 ## See Also
 
 - [Fedora Detailed Setup Guide](fedora.md)
+- [Alpine Setup Guide](alpine.md)
 - [Kernel Requirements](kernel.md)
 - [Mesa Driver Installation](mesa.md)
 - [Getting Started Guide](../getting-started/quick-start.md)
