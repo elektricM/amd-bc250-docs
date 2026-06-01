@@ -2,17 +2,17 @@
 
 <img src="https://fedoraproject.org/assets/images/coreos-logo-light.png" alt="Fedora CoreOS Logo"/>
 
-Fedora CoreOS Works great on the BC-250.  As a container optimized OS, use cockpit, podman, and quadlets to manage a single machine.  I use docker swarm to manage multiple nodes.
+Fedora CoreOS works great on the BC-250.  As a container optimized OS, use cockpit, podman, and quadlets to manage a single machine.  I use Docker swarm to manage multiple nodes.
 
 I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/), but I can at least guide post installation setup for the BC-250 and my performance customizations.
 
 **Status:** Fully Working
 
-**Difficulty:** Specialized Setup (its not a desktop, its a headless server platform)
+**Difficulty:** Specialized Setup (it's not a desktop, it's a headless server platform)
 
 **Operating System:** This is the base that Bazzite is built upon, so one can easily 'rebase' to Bazzite in the future.
 
-**Kernel and Software Versions:** As of this writing, [6.19.14 is being used](https://fedoraproject.org/coreos/release-notes/?arch=x86_64&stream=stable).  Next version will use Kernel 7.0.8.
+**Kernel and Software Versions:** As of this writing, Kernel [7.0.8](https://fedoraproject.org/coreos/release-notes/?arch=x86_64&stream=stable) is the default kernel version.  All customizations below are designed to persist through the Fedora Core automatic system upgrade via Zincati.
 
 ---
 
@@ -21,9 +21,9 @@ I won't go into [ignition setup](https://docs.fedoraproject.org/en-US/fedora-cor
 ### Advantages
 
 - **Rolling release** - Rolling Releases and Managed Upgrades
-- **Low RAM usage** - Less than 1GB typical for a freshly provisioned machine.
+- **Low RAM usage** - Less than 640MB typical for a freshly provisioned machine.
 - **Immutable Base** - All the rpm-ostree advantages.
-- **Built for Container Optimized Workloads** - Some of my uses are; Games on Whales, Frigate, Home Assistant, *Claw, and llama-server
+- **Built for Container Optimized Workloads** - Some of my uses are: [Games on Whales](https://games-on-whales.github.io/), [Frigate](https://github.com/blakeblackshear/frigate), [Home Assistant](https://www.home-assistant.io/), [*Claw](https://github.com/zeroclaw-labs/zeroclaw), and [llama-server](https://github.com/ggml-org/llama.cpp).
 
 ---
 
@@ -52,7 +52,7 @@ See [BIOS Flashing Guide](../bios/flashing.md).
 ### Installation Steps
 
 !!!info "Follow the Fedora CoreOS Installation Guides"
-    Fedora CoreOS installation should be done following the official [Fedora CoreOS Installation Guide](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/).  There is no specific deviations or customizations needed to install CoreOS on a BC-250.  All customization is post-installation.
+    Fedora CoreOS installation should be done following the official [Fedora CoreOS Installation Guide](https://docs.fedoraproject.org/en-US/fedora-coreos/getting-started/).  There are no specific deviations or customizations needed to install CoreOS on a BC-250.  All customization is post-installation.
 
 ---
 
@@ -76,8 +76,10 @@ cp bc250-acpi-fix/*.aml /etc/dracut.conf.d/acpi/
 ```
 4. create a new file /etc/dracut.conf.d/99-acpi-override.conf with the following content
 ```
+cat <<EOF > /etc/dracut.conf.d/99-acpi-override.conf
 acpi_override="yes"
 acpi_table_dir="/etc/dracut.conf.d/acpi"
+EOF
 ```
 5.  Enable InitramFS Generation
 ```
@@ -96,8 +98,8 @@ root@localhost:~# dmesg | grep SSDT-.ST
 
 ### Enable Cyan Skillfish Governor
 
-This will allow you to throttle the GPU.  350mhz <-> 2200mhz was tested on my setup.  Highly dependant on your cooling setup.
-Beware of setting this above 2000 and enabling all GPU Compute Units.
+This will allow you to throttle the GPU.  350 MHz to 2200 MHz was tested on my setup.  Highly dependent on your cooling setup.
+Beware of setting the GPU speed above 2000 MHz and enabling all GPU Compute Units.  On my setup, this resulted in system lock-ups.
 
 1. Download and place the COPR filippo/bazzite repo into your local system.
    ```
@@ -148,7 +150,7 @@ root@localhost:~# dmesg | grep nct6683
 ```
 ### Enable Additional Core Unlock
 
-As mentioned before **CARE** is needed when enabling the 40 Compute Units and cooling/power.  This *WILL* cause issues if you're unprepared.  It is recommeneded you keep the governor between 350mhz and 1500mhz if you enable this.  This will need to be loaded once per reboot.  As an alternative, you can reference a [kernel patch](kernel.md) to accomplish the same goal (which may be more involed in maintaining this patch for future updates).
+As mentioned before **CARE** is needed when enabling the 40 Compute Units and cooling/power.  This *WILL* cause issues if you're unprepared.  It is recommended you keep the governor between 350 MHz and 1500 MHz if you enable this.  This will need to be loaded once per reboot.  As an alternative, you can reference a [kernel patch](kernel.md) to accomplish the same goal (which may be more involved in maintaining this patch for future updates).
 
 1. Install the AMD User Mode Register (UMR) Utility
 ```
@@ -192,16 +194,20 @@ systemctl restart gpu-unlock.service
 ```
 ### Enable 14.75GB Allocation of VRAM
 
-This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.  There exists more [VRAM Configuration](../bios/vram.md) settings, please review the linked docs for additional information.
+This will allow you to allocate 14.75GB of RAM to the GPU for services like LLMs.  Additional [VRAM Configuration](../bios/vram.md) settings are available, please review the linked docs for additional information.  As a reminder: in order to get the below allocation to work, you need to set the [BIOS VRAM to 512MB Dynamic Allocation](../bios/flashing.md).
 
 1. Create the modprobe config with the following
 ```
 cat <<EOF > /etc/modprobe.d/bc250-vram.conf
-options ttm pages_limit=3959290 page_pool_size=3959290
+options ttm pages_limit=3776000 page_pool_size=3776000
 options amdgpu gttsize=14750
 EOF
 ```
-2. Reboot
+2. Force an initramfs sync
+```
+rpm-ostree initramfs-etc --force-sync
+```
+3. Reboot
 ```
 systemctl reboot
 ```
@@ -212,7 +218,7 @@ This allows for some CPU speed-ups.
 
 1.  Configure kernel commandline settings
 ```
-rpm-ostree kargs --replace=mitigations=auto,nosmt=off
+rpm-ostree kargs --replace="mitigations=auto,nosmt=off"
 ```
 2. reboot
 ```
@@ -223,7 +229,7 @@ systemctl reboot
 
 ## Podman Expose GPU to Containers
 
-I often expose the gpu for compute uses (e.g. llms) leveraging vulkan.  In order to do so, in your podman command line use the following
+I often expose the GPU for compute uses (e.g. LLMs) leveraging vulkan.  In order to do so, in your podman command line, use the following:
 ```
 --device /dev/dri --device /dev/kfd
 ```
