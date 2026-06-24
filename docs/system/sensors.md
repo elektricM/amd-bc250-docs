@@ -111,6 +111,58 @@ sudo reboot
 !!!info "PWM Values Reset on Reboot"
     The `nct6687` module does not persist PWM values across reboots. You'll need CoolerControl, a systemd service, or a udev rule to set your desired fan speed at boot.
 
+#### Immutable / Atomic Distros (Bazzite, Silverblue, Fedora CoreOS)
+
+On atomic/immutable distros (Bazzite, Silverblue, Fedora CoreOS, Kinoite) the `sudo make install` step above won't work. The build succeeds, but the copy fails:
+
+```
+cp: cannot create '/lib/modules/.../nct6687.ko': Read-only file system
+```
+
+`/usr/lib/modules` is read-only on an ostree image, so the module compiles fine but can never be copied into the kernel tree. That's also why `modprobe nct6687` reports the module as missing afterwards. There are two working paths, depending on which kernel you run.
+
+**Stock Bazzite kernel:** Bazzite ships the nct6687d driver as an akmod from `ublue-os/akmods`. It was dropped on 2025-01-31 and restored in the 41.20250314 stable release, so on an up-to-date stock kernel you don't build anything, just load it:
+
+```bash
+sudo modprobe nct6687 force=true
+```
+
+**Custom BC-250 kernel:** Prebuilt akmods are tied to the stock kernel ABI, so a custom kernel (any non-stock suffix such as `-ogc`) has no matching akmod and `modprobe` finds nothing. Build the module against the running kernel as shown above, then load the built `.ko` directly instead of installing it:
+
+```bash
+cd nct6687d
+sudo insmod ./"$(uname -r)"/nct6687.ko force=1
+```
+
+Confirm it bound with `lsmod | grep nct6687` and `sensors`.
+
+`insmod` isn't persistent: it doesn't survive a reboot, and the module has to be rebuilt after every kernel update because the path is tied to `uname -r`. To persist it, keep the built `.ko` somewhere writable under `/var` and load it at boot with a systemd oneshot service:
+
+```ini
+# /etc/systemd/system/nct6687-load.service
+[Unit]
+Description=Load nct6687 SuperIO sensor module
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/insmod /var/lib/nct6687/nct6687.ko force=1
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then copy the module into place and enable the service:
+
+```bash
+sudo mkdir -p /var/lib/nct6687
+sudo cp ./"$(uname -r)"/nct6687.ko /var/lib/nct6687/
+sudo systemctl enable nct6687-load.service
+```
+
+Remember to rebuild and recopy the `.ko` after each kernel update. If you'd rather not wire this up by hand, the [NeOdYmS/bazzite-bc250-toolkit](https://github.com/NeOdYmS/bazzite-bc250-toolkit) project automates this nct6683 to nct6687 switch on BC-250 Bazzite.
+
 ---
 
 ## Using lm-sensors
@@ -661,6 +713,7 @@ From Discord testing:
    cd nct6687d && make && sudo make install
    sudo modprobe nct6687 force=true
    ```
+   On atomic/immutable distros `make install` fails because the kernel tree is read-only. See the [Immutable / Atomic Distros](#immutable--atomic-distros-bazzite-silverblue-fedora-coreos) subsection above.
 
 !!!info "nct6683 vs nct6687"
     `nct6683` is read-only (temperature, voltage, fan speed monitoring). `nct6687` provides full read+write access including PWM fan control. For fan curves and manual speed control, you need `nct6687`.
