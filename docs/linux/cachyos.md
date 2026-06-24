@@ -12,6 +12,9 @@ CachyOS is an Arch-based Linux distribution optimized for performance, featuring
 !!! success "Updated November 2025"
     CachyOS now ships with compatible kernels by default. The complex custom ISO build procedures from earlier guides are **no longer needed**. Simply download the standard ISO and install normally.
 
+!!!tip "Prefer a script?"
+    [redbeard1083/bc250-toolkit](https://github.com/redbeard1083/bc250-toolkit) automates governor, swap, overclock and CU unlock on CachyOS (needs the Limine bootloader); see [Community Setup Toolkits](distributions.md#community-setup-toolkits).
+
 ---
 
 ## Why Choose CachyOS?

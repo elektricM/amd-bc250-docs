@@ -11,6 +11,9 @@ Bazzite is a gaming-focused Linux distribution based on Fedora that provides an 
 
 ---
 
+!!!tip "Prefer a script?"
+    Community toolkits like [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine), [samedayhurt/bc250-buddy](https://github.com/samedayhurt/bc250-buddy) and [NeOdYmS/bazzite-bc250-toolkit](https://github.com/NeOdYmS/bazzite-bc250-toolkit) automate the steps below; see [Community Setup Toolkits](distributions.md#community-setup-toolkits).
+
 ## Why Choose Bazzite?
 
 **Advantages:**

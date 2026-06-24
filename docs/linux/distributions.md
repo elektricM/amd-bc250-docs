@@ -13,6 +13,14 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 | **Stability** | Debian/PikaOS | Rock-solid, good for production work |
 | **Minimal / DIY** | Alpine Linux | Tiny OpenRC-based system for advanced manual setups |
 
+## Community Setup Toolkits
+
+Several community projects bundle the common post-install steps (governor, overclock, swap, compute-unit unlock) into one script or menu. They move fast and aren't maintained here, so read what they do before running them. The per-distro guides below stay the reference for what each step actually does.
+
+- **Bazzite:** [NexGen-3D-Printing/SteamMachine](https://github.com/NexGen-3D-Printing/SteamMachine) gives you one-shot tuning scripts plus a 3D-printed case; [samedayhurt/bc250-buddy](https://github.com/samedayhurt/bc250-buddy) is a modular setup with matching revert scripts; [NeOdYmS/bazzite-bc250-toolkit](https://github.com/NeOdYmS/bazzite-bc250-toolkit) is a menu-driven setup that includes the nct6683 to nct6687 sensor switch.
+- **CachyOS:** [redbeard1083/bc250-toolkit](https://github.com/redbeard1083/bc250-toolkit) is a menu-driven setup covering governor, swap, on-the-fly overclock and compute-unit unlock. It needs the Limine bootloader.
+- **Arch:** [pnbarbeito/bc250-arch](https://github.com/pnbarbeito/bc250-arch) installs oberon-governor and mesa-git; [Boundbygravity/bc250-arch-setup](https://github.com/Boundbygravity/bc250-arch-setup) is a post-install setup script.
+
 ## Fedora 43 (Most Recommended for Beginners)
 
 !!!warning "Fedora 42 is End of Life"
