@@ -204,7 +204,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Memory:** 16GB total (configurable split) vs 8GB dedicated VRAM
 
 !!!success "Gaming Performance"
-    For 1080p gaming, the BC-250 performs admirably, achieving 60+ FPS in most modern games at high settings.
+    For 1080p gaming, the BC-250 performs reasonably, achieving 60+ FPS in most modern games at high settings.
 
 ## Verification Commands
 
