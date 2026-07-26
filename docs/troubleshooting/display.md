@@ -371,6 +371,9 @@ Reduce frequency or increase voltage in governor config.
 3. Use native DP monitor
 4. Use USB-C headphones
 
+!!!note "Audio delay, low pitch or crackle on a passive adapter or native DP?"
+    That is a separate problem: a spread-spectrum bug in the display driver that affects the DisplayPort output itself, not the adapter. See [DisplayPort Audio: Desync, Delay and Crackle](audio.md).
+
 ### Recommended Adapters
 
 **Passive adapters that work:**

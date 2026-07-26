@@ -1,282 +1,133 @@
 # VRAM Configuration Guide
 
-One of the BC-250's unique features is configurable memory allocation between CPU RAM and GPU VRAM. Understanding how to configure this properly is critical for optimal performance.
+The BC-250 shares the same 16GB of memory between the CPU and GPU. This is called 
+"Unified Memory Architecture" or UMA.
 
-## Understanding UMA (Unified Memory Architecture)
-
-The BC-250 uses **unified memory** - a single 16GB pool of GDDR6 RAM shared between CPU and GPU. The BIOS setting "UMA Frame Buffer Size" controls how this memory is divided.
-
-!!!info "Key Concept"
-    Unlike traditional systems with separate RAM and VRAM, the BC-250's memory is dynamically sharable (with 512MB setting) or statically partitioned (with fixed allocations).
+However, all PC software still expects CPU and GPU to have separate pools of memory, therefore
+the system splits usage of the memory into RAM and VRAM.
 
 ---
 
-## Configuration Options
+# Changing the VRAM Split
 
-### Option 1: 512MB Dynamic
+The stock 3.00 BIOS splits the memory into 8GB RAM and 8GB VRAM.
 
-**BIOS Setting:** UMA Frame Buffer Size = 512MB
+Control of the RAM/VRAM split is ordinarily not exposed to the user.
+However, there are ways to modify it.
 
-**Important:** This "512MB" setting is NOT a limit - it enables **dynamic VRAM allocation** where the GPU can access nearly the full 16GB as needed.
 
-**How it works:**
-- System starts with ~15.5GB CPU RAM, ~512MB minimum GPU VRAM
-- When GPU needs more VRAM, it automatically claims from system RAM
-- When GPU load drops, memory returns to system pool
-- Can allocate nearly full 16GB to VRAM when needed (up to ~14GB+ for GPU)
+## Memcfg Utility
 
-**Pros:**
-- Most flexible
-- Best for varied workloads
-- No need to choose allocation manually
+You can set the VRAM split from a running Linux system by running a program: [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg).
 
-**Cons:**
-- May conflict with ZRAM in some games (RDR2, Company of Heroes 3)
-- Some games incorrectly report available VRAM
-- Some titles (Expedition 33, Mafia) crash unless 4-8GB is statically allocated
-
-**Best for:**
-- General use, mixed gaming, productivity
-- Users who don't want to tweak settings
-
-### Option 2: Fixed 10GB RAM / 6GB VRAM
-
-**BIOS Setting:** UMA Frame Buffer Size = 6144MB
-
-Statically allocates 6GB to GPU, 10GB to CPU.
-
-**Pros:**
-- Fixes ZRAM conflicts
-- More predictable performance
-- Games properly detect VRAM amount
-- Stable for AAA titles
-
-**Cons:**
-- Less flexible
-- May waste VRAM if not fully used
-- Can run out of system RAM in extreme cases
-
-**Best for:**
-- AAA gaming (RDR2, Cyberpunk, Control)
-- Users experiencing crashes with 512MB dynamic
-- Systems using ZRAM for swap
-
-### Option 3: Fixed 8GB RAM / 8GB VRAM
-
-**BIOS Setting:** UMA Frame Buffer Size = 8192MB
-
-Balanced 50/50 split.
-
-**Pros:**
-- Balanced for most use cases
-- Simple to reason about
-- Good for compute workloads
-
-**Cons:**
-- May waste VRAM if unused
-- Less system RAM than 512MB dynamic typically provides
-
-**Best for:**
-- AI/LLM inference
-- Compute workloads needing large VRAM
-- Users wanting simple balanced split
-
-### Option 4: Fixed 12GB RAM / 4GB VRAM
-
-**BIOS Setting:** UMA Frame Buffer Size = 4096MB
-
-CPU-favoring split.
-
-**Pros:**
-- Maximum system RAM
-- Low idle power (less VRAM to keep refreshed)
-- Good for non-gaming use
-
-**Cons:**
-- Limited VRAM for modern games
-- May struggle with high-res textures
-- Not enough for 4K gaming
-
-**Best for:**
-- Light gaming (esports titles, older games)
-- Desktop/productivity use
-- Low-power optimization
-
----
-
-## Changing VRAM Allocation
-
-### In BIOS
-
-1. Boot into BIOS (press **Del** during startup)
-2. Navigate to **Chipset Configuration** or **Advanced** menu
-3. Find **UMA Frame Buffer Size** setting
-4. Select desired value:
-   - 512MB (dynamic)
-   - 4096MB (12GB/4GB)
-   - 6144MB (10GB/6GB)
-   - 8192MB (8GB/8GB)
-5. Save and exit (F10)
-6. System will reboot with new allocation
-
-!!!warning "Takes Effect Immediately"
-    The new allocation applies on reboot. No need to reflash BIOS or reinstall OS.
-
-### From Linux (no BIOS flash needed)
-
-If you only need to change VRAM size, you can set it from a running Linux system on the stock P3.00 or P5.00 BIOS using [fanoush/bc250_memcfg](https://github.com/fanoush/bc250_memcfg):
+This is the preferred option because it does not involve reflashing BIOS, and therefore it is safer
+for novice users.
 
 ```bash
 git clone https://github.com/fanoush/bc250_memcfg
 cd bc250_memcfg
 make
-sudo ./bc250memcfg UMA_SIZE 512    # 512MB dynamic
-# values: 512, 4096, 6144, 8192
+sudo ./bc250memcfg UMA_SIZE 512
 ```
+Replace '512' with the desired VRAM size in MB.
+- 256 = 256 MB
+- 512 = 512 MB
+- 1024 = 1 GB
+- 3072 = 3 GB
+- 4096 = 4 GB
+- 6144 = 6 GB
+- 8192 = 8 GB
+- 10240 = 10 GB
+- 12288 = 12 GB
+- **Note:** Linux won't boot with 2GB VRAM split for some reason. All other values seem OK.
 
-Reboot for the new allocation to apply. Useful if you want VRAM sizing without flashing a modded BIOS.
+Reboot to apply the change.
 
-### Verification in Linux
+Even though this is a Linux program, the change is stored into CMOS, so it only needs to be ran 
+once and not at every boot.
 
-Check current allocation:
+## A note on modified BIOS
 
-```bash
-# Check system RAM
-free -h
-# Should show ~10-15GB depending on allocation
+You may have read about needing to flash the BIOS to unlock the VRAM split option in the BIOS
+setup. This was previously required to get the option, but it is now obsolete.
 
-# Check VRAM
-cat /sys/class/drm/card0/device/mem_info_vram_total
-# Shows GPU memory in bytes
-
-# Check both
-neofetch
-# Or
-inxi -Fxxxz
-```
-
----
-
----
-
-## Known Issues
-
-### ZRAM Conflicts with 512MB Dynamic
-
-**Symptoms:**
-- RDR2 crashes when loading new areas
-- Company of Heroes 3 artifacts then crashes
-- Out-of-memory errors despite available RAM
-
-**Cause:**
-ZRAM compressed swap can confuse the dynamic allocator, causing memory management failures.
-
-**Solutions:**
-1. **Disable ZRAM:**
-   ```bash
-   sudo systemctl disable zram-swap
-   sudo reboot
-   ```
-
-2. **Switch to fixed 10GB/6GB allocation** (better solution)
-
-3. **Reduce ZRAM size:**
-   ```bash
-   # Edit /etc/systemd/zram-generator.conf
-   [zram0]
-   zram-size = 4096  # Reduce from default 8GB
-   ```
-
-### Games Misreporting VRAM
-
-**Symptoms:**
-- Game settings show wrong VRAM amount
-- Ultra textures disabled despite having VRAM
-- Performance warnings despite good performance
-
-**Cause:**
-Games query BIOS-reported VRAM (512MB or fixed amount) and don't understand dynamic allocation.
-
-**Solution:**
-Ignore the warning. Performance is what matters. The game will use what it needs.
-
-**Workaround (if game refuses to run):**
-Switch to fixed allocation that matches game's requirements.
-
-### Vulkan vs OpenGL VRAM Reporting
-
-**Issue:**
-Vulkan sees full dynamic VRAM (~10-12GB), OpenGL only sees BIOS-allocated amount (512MB).
-
-**Impact:**
-- OpenGL games may refuse to run on "512MB VRAM"
-- Vulkan/Proton games work fine
-
-**Solution:**
-Most modern games use Vulkan via Proton. If game needs OpenGL and complains, use fixed allocation.
+Because of the above utility, there is no longer any need to flash BIOS to change VRAM settings.
 
 ---
 
-## Advanced: Kernel Parameters for More VRAM
+# Dynamic VRAM
 
-You can override VRAM limits via kernel parameters to access up to ~14.75GB VRAM.
+It is commonly stated that 512MB VRAM split is a "dynamic allocation" mode, where the system
+will automatically reassign RAM to the VRAM pool as needed, but then will return that VRAM back to
+RAM when the game is closed.
 
-!!!warning "Experimental"
-    This is for advanced users doing AI inference or compute. Not needed for gaming.
+In truth, **ALL VRAM split settings are dynamic!** There is nothing special about the 512MB mode
+except that it has a very small MINIMUM VRAM allocation. 
 
-Add to GRUB command line:
+What the VRAM split setting above is actually doing is setting the MINIMUM amount of memory
+that is used as VRAM. This means that with a 512MB VRAM split, when a game is not running, almost 
+the whole 16GB of system memory is available as regular RAM, while with an 8GB split nearly half
+of the system memory will never be usable as regular RAM. But, both modes will dynamically use more
+than 512MB and 8GB of VRAM respectively.
 
-```bash
-sudo nano /etc/default/grub
+So what is the maximum VRAM?
 
-# Add to GRUB_CMDLINE_LINUX_DEFAULT:
-amdgpu.gttsize=14750 ttm.pages_limit=3959290 ttm.page_pool_size=3959290
+By default, Linux will use up to half of the RAM capacity (that is not being dedicated to VRAM)
+as dynamic VRAM. This is used in addition to the VRAM split selected above. When this total is
+exceeded, the display driver will crash.
 
-# Update GRUB
-sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-sudo reboot
-```
+With this knowledge, here is the default maximum VRAM usage before crash for each VRAM split:
+- 512 MB split means 8.25 GB max VRAM
+- 4 GB split means 10 GB max VRAM
+- 6 GB split means 11 GB max VRAM
+- 8 GB split means 12 GB max VRAM
 
-**What this does:**
-- `amdgpu.gttsize`: Sets GTT (Graphics Translation Table) size in MB
-- `ttm`: Increases memory manager limits
+## Solving Crashes with 512MB VRAM split
 
-**Usage:**
-When running LLM inference or other compute tasks, limit memory allocation to avoid crashes:
+Because the default max VRAM usage with 512MB VRAM split is 8.25 GB, the system can tip over the
+limit when the game is set up to use 8GB or more of VRAM. This is the primary reason for games
+crashing when using the 512MB VRAM split, while working fine with an 8GB VRAM split.
 
-```bash
-llama.cpp --mem 14500  # Slightly less than 14.75GB max
-```
+To solve this while staying with the 512MB VRAM split, there is a Linux kernel boot parameter that
+will override the dynamic VRAM limit with any amount.
 
----
+- `ttm.pages_limit=value`
+	- where `value` is replaced by a number using the following formula:
+	- ttm.pages_limit = `(Desired max dynamic VRAM in GB) * 1024 * 1024 / 4`
+	
+For example, to extend the max dynamic VRAM to 12GB, use `ttm.pages_limit=3014656`.
+This has the same maximum VRAM usage as the 8GB VRAM split, while returning nearly all of the VRAM
+back to regular RAM when the game is closed.
 
----
+### Applying the kernel parameter
 
-## Testing Your Configuration
-
-After changing allocation, verify it works:
-
-```bash
-# 1. Check allocation took effect
-free -h
-cat /sys/class/drm/card0/device/mem_info_vram_total
-
-# 2. Run stress test
-vkmark  # Vulkan benchmark
-glmark2  # OpenGL benchmark
-
-# 3. Test actual games
-steam  # Launch and test a few titles
-
-# 4. Monitor for crashes/OOM
-journalctl -f  # Watch for memory errors
-```
-
----
+Applying the kernel boot param differs depending on your distro:
+- On Bazzite:
+	- `sudo rpm-ostree kargs --delete=ttm.pages_limit --append=ttm.pages_limit=3014656 --reboot`
+- On CachyOS:
+	- CachyOS can have one of several different bootloaders depending on your installation settings.
+		- See [CachyOS Boot Manager   Configuration](https://wiki.cachyos.org/configuration/boot_manager_configuration/#kernel-command-configuration)
+- On others:
+	- Determine which bootloader your distro uses and consult its documentation.
 
 ---
 
-**Related Pages:**
-- [BIOS Flashing Guide](flashing.md)
-- [Governor Configuration](../system/governor.md)
-- [Gaming Performance](../gaming/compatibility.md)
+# What VRAM Split is Best?
+
+Using 256MB or 512MB with the above `ttm.pages_limit` kernel parameter ensures that your system
+has as much RAM available as possible while avoiding crashes in games, while still being able to
+allocate as much VRAM as needed.
+
+However, there are reports that higher VRAM splits perform a little bit better due to not needing
+to reallocate memory as often. There is not conclusive data on this so it is up to you to 
+experiment.
+
+No matter what your VRAM split is, it is a good idea to set up your game settings to keep total VRAM
+usage on the lower side, such as 8GB or less. 
+
+With a low VRAM split, a game using less than 8GB of VRAM gives memory back to the regular RAM pool,
+which lets a game needing lots of RAM stay out of swap more. This helps with performance and
+stuttering.
+
+With an 8GB VRAM split, memory is wasted if your game uses less than 8GB of VRAM, because the 8GB
+split makes that VRAM unusable as regular RAM.
