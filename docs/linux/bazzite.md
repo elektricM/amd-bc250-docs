@@ -294,6 +294,12 @@ systemctl reboot
 
 ## Known Issues & Solutions
 
+### Box Dead After Sitting Idle
+
+**Symptom:** After a period of inactivity the display is black, no input wakes the box, and it is not reachable over the network. Only a power cut recovers it.
+
+**Cause:** The box auto-suspended, and s2idle resume does not work on this hardware. See [Black Screen After Idle](../troubleshooting/display.md#problem-black-screen-after-idle-nothing-wakes-it) for the diagnosis and fix. Note that Steam Game Mode has its own idle suspend, so masking the suspend targets matters even if the desktop's power settings already say never suspend.
+
 ### Screen Freezes When Loading Levels On Newer Games
 
 **Symptom:** Screen freezes indefinitely when loading in levels on newer games

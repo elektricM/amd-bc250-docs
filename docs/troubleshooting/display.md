@@ -264,6 +264,39 @@ Some active adapters overheat and fail.
 - Switch to passive adapter
 - Ensure adapter has airflow
 
+### Problem: Black Screen After Idle, Nothing Wakes It
+
+**Symptoms:**
+- Display goes black after a period of inactivity
+- No input wakes it: not mouse, keyboard or controller
+- The box is not reachable over the network either
+- Only a power cut recovers it
+
+**Cause: the box suspended and never resumed.** The BC-250 only offers `s2idle` (`cat /sys/power/mem_sleep` shows `[s2idle]` with no `deep` state), and s2idle resume does not work on this hardware. The machine hangs in suspend, which is why no input does anything.
+
+**Confirm it** after the forced reboot by looking at the end of the previous boot's journal:
+
+```bash
+journalctl -b -1 -n 5
+# A last line like "PM: suspend entry (s2idle)" with no resume entry after it
+# means the box suspended and hung there.
+```
+
+**Fix: stop anything from suspending the box.**
+
+```bash
+# GNOME desktop idle suspend:
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
+# System-wide. Also covers Steam Game Mode's own idle suspend,
+# which the desktop setting does not reach:
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+
+Revert with `sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target` if resume ever starts working on this hardware.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
+
 ---
 
 ## Display Flickering / Artifacts
