@@ -39,9 +39,9 @@ Alpine Linux works on the BC-250, but setup is more manual than on mainstream de
 Before installing Alpine, ensure BIOS is configured:
 
 1. Flash modified BIOS (P3.00 or later recommended)
-2. Set VRAM allocation to 512MB dynamic (recommended for shared VRAM / UMA, see [VRAM Configuration](../bios/vram.md#option-1-512mb-dynamic))
+2. Set VRAM allocation to 512MB dynamic (recommended for shared VRAM / UMA, see [Dynamic VRAM](../bios/vram.md#dynamic-vram))
 
-For LLM or GPU-compute workloads, consider a fixed split such as [Option 3: 8GB RAM / 8GB VRAM](../bios/vram.md#option-3-fixed-8gb-ram-8gb-vram) or [Option 4: 12GB RAM / 4GB VRAM](../bios/vram.md#option-4-fixed-12gb-ram-4gb-vram), depending on whether you want to prioritize GPU memory or system RAM.
+For LLM or GPU-compute workloads, consider a higher fixed split such as 8GB or 12GB VRAM, depending on whether you want to prioritize GPU memory or system RAM. See [What VRAM Split is Best?](../bios/vram.md#what-vram-split-is-best) for the trade-offs.
 
 See [BIOS Flashing Guide](../bios/flashing.md).
 
