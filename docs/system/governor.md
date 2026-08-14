@@ -789,6 +789,23 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg    # Arch
 sudo update-grub                              # Debian
 ```
 
+On Bazzite, Fedora Atomic and other rpm-ostree distros:
+
+The two variants above do not apply here. An ostree system has no `/boot/loader/entries/<machine-id>-<kernel>.conf` (its BLS entries are regenerated `ostree-*.conf` files, and hand edits do not survive the next deployment), which is why the Fedora command opens an empty file. Use the dracut override method already documented on the [Fedora CoreOS page](../linux/fedora-coreos.md#enable-acpi-c-states-and-p-states) instead. Only the `git clone` from Step 1 is needed; skip the cpio archive:
+
+```bash
+sudo mkdir -p /etc/dracut.conf.d/acpi/
+sudo cp bc250-acpi-fix/*.aml /etc/dracut.conf.d/acpi/
+sudo tee /etc/dracut.conf.d/99-acpi-override.conf <<'CONF'
+acpi_override="yes"
+acpi_table_dir="/etc/dracut.conf.d/acpi"
+CONF
+sudo rpm-ostree initramfs --enable
+sudo systemctl reboot
+```
+
+After the reboot, `dmesg | grep SSDT` should report both tables found in the initrd, as shown on the CoreOS page.
+
 **Step 3: Reboot and verify**
 
 ```bash
@@ -808,6 +825,8 @@ echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 
 !!!warning "Kernel Update Note"
     When you update to a new kernel, the BLS entry for the new kernel won't include the ACPI override. You'll need to edit the new entry or automate this with a kernel-install hook.
+
+    This does not apply to the rpm-ostree method: with `rpm-ostree initramfs --enable`, the initramfs is regenerated with the tables on every deployment, so the override persists across updates.
 
 ## Community Resources
 
