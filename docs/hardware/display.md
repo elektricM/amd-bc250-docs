@@ -255,6 +255,35 @@ cec-ctl -d /dev/cec0 -S           # scan: shows the TV, audio system, other devi
 
 `/dev/cec0` is owned `root:video`, so add your user to the `video` group for non-root use, and remember group changes only apply to new logins.
 
+!!!warning "On Bazzite and other ostree distros, usermod -aG silently does nothing"
+    On an ostree system with nss-altfiles, the `video` group often exists only in the read-only `/usr/lib/group`, with no line in `/etc/group`. `usermod -aG video $USER` then validates the group through NSS, edits `/etc/group`, finds no line to append to, and exits 0 without changing anything. Seed the group line first, then add the member:
+
+    ```bash
+    grep '^video:' /usr/lib/group | sudo tee -a /etc/group
+    sudo gpasswd -a $USER video
+    ```
+
+    Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
+
+### Naming the Box on the CEC Bus
+
+On the kernel-CEC path a device announces itself with `cec-ctl`'s default OSD name unless `--osd-name` is passed, so the TV's source list shows the box as "Playback". Two Bazzite pitfalls stack on top of that:
+
+- Setting `CEC_OSD_NAME` in `/etc/default/cec-control` is a no-op here. `cec-control` builds `--osd-name` into its argument list but only uses that list on its libcec code path; on the `/dev/cec0` path, the one the BC-250 takes, it runs a bare `cec-ctl -d "$CEC_DEVICE" --playback`.
+- `cec-onboot.service` re-runs that bare registration on every boot, clobbering any name set by hand.
+
+Set the name directly (CEC limits OSD names to 14 characters), and reapply it after `cec-onboot` if you want it to survive reboots:
+
+```bash
+cec-ctl -d /dev/cec0 --playback --osd-name "Steam Machine"
+```
+
+[bc250-cec-identity.sh](https://github.com/Weijtmans/bc250-tools) does this and can install a small unit that makes the name persistent; [bc250-cec-check.sh](https://github.com/Weijtmans/bc250-tools) from the same repo proves whether the TV actually answers on the bus.
+
+Renaming changes the name, not the device category: CEC has no game-console device type, and amdgpu implements no ALLM, so a TV will not switch into Game Mode by itself. Label the input as a game console in the TV's own source menu for that.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, Samsung TV.
+
 ## Multiple Display Support
 
 ### Limitations
