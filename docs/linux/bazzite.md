@@ -226,6 +226,10 @@ systemctl reboot
 
 ## Post-Installation Configuration
 
+### ACPI Fix (CPU C-States and P-States)
+
+The [ACPI fix](../system/governor.md#acpi-fix-installation) enables CPU idle states and frequency scaling. On Bazzite, follow the **rpm-ostree variant** of Step 2 on that page: the plain-Fedora BLS instructions do not work here, because Bazzite's boot entries are managed by ostree.
+
 ### Temperature Sensors
 
 For **read-only monitoring** (temperatures, voltages, fan speeds):
