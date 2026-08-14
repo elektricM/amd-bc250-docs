@@ -196,18 +196,23 @@ See [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cy
 
 **Example Configuration:**
 
-The `smu` branch uses a section-based TOML schema, not the older `safe-points = [...]` array. Defaults shown below match the upstream `default-config.toml` with the voltage curve flattened at 1000 mV to match the community-validated 2150-2200 MHz ceiling.
+The `smu` branch uses a section-based TOML schema, not the older `safe-points = [...]` array. The block below is the shipped `default-config.toml` from the current `smu` branch, with every key annotated. **Your installed `/etc/cyan-skillfish-governor-smu/config.toml` is this file.** If it contains keys or values that an older guide or example did not mention, trust your file: it is the reference, and anything you have not consciously tuned is fine left at these defaults.
 
 ```toml
 # Sampling and adjust periods, microseconds
 [timing.intervals]
-sample = 500
-adjust = 200_000
+sample = 250
+adjust = 100_000
 
-# GPU usage metric patching (fixes MangoHud 655% bug on BC-250)
+# GPU usage metric patching (fixes the MangoHud 655% bug on BC-250)
 [gpu-usage]
 fix-metrics = true
-method = "busy-flag"   # "busy-flag" or "process"
+# fix-freq additionally patches the broken sysfs frequency reporting: the
+# governor overlays hwmon freq1_input with the true SMU-read clock. Useful
+# because sysfs frequency readings on this board are unreliable, especially
+# after the 8-core unlock. Off by default.
+fix-freq = false
+method = "busy-flag"   # "busy-flag", "process" or "kernel"
 flush-every = 10
 
 # Frequency/voltage backend
@@ -217,6 +222,13 @@ set-method = "smu"     # "smu" or "kernel"
 # Optional D-Bus interface (used by cyan-skillfish-performance-mode helper)
 [dbus]
 enabled = true
+
+# Initial operating range at service start, MHz. Optional: omit a key or set
+# it to 0 for no limit. Both this range and later runtime range changes over
+# D-Bus are clamped inside the span of the [[safe-points]] curve below.
+[frequency-range]
+min = 1000
+max = 1850
 
 # Frequency change rate, MHz per millisecond
 [timing.ramp-rates]
@@ -234,38 +246,54 @@ adjust = 10
 
 # GPU load target range as fractions, not percents
 [load-target]
-upper = 0.80
-lower = 0.65
+upper = 0.65
+lower = 0.50
 
 # Thermal limits, °C
 [temperature]
 throttling = 85
 throttling_recovery = 75
 
-# Voltage curve, each point is one [[safe-points]] table
+# Voltage curve. Each point is one [[safe-points]] table; the lowest and
+# highest frequencies on the curve are the hard limits of what the governor
+# will drive, and the voltage is what it applies at each step. These are the
+# shipped points. Your file does not need to match any guide's example; see
+# the tip below for raising the ceiling past 2000 MHz.
 [[safe-points]]
-frequency = 1000   # MHz
-voltage = 800      # mV
+frequency = 500    # MHz
+voltage = 700      # mV
+
+[[safe-points]]
+frequency = 1000
+voltage = 800
+
+[[safe-points]]
+frequency = 1175
+voltage = 850
 
 [[safe-points]]
 frequency = 1500
 voltage = 900
 
 [[safe-points]]
+frequency = 1600
+voltage = 910
+
+[[safe-points]]
+frequency = 1700
+voltage = 920
+
+[[safe-points]]
+frequency = 1850
+voltage = 930
+
+[[safe-points]]
 frequency = 2000
-voltage = 1000     # gaming
-
-[[safe-points]]
-frequency = 2150
-voltage = 1000     # community-validated boost ceiling
-
-[[safe-points]]
-frequency = 2200
-voltage = 1000     # max stable on stock cooling
+voltage = 960
 ```
 
 !!!tip "Voltage ceiling: try 1000 mV first, raise per-board if needed"
-    Some 40 CU boards hold 2150-2200 MHz at a flat 1000 mV under sustained load (verified live on one board). Others need a small bump at the top (~1025 mV at 2150, ~1050 mV at 2200) to stay stable. The "right" curve is board-specific because the GDDR6 and SoC bins vary.
+    The shipped curve stops at 2000 MHz. To raise the ceiling, add higher `[[safe-points]]` entries (for example 2150 and 2200 MHz) and pick their voltages per the guidance here. Some 40 CU boards hold 2150-2200 MHz at a flat 1000 mV under sustained load (verified live on one board). Others need a small bump at the top (~1025 mV at 2150, ~1050 mV at 2200) to stay stable. The "right" curve is board-specific because the GDDR6 and SoC bins vary.
 
     Recommended approach:
 
@@ -275,10 +303,21 @@ voltage = 1000     # max stable on stock cooling
 
     Earlier guides that prescribed 1025-1075 mV across the board were universally conservative. The 2026 finding is that **many boards don't need it**, not that no board does.
 
-**Restart after changes:**
-```bash
-sudo systemctl restart cyan-skillfish-governor-smu
-```
+!!!warning "Config edits do nothing until you restart the service"
+    The config file is read once, at service start. There is no auto-reload: editing the file changes nothing about the running governor until you run
+
+    ```bash
+    sudo systemctl restart cyan-skillfish-governor-smu
+    ```
+
+    With `[dbus] enabled = true` you can read back what the running governor is actually using, which is the authoritative check after any change:
+
+    ```bash
+    busctl --system get-property com.cyanskillfish.Governor \
+      /com/cyanskillfish/Governor/Range/Current com.cyanskillfish.Governor.Range Max
+    ```
+
+    Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, governor v0.4.11.
 
 ### Cyan-Skillfish Governor TT Config
 
