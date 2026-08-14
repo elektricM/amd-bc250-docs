@@ -722,7 +722,7 @@ From Discord testing:
    cd nct6687d && make && sudo make install
    sudo modprobe nct6687 force=true
    ```
-   On atomic/immutable distros `make install` fails because the kernel tree is read-only. See the [Immutable / Atomic Distros](#immutable--atomic-distros-bazzite-silverblue-fedora-coreos) subsection above.
+   On atomic/immutable distros `make install` fails because the kernel tree is read-only. See the [Immutable / Atomic Distros](#immutable-atomic-distros-bazzite-silverblue-fedora-coreos) subsection above.
 
 !!!info "nct6683 vs nct6687"
     `nct6683` is read-only (temperature, voltage, fan speed monitoring). `nct6687` provides full read+write access including PWM fan control. For fan curves and manual speed control, you need `nct6687`.
