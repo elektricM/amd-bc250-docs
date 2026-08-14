@@ -94,14 +94,45 @@ The repo ships `test-cores.sh` to run this sweep on your own board. As with the 
 
 ## Performance
 
-7-zip multithreaded benchmark on the tested board:
+### Where The New Cores Land
+
+Firmware does not slot the new cores into the CPU numbers matching their mask bits. It enumerates them last:
+
+| Silicon | Linux CPUs | SMT siblings |
+|---|---|---|
+| The original six cores (enabled under `0x77`) | 0-5 | 8-13 |
+| The newly unlocked pair (mask bits 3 and 7) | 6-7 | 14-15 |
+
+SMT siblings pair CPU `N` with CPU `N+8`, so the stock configuration lives on exactly the CPU set `0-5,8-13`. That set is what makes a fair benchmark possible on a single boot.
+
+### A Clock-Matched A/B On One Boot
+
+Pinning to the stock CPU set reproduces the 6-core machine without reverting anything: same silicon, same clocks, same boot. An unpinned `--cpu 12` run would not be a fair baseline, because the scheduler would spread the 12 workers over all eight cores.
+
+```bash
+taskset -c 0-5,8-13 stress-ng --cpu 12 --cpu-method all --verify --metrics-brief -t 60   # stock six cores
+stress-ng --cpu 16 --cpu-method all --verify --metrics-brief -t 60                       # all eight cores
+```
+
+| Config | bogo ops (60 s) | bogo ops/s | vs baseline |
+|---|---|---|---|
+| Stock six cores (`taskset -c 0-5,8-13`) | 732,343 | 12,205 | baseline |
+| **All eight cores, 16 threads** | **1,002,698** | **16,711** | **+36.9%** |
+
+That is slightly above the +33.3% the core count alone predicts, which is within run-to-run variance for a 60 s sample. Both runs passed `--verify` with `failed: 0`, so the benchmark doubles as a wrong-results check on the newly unlocked cores.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, both runs on one boot at identical clock settings.
+
+### 7-zip On The First Board
+
+7-zip multithreaded benchmark, from before the method above existed:
 
 | Config | 7-zip total MIPS |
 |---|---|
 | 6 cores, CPU OC at 3800 MHz | 53,610 |
 | **8 cores, stock clocks** | **68,039** |
 
-That is **+26.9%**, and the comparison is conservative rather than flattering: the 6-core baseline was overclocked while the 8-core run was at stock clocks. It is not a clock-matched A/B, so treat it as indicative.
+That is **+26.9%** with the 6-core baseline overclocked and the 8-core run at stock clocks, so treat it as indicative rather than clock-matched. It is still a useful second data point from a second board and a different workload.
 
 Scaling is best in threaded workloads. Anything memory-bound is still limited by the 450 MHz FCLK, which this does not change.
 
