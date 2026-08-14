@@ -100,6 +100,8 @@ Two service-setup mistakes that cost real debugging time:
 - Do **not** combine `After=graphical.target` with `WantedBy=multi-user.target`. That is an ordering cycle, and systemd silently deletes the service's start job at boot. It is invisible when you test with a manual `systemctl start`.
 - On Fedora Atomic / Bazzite, install the script to `/usr/local/bin` and point the unit there. SELinux denies systemd (`init_t`) execute on files in `/home` (`user_home_t`), producing a `203/EXEC` crash loop.
 
+A maintained version of this watcher, with `status`, `apply`, `revert`, `watch` and `install-service` commands and both pitfalls above handled, is available as `bc250-audio-dto-fix.sh` in [bc250-tools](https://github.com/Weijtmans/bc250-tools).
+
 !!!note "Up to one second of wrong audio after a modeset"
     The firmware rewrites the register on each modeset and the watcher corrects it on its next pass. With a 1 s interval that means up to a second of silent or slow audio after a resolution change or game launch, then it recovers on its own.
 

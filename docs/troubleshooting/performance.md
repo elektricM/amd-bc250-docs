@@ -519,6 +519,19 @@ default-sample-rate = 48000
 
 For Ryujinx (Switch emulator): Change audio backend in settings can dramatically improve performance.
 
+### Issue: Video Playback Stutters, Feels Like Slow Internet
+
+**Symptoms:**
+- YouTube and other video playback stutters or stalls while games run fine
+- Feels like a network problem, but downloads and speed tests are fine
+- Audio over DisplayPort is silent, slow or desynced at the same time
+
+**Cause:** the [DisplayPort audio clock bug](audio.md). PipeWire drives its whole graph off the HDMI/DisplayPort sink's clock, so a sink that consumes samples at roughly 39.5 kHz while applications feed it 48 kHz stalls the shared media clock, and everything synced to audio stutters with it. On the tested board this presented as unexplained browser-video stutter on an otherwise healthy box, and fixing the audio clock fixed the "slow internet" at the same moment.
+
+**Check the audio clock before debugging the network or GPU:** the [audio page](audio.md) has the register check and the no-build fix.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
+
 ---
 
 ## System Configuration Issues
