@@ -207,7 +207,11 @@ The BC-250 delivers solid 1080p gaming performance, comparable to an RX 6600 or 
 **Issue:** "DX12 is not supported on your system"
 **Cause:** Game checks for specific GPU compatibility
 **Status:** No fix for BC-250 yet
-**Workaround:** None currently
+**Workaround:** A Patch has been created to fix this issue.
+1. Download the patch from here: [https://github.com/vogar345/Bc250-radeon-patch](url) (Press Code, then download ZIP)
+2. Extract the files in the patch
+3. Add the launch option 'VK_ICD_FILENAMES=/home/*****/radeon_modded_icd.x86_64.json %command%' (****** Being the directory to the patch)
+4. Launch the game.
 
 ### Black Myth Wukong
 
