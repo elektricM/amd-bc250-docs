@@ -12,6 +12,7 @@ Choosing the right Linux distribution for your BC-250 is important for a smooth 
 | **Advanced Users** | Arch Linux | Full control, latest packages |
 | **Stability** | Debian/PikaOS | Rock-solid, good for production work |
 | **Minimal / DIY** | Alpine Linux | Tiny OpenRC-based system for advanced manual setups |
+| **No post-install tuning** | SkillFishOS | Board-specific kernel, Mesa and governor ship as packages |
 
 ## Community Setup Toolkits
 
@@ -244,6 +245,47 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 - Download and install PikaOS
 - Works mostly out-of-box
 - Install governor manually
+
+## SkillFishOS (Built for This Board)
+
+### Overview
+
+**Status:** Debian sid base, board-specific parts shipped as packages
+- **Base:** Debian sid (rolling)
+- **Desktop:** KDE Plasma
+- **Kernel:** own `skillfishos-kernel` (linux-tkg 7.2.6 with the BC-250 patches), installed from apt
+- **Mesa:** own `skillfish-mesa-gfx1013` build, used system-wide
+- **Installer:** Calamares, with optional LUKS full-disk encryption
+
+Unlike the other entries on this page, this is not a general distribution you then
+tune for the BC-250. The board-specific pieces are signed packages in the project's
+own apt repository and update with `apt upgrade` like everything else, so there is
+no post-install script and nothing to recompile after a kernel update.
+
+### Pros
+
+- Patched kernel and gfx1013 Mesa build installed and updated from apt, no manual compilation
+- GPU V/F governor, fan control (nct6687) and the 8-core SMU unlock included and enabled by default
+- Graphical control centre, a software hub, and a web dashboard for headless/remote use
+- Interface translated into 9 languages
+- Own signed apt repository with several mirrors
+
+### Cons
+
+- Debian sid base: rolling, and sid breakage is inherited
+- Built around the BC-250, so it is the wrong choice if you want one image across mixed
+  hardware (a separate x86-64 edition exists, but the board is the focus)
+- Smaller project and smaller user base than Fedora or Bazzite, so fewer people have
+  hit your problem before you
+
+### Setup
+
+Download the ISO, install it with Calamares, reboot. The kernel, the graphics driver,
+the governor and fan control are already in place; there is no governor to install
+afterwards.
+
+- Project site and documentation: <https://www.skillfishos.com>
+- Source: [MTSistemi/SkillFishOS](https://github.com/MTSistemi/SkillFishOS)
 
 ## Alpine Linux (Minimal Advanced Option)
 
@@ -479,3 +521,4 @@ If you want to try a different distribution:
 - [Kernel Requirements](kernel.md)
 - [Mesa Driver Installation](mesa.md)
 - [Getting Started Guide](../getting-started/quick-start.md)
+- [SkillFishOS documentation](https://www.skillfishos.com/en/docs/)
