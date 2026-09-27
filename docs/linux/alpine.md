@@ -77,6 +77,11 @@ See [BIOS Flashing Guide](../bios/flashing.md).
     Some Alpine installs do not include `sudo` by default. If `sudo` is missing, either install it with `apk add sudo` or use `doas` instead. For a quick shell-level compatibility shortcut, you can temporarily run `alias sudo="doas"`.
 
 ```bash
+doas apk update
+doas apk upgrade
+```
+or
+```bash
 sudo apk update
 sudo apk upgrade
 ```
@@ -87,17 +92,31 @@ sudo apk upgrade
 
 Before installing the kernel, review the known-broken BC-250 ranges in [Kernel Configuration](kernel.md).
 
+Verify the kernel version installed by your installation media
+
+```bash
+uname -a
+```
+
 !!! warning "Kernel Selection Still Matters"
     Avoid known-broken BC-250 kernel ranges such as 6.15.0-6.15.6 and 6.17.8-6.17.10. Prefer confirmed working releases such as 6.18.18 LTS, 6.19.x stable, or 6.17.11+ where available.
 
-Alpine's canonical kernel package is `linux-lts`:
+If the kernel is anything other than 6.15.xx-lts then install Alpine's canonical kernel package `linux-lts`:
 
+```bash
+doas apk add linux-lts
+```
+or
 ```bash
 sudo apk add linux-lts
 ```
 
 Reboot after kernel installation:
 
+```bash
+doas reboot
+```
+or
 ```bash
 sudo reboot
 ```
@@ -117,14 +136,33 @@ If `uname -r` reports a kernel in one of the broken ranges above, install a know
 Setup drivers and firmware:
 
 ```bash
-sudo apk add linux-firmware-amdgpu # base amdgpu drivers
-sudo apk add mesa mesa-gl mesa-dri-gallium # mesa drivers
-sudo apk add mesa-vulkan-ati vulkan-loader vulkan-tools # vulkaninfo ...
-sudo apk add mesa-demos # glxinfo ...
+doas apk add linux-firmware-amdgpu mesa mesa-gl mesa-dri-gallium mesa-vulkan-ati vulkan-loader vulkan-tools
 ```
+or
+```bash
+sudo apk add linux-firmware-amdgpu mesa mesa-gl mesa-dri-gallium mesa-vulkan-ati vulkan-loader vulkan-tools
+```
+
+`linux-firmware-amdgpu` Base amdgpu drivers, `mesa mesa-gl mesa-dri-gallium` mesa drivers `mesa-vulkan-ati vulkan-loader vulkan-tools` vulkaninfo ...
 
 If you need extra Vulkan development tools later:
 
+```bash
+doas apk add nano
+```
+
+Edit your `/etc/apk/repositories` to add the community branch.  it should look something like:
+```bash
+#/media/sdb/apks
+http://mirrors.gigenet.com/alpinelinux/v3.24/main
+http://mirrors.gigenet.com/alpinelinux/v3.24/community
+```
+With the last line uncommented `#`.  Then:
+
+```bash
+doas apk add vulkan-loader-dev glslang-dev spirv-headers shaderc cmake
+```
+or
 ```bash
 sudo apk add vulkan-loader-dev glslang-dev spirv-headers shaderc cmake
 ```
@@ -137,10 +175,14 @@ If you added `nomodeset` during installation, remove it from your bootloader con
 
 See [Environment Variables](../drivers/environment.md#mitigationsoff) for details on `mitigations=off`.
 
-#### Option A: extlinux (Alpine default)
+#### Option A: extlinux (legacy BIOS)
 
-Most Alpine installs use `extlinux` by default. Edit:
+If you are using a legacy BIOS boot setting edit:
 
+```bash
+doas nano /etc/update-extlinux.conf
+```
+or
 ```bash
 sudo nano /etc/update-extlinux.conf
 ```
@@ -154,15 +196,25 @@ default_kernel_opts="quiet mitigations=off"
 Then rebuild boot files:
 
 ```bash
+doas mkinitfs
+doas update-extlinux
+doas reboot
+```
+or
+```bash
 sudo mkinitfs
 sudo update-extlinux
 sudo reboot
 ```
 
-#### Option B: GRUB (optional)
+#### Option B: GRUB (UEFI)
 
-If your Alpine install uses GRUB instead, make sure GRUB is already installed and configured first (`grub` plus `grub-efi` for UEFI or `grub-bios` for legacy BIOS). Then edit:
+If you are using UEFI then Alpine installs GRUB instead, edit:
 
+```bash
+doas nano /etc/default/grub
+```
+or
 ```bash
 sudo nano /etc/default/grub
 ```
@@ -175,6 +227,12 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet mitigations=off"
 
 Then rebuild boot files:
 
+```bash
+doas mkinitfs
+doas grub-mkconfig -o /boot/grub/grub.cfg
+doas reboot
+```
+or
 ```bash
 sudo mkinitfs
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -191,7 +249,7 @@ After reboot, verify that firmware is present, the kernel driver loaded correctl
 lsmod | grep amdgpu
 # Should show: amdgpu
 
-dmesg | grep -i amdgpu
+doas dmesg | grep -i amdgpu
 # Use this if you need the full amdgpu log for troubleshooting
 
 vulkaninfo --summary
@@ -207,11 +265,20 @@ The BC-250 still benefits heavily from a governor on Alpine. Community testing s
 Install build dependencies:
 
 ```bash
+doas apk add git rust cargo libdrm-dev dbus
+```
+or
+```bash
 sudo apk add git rust cargo libdrm-dev dbus
 ```
 
 Enable D-Bus:
 
+```bash
+doas rc-service dbus start
+doas rc-update add dbus default
+```
+or
 ```bash
 sudo rc-service dbus start
 sudo rc-update add dbus default
@@ -228,6 +295,12 @@ cargo build --release
 Install the binary and config:
 
 ```bash
+doas install -Dm755 target/release/cyan-skillfish-governor-smu /usr/local/bin/cyan-skillfish-governor-smu
+doas mkdir -p /etc/cyan-skillfish-governor-smu
+doas cp default-config.toml /etc/cyan-skillfish-governor-smu/config.toml
+```
+or
+```bash
 sudo install -Dm755 target/release/cyan-skillfish-governor-smu /usr/local/bin/cyan-skillfish-governor-smu
 sudo mkdir -p /etc/cyan-skillfish-governor-smu
 sudo cp default-config.toml /etc/cyan-skillfish-governor-smu/config.toml
@@ -236,7 +309,26 @@ sudo cp default-config.toml /etc/cyan-skillfish-governor-smu/config.toml
 Install the required D-Bus policy before the first test run:
 
 ```bash
-sudo tee /etc/dbus-1/system.d/com.cyan.skillfishgovernor.conf > /dev/null << 'EOF'
+doas tee /etc/dbus-1/system-local.conf > /dev/null << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+<policy user="root">
+<allow own="com.cyan.SkillFishGovernor"/>
+<allow send_destination="com.cyan.SkillFishGovernor"/>
+</policy>
+<policy context="default">
+<allow send_destination="com.cyan.SkillFishGovernor"/>
+</policy>
+</busconfig>
+EOF
+
+doas rc-service dbus restart
+```
+or
+```bash
+sudo tee /etc/dbus-1/system.d/com.cyan.skillfish/governor.conf > /dev/null << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
 "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
@@ -257,6 +349,10 @@ sudo rc-service dbus restart
 Test it manually first:
 
 ```bash
+doas cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-governor-smu/config.toml
+```
+or
+```bash
 sudo cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-governor-smu/config.toml
 ```
 
@@ -265,6 +361,16 @@ sudo cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-governor-smu/conf
 ### 7. Create an OpenRC Service for the Governor
 
 Create `/etc/init.d/cyan-skillfish-governor-smu`:
+
+```bash
+doas nano /etc/init.d/cyan-skillfish-governor-smu
+```
+or
+
+```bash
+sudo nano /etc/init.d/cyan-skillfish-governor-smu
+```
+Then copy the following to your file:
 
 ```bash
 #!/sbin/openrc-run
@@ -284,6 +390,13 @@ error_log="/var/log/cyan-skillfish-governor-smu.log"
 Then enable it:
 
 ```bash
+doas chmod +x /etc/init.d/cyan-skillfish-governor-smu
+doas rc-update add cyan-skillfish-governor-smu default
+doas rc-service cyan-skillfish-governor-smu start
+doas rc-service cyan-skillfish-governor-smu status
+```
+or
+```bash
 sudo chmod +x /etc/init.d/cyan-skillfish-governor-smu
 sudo rc-update add cyan-skillfish-governor-smu default
 sudo rc-service cyan-skillfish-governor-smu start
@@ -294,6 +407,30 @@ If you edit the config later:
 
 ```bash
 sudo rc-service cyan-skillfish-governor-smu restart
+```
+
+Verifiy that the Governor is running
+
+```bash
+doas reboot
+```
+or
+```bash
+sudo reboot
+```
+
+Then:
+
+```bash
+cat /sys/class/drm/card0/device/pp_dpm_sclk
+```
+```bash
+# Example output:
+# 0: 1000Mhz
+# 1: 1500Mhz
+# 2: 2000Mhz *
+#
+# The * indicates active frequency
 ```
 
 ---
@@ -313,6 +450,11 @@ sudo rc-service cyan-skillfish-governor-smu restart
 - The config file exists at `/etc/cyan-skillfish-governor-smu/config.toml`  
 
 ```bash
+doas rc-service cyan-skillfish-governor-smu status
+doas /usr/local/bin/cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-governor-smu/config.toml # to debug
+```
+or
+```bash
 sudo rc-service cyan-skillfish-governor-smu status
 sudo /usr/local/bin/cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-governor-smu/config.toml # to debug
 ```
@@ -331,6 +473,7 @@ sudo /usr/local/bin/cyan-skillfish-governor-smu --verbose /etc/cyan-skillfish-go
 Keep the voltage curve monotonic: higher frequencies should not use less mV.
 
 ---
+
 
 ## Community Resources
 
