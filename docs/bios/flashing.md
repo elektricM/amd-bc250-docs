@@ -1,5 +1,7 @@
 # BIOS Flashing Guide
 
+Note: all optimizations to get the full potential out of your board can now be done through software solutions with a persistence state, meaning they survive a reboot. Safe CU's unlock, safe CPU Core unlock, persistence ACPI fix, all with safe uninstall functionality. IOMMU can be turned off in Bazzite with `rpm-ostree --kargs --append=amd_iommu=off`, then reboot. It's advisable to use the reliable official 5.00 BIOS and not flash a modded BIOS on your board since it has no benefits anymore.
+
 Flashing the modded BIOS is the recommended way to unlock the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
 
 !!!tip "Not always required"
