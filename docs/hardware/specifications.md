@@ -21,7 +21,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 ### GPU Specifications
 
 - **Architecture:** RDNA 2 (same generation as RX 6000 series)
-- **Compute Units:** 24 CUs (down from 36 CUs in full PS5 APU)
+- **Compute Units:** 24 CUs (down from 36 CUs in full PS5 APU) (up to 40CUs can be [unlocked](../system/40cu-unlock.md))
 - **Codename:** Cyan Skillfish (gfx1013)
 - **Base Frequency:** 1500 MHz (locked without governor)
 - **Maximum Frequency:** 2000 MHz stock kernel, up to 2230 MHz with kernel patch and governor
@@ -188,7 +188,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 |---------|--------|---------------|
 | CPU Cores | 6 cores (8 [unlockable](../system/8core-unlock.md)) | 8 cores |
 | CPU Clock | ~3.5 GHz fixed | Up to 3.5 GHz (variable) |
-| GPU CUs | 24 CUs | 36 CUs |
+| GPU CUs | 24 CUs (up to 40CUs can be [unlocked](../system/40cu-unlock.md))| 36 CUs |
 | GPU Clock | 2000 MHz max | 2230 MHz (variable) |
 | Memory | 16GB GDDR6 | 16GB GDDR6 |
 | VCN | Disabled | Enabled |
