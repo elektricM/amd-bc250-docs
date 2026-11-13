@@ -215,6 +215,63 @@ The BC-250 delivers solid 1080p gaming performance, comparable to an RX 6600 or 
 **Cause:** Anti-tamper detection
 **Workaround:** Use unmodified game files
 
+### Star Wars Zero Company
+
+**Issue:** Intermittent GPU page faults, usually about 50 s after launch. The game drops to `CrashReportClient`, or the whole board hangs and needs a power cycle (hard hangs may leave no fault lines in the journal). Check `journalctl -k -b` (or `-b -1` after a hang) for an amdgpu `[gfxhub] page fault` with:
+
+- `Process GameThread`, thread `vkd3d_queue`
+- `Faulty UTCL2 client ID: TCP (0x8)`
+- `GCVM_L2_PROTECTION_FAULT_STATUS: 0x00641041` (or `0x00741041`), i.e. a write to a read-only page
+
+The Proton log from a faulting run contains `VK_ERROR_DEVICE_LOST`.
+
+**Cause (A/B tested, see source below):** vkd3d-proton descriptor-table change. Proton Experimental `experimental-11.0-20261105c` ships vkd3d-proton build [563eb6ca](https://github.com/HansKristian-Work/vkd3d-proton/commit/563eb6caaa8fb1386cbc629e7527c6522f5bfde8), which includes [03a508fb](https://github.com/HansKristian-Work/vkd3d-proton/commit/03a508fb) ("Clear descriptor table offsets to 0 on heap rebind"). Upstream made that behavior opt-in in [1a46e2f7](https://github.com/HansKristian-Work/vkd3d-proton/commit/1a46e2f7).
+**Status:** Upstream vkd3d-proton master no longer faulted in testing; waiting for Proton Experimental to ship it. Proton 11.0 didn't fault in 3 runs, but the title screen ignored input.
+**Workaround:** Run the game on a copy of Proton Experimental with the vkd3d-proton [v3.1](https://github.com/HansKristian-Work/vkd3d-proton/releases/tag/v3.1) DLLs swapped in.
+
+Check whether your Proton Experimental includes the upstream change (`0` = not yet, `1` = included; this only identifies the build):
+```bash
+grep -c clear_table_offsets_on_rebind \
+  ~/.local/share/Steam/steamapps/common/"Proton - Experimental"/files/lib/wine/vkd3d-proton/x86_64-windows/d3d12core.dll
+```
+
+Create the custom compatibility tool:
+```bash
+T=~/.local/share/Steam/compatibilitytools.d/ExpV31
+mkdir -p "${T%/*}"
+cp -a --reflink=auto ~/.local/share/Steam/steamapps/common/"Proton - Experimental" "$T"  # independent copy
+cd /tmp
+curl -sSLO https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v3.1/vkd3d-proton-3.1.tar.zst
+tar --zstd -xf vkd3d-proton-3.1.tar.zst
+for a in x64:x86_64 x86:i386; do
+  for f in d3d12.dll d3d12core.dll; do
+    cp -f "vkd3d-proton-3.1/${a%:*}/$f" "$T/files/lib/wine/vkd3d-proton/${a#*:}-windows/"
+  done
+done
+echo "1 ExpV31" > "$T/version"
+cat > "$T/compatibilitytool.vdf" <<'VDF'
+"compatibilitytools"
+{
+  "compat_tools"
+  {
+    "ExpV31"
+    {
+      "install_path" "."
+      "display_name" "Proton Experimental (vkd3d 3.1)"
+      "from_oslist" "windows"
+      "to_oslist" "linux"
+    }
+  }
+}
+VDF
+```
+Restart Steam, then pick **Proton Experimental (vkd3d 3.1)** in the game's Properties → Compatibility. When the `grep` check prints `1` after an update, test stock Proton Experimental again before removing the workaround.
+
+!!!warning "Hard hangs"
+    If the fault hangs the whole board instead of crashing the game, see [Black Screen on GPU Reset](../troubleshooting/stability.md#black-screen-on-gpu-reset-governor-running).
+
+*Source: own testing, Nov 2026. BC-250 on Bazzite (kernel 7.2.15, Mesa 26.2.6, cyan-skillfish-governor-smu, 8-core/40-CU unlocked). Stock Proton Experimental: 11 launches (some with diagnostic env vars) gave 5 GPU faults, 1 hard hang, 1 early exit and 4 runs still alive after 150–430 s. ExpV31 had 5/5 clean 5-minute runs. vkd3d-proton master (2576c0b4) was also 5/5 clean, and 2/2 hung with `VKD3D_CONFIG=clear_table_offsets_on_rebind`, which re-enables the regressed behavior.*
+
 ## Proton Compatibility
 
 **Recommended Proton Versions:**
