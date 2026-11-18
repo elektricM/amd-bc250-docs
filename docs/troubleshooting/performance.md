@@ -71,7 +71,7 @@ yay -S cyan-skillfish-governor-smu
 ```
 
 **Debian/Ubuntu:**
-Upstream does not ship a `.deb`. Grab the latest `cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz` from [filippor's releases](https://github.com/filippor/cyan-skillfish-governor/releases), extract it, and run `sudo ./scripts/install.sh`.
+Grab the latest `cyan-skillfish-governor-smu_*_amd64.deb` from [filippor's releases](https://github.com/filippor/cyan-skillfish-governor/releases) (shipped since v0.4.10) and install it with `sudo apt install ./cyan-skillfish-governor-smu_*_amd64.deb`, or extract the `cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz` from the same page and run `sudo ./scripts/install.sh`.
 
 **Configuration:**
 
@@ -131,7 +131,7 @@ The BC-250 needs a kernel patch to unlock frequency range from 500-2500MHz (defa
 
 **Pre-patched Kernels:**
 
-**Bazzite:** Uses patched kernel by default (no action needed)
+**Bazzite:** Current Bazzite kernels do not carry the patch. Use the SMU governor instead, which does not need it (see [Bazzite Setup](../linux/bazzite.md#prebuilt-bc-250-images-optional)).
 
 **CachyOS:**
 ```bash
@@ -518,6 +518,19 @@ default-sample-rate = 48000
 ```
 
 For Ryujinx (Switch emulator): Change audio backend in settings can dramatically improve performance.
+
+### Issue: Video Playback Stutters, Feels Like Slow Internet
+
+**Symptoms:**
+- YouTube and other video playback stutters or stalls while games run fine
+- Feels like a network problem, but downloads and speed tests are fine
+- Audio over DisplayPort is silent, slow or desynced at the same time
+
+**Cause:** the [DisplayPort audio clock bug](audio.md), on kernels that still have its large error (older than 6.12.78, 6.18.20, 6.19.10 or 7.0; see [which kernels are affected](audio.md#which-kernels-are-affected)). PipeWire drives its whole graph off the HDMI/DisplayPort sink's clock, so a sink that consumes samples at roughly 39.5 kHz while applications feed it 48 kHz stalls the shared media clock, and everything synced to audio stutters with it. On the tested board this presented as unexplained browser-video stutter on an otherwise healthy box, and fixing the audio clock fixed the "slow internet" at the same moment.
+
+**Check your kernel and the audio clock before debugging the network or GPU:** the [audio page](audio.md) has the kernel table, the two-minute measurement and a workaround for kernels that cannot be updated yet.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
 
 ---
 

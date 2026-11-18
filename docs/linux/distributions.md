@@ -68,13 +68,12 @@ Several community projects bundle the common post-install steps (governor, overc
 **Status:** Steam Deck-like experience, works OOTB
 - **Base:** Fedora Atomic (immutable)
 - **Desktop:** Deck UI or Desktop Mode (GNOME/KDE)
-- **Kernel:** Custom kernel with BC-250 patches included
+- **Kernel:** Bazzite's own kernel (stock BC-250 clock limits; use the SMU governor)
 - **Mesa:** 25.1+ out-of-box
 
 ### Pros
 
 - Works out-of-box with latest ISO
-- Includes GPU frequency patch natively (up to 2230MHz)
 - Immutable system (harder to break)
 - Governor installation script available
 - Steam Deck UI for couch gaming
@@ -275,9 +274,9 @@ pacman -S base-devel cmake git mesa vulkan-radeon
 # Install graphics stack and firmware
 sudo apk add linux-lts linux-firmware-amdgpu mesa-dri-gallium mesa-vulkan-ati mesa-gl
 
-# Add BC-250-safe kernel parameter
+# Optional: turn off CPU mitigations (Alpine kernels are 6.12+, so amdgpu.sg_display=0 is not needed)
 # /etc/update-extlinux.conf
-default_kernel_opts="quiet amdgpu.sg_display=0 mitigations=off"
+default_kernel_opts="quiet mitigations=off"
 
 sudo update-extlinux
 ```

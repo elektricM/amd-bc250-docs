@@ -110,15 +110,15 @@ Scaling is best in threaded workloads. Anything memory-bound is still limited by
 - **GPU frequency reporting breaks.** After unlocking, `pp_dpm_sclk` reports nonsense (for example `1: 15Mhz` where it should read `1500Mhz`) and `gpu_busy_percent` may return empty. The GPU still clocks correctly according to your [governor](governor.md) curve — this is a monitoring bug, not a performance one. Reported by the BC-250 Telegram community and reproduced on the tested board.
 - **Your ACPI tables need updating.** The 6-core SSDTs leave CPUs 12-15 without C-states — see [below](#acpi-tables-must-be-updated-too).
 - **Any existing overclock or undervolt is no longer valid.** See [below](#your-overclock-needs-re-validating).
-- **The upstream detect tool is a tuner, not a diagnostic.** Its core-detection path applies an SMU frequency and voltage state as a side effect, which resets any undervolt scale you had, and it writes an `overclock.conf` into the working directory. Do not reach for it as a read-only status check. Reported from a second board in [#41](https://github.com/elektricM/amd-bc250-docs/pull/41).
-- **Other mask values may exist.** Every board checked so far reads `0x77`, but a board that masks a different pair of cores would read something else. The Linux tool refuses to act on any mask it does not recognise rather than guessing.
+- **`bc250_detect.py` from [bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) is a tuner, not a diagnostic.** Its core-detection path applies an SMU frequency and voltage state as a side effect (`smu_apply(3500, 0)`), which resets any undervolt scale you had, and it writes an `overclock.conf` into the working directory. Do not reach for it as a read-only status check. Reported from a second board in [#41](https://github.com/elektricM/amd-bc250-docs/pull/41).
+- **Other mask values may exist.** Not every board reads `0x77`: the [cachenetics/project-ariel](https://github.com/cachenetics/project-ariel/blob/main/arieltune-core.md) notes report one that read `0xD7`, which masks cores 3 and 5 instead. The Linux tool refuses to act on any mask it does not recognise rather than guessing.
 
 ## ACPI Tables Must Be Updated Too
 
 !!!warning "The 6-core ACPI fix leaves 4 threads with no C-states"
     If you use the community [ACPI fix](https://github.com/bc250-collective/bc250-acpi-fix), its tables are wrong for an 8-core machine and you should update them.
 
-`SSDT-CST.aml` declares one processor object per **thread**. The 6-core tables stop at `C00B` — 12 threads. Unlock all 8 cores and you have 16, so **CPUs 12-15 receive no cpuidle states at all**: they cannot enter any C-state and burn power at idle.
+The firmware's DSDT already declares one processor object per **thread**, `\_PR.P000` to `\_PR.P00F`; `SSDT-CST.aml` and `SSDT-PST.aml` attach `_CST` and `_PSS` methods to them. The 6-core tables stop at `P00B` — 12 threads. Unlock all 8 cores and you have 16, so **CPUs 12-15 receive no cpuidle states at all**: they cannot enter any C-state and burn power at idle.
 
 Measured on the tested board, before updating the tables:
 
@@ -130,7 +130,9 @@ cpu14: 0 idle states
 cpu15: 0 idle states
 ```
 
-The 8-core rebuild by **[mendesrr](https://github.com/mendesrr/bc250-acpi-fix-updated-8c)** extends the declarations to `C00F`, covering all 16 threads. That repo's README has the install steps for Bazzite, SteamOS and CachyOS.
+The 8-core rebuild by **[mendesrr](https://github.com/mendesrr/bc250-acpi-fix-updated-8c)** extends both tables to `P00F`, covering all 16 threads. That repo's README has the install steps for Bazzite, SteamOS and CachyOS.
+
+Replace the old tables where you installed them rather than adding the new ones alongside. If you used the cpio and `GRUB_EARLY_INITRD_LINUX_CUSTOM` method from the [governor page](governor.md#acpi-fix-installation), GRUB loads that cpio independently of mkinitcpio and the 6-core tables in it keep loading: either rebuild it from mendesrr's two files and regenerate the GRUB config, or delete it, remove its GRUB line and use the steps below.
 
 On Arch/CachyOS the short version is:
 
@@ -139,16 +141,19 @@ sudo mkdir -p /etc/initcpio/acpi_override/
 cd /etc/initcpio/acpi_override/
 sudo wget https://github.com/mendesrr/bc250-acpi-fix-updated-8c/raw/refs/heads/main/SSDT-CST.aml \
           https://github.com/mendesrr/bc250-acpi-fix-updated-8c/raw/refs/heads/main/SSDT-PST.aml
+sudo nano /etc/mkinitcpio.conf   # add acpi_override to HOOKS=(...), e.g. right after microcode
 sudo mkinitcpio -P
 sudo reboot
 ```
+
+mkinitcpio only puts the tables in the early initramfs when `acpi_override` is listed in `HOOKS`; without it, `mkinitcpio -P` succeeds and leaves them out. Edit that line by hand. The `sed` one-liner in mendesrr's README for this step ends in `q`, and with `sed -i` that writes the file back only up to the `HOOKS=` line, deleting everything after it.
 
 Back up any existing `.aml` files **outside** `/etc/initcpio/acpi_override/` first. The `acpi_override` hook globs `*.aml` there, so a stray copy alongside the new ones would load two sets of tables.
 
 Check it worked:
 
 ```bash
-cpupower idle-info
+cpupower --cpu all idle-info --silent
 # every CPU, including 12-15, should now report C-states
 ```
 

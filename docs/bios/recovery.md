@@ -183,6 +183,8 @@ sudo flashrom -p ch341a_spi -v P3.00_mod.bin
 - Try different USB port
 - Check programmer voltage (3.3V required)
 - Clean chip pins (isopropyl alcohol)
+- Programmer reports overcurrent: raise its current limit, see the [flashing page](flashing.md#3-flashing-process)
+- flashrom lists several Macronix chips and asks for `-c`: pass the one printed on your chip, see the [flashing page](flashing.md#3-flashing-process)
 
 **Flash verification fails:**
 - Re-seat clip

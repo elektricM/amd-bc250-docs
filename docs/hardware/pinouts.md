@@ -199,11 +199,16 @@ Alternative power connectors compatible with Molex Micro-Fit BMI [444280801](htt
 | Pin | Purpose |
 |-----|---------|
 | `PGD` | `PGOOD` - 5V when PSU2 connected to rack chassis |
-| `LED1` | Active-low LED output - mirrors green backplane LED |
-| `LED2` | Active-low LED output - mirrors red backplane LED |
+| `LED1` | Status output - high (about 3 V) while the backplane LED is red |
+| `LED2` | Status output - high while the backplane LED is green, about 0 V while it is red |
 
-!!!warning "The LED1 and LED2 colours are unverified"
-    Which of the two carries green and which carries red has been questioned in [#42](https://github.com/elektricM/amd-bc250-docs/issues/42), and the assignment above has no source in this repo's history. Treat it as unconfirmed and check on your own board before wiring anything that depends on the colour. The active-low behaviour itself is not in doubt.
+!!!note "How to read LED1 and LED2"
+    This table used to say "active-low, `LED1` mirrors green, `LED2` mirrors red", with no source behind it, and that was questioned in [#42](https://github.com/elektricM/amd-bc250-docs/issues/42). The rows above describe the pins by what they read instead, from @tfabris's measurements and the front-panel circuit built on them: about 3 V on `LED1` and about 0 V on `LED2` while the backplane LED is red, and `LED2` going high when it turns green. While only one colour is lit, the old wording predicts the same voltages (a pin that pulls one colour's LED low is high whenever the other colour is showing), but it is easy to read backwards, and "high while red" or "high while green" is what matters when the pin drives a transistor.
+
+    Tested by: @tfabris, one board. The red-state levels are multimeter readings; the green state comes from the working circuit rather than a meter.
+
+!!!danger "Do not hang an LED directly on LED1 or LED2"
+    These are logic-level status outputs. Their driver circuit and current limit are not documented anywhere, and connecting a bare LED to `LED1` dimmed the red backplane LED to orange on the board in #42, which shows the external LED loading the same output. Buffer them: let the pin switch a small transistor or MOSFET, and run the front-panel LED with its series resistor from the 5 V or 12 V rail through that. @tfabris's [LED controller](https://github.com/tfabris/BC-250/tree/master/LED%20Controller) is a worked example: each pin drives a BC548 through a 10 kΩ base resistor, and the LEDs run from the PSU's 5 V.
 
 Use both J2000 and J2001 for redundancy when powering from these connectors.
 

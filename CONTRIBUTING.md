@@ -198,7 +198,7 @@ Edit `docs/gaming/compatibility.md`:
 **Settings:**
 - RT: Off (too demanding)
 - FSR: Quality mode
-- RADV_DEBUG=nocompute %command%
+- Launch options: `gamemoderun %command%`
 
 **Issues:**
 - Occasional stuttering in crowded areas

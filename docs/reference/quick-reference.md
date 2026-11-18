@@ -154,11 +154,11 @@ amdgpu.sg_display=0
 |--------|------------|-------|-------|
 | Native DP | Up to 4K60 | ✅ | Best option |
 | Passive DP-HDMI | Up to 1440p60 | ✅ | Most common |
-| Active DP-HDMI | 4K60+ | ❌ | Video only, no audio |
+| Active DP-HDMI | 4K60+ | ✅ | Needs a current kernel for audio, like native DP |
 | USB DAC | N/A | ✅ | Workaround for audio |
 
-!!!danger "Active Adapters Break Audio"
-    Active (powered) DP-to-HDMI adapters don't pass audio properly. Use passive adapters.
+!!!info "DisplayPort audio needs a current kernel"
+    On older kernels, audio over native DP and active adapters plays about 18% slow or not at all. Kernel 7.2 and newer fix it completely; 6.12.78+, 6.18.20+ and 7.0+ fix the large error. Passive adapters and USB audio are unaffected. See [DisplayPort Audio](../troubleshooting/audio.md).
 
 ---
 
@@ -364,7 +364,7 @@ RADV_DEBUG=nohiz %command%
     3. **Use nomodeset during install, remove after drivers installed**
     4. **Avoid kernel 6.15.0-6.15.6, 6.17.8-6.17.10** (GPU driver fails)
     5. **700mV minimum voltage** (GPU locks to 1500MHz below this)
-    6. **Active DP-HDMI adapters break audio**
+    6. **DisplayPort audio needs a current kernel** — older kernels play it slow or not at all, over native DP and active adapters alike ([details](../troubleshooting/audio.md))
     7. **ACPI fix recommended** — SSDT tables enable CPU C-States (idle power) and P-States (frequency scaling 800-3200 MHz). Confirmed working on kernel 6.19.8. ([bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix))
     8. **No HW video encode/decode** — VCN firmware blocked by Sony, software decoding only
     9. **Do NOT use Smokeless_UMAF** — may cause permanent damage to the board

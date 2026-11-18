@@ -49,8 +49,9 @@ once and not at every boot.
 ## Where the setting lives, and when it gets lost
 
 `bc250memcfg` writes the split into **extended CMOS** (battery-backed RTC RAM, via I/O ports
-`0x72`/`0x73`, block `0x90–0xAB` plus a checksum), **not** into the SPI flash chip that holds the
-BIOS. That has practical consequences, verified on a real board:
+`0x72`/`0x73`, block `0x90–0xAB`, which carries its own checksum), **not** into the SPI flash chip
+that holds the BIOS. That has practical consequences, measured by @Weijtmans on one board (Bazzite,
+Fedora Atomic 43, kernel 6.17.7-ba29):
 
 - **It survives a BIOS reflash.** A 6 GB split stayed intact through a full BIOS flash with no
   re-run of memcfg needed.
@@ -77,11 +78,11 @@ setup. This was previously required to get the option, but it is now obsolete.
 
 Because of the above utility, there is no longer any need to flash BIOS to change VRAM settings.
 
-!!!note "There may be no VRAM menu item at all"
-    Some video guides show a VRAM/UMA selector in the BIOS setup screens. On at least one common
-    community 3.00-based modded BIOS, a menu-by-menu walk of the entire setup found **no UMA or
-    frame-buffer size option anywhere**. If your BIOS doesn't have it either, that is normal.
-    Use memcfg and don't go looking for the menu.
+!!!note "If you do look for the menu"
+    On the P3.00 Chipset Menu BIOS the size is under Chipset > GFX Configuration > GFX
+    Configuration, after setting Integrated Graphics Controller to Forced and UMA Mode to
+    UMA_SPECIFIED ([mothenjoyer69's notes](https://github.com/mothenjoyer69/bc250-documentation)).
+    If your setup screens do not show it, you do not need it: memcfg sets the split without it.
 
 ---
 
@@ -143,25 +144,28 @@ Applying the kernel boot param differs depending on your distro:
 ## A second crash mechanism the kernel parameter does not fix
 
 There is a separate way the 512MB split kills game sessions, even when total VRAM usage is
-nowhere near the dynamic ceiling: **scanout framebuffers must live in the real (minimum) VRAM
-carve; dynamically borrowed GTT pages don't qualify.**
+nowhere near the dynamic ceiling: **on this chip, scanout framebuffers must live in the real
+(minimum) VRAM carve; dynamically borrowed GTT pages don't qualify.** amdgpu turns scatter-gather
+display off by default on Cyan Skillfish (mainline since 6.13, because it was never validated on
+Linux), so every framebuffer the compositor shows has to be pinned inside the carve.
 
-Root-caused from the journal on a real crash (Cyberpunk 2077 under gamescope, 512MB split):
-the game's vkd3d device filled the 512MB device-local heap, the compositor's next framebuffer
-could not be pinned, and the whole session died. The journal signature to look for:
+Read from the journal of one crash (Cyberpunk 2077 under gamescope, 512MB split): the game's
+vkd3d device had filled the 512MB carve, the compositor's next framebuffer could not be pinned,
+and the whole session died. The journal signature to look for:
 
 ```text
-amdgpu: pin failed
-[drm] Failed to pin framebuffer with error -12
+amdgpu 0000:...: ... pin failed
+Failed to pin framebuffer with error -12
 gamescope: drm: fatal flip error, aborting
 ```
 
 followed by gamescope aborting (SIGABRT). Notably there is **no GPU hang and no OOM-kill**:
-the system is fine, only the display path ran out of pinnable memory.
+the system is fine, only the display path ran out of pinnable memory. On kernel 7.3 and later
+the second line reads `Failed to pin framebuffer: -ENOMEM` instead.
 
 For this failure `ttm.pages_limit` does not help, because it only raises the *dynamic* ceiling.
 The fix is a larger minimum split. 6 GB (`UMA_SIZE 6144`) resolved it and the crash never
-returned.
+returned. Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
 
 ---
 

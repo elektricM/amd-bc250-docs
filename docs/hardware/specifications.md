@@ -12,7 +12,8 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Base Clock:** ~3.5 GHz
 - **Architecture:** Zen 2 microarchitecture
 - **Instruction Set:** x86-64
-- **Cache:** Shared L3 cache (reduced from PS5 config)
+- **Cache:** 8 MB L3, reported as two 4 MB slices (one per core complex). Not yet confirmed from `lscpu` output in this repo
+- **FPU:** [Reduced FPU throughput](https://chipsandcheese.com/p/the-nerfed-fpu-in-ps5s-zen-2-cores) versus desktop Zen 2. The instruction set is complete, AVX2 included; the 256-bit datapath is halved
 
 !!!info "CPU Performance"
     The CPU is intentionally cut down for mining purposes. While adequate for gaming and general computing, it's not the board's primary strength.
@@ -203,7 +204,7 @@ The BC-250 features a cut-down PS5 APU (codenamed "Oberon" / "Cyan Skillfish"):
 - **Memory:** 16GB total (configurable split) vs 8GB dedicated VRAM
 
 !!!success "Gaming Performance"
-    For 1080p gaming, the BC-250 performs admirably, achieving 60+ FPS in most modern games at high settings.
+    For 1080p gaming, the BC-250 performs reasonably, achieving 60+ FPS in most modern games at high settings.
 
 ## Verification Commands
 
@@ -211,7 +212,7 @@ Check your hardware specifications with these commands:
 
 ```bash
 # Check CPU information
-lscpu | grep -E "Model name|CPU\(s\)|Thread|Core"
+lscpu | grep -E "Model name|CPU\(s\)|Thread|Core|L3"
 
 # Check GPU information
 lspci | grep VGA

@@ -6,7 +6,7 @@ Bazzite is a gaming-focused Linux distribution based on Fedora that provides an 
 
 **Status:** Recommended for gaming, works out-of-the-box
 **Base:** Fedora Atomic (OSTree-based)
-**Mesa Version:** 25.1+ included
+**Mesa Version:** 25.1+ included (stable `44.20260921` ships Mesa 26.2.2)
 **Desktop Options:** GNOME, KDE, or Deck UI
 
 ---
@@ -23,7 +23,7 @@ Bazzite is a gaming-focused Linux distribution based on Fedora that provides an 
 - Gaming optimizations (GameMode, Gamescope, Proton GE ready)
 - Steam Deck UI option for couch gaming
 - Automated governor script available
-- Custom kernel with BC-250 patches available
+- Community images with the governor already built in (see [Prebuilt BC-250 Images](#prebuilt-bc-250-images-optional))
 
 **Considerations:**
 - Package management more complex (rpm-ostree vs dnf)
@@ -101,50 +101,46 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 !!!info "TT Governor Alternative"
-    The `cyan-skillfish-governor-tt` is also available via the same COPR. It requires the kernel frequency range patch (pre-included in Bazzite). Use `rpm-ostree install cyan-skillfish-governor-tt` if you prefer the TT variant.
+    The `cyan-skillfish-governor-tt` is also available via the same COPR, but it relies on the kernel frequency range patch, and current Bazzite kernels do not carry it (see [below](#prebuilt-bc-250-images-optional)). On Bazzite, use the SMU variant.
 
 !!!warning "GPU Card Naming Issue"
     The governor may target incorrect device (card0 vs card1). Verify correct device assignment in governor configuration if frequency scaling doesn't work.
 
 ### Voltage Configuration
 
-Default configuration (`/etc/cyan-skillfish-governor-smu/config.toml`):
-
-```yaml
-voltage:
-  - min: 1000  # Safe default
-  - max: 1000
-frequency:
-  - min: 1000  # 1000 MHz
-  - max: 2000  # 2000 MHz
-```
-
-Some boards are unstable at lower voltages. The script defaults to 1000mV to prevent crashes. If system is stable, you can try lowering min voltage to 700-900mV.
+The SMU governor reads `/etc/cyan-skillfish-governor-smu/config.toml`. The format, the frequency range and the voltage curve are explained on the [GPU Governor](../system/governor.md#cyan-skillfish-governor-smu-config-recommended) page; restart the service after editing it.
 
 ---
 
-## Performance Setup (Advanced)
+## Prebuilt BC-250 Images (Optional)
 
-!!!success "Bazzite Kernel Already Includes GPU Frequency Patch"
-    As of early 2026, the standard Bazzite kernel already includes the GPU frequency range patch. **Manual kernel patching is not needed on Bazzite.** The "Bazzite on Steroids" custom images below are only needed if you want additional pre-configured optimizations.
+!!!warning "Current Bazzite kernels do not include the GPU frequency patch"
+    Earlier versions of this page said the standard Bazzite kernel carries the 350-2230 MHz frequency range patch. That is not true of current Bazzite. Since stable `44.20260429` Bazzite ships the Open Gaming Collective kernel, whose `cyan_skillfish_ppt.c` keeps the stock 1000-2000 MHz limits (checked at `v7.2.4-ogc3`, the kernel in stable `44.20260921`, and at `v7.2.7-ogc1` in testing). The SMU governor above does not rely on that patch, so the standard setup is unaffected.
 
-    Alternatively, the **SMU governor** (`cyan-skillfish-governor-smu`) bypasses the need for kernel patches entirely on any distro.
+If you would rather not layer the governor yourself, [62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images](https://github.com/62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images) publishes Deck, GNOME and KDE images built from the official Bazzite `stable` image plus `cyan-skillfish-governor-smu` from the `filippor/bazzite` COPR, with the service enabled. They carry no custom kernel, so you end up with the same system as the standard setup, with the governor already in the image. They are rebuilt when the upstream Bazzite image changes and are signed with cosign. The same repository publishes `testing` and `unstable` channel images and experimental `-40cu` variants (see [40 CU Unlock](../system/40cu-unlock.md)). It is a one-person community project, not part of Bazzite, so read its README before rebasing.
 
-"Bazzite on Steroids" - Custom images with additional pre-configured optimizations.
-
-### Features
-
-- Custom patched kernel (GPU frequency: 350-2230 MHz vs stock 1000-2000 MHz)
-- GPU governor pre-configured
-- Weekly automated builds (every Monday)
-- Three variants: GNOME, KDE, Deck
-
-### Prerequisites
-
-If you already have Bazzite installed with an older governor (oberon), migrate first:
+Rebase to the variant matching the desktop you already run:
 
 ```bash
-# Remove existing oberon installation (if applicable)
+# Deck
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/62fixolab/bazzite-bc250-patched-deck:latest
+# GNOME
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/62fixolab/bazzite-bc250-patched-gnome:latest
+# KDE
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/62fixolab/bazzite-bc250-patched-kde:latest
+
+systemctl reboot
+systemctl status cyan-skillfish-governor-smu  # Verify running
+```
+
+`rpm-ostree rollback` takes you back to the previous deployment if the new one misbehaves.
+
+!!!note "Coming from the vietsman images?"
+    The `ghcr.io/vietsman/bazzite-*-patched` images this page used to recommend are no longer maintained. Their build workflows have been disabled since the last builds on 2025-11-24, they are pinned to Bazzite 42 (Fedora 42, end of life), and they ship `oberon-governor` rather than the SMU governor. They were also where the USB WiFi breakage in [#10](https://github.com/elektricM/amd-bc250-docs/issues/10) was reported. If you are on one, rebase to stock Bazzite or to one of the images above. 62fixolab's README says to move the old `vietsman` patched-kernel COPR repo file out of `/etc/yum.repos.d` first, otherwise the rebase fails with a 404.
+
+If you installed `oberon-governor` yourself on top of Bazzite, remove it before switching to the SMU governor:
+
+```bash
 sudo systemctl stop oberon-governor
 sudo systemctl disable oberon-governor
 rpm-ostree uninstall oberon-governor
@@ -153,62 +149,9 @@ rpm-ostree uninstall oberon-governor
 sudo rm -f /etc/oberon-config.yaml
 ```
 
-!!!danger "USB WiFi Drivers May Be Removed (Issue #10)"
-    Rebasing to patched images may remove USB WiFi/Bluetooth drivers that are not included in the custom kernel build. If you rely on a USB WiFi adapter (the BC-250 has no built-in wireless), **verify your adapter's driver is included in the patched image before rebasing**. If WiFi stops working after rebase:
+### Power and Cooling
 
-    1. Connect via Ethernet temporarily
-    2. Check if your WiFi adapter's kernel module is available: `lsmod | grep <your_driver>`
-    3. Install missing drivers: `rpm-ostree install <driver-package>`
-    4. Or rollback: `rpm-ostree rollback && systemctl reboot`
-
-### Rebase to Patched Image
-
-Choose your desktop environment:
-
-**GNOME (Recommended):**
-```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-patched:latest
-```
-
-**KDE:**
-```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-kde-patched:latest
-```
-
-**Deck:**
-```bash
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-deck-patched:latest
-```
-
-After rebase:
-
-```bash
-systemctl reboot
-systemctl status cyan-skillfish-governor-smu  # Verify running
-```
-
-!!!warning "WiFi May Be Killed by Performance Setup (Issue #10)"
-    Users have reported that rebasing to the performance/patched image can kill WiFi drivers. This is likely caused by the kernel swap or driver module changes during the rebase. If you lose WiFi after rebasing, you may need to reinstall WiFi driver modules or roll back with `rpm-ostree rollback`.
-
-### Power and Cooling Warnings
-
-Performance patch increases power draw and temperatures:
-
-- **PSU:** Minimum 240W on 12V rail, recommended 320W+
-- **Cooling:** High static pressure fans required
-- **Temps:** Expect 85-95°C under full load (normal for this board)
-
-To reduce power consumption, edit `/etc/cyan-skillfish-governor-smu/config.toml`:
-
-```yaml
-voltage:
-  - min: 700
-  - max: 950  # Reduced from 1000
-frequency:
-  - max: 1800  # Reduced from 2230
-```
-
-Then restart: `sudo systemctl restart cyan-skillfish-governor-smu`
+Raising the governor's frequency ceiling raises power draw and temperatures. Check your PSU against [Power Supply Requirements](../hardware/power.md) and your cooling against [Cooling Solutions](../hardware/cooling.md) before you do, and lower the ceiling in the governor config if the board runs hot.
 
 ### Disable CPU Mitigations (Optional)
 
@@ -225,6 +168,10 @@ systemctl reboot
 ---
 
 ## Post-Installation Configuration
+
+### ACPI Fix (CPU C-States and P-States)
+
+The [ACPI fix](../system/governor.md#acpi-fix-installation) enables CPU idle states and frequency scaling. On Bazzite, follow the **rpm-ostree variant** of Step 2 on that page: the plain-Fedora BLS instructions do not work here, because Bazzite's boot entries are managed by ostree.
 
 ### Temperature Sensors
 
@@ -293,6 +240,12 @@ systemctl reboot
 ---
 
 ## Known Issues & Solutions
+
+### Box Dead After Sitting Idle
+
+**Symptom:** After a period of inactivity the display is black, no input wakes the box, and it is not reachable over the network. Only a power cut recovers it.
+
+**Cause:** The box auto-suspended, and resume from s2idle does not work reliably on this hardware. See [Black Screen After Idle](../troubleshooting/display.md#problem-black-screen-after-idle-nothing-wakes-it) for the diagnosis and fix. Note that Steam Game Mode has its own idle suspend, so masking the suspend targets matters even if the desktop's power settings already say never suspend.
 
 ### Screen Freezes When Loading Levels On Newer Games
 
@@ -389,7 +342,7 @@ Most tested, fully working with no known issues.
 
 ### Deck UI
 
-If you rebase from Deck to Desktop image, "Return to Game Mode" won't work. Rebase to Deck-patched image if you want Big Picture mode.
+If you rebase from Deck to Desktop image, "Return to Game Mode" won't work. Stay on a Deck image (stock `bazzite-deck` or the Deck variant of the [prebuilt images](#prebuilt-bc-250-images-optional)) if you want Game Mode.
 
 ---
 
@@ -448,9 +401,6 @@ sensors
 
 # Rollback update
 rpm-ostree rollback && systemctl reboot
-
-# Rebase to patched GNOME
-rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-patched:latest
 ```
 
 ---
@@ -458,8 +408,7 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/vietsman/bazzite-gnome-pa
 ## Community Resources
 
 - **Bazzite Official:** [bazzite.gg](https://bazzite.gg)
-- **Setup script:** [vietsman/bc250-documentation](https://github.com/vietsman/bc250-documentation)
-- **Patched images:** [vietsman/bazzite-patched](https://github.com/vietsman/bazzite-patched)
+- **Prebuilt images:** [62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images](https://github.com/62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images)
 - **GPU Governor:** [cyan-skillfish-governor-smu](https://github.com/filippor/cyan-skillfish-governor/tree/smu) (recommended) or [cyan-skillfish-governor-tt](https://github.com/filippor/cyan-skillfish-governor) (alternative)
 
 ---

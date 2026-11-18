@@ -203,9 +203,16 @@ Remove `nomodeset` if you added it during installation (after Mesa is installed)
 
 A GPU governor is required for proper GPU frequency scaling.
 
-**Option 1: Install cyan-skillfish-governor-smu from release tarball (recommended)**
+**Option 1: Install cyan-skillfish-governor-smu from filippor's releases (recommended)**
 
-Upstream does not ship a `.deb`. The SMU governor is distributed as a release tarball from [filippor's releases](https://github.com/filippor/cyan-skillfish-governor/releases). It bypasses kernel patching entirely.
+The SMU governor is distributed on [filippor's releases](https://github.com/filippor/cyan-skillfish-governor/releases) page, as a `.deb` since v0.4.10 and as a release tarball. It bypasses kernel patching entirely.
+
+```bash
+# Grab the latest cyan-skillfish-governor-smu_*_amd64.deb from the releases page, then:
+sudo apt install ./cyan-skillfish-governor-smu_*_amd64.deb   # also enables and starts the service
+```
+
+Or, with the tarball:
 
 ```bash
 # Grab the latest cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz from the releases page, then:
@@ -379,13 +386,13 @@ sensors
 
 ### Audio Issues
 
-**Symptom:** Pitched down audio, slowed video playback
+**Symptom:** Pitched down or silent audio over DisplayPort, slowed video playback
 
-**Cause:** BC-250 DisplayPort audio implementation
+**Cause:** a kernel bug in the DisplayPort audio clock for this chip, fixed upstream
 
 **Solution:**
-- Use passive DP-to-HDMI adapter
-- Or use USB audio adapter
+- Update the kernel. Kernels 6.12.78 and newer (Debian 13's own kernel once fully updated), 6.18.20 and newer and all 7.x fix the large error; 7.2 also removes a small remaining drift. Details and the kernel table are on the [DisplayPort audio page](../troubleshooting/audio.md)
+- Or use a passive DP-to-HDMI adapter or a USB audio adapter
 
 ---
 

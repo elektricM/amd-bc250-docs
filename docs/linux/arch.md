@@ -407,11 +407,11 @@ dmesg | grep amdgpu
 
 **Symptom:** Audio sounds like robot, video playback slowed
 
-**Cause:** BC-250 DisplayPort audio implementation issue
+**Cause:** a kernel bug in the DisplayPort audio clock for this chip, fixed upstream
 
-**Solution:** Use passive DP-to-HDMI adapter
+**Solution:** Update the kernel. The current `linux` package has both fixes and `linux-lts` has the one for the large error; see the [DisplayPort audio page](../troubleshooting/audio.md) for the kernel table
 
-**Alternative:** USB audio adapter
+**Alternative:** passive DP-to-HDMI adapter or USB audio adapter
 
 ### Screen Freezing (Broken Kernel Versions)
 

@@ -48,7 +48,7 @@ The GPU governor is essential for BC-250 performance, enabling dynamic frequency
 - Multiple frequency steps with thermal throttling
 - Maintains GPU usage in optimal range
 - Available as COPR/RPM and AUR
-- Requires kernel frequency range patch (pre-included in Bazzite)
+- Requires kernel frequency range patch (not in current Bazzite kernels, see [Bazzite Setup](../linux/bazzite.md#prebuilt-bc-250-images-optional))
 
 **COPR:** `filippor/bazzite`
 **Repository:** [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cyan-skillfish-governor)
@@ -172,9 +172,16 @@ sudo systemctl enable --now cyan-skillfish-governor-tt.service
 !!!info "COPR Package Status"
     The `filippor/bazzite` COPR provides both `cyan-skillfish-governor-smu` (recommended) and `cyan-skillfish-governor-tt` (alternative). Confirmed working as of Mar 2026.
 
-### Option 2: Debian/Ubuntu/Generic Linux (release tarball)
+### Option 2: Debian/Ubuntu/Generic Linux (.deb or release tarball)
 
-Upstream does not ship a `.deb`. Use the release tarball from [filippor's releases page](https://github.com/filippor/cyan-skillfish-governor/releases):
+Since v0.4.10, every release on [filippor's releases page](https://github.com/filippor/cyan-skillfish-governor/releases) carries a `.deb`, built with cargo-deb, next to the tarball. On Debian and Ubuntu, install that:
+
+```bash
+# Grab the latest cyan-skillfish-governor-smu_*_amd64.deb, then:
+sudo apt install ./cyan-skillfish-governor-smu_*_amd64.deb   # also enables and starts the service
+```
+
+On other distributions, use the release tarball:
 
 ```bash
 # Grab the latest cyan-skillfish-governor-smu-*-x86_64-linux.tar.gz, then:
@@ -196,18 +203,24 @@ See [github.com/filippor/cyan-skillfish-governor](https://github.com/filippor/cy
 
 **Example Configuration:**
 
-The `smu` branch uses a section-based TOML schema, not the older `safe-points = [...]` array. Defaults shown below match the upstream `default-config.toml` with the voltage curve flattened at 1000 mV to match the community-validated 2150-2200 MHz ceiling.
+The `smu` branch uses a section-based TOML schema, not the older `safe-points = [...]` array. The block below is the shipped `default-config.toml` from the current `smu` branch, with every key annotated. **A fresh COPR, `.deb` or release-tarball install puts this file at `/etc/cyan-skillfish-governor-smu/config.toml`.** Package upgrades keep an existing file (it is marked `noreplace`), so an older install can lack newer keys, which then take their built-in defaults, and `scripts/install.sh` run from a source checkout installs the repo's own `config.toml`, which has different values. Either way, if your file has keys or values that an older guide did not mention, trust your file over the guide, and anything you have not consciously tuned is fine left as it is.
 
 ```toml
 # Sampling and adjust periods, microseconds
 [timing.intervals]
-sample = 500
-adjust = 200_000
+sample = 250
+adjust = 100_000
 
-# GPU usage metric patching (fixes MangoHud 655% bug on BC-250)
+# GPU usage metric patching (fixes the MangoHud 655% bug on BC-250)
 [gpu-usage]
 fix-metrics = true
-method = "busy-flag"   # "busy-flag" or "process"
+# fix-freq additionally patches the broken sysfs frequency reporting: the
+# governor overlays hwmon freq1_input with the true SMU-read clock. Useful
+# because sysfs frequency readings on this board are unreliable, especially
+# after the 8-core unlock. Off by default.
+fix-freq = false
+method = "busy-flag"   # "busy-flag", "process" or "kernel" (needs a patched kernel)
+temp-read = "drm"      # "drm" or "sysfs", where the GPU temperature is read (v0.4.13+)
 flush-every = 10
 
 # Frequency/voltage backend
@@ -217,6 +230,14 @@ set-method = "smu"     # "smu" or "kernel"
 # Optional D-Bus interface (used by cyan-skillfish-performance-mode helper)
 [dbus]
 enabled = true
+
+# Initial operating range at service start, MHz. Optional: omit a key for no
+# limit. Do not set max = 0 here: it is clamped up to the lowest safe point
+# and holds the GPU there. The range is clamped inside the span of the
+# [[safe-points]] curve below; D-Bus range changes outside it are rejected.
+[frequency-range]
+min = 1000
+max = 1850
 
 # Frequency change rate, MHz per millisecond
 [timing.ramp-rates]
@@ -234,38 +255,55 @@ adjust = 10
 
 # GPU load target range as fractions, not percents
 [load-target]
-upper = 0.80
-lower = 0.65
+upper = 0.65
+lower = 0.50
 
 # Thermal limits, °C
 [temperature]
 throttling = 85
 throttling_recovery = 75
 
-# Voltage curve, each point is one [[safe-points]] table
+# Voltage curve. Each point is one [[safe-points]] table; the lowest and
+# highest frequencies on the curve are the hard limits of what the governor
+# will drive, and between two points it interpolates the voltage linearly.
+# These are the shipped points; the shipped file also carries commented-out
+# points up to 2400 MHz. Your file does not need to match any guide's
+# example; see the tip below for raising the ceiling past 2000 MHz.
 [[safe-points]]
-frequency = 1000   # MHz
-voltage = 800      # mV
+frequency = 500    # MHz
+voltage = 700      # mV
+
+[[safe-points]]
+frequency = 1000
+voltage = 800
+
+[[safe-points]]
+frequency = 1175
+voltage = 850
 
 [[safe-points]]
 frequency = 1500
 voltage = 900
 
 [[safe-points]]
+frequency = 1600
+voltage = 910
+
+[[safe-points]]
+frequency = 1700
+voltage = 920
+
+[[safe-points]]
+frequency = 1850
+voltage = 930
+
+[[safe-points]]
 frequency = 2000
-voltage = 1000     # gaming
-
-[[safe-points]]
-frequency = 2150
-voltage = 1000     # community-validated boost ceiling
-
-[[safe-points]]
-frequency = 2200
-voltage = 1000     # max stable on stock cooling
+voltage = 960
 ```
 
 !!!tip "Voltage ceiling: try 1000 mV first, raise per-board if needed"
-    Some 40 CU boards hold 2150-2200 MHz at a flat 1000 mV under sustained load (verified live on one board). Others need a small bump at the top (~1025 mV at 2150, ~1050 mV at 2200) to stay stable. The "right" curve is board-specific because the GDDR6 and SoC bins vary.
+    The shipped curve stops at 2000 MHz. To raise the ceiling, add higher `[[safe-points]]` entries (for example 2150 and 2200 MHz) and pick their voltages per the guidance here. Some 40 CU boards hold 2150-2200 MHz at a flat 1000 mV under sustained load (verified live on one board). Others need a small bump at the top (~1025 mV at 2150, ~1050 mV at 2200) to stay stable. The "right" curve is board-specific because the GDDR6 and SoC bins vary.
 
     Recommended approach:
 
@@ -275,10 +313,21 @@ voltage = 1000     # max stable on stock cooling
 
     Earlier guides that prescribed 1025-1075 mV across the board were universally conservative. The 2026 finding is that **many boards don't need it**, not that no board does.
 
-**Restart after changes:**
-```bash
-sudo systemctl restart cyan-skillfish-governor-smu
-```
+!!!warning "Config edits do nothing until you restart the service"
+    The config file is read once, at service start. There is no auto-reload: editing the file changes nothing about the running governor until you run
+
+    ```bash
+    sudo systemctl restart cyan-skillfish-governor-smu
+    ```
+
+    With `[dbus] enabled = true` you can read back what the running governor is actually using, which is the authoritative check after any change:
+
+    ```bash
+    busctl --system get-property com.cyanskillfish.Governor \
+      /com/cyanskillfish/Governor/Range/Current com.cyanskillfish.Governor.Range Max
+    ```
+
+    Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, governor v0.4.11.
 
 ### Cyan-Skillfish Governor TT Config
 
@@ -615,8 +664,8 @@ sudo journalctl -u cyan-skillfish-governor-smu -f
 ### When to Use Cyan-Skillfish TT
 
 - **Multi-step scaling:** Thermal throttling awareness
-- **Available as package:** Easy to install on Bazzite (kernel pre-patched)
-- **Best for:** Bazzite users who already have the kernel patch
+- **Available as package:** COPR and AUR
+- **Best for:** Kernels that carry the frequency range patch; current Bazzite kernels do not
 
 ### When to Use Oberon (Legacy)
 
@@ -690,6 +739,9 @@ sudo systemctl restart cyan-skillfish-governor-smu
 
 The [bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc) tool overclocks the CPU via SMU commands. It raises the boost clock ceiling while keeping dynamic frequency scaling intact.
 
+!!!warning "Stop this governor while you tune"
+    Install `stress` first, and stop `cyan-skillfish-governor-smu` before running `bc250-detect` or a manual `bc250-apply`: the governor and these tools drive the same SMU registers. The [overclocking page](../bios/overclocking.md#cpu-overclocking-undervolting-smu-tool) explains why and lists the tool's limits and warnings.
+
 ### Installation
 
 ```bash
@@ -742,6 +794,8 @@ The OC service raises the boost ceiling at boot. Combined with ACPI P-States and
 
 The [bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) provides SSDT tables that enable CPU C-States (idle sleep) and P-States (frequency scaling). Both are confirmed working on kernel 6.19.8.
 
+On a board with the [8-core unlock](8core-unlock.md), build the archive below from the 16-thread tables in [mendesrr/bc250-acpi-fix-updated-8c](https://github.com/mendesrr/bc250-acpi-fix-updated-8c) instead, since these cover only the first 12 threads.
+
 ### What It Enables
 
 - **C-States (SSDT-CST):** CPU cores enter C1/C2/C3 sleep states at idle, reducing power consumption
@@ -789,6 +843,23 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg    # Arch
 sudo update-grub                              # Debian
 ```
 
+On Bazzite, Fedora Atomic and other rpm-ostree distros:
+
+The two variants above do not apply here. An ostree system has no `/boot/loader/entries/<machine-id>-<kernel>.conf` (its BLS entries are regenerated `ostree-*.conf` files, and hand edits do not survive the next deployment), which is why the Fedora command opens an empty file. Use the dracut override method already documented on the [Fedora CoreOS page](../linux/fedora-coreos.md#enable-acpi-c-states-and-p-states) instead. Only the `git clone` from Step 1 is needed; skip the cpio archive:
+
+```bash
+sudo mkdir -p /etc/dracut.conf.d/acpi/
+sudo cp bc250-acpi-fix/*.aml /etc/dracut.conf.d/acpi/
+sudo tee /etc/dracut.conf.d/99-acpi-override.conf <<'CONF'
+acpi_override="yes"
+acpi_table_dir="/etc/dracut.conf.d/acpi"
+CONF
+sudo rpm-ostree initramfs --enable
+sudo systemctl reboot
+```
+
+After the reboot, `sudo dmesg | grep SSDT` should report both tables found in the initrd, as shown on the CoreOS page. Plain `dmesg` is not permitted for regular users on Bazzite.
+
 **Step 3: Reboot and verify**
 
 ```bash
@@ -808,6 +879,8 @@ echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 
 !!!warning "Kernel Update Note"
     When you update to a new kernel, the BLS entry for the new kernel won't include the ACPI override. You'll need to edit the new entry or automate this with a kernel-install hook.
+
+    This does not apply to the rpm-ostree method: with `rpm-ostree initramfs --enable`, the initramfs is regenerated with the tables on every deployment, so the override persists across updates.
 
 ## Community Resources
 

@@ -12,7 +12,7 @@ hide:
 
 # Cases & Enclosures
 
-Community-built and 3D-printable enclosures for the AMD BC-250. **145 designs** documented from Discord, Reddit, Printables, MakerWorld, Thingiverse, and more.
+Community-built and 3D-printable enclosures for the AMD BC-250. **146 designs** documented from Discord, Reddit, Printables, MakerWorld, Thingiverse, and more.
 
 <div class="cases-app" markdown="0">
 

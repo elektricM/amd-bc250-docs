@@ -250,6 +250,9 @@ The thermal paste on used BC-250 boards is often dried out.
 4. Remount heatsink with even pressure
 5. Tighten screws in X pattern
 
+!!!warning "Keep the pad height the same"
+    Taking the heatsink off also disturbs the pads (and on some boards thermal putty) between it and the board. Replace them with the same thickness you took off: a thicker pad holds the heatsink off the die, and the APU can then overheat and shut the board off shortly after power-on. See [Overheating Auto-Shutoff](../troubleshooting/stability.md#overheating-auto-shutoff).
+
 **Temperature Impact:** 5-10°C improvement if old paste was dried
 
 !!!tip "Use Quality Paste"

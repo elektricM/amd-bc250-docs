@@ -10,6 +10,7 @@ Complete guide to diagnosing and fixing boot issues on the BC-250. This covers e
 
 1. **Does the board power on?** (Fan spins, LED lights up)
    - **NO** → See [Hardware Issues](#hardware-power-issues)
+   - **YES, but it switches itself off after a few seconds** → See [Overheating Auto-Shutoff](stability.md#overheating-auto-shutoff)
    - **YES** → Continue to #2
 
 2. **Can you see BIOS menu?** (Press Del during boot)

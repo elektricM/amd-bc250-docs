@@ -31,6 +31,9 @@ The Linux kernel version and configuration is critical for BC-250 stability and 
 !!!success "Current Recommendation"
     Use kernel **6.18.18 LTS** or **6.19.x stable** for the best BC-250 experience. Both work well. Kernels **6.17.11+** are also fine.
 
+!!!info "DisplayPort audio depends on the kernel too"
+    DisplayPort audio plays about 18% slow or not at all on kernels older than 6.12.78, 6.18.20, 6.19.10 or 7.0, including every 6.13 to 6.17 release, and drifts slightly out of sync until 7.1.10 or 7.2. See the [DisplayPort audio page](../troubleshooting/audio.md#which-kernels-are-affected).
+
 !!!warning "7.0-rc: Mainline — Do Not Use in Production"
     Kernel 7.0-rc4 is the current mainline release candidate. Not tested on BC-250 and not recommended for daily use.
 
@@ -338,16 +341,15 @@ sudo pacman -S linux  # check version is 6.17.11+ or 6.18.x
 **Purpose:** Enables extended frequency range (350 MHz - 2230 MHz) instead of default (1000-2000 MHz)
 
 **Distributions with Patch Included:**
-- Bazzite (pre-applied — **no manual patching needed**)
 - PikaOS (pre-applied)
 
-!!!success "Bazzite Users: Patch Already Included"
-    If you're running Bazzite, the GPU frequency range patch is **already included in Bazzite's kernel**. You do NOT need to manually patch anything. Just install a governor and you're done.
+!!!warning "Current Bazzite kernels do not include it"
+    This page used to list Bazzite here. Since stable `44.20260429` Bazzite ships the Open Gaming Collective kernel, which keeps the stock 1000-2000 MHz limits (checked at `v7.2.4-ogc3` and `v7.2.7-ogc1`). On Bazzite, use the SMU governor below; see [Bazzite Setup](bazzite.md#prebuilt-bc-250-images-optional).
 
 !!!info "SMU Governor Bypasses Kernel Patching"
     The `cyan-skillfish-governor-smu` manages clock speeds through SMU firmware calls and **does not require the kernel frequency range patch on ANY distro**. This is the easiest option for CachyOS, Arch, Fedora, or Debian users who don't want to compile a custom kernel. Install via AUR (`cyan-skillfish-governor-smu`) or COPR (`filippor/bazzite`).
 
-**Manual Patching (only if not using Bazzite/PikaOS and not using SMU governor):**
+**Manual Patching (only if not using PikaOS and not using SMU governor):**
 
 Required for:
 - Fedora (with TT governor)
@@ -363,7 +365,7 @@ Required for:
 
 [Detailed patching guide available in community resources]
 
-**Alternative:** Use distributions with patch pre-applied (Bazzite, PikaOS) or use the SMU governor
+**Alternative:** Use a distribution with the patch pre-applied (PikaOS) or use the SMU governor
 
 ### 40 CU Unlock Patch (Experimental)
 

@@ -7,7 +7,7 @@ The AMD BC-250 is an ex-cryptocurrency mining board featuring a cut-down PlaySta
 The BC-250 was originally designed for cryptocurrency mining, likely Ethereum, before being repurposed and sold on the surplus market. It features:
 
 - **CPU:** 6x Zen 2 cores running at ~3.5GHz (all 8 cores are [unlockable](../system/8core-unlock.md))
-- **GPU:** 24 RDNA2 Compute Units (codename "Cyan Skillfish")
+- **GPU:** 24 RDNA2 Compute Units (codename "Cyan Skillfish") (additional CUs are unlockable, up to [40](../system/40cu-unlock.md) if stable)
 - **Memory:** 16GB GDDR6 shared between CPU and GPU
 - **Connectivity:** 1x DisplayPort, 2x USB 3.0, 2x USB 2.0, 1x GbE Ethernet, M.2 NVMe/SATA slot
 - **Power:** PCIe 8-pin connector, 220W TDP
@@ -42,9 +42,9 @@ With proper Linux setup, the BC-250 delivers performance comparable to:
 **Other limitations:**
 
 - **No hardware video encode/decode** — VCN firmware is blocked by Sony, software decoding only
-- Audio over DisplayPort can be unreliable with some adapters (passive adapters usually work)
+- Audio over DisplayPort needs a current kernel; older kernels play it slow or not at all (see [DisplayPort audio](../troubleshooting/audio.md))
 - No built-in WiFi/Bluetooth (USB adapters work)
-- Limited instruction set (some AVX features missing)
+- Reduced floating-point throughput versus desktop Zen 2: the instruction set is complete, AVX2 included, but the 256-bit FPU datapath is halved (see [CPU specifications](../hardware/specifications.md#cpu-specifications))
 - High idle power consumption (~50-80W without optimization)
 
 !!!danger "Do NOT Use Smokeless_UMAF"

@@ -5,6 +5,9 @@ The BC-250 ships with 24 of 40 RDNA2 Compute Units active. The remaining 16 CUs 
 !!!success "Credits"
     All of this work is by **[duggasco](https://github.com/duggasco)** and contributors. The kernel patch, helper scripts, methodology, controlled A/B testing, and academic writeup all live at **[duggasco/bc250-40cu-unlock](https://github.com/duggasco/bc250-40cu-unlock)**. If you find this useful, star their repo. This page summarises and adds distro-specific notes and field-verified thermal data.
 
+!!!note "The upstream repo is archived"
+    duggasco archived the repository on 17 September 2026. It still clones and the scripts, patch and reports are all still there, but it is read-only now: nothing in it will be updated if a later kernel breaks the patch or the build scripts. [Option 4](#option-4-runtime-umr-no-kernel-rebuild), the runtime UMR route, does not depend on it.
+
 ## What It Does
 
 Two hardware registers control CU availability on Cyan Skillfish, and both need to be modified:
@@ -41,16 +44,48 @@ Graphics workloads see much less benefit (`glmark2` +4.4%), because 3D rendering
 ## Requirements and Caveats
 
 !!!warning "Not all boards will unlock cleanly"
-    The 16 fused-off CUs are not necessarily silicon-healthy. Boards with a **contiguous harvest pattern** (CU 0-5 active, CU 6-9 fused, the same on all 4 shader arrays) tend to unlock the full 40 CUs and pass compute correctness tests. Boards with a **scattered harvest pattern** may have actually defective CUs that pass enumeration but fail under load. The community has been collecting harvest maps and the contiguous case appears common but not universal.
-
-    Before flashing modprobe configs around: run `./scripts/cu_map.sh` from duggasco's repo to see your harvest pattern. If it's scattered, plan on running the per-WGP health test (see [selective CU masking](#selective-cu-masking)) and probably ending up with somewhere between 24 and 40 stable CUs rather than the full 40.
+    The 16 fused-off CUs are not necessarily silicon-healthy. Some boards run all 40 cleanly, some end up between 24 and 40 after masking CUs that fail under load, and the only way to know which you have is to test: enable the CUs, then run duggasco's per-WGP health test (see [selective CU masking](#selective-cu-masking)) before trusting them with real work.
 
 Before you enable this:
 
-- This rebuilds the `amdgpu` kernel module out-of-tree. Every kernel update reverts the change. Plan to rebuild after upgrades or pin your kernel.
+- This rebuilds the `amdgpu` kernel module out-of-tree. Every kernel update reverts the change. Plan to rebuild after upgrades or pin your kernel. On Bazzite and other rpm-ostree distros the rebuild is not possible at all, see the [distro note](#bazzite-and-other-rpm-ostree-distros).
 - Sustained 40 CU at 2 GHz on the stock heatsink will throttle. Plan for a governor cap at 1500 MHz, better cooling, or both. See the [thermal reality check](#thermal-reality-check) below.
 - Compute is rock solid on boards where the unlock holds, graphics has not been as widely tested. If you hit corruption in games, drop back to 24 CU or mask suspect CUs.
 - Secure Boot must be off or you need to sign the rebuilt module yourself.
+
+### Read Your Harvest Map First
+
+duggasco's `cu_map.sh` shows which CUs firmware left active on each shader array. It only reads the driver's CU bitmap through libdrm, so it runs on any distro, Bazzite included, without building or installing anything. Clone the repo first and run it from the clone. It needs `python3` and libdrm, both already present on any system running Mesa, and access to `/dev/dri/renderD128` (use `sudo` if that is denied):
+
+```bash
+git clone https://github.com/duggasco/bc250-40cu-unlock.git
+cd bc250-40cu-unlock
+./scripts/cu_map.sh
+```
+
+A **contiguous** map has the fused CUs packed at one end of every array:
+
+```text
+BC-250 CU Map
+SE0 SH0: ■■■■■■□□□□
+SE0 SH1: ■■■■■■□□□□
+SE1 SH0: ■■■■■■□□□□
+SE1 SH1: ■■■■■■□□□□
+24/40 CUs active, 16 harvested
+```
+
+A **scattered** map has a gap in the middle of at least one array:
+
+```text
+BC-250 CU Map
+SE0 SH0: ■■■■■■□□□□
+SE0 SH1: ■■■■■■□□□□
+SE1 SH0: ■■■■■■□□□□
+SE1 SH1: ■■□□■■■■□□
+24/40 CUs active, 16 harvested
+```
+
+Treat the map as context, not as a verdict. A scattered map suggests CUs were switched off selectively during binning, which raises the odds that some of them are defective; a contiguous map looks like firmware policy and is the common case in duggasco's n=58 survey. Neither predicts your outcome. bangstk reports both a "good" map with bad CUs and a "bad" map with all 40 usable, and ddscentral's summary is the right one: the pattern by itself means nothing until you test the CUs ([#57](https://github.com/elektricM/amd-bc250-docs/issues/57)). Whatever yours shows, run the health test.
 
 ## Installation
 
@@ -113,7 +148,7 @@ The script installs `umr` itself if missing (pacman / dnf / rpm-ostree supported
 
 When to pick runtime over the kernel patch:
 
-- **Pick runtime UMR if:** you don't want to rebuild `amdgpu` after every kernel update, you want to A/B different WGP layouts live (per-WGP toggle), or you're on a board with a scattered harvest pattern and you want to experiment safely without rebooting between each test.
+- **Pick runtime UMR if:** you don't want to rebuild `amdgpu` after every kernel update, you're on Bazzite or another rpm-ostree distro where you cannot (see [below](#bazzite-and-other-rpm-ostree-distros)), you want to A/B different WGP layouts live (per-WGP toggle), or you're on a board with a scattered harvest map and you want to experiment safely without rebooting between each test.
 - **Pick the kernel patch if:** you want `active_cu_number 40` reflected in the driver topology from boot 0, you want everything to go through standard module loading without an extra service, or you're packaging this into a distro image.
 
 Both approaches end at the same hardware state when applied. The runtime tool reads the driver's factory topology as the baseline and refuses to disable driver-active WGPs live, which makes per-board experimentation noticeably safer than hand-running `umr -w` commands.
@@ -140,9 +175,25 @@ Verified on Fedora 43, kernel `7.0.9-105.fc43.x86_64`. On this kernel `kernel-de
 
 Standard path. `apt install linux-headers-$(uname -r) build-essential zstd` then run the build script. No known gotchas.
 
-### CachyOS / Bazzite
+### CachyOS
 
 The kernel patch is being pursued upstream as [CachyOS/kernel-patches#159](https://github.com/CachyOS/kernel-patches/pull/159). Until it lands, treat it as the manual patch path with the `linux-cachyos` PKGBUILD.
+
+### Bazzite and Other rpm-ostree Distros
+
+Options 1 to 3 do not work here: the build scripts want kernel sources from `apt` or `dnf` and a writable `/lib/modules`, and an rpm-ostree image has neither ([duggasco/bc250-40cu-unlock#16](https://github.com/duggasco/bc250-40cu-unlock/issues/16) is exactly this failure on Bazzite Deck). Two paths work:
+
+- **[Option 4](#option-4-runtime-umr-no-kernel-rebuild), runtime UMR.** Nothing to rebuild. The live manager installs `umr` through `rpm-ostree` itself and its systemd unit replays your layout on boot. This is the least invasive route on Bazzite.
+- **Rebase to a prebuilt image.** [62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images](https://github.com/62fixolab/Latest-Bazzite-AMD-BC-250-Patched-Images) builds Deck, GNOME and KDE images on the official Bazzite `stable` base with the SMU governor and the 655% usage fix, plus separate `-40cu` variants that bundle duggasco's tooling and the live manager behind `ujust bc250-cu-*` commands. Their README calls the `-40cu` images experimental, and Bazzite does not support rebasing between desktop variants, so stay on the one you already run:
+
+    ```bash
+    # Deck variant shown; use -gnome-40cu or -kde-40cu to match your install
+    rpm-ostree rebase ostree-image-signed:docker://ghcr.io/62fixolab/bazzite-bc250-patched-deck-40cu:latest
+    systemctl reboot
+    ujust bc250-cu-status
+    ```
+
+    Reported working on a Bazzite Deck install by tfabris in [#57](https://github.com/elektricM/amd-bc250-docs/issues/57).
 
 ## Verification
 
@@ -218,7 +269,7 @@ Sustained throughput drops about 10% over 10 minutes (3034 → 2835 tok/s) as th
 
 ## Selective CU Masking
 
-Not every unlocked CU may be silicon-healthy on every board. Boards with scattered (non-contiguous) harvest patterns may have defective CUs that pass enumeration but fail compute. duggasco ships a per-WGP health test that reboots into each WGP configuration in isolation and runs correctness checks:
+Not every unlocked CU is silicon-healthy on every board, whatever the [harvest map](#read-your-harvest-map-first) looks like: a defective CU passes enumeration and fails under compute load. duggasco ships a per-WGP health test that reboots into each WGP configuration in isolation and runs correctness checks:
 
 ```bash
 sudo ./scripts/bc250-cu-health-test.sh start

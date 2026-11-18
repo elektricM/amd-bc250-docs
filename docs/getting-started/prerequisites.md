@@ -72,12 +72,15 @@ The board has NATIVE DisplayPort output.
 
 **Options:**
 
-- **Best:** Native DisplayPort cable (1080p/1440p/4K, audio works)
-- **Good:** Passive DP to HDMI adapter (1080p/1440p, audio works)
-- **Avoid:** Active DP to HDMI adapter (video works, audio broken)
+- **Best:** Native DisplayPort cable (1080p/1440p/4K)
+- **Good:** Passive DP to HDMI adapter (1080p/1440p, audio works on any kernel)
+- **Also fine:** Active DP to HDMI adapter (needed for 4K60+ on HDMI displays and for HDMI-CEC; audio needs a current kernel, see below)
 
-!!!info "Audio Limitation"
-    Native DP audio is partially broken in Linux. Use passive adapters for best results, or USB audio as workaround.
+!!!tip "TVs and projectors may not show the BIOS"
+    Some smart TVs and projectors cannot show the resolution the BIOS screen uses, so the first start-up looks like a dead board. If the Num Lock or Scroll Lock light on the keyboard responds but the screen stays blank, the board is running: do the first setup on a PC monitor and move the board to the TV afterwards. Reported by @bearhudson.
+
+!!!info "DisplayPort audio needs a current kernel"
+    On older kernels, audio over native DisplayPort and active adapters plays about 18% slow or not at all. Kernel 7.2 or newer fixes it completely and current longterm kernels fix the large error; the [DisplayPort audio page](../troubleshooting/audio.md#which-kernels-are-affected) has the table. The adapter is not the cause: passive adapters use a clock path the bug does not touch, and USB audio sidesteps it entirely.
 
 [Display troubleshooting →](../troubleshooting/display.md)
 

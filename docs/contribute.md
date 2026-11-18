@@ -74,7 +74,7 @@ Edit `docs/gaming/compatibility.md`:
 **Settings:**
 - Graphics: High
 - Anti-aliasing: Medium
-- RADV_DEBUG=nocompute %command%
+- Launch options: `gamemoderun %command%`
 
 **Notes:**
 - Stuttering in some areas with 8GB/8GB split

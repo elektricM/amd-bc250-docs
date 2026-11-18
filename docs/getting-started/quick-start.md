@@ -69,7 +69,7 @@ sudo systemctl enable --now cyan-skillfish-governor-smu.service
 ```
 
 !!!info "TT Governor Alternative"
-    The `cyan-skillfish-governor-tt` is also available from the same COPR. It requires the kernel frequency range patch (pre-included in Bazzite).
+    The `cyan-skillfish-governor-tt` is also available from the same COPR. It requires the kernel frequency range patch, which current Bazzite kernels do not carry.
 
 !!!success "ACPI Fix — Recommended"
     The [bc250-collective/bc250-acpi-fix](https://github.com/bc250-collective/bc250-acpi-fix) enables CPU C-States (idle power savings) and P-States (CPU frequency scaling 800-3200 MHz). Loaded via initrd override. See the [Governor page](../system/governor.md) for installation instructions.

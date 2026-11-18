@@ -3,7 +3,7 @@
 Flashing the modded BIOS is the recommended way to unlock the BC-250's full potential. It primarily enables **dynamic VRAM allocation** and grants access to **advanced chipset settings** that are hidden in the stock configuration.
 
 !!!tip "Not always required"
-    If your only goal is changing VRAM size, you can do that from Linux on the stock P3.00 / P5.00 BIOS using [bc250_memcfg](https://github.com/fanoush/bc250_memcfg). See [VRAM Configuration](vram.md#changing-vram-allocation) for details. Flashing is only needed if you want the unlocked chipset menus or features beyond VRAM sizing.
+    If your only goal is changing VRAM size, you can do that from Linux on the stock P3.00 / P5.00 BIOS using [bc250_memcfg](https://github.com/fanoush/bc250_memcfg). See [VRAM Configuration](vram.md#changing-the-vram-split) for details. Flashing is only needed if you want the unlocked chipset menus or features beyond VRAM sizing.
 
 !!!danger "Hardware Safety: GPU Power Connector"
     Ensure the 8-pin PCIe power connector is wired correctly BEFORE attempting to flash.
@@ -71,7 +71,7 @@ There are three ways to flash the BIOS:
 **Pros:**
 - No USB stick, no EFI shell, no programmer: backup and flash from the running OS
 - Cannot touch the wrong chip: `-p internal` only reaches the main BIOS flash
-- Staged writes can leave the boot block untouched, keeping crisis recovery intact
+- Only the blocks that change are erased and written, so a boot block that is identical in both images is never touched
 
 **Cons:**
 - Advanced users only, you are writing the chip the board is running from
@@ -200,7 +200,7 @@ Once the flashing process finishes and the system attempts to reboot:
 1.  Power on and spam **Del** to enter BIOS.
 2.  Verify CMOS was cleared. The time/clock should be wrong. If not repeat Step 6 (The Critical CMOS Clear).
 3.  Navigate to: **Chipset** → **GFX Configuration**.
-4.  Set **Integrated Graphics Controller** to **Forces**.
+4.  Set **Integrated Graphics Controller** to **Forced**.
 5.  Set **UMA Mode** to **UMA_SPECIFIED**.
 6.  Set **UMA Frame Buffer Size** to **512MB** (Recommended) or your preferred fixed size.
 7.  Navigate to: **Advanced** → **CPU Configuration**.
@@ -276,6 +276,8 @@ The board features a 2.54mm header specifically for flashing. This is safer than
     ```
     *   *If it detects "Winbond W25Q128..." or "Macronix MX25L128...":* **Success.** You are on the right chip.
     *   *If it detects "Macronix MX25L4005..." (512KB):* **STOP.** You are attached to the SuperIO chip. Move to the other chip.
+    *   *If it lists several Macronix names and stops with "Multiple flash chip definitions match the detected chip(s)":* the Macronix 128 Mbit parts share one ID, so flashrom cannot tell them apart and wants `-c`. Read the part number printed on the chip and pass the matching definition to every later command, for example `-c "MX25L12835F/MX25L12873F"`. @poltpolt wrote a 3.00 image successfully with `-c MX25L12805D` on a 3.3 V CH341A ([#69](https://github.com/elektricM/amd-bc250-docs/issues/69)).
+    *   *If the programmer reports overcurrent before it detects anything:* in-circuit, its 3.3 V pin most likely feeds more than the flash chip, so a programmer with a current limit can trip. @JustCryen's XGecu T76 tripped at its 120 mA default on a W25Q128JVSQ and worked at 250 mA ([#62](https://github.com/elektricM/amd-bc250-docs/issues/62)). Raise the limit in steps rather than switching the protection off.
 3.  **Backup (Essential):**
     ```bash
     sudo flashrom -p ch347_spi -r backup_stock.bin
@@ -291,7 +293,7 @@ The board features a 2.54mm header specifically for flashing. This is safer than
 ### 4. Post-Flash Configuration
 
 1.  Enter BIOS → **Chipset** → **GFX Configuration**.
-2.  Set **Integrated Graphics Controller** to **Forces**.
+2.  Set **Integrated Graphics Controller** to **Forced**.
 3.  Set **UMA Mode** to **UMA_SPECIFIED**.
 4.  Set **UMA Frame Buffer Size** to **512M**.
 5.  Navigate to: **Advanced** → **CPU Configuration**.
@@ -306,9 +308,9 @@ The board features a 2.54mm header specifically for flashing. This is safer than
 The board's BIOS chip can be read and written from the running OS with `flashrom -p internal`. No USB stick, no EFI shell, no programmer. This procedure was verified start to finish on a real board (staged write, byte-identical read-back, clean reboot onto the new firmware). Tested by @Weijtmans on Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
 
 !!!danger "Advanced users only"
-    You are erasing and rewriting the flash chip of the board you are booted from. Linux keeps running from RAM while you do it, but a mistake still means the next boot fails, and then your only ways back are USB recovery or a hardware programmer. Read the whole section before typing anything.
+    You are erasing and rewriting the flash chip of the board you are booted from. Linux keeps running from RAM while you do it, but a mistake still means the next boot fails. The USB method needs a board that still reaches the EFI shell, so a hardware programmer is your only guaranteed way back. Have one before you start, and read the whole section before typing anything.
 
-A safety property worth knowing: the board has [two flash chips](../hardware/pinouts.md): the 16MB BIOS chip on the FCH SPI bus and the 512KB SuperIO chip (fan control) on LPC. `-p internal` can physically only reach the FCH SPI chip, so the "accidentally flashed the SuperIO" failure mode of the programmer route cannot happen here.
+A safety property worth knowing: the board has [two flash chips](../hardware/pinouts.md): the 16MB BIOS chip on the FCH's SPI bus and a 512KB chip that holds the NCT6686D SuperIO's own program. `-p internal` drives the FCH's SPI controller, and flashrom has no way to reach a flash chip behind a Nuvoton SuperIO (its SuperIO bridges cover ITE parts and one Winbond family only), so the "accidentally flashed the SuperIO" failure mode of the programmer route does not apply here.
 
 ### 1. Back up your current BIOS, twice
 
@@ -322,7 +324,7 @@ sha256sum bios-backup-1.rom
 
 Two independent, identical reads prove the dump is good. Without a hardware programmer this backup is your **only** recovery image. Record the hash and store a copy off the board.
 
-flashrom will identify the chip. Boards vary: some carry a Winbond W25Q128, others a Macronix (`MX25L12835F/MX25L12873F`, 16384 kB). Pass the identified chip explicitly with `-c` in every later command.
+flashrom will identify the chip. Boards vary: some carry a Winbond W25Q128, others a Macronix (`MX25L12835F/MX25L12873F`, 16384 kB). On a Macronix board the first read stops with "Multiple flash chip definitions match" and reads nothing until you add `-c`; run both reads again with it. Pass the identified chip explicitly with `-c` in every later command.
 
 ### 2. Pre-flight checklist
 
@@ -335,21 +337,21 @@ Each of these can make an internal flash fail or refuse:
 | Firmware daemons | `systemctl stop fwupd` | stopped during the flash |
 | Chip write protection | flashrom prints the status register | SRWD and BP0–BP3 all clear |
 
-flashrom shows a scary warning about internal flashing on laptops with an EC sharing the flash. On the BC-250 the IMC (AMD's embedded controller) is not active and no EC shares the BIOS chip, which is what makes that warning moot on this board.
+flashrom prints its "unknown laptop" warning because the board's DMI tables do not identify it as a desktop. That warning only switches off the legacy LPC/FWH buses; the SPI chip is still probed and written. It is aimed at embedded controllers that share the BIOS flash. On the BC-250 no EC shares the BIOS chip, and flashrom's own check reports the FCH's IMC as not active (it refuses to write when it is), which is why the warning does not apply here.
 
 ### 3. Diff first, then write only what differs
 
-flashrom cannot enumerate AMD FCH protected ranges, so a naive full-chip write could die mid-chip on a protected region and leave a partial image, in other words a brick. The safe pattern is to write **only the regions that actually differ** between your dump and the target image, in stages, starting with a small low-risk region:
+flashrom already skips every block whose contents do not change, so a staged write touches the same blocks a full-chip `-w` would. What staging adds is checkpoints: you see which blocks differ before anything is written, you stop if the boot block is among them, and you prove a small low-risk region before writing the rest. On this board's Bolton FCH, flashrom reads the chipset's four ROM protect ranges at startup and tries to clear them; run it once with `-V` and look for a "Disabling ... protection ... failed" line, which means a range stayed protected; if you see one, stop. First list the blocks that differ:
 
 ```bash
 # Which 64KB blocks differ between current BIOS and target?
 cmp -l bios-backup-1.rom new-bios.rom | awk '{print int(($1-1)/65536)}' | uniq
 ```
 
-For the common community 3.00-lineage images, the differences fall entirely in the NVRAM region (`0x000000–0x01ffff`) and a varstore/DXE range in the middle of the image; the top 512KB **boot block is byte-identical across the lineage**. That matters: an untouched boot block keeps AMI's USB crisis recovery working even if a later stage fails.
+On the image pair flashed on the tested board (both from the community 3.00 lineage), the differences fell entirely in the NVRAM region (`0x000000–0x01ffff`) and a varstore/DXE range in the middle of the image, and the top 512KB boot block was byte-identical. Check your own pair with the diff above instead of assuming the same. Leaving the boot block alone keeps the earliest firmware stage intact, but AMI's USB crisis recovery has not been shown to work on the BC-250, so do not count on it as a way back.
 
 !!!warning "If the boot block differs, stop"
-    If the block diff shows differences in the last 512KB of the chip, this method's safety argument does not hold for your image pair. Use the USB method instead.
+    If the block diff shows differences in the last 512KB of the chip (blocks 248 to 255 in the output above, for a 16MB chip), this method's safety argument does not hold for your image pair. Use the USB method instead.
 
 Write with a flashrom layout file, verifying between stages. NVRAM first (proves erase/write/verify works on your board while the rest is untouched), then the remaining differing regions:
 
@@ -359,7 +361,7 @@ cat > layout.txt <<'EOF'
 0ab0000:0abffff varstore
 0ae0000:0c2ffff dxe
 EOF
-# Region bounds above are for the community 3.00-lineage images.
+# Region bounds above are from the image pair on the tested board.
 # Derive your own from the block diff if yours differ.
 
 sudo flashrom -p internal -c "<your chip>" -l layout.txt -i nvram -w new-bios.rom
@@ -380,7 +382,7 @@ On the verified run the full-chip read-back hash matched the target ROM exactly,
 
 Same as the USB method: clear CMOS afterwards and redo your BIOS settings, see [The Critical CMOS Clear](#step-6-the-critical-cmos-clear).
 
-To restore your original BIOS later (as long as Linux still boots):
+To restore your original BIOS later (as long as Linux still boots; flashrom again rewrites only the blocks that differ):
 
 ```bash
 sudo flashrom -p internal -c "<your chip>" -w bios-backup-1.rom

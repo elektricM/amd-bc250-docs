@@ -66,15 +66,15 @@ aplay -l
 - **Note:** DP 1.2 max (1440p @60Hz, some support 1440p @165Hz)
 
 **Active Adapters:**
-- **Audio:** Silent out of the box on many setups. Caused by the board's DisplayPort audio clock, not the adapter, and works with the [DP audio clock fix](../troubleshooting/audio.md)
+- **Audio:** Silent or slow on older kernels. Caused by a kernel bug in the DisplayPort audio clock, not by the adapter, and fixed by a [kernel update](../troubleshooting/audio.md#which-kernels-are-affected)
 - **Cost:** More expensive ($15-30)
 - **Use Case:** 4K @60Hz+ on HDMI displays, HDMI-CEC
-- **Issues:** Apply the audio fix before writing the adapter off
+- **Issues:** Check your kernel against the audio page before writing the adapter off
 
 ### Known Issues with Adapters
 
 !!!info "The adapters were never the problem"
-    The "adapters break audio" reports trace back to a bug on the board itself: the firmware programs the DisplayPort audio clock for a reference clock the hardware does not have. Active adapters are real DisplayPort sinks, so they receive that off-spec audio stream and often refuse to lock (silence). Passive adapters make the driver use a different, unaffected clock path, which is why they seem immune. See [DisplayPort Audio: Silence, Desync or Slow Pitch](../troubleshooting/audio.md) for the mechanism and a fix that needs no kernel build.
+    The "adapters break audio" reports trace back to a kernel bug: older kernels program the DisplayPort audio clock for a reference clock the hardware does not have. Active adapters are real DisplayPort sinks, so they receive that off-spec audio stream and often refuse to lock (silence). Passive adapters make the driver use a different, unaffected clock path, which is why they seem immune. Kernel 7.2 and newer fix it completely, and current longterm kernels fix the large error. See [DisplayPort Audio: Silence, Desync or Slow Pitch](../troubleshooting/audio.md) for which kernels are affected, the mechanism and a workaround for older ones.
 
 **Common Symptoms:**
 - Display works, no audio (active adapters: the sink refuses the off-spec stream)
@@ -82,7 +82,7 @@ aplay -l
 - Audio dropouts/clicking
 
 **Workarounds:**
-1. Apply the [DP audio clock fix](../troubleshooting/audio.md), which fixes audio through the adapter you already have
+1. Update to a kernel with the [DP audio clock fix](../troubleshooting/audio.md#which-kernels-are-affected), which fixes audio through the adapter you already have (the audio page also has a workaround for older kernels)
 2. Use a passive adapter (unaffected clock path, but 1080p/1440p limits and no CEC)
 3. Use USB audio adapter/DAC
 4. Use Bluetooth audio
@@ -94,11 +94,11 @@ aplay -l
 | UGREEN 8K Active (Realtek RTD2173) | Yes | Yes, with the [DP audio clock fix](../troubleshooting/audio.md) | Silent without the fix. Verified at 4K60 and 1080p120; HDMI-CEC works. Tested by @Weijtmans |
 | Generic Passive | Usually | Sometimes | Hit or miss |
 | Cable Matters Active | Yes | No | 4K works, no audio |
-| Club3D Active | Yes | Sometimes | Sporadic audio issues |
+| Club3D Active | Yes | Yes, with the [DP audio clock fix](../troubleshooting/audio.md) | Silent without the fix. Verified at 4K120. Tested by @GabMus |
 | StarTech Active | Yes | No | Reliable display, no audio |
 
 !!!note "The 'No audio' rows predate the root cause discovery"
-    The Cable Matters/Club3D/StarTech results were collected before the [DP audio clock bug](../troubleshooting/audio.md) was identified. The mechanism predicts they fail for the same reason and would work with the fix, but that has not been re-tested. If you own one, re-test with the fix applied and report back.
+    The Cable Matters/StarTech results were collected before the [DP audio clock bug](../troubleshooting/audio.md) was identified. The mechanism predicts they fail for the same reason and work on a kernel with the fix, but that has not been re-tested. If you own one, re-test on a current kernel and report back with the output of `uname -r`.
 
 ## Common Display Problems
 
@@ -232,16 +232,18 @@ The BC-250 can join an HDMI-CEC bus (TV power on/off, input switching, TV-remote
 
 **Verified working:** UGREEN 8K active DP-HDMI adapter (Realtek RTD2173). `/dev/cec0` appears, the board registers as a CEC 2.0 Playback Device (logical address 8), and traffic is bidirectional: the TV answers a power-status query in 87 ms and an OSD-name query in 29 ms. Tested by @Weijtmans on Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, Samsung TV.
 
-!!!note "The kernel's CEC adapter list is not a compatibility matrix"
-    The kernel documentation names a few known CEC-tunnelling chipsets (Parade PS175/PS176/PS186, MegaChips 2900, some Club3D models). That list is one maintainer's observations; the RTD2173 is not on it and works fine. Don't rule an adapter out because its chipset isn't listed; check for `/dev/cec0`.
+!!!note "The kernel's CEC adapter list is not a compatibility matrix, and neither is /dev/cec0"
+    The kernel documentation lists the adapters its CEC maintainer has seen work (Parade PS175/PS176/PS186 and MegaChips 2900 chipsets, a few Club3D, CableCreation and HP models). It is a list of observations: the RTD2173 is not on it and works. The same documentation also warns that many adapters with a tunnelling-capable chip never connect the CEC pin, and on those `/dev/cec0` still appears but never sees the TV. So do not rule an adapter out because it is not listed, and do not rule it in because `/dev/cec0` exists: the test is whether the TV answers, see the quick start below.
 
-**Passive adapters physically cannot do CEC.** CEC tunnelling lives in a DPCD register block (0x3000) that only a real DP sink implements. You can verify your adapter's support directly:
+**Passive adapters cannot do CEC**; the kernel documentation says so too. Tunnelling is advertised in a DPCD register (0x3000) that only a real DP sink such as an active adapter implements, and the kernel creates `/dev/cec0` only when bit 0 of it is set. You can read it directly:
 
 ```bash
 sudo dd if=/dev/drm_dp_aux0 bs=1 skip=$((0x3000)) count=1 2>/dev/null | xxd
-# Output = CEC-capable (DPCD CEC block present)
-# No output = no CEC tunnelling (all passive adapters, many active ones)
+# 01, 03, 05 or 07 (bit 0 set) = the adapter advertises CEC tunnelling
+# 00, or no output = no tunnelling (a passive adapter gives no output)
 ```
+
+Advertising tunnelling is necessary, not sufficient; see the note above.
 
 **Quick start** (`cec-ctl` is in `v4l-utils`):
 
@@ -253,7 +255,38 @@ cec-ctl -d /dev/cec0 --playback   # register as a Playback device on the bus
 cec-ctl -d /dev/cec0 -S           # scan: shows the TV, audio system, other devices
 ```
 
+The scan must list at least one device besides the BC-250 itself. If it shows only the BC-250, either the adapter does not connect the CEC pin or CEC is switched off for that input on the TV.
+
 `/dev/cec0` is owned `root:video`, so add your user to the `video` group for non-root use, and remember group changes only apply to new logins.
+
+!!!warning "On Bazzite and other ostree distros, usermod -aG silently does nothing"
+    On an ostree system with nss-altfiles, the `video` group often exists only in the read-only `/usr/lib/group`, with no line in `/etc/group`. `usermod -aG video $USER` then validates the group through NSS, edits `/etc/group`, finds no line to append to, and exits 0 without changing anything. Seed the group line first, then add the member:
+
+    ```bash
+    grep '^video:' /usr/lib/group | sudo tee -a /etc/group
+    sudo gpasswd -a $USER video
+    ```
+
+    Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29.
+
+### Naming the Box on the CEC Bus
+
+On the kernel-CEC path a device announces itself with `cec-ctl`'s default OSD name unless `--osd-name` is passed, so the TV's source list shows the box as "Playback". Two Bazzite pitfalls stack on top of that:
+
+- Setting `CEC_OSD_NAME` in `/etc/default/cec-control` is a no-op here. `cec-control` builds `--osd-name` into its argument list but only uses that list on its libcec code path; on the `/dev/cec0` path, the one the BC-250 takes, it runs a bare `cec-ctl -d "$CEC_DEVICE" --playback`.
+- `cec-onboot.service` re-runs that bare registration on every boot, clobbering any name set by hand.
+
+Set the name directly (CEC limits OSD names to 14 characters), and reapply it after `cec-onboot` if you want it to survive reboots:
+
+```bash
+cec-ctl -d /dev/cec0 --playback --osd-name "Steam Machine"
+```
+
+[bc250-cec-identity.sh](https://github.com/Weijtmans/bc250-tools) does this and can install a small unit that makes the name persistent; [bc250-cec-check.sh](https://github.com/Weijtmans/bc250-tools) from the same repo proves whether the TV actually answers on the bus.
+
+Renaming changes the name, not the device category: CEC has no game-console device type, and amdgpu implements no ALLM, so a TV will not switch into Game Mode by itself. Label the input as a game console in the TV's own source menu for that.
+
+Tested by: @Weijtmans. BC-250, Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29, Samsung TV.
 
 ## Multiple Display Support
 
@@ -345,7 +378,7 @@ HDR support in Linux is improving but still experimental:
 
 ## Audio Solutions
 
-Audio through DP-HDMI adapters is fixable in software, see the [DP audio clock fix](../troubleshooting/audio.md). If you'd rather not run that, here are alternative solutions:
+Audio through DP-HDMI adapters works on a current kernel, see [DisplayPort Audio](../troubleshooting/audio.md). If you are stuck on an older kernel or want a separate audio output anyway, here are alternative solutions:
 
 ### Option 1: USB Audio Adapter
 
@@ -447,7 +480,7 @@ If your monitor has DisplayPort input AND built-in speakers:
 ### TV Connection (Living Room Gaming)
 - **Display:** 4K TV with HDMI 2.0+
 - **Adapter:** Active DP to HDMI 2.0 adapter
-- **Audio:** TV speakers / soundbar over the adapter works with the [DP audio clock fix](../troubleshooting/audio.md); Bluetooth/USB audio as fallback
+- **Audio:** TV speakers / soundbar over the adapter works on a kernel with the [DP audio clock fix](../troubleshooting/audio.md); Bluetooth/USB audio as fallback
 - **Note:** Test adapter audio before permanent setup
 
 ## See Also

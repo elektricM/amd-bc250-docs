@@ -217,9 +217,26 @@ Before diving into specific issues, check these common causes:
 
 ### Overheating Auto-Shutoff
 
-**Symptoms**: System powers off cleanly when temperature exceeds threshold
+**Symptoms**: The board cuts power by itself, with no shutdown from the OS. If it happens a roughly fixed time after power-on, and sooner when you switch it straight back on, the chip is still hot from the previous attempt and a thermal trip is the most likely cause.
 
-**Solution**: This is actually protective behavior - improve cooling rather than disabling
+This is protective behaviour. Fix the cooling rather than looking for a setting that disables it.
+
+**Shuts off seconds after power-on, right after heatsink work**
+
+When this starts right after a repaste, a pad change or fin work, the usual cause is that the heatsink no longer sits properly on the APU die. With the heatsink off, check:
+
+1. **Pad thickness under the heatsink.** Replace the pads between the board and the heatsink with the same thickness as the ones you took off. A pad thicker than the gap holds the heatsink off the die. One community report puts the heatsink-side pads at 1.5 mm and the underside ones at 2 mm (Discord, September 2025); measure your own old pads rather than relying on that.
+2. **Paste imprint.** Apply paste, mount the heatsink, take it off again and look at the die. No imprint, or one that does not cover the die, means no contact.
+3. **Thermal putty.** Community reports mention putty on some of the small components under the heatsink as well as pads. Put the same amount back where it was; missing or stacked material changes the height too.
+4. **Screw pressure.** Tighten the four heatsink screws evenly in an X pattern, without cranking them down.
+5. **Fan.** Confirm the fan actually spins during those seconds. The stock heatsink is passive and needs airflow ([Cooling Solutions](../hardware/cooling.md)).
+6. **Debris.** If you opened up or removed fins, check the board for aluminium fragments before powering it again.
+
+Let the board cool down completely between attempts, and keep each test short.
+
+Missing pads on the underside memory are worth fixing as well, but the memory symptoms on the cooling page show up after 30 to 60 minutes of load, not seconds after power-on. See [Thermal Paste Replacement](../hardware/cooling.md#thermal-paste-replacement) and [Memory Thermal Pad Replacement](../hardware/cooling.md#memory-thermal-pad-replacement).
+
+If it still shuts off on a schedule with the heatsink confirmed seated and the fan running, look at power delivery next: [Power Supply Issues](#power-supply-issues).
 
 ---
 
@@ -455,10 +472,11 @@ zram-size = 4096  # 4GB instead of 8GB
    - Issue: Some games work better at 44.1kHz vs 48kHz
    - Quote: "I changed alsa and pulseaudio settings to make the sample rate 44.1khz rather than 48khz and all of a sudden sound worked fine - it wasn't choppy anymore - but all audio was pitched down"
    - Recommendation: Keep at 48kHz unless specific game requires change
+   - If DisplayPort audio is pitched down at every sample rate, that is the [DP audio clock bug](audio.md), fixed by a kernel update
 
 2. **Use correct audio output**
    - Passive DisplayPort to HDMI: Audio works
-   - Active DP to HDMI adapters: Audio often broken
+   - Native DP and active DP to HDMI adapters: silent or pitched down on older kernels, fixed by a kernel update ([details](audio.md))
    - USB audio: Most reliable for quality audio
 
 3. **Audio-related performance issues**
@@ -564,17 +582,31 @@ zram-size = 4096  # 4GB instead of 8GB
 
 ### System "Freezes" When Sleeping
 
-**Symptoms**: Screen goes black, appears frozen, but power button wakes it
+**Symptoms**: Screen goes black when the box suspends and it does not come back. On some boards the power button wakes it; on others nothing does, the network is dead too, and only a power cut recovers it.
 
 **Quote**:
 > "Bazzite freezes when its about to sleep, had to hard reset everytime. That's interesting, mine 'freezes' when it sleeps, but hitting the power button wakes it up."
 
-**Explanation**: Board lacks proper sleep states, enters pseudo-sleep that looks like freeze
+**Explanation**: The BC-250 only offers `s2idle` (`cat /sys/power/mem_sleep` shows `[s2idle]` and no `deep`), and resume from it does not work reliably on this hardware. After a forced reboot, `journalctl -b -1 -n 5` ending in `PM: suspend entry (s2idle)` with no resume line after it confirms the box suspended and hung there. The [display page](display.md#problem-black-screen-after-idle-nothing-wakes-it) has the same diagnosis from the black-screen angle.
 
-**Solutions**:
-1. Disable sleep/suspend in power settings
-2. Use "power button wakes" as intended behavior
-3. Configure screen blanking instead of system sleep
+**Fix: never let it suspend.** Turning off idle suspend in the desktop's power settings is the first step (GNOME: `gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'`), but on Bazzite it is not enough: Steam Game Mode has its own idle suspend, and Steam's power menu keeps a Sleep entry you cannot remove. Pick one of the two system-wide workarounds below. They are mutually exclusive, because both use the same path, `/etc/systemd/system/suspend.target`; remove one before applying the other.
+
+**Option A: make suspend do nothing.** Masking the sleep targets makes every suspend request fail immediately, whether it comes from the desktop, Game Mode or Steam's menu:
+
+```bash
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+
+Revert with `sudo systemctl unmask` and the same four targets. Tested by @Weijtmans on Bazzite (Fedora Atomic 43), kernel 6.17.7-ba29 ([#55](https://github.com/elektricM/amd-bc250-docs/pull/55)).
+
+**Option B: turn Sleep into Shutdown.** If you keep hitting Sleep in Steam's power menu out of console muscle memory, retarget suspend at poweroff so the entry does something predictable instead of hanging the box:
+
+```bash
+sudo ln -sf /usr/lib/systemd/system/poweroff.target /etc/systemd/system/suspend.target
+sudo systemctl daemon-reload
+```
+
+Revert by deleting the symlink and running `daemon-reload` again. Contributed by @tfabris in [#59](https://github.com/elektricM/amd-bc250-docs/issues/59) and confirmed by a second user.
 
 ### Sleep State Power Issues
 

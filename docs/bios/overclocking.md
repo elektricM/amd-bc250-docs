@@ -221,20 +221,53 @@ voltage:
 A community-developed SMU (System Management Unit) tool enables CPU overclocking and undervolting on the BC-250.
 
 **Repository:** [bc250-collective/bc250_smu_oc](https://github.com/bc250-collective/bc250_smu_oc)
-**Created by:** mrfrakes and dantistnfs (via SMU reverse engineering)
+**Created by:** mrfrakes and dantistnfs (via SMU reverse engineering); the repository's commits are by [@mrfrakes](https://github.com/mrfrakes) and [@shinf1x](https://github.com/shinf1x)
 
 ### What It Does
 
-- Overclock all 6 CPU cores (up to 4 GHz @ 1275 mV reported)
+- Overclock all CPU cores, 6 or 8 after the [8-core unlock](../system/8core-unlock.md) (up to 4 GHz @ 1275 mV reported)
 - Undervolt the CPU for lower power and temperatures
 - Detect viable overclock for your specific board
-- Apply overclock automatically on startup
+- Apply overclock automatically on startup (systemd only)
 
 ### Requirements
 
 - **Cooling:** Good active cooling is essential — CPU overclocking adds significant heat on top of GPU load
 - **PSU:** Ensure adequate headroom (300W+ recommended when combined with GPU overclock)
 - **Testing:** Use incremental steps and stress test thoroughly
+- **`stress`:** install it from your distribution's packages first. `bc250-detect` runs `stress --cpu 12` as its load and fails with `No such file or directory: 'stress'` without it; `stress-ng` does not replace it ([bc250_smu_oc#2](https://github.com/bc250-collective/bc250_smu_oc/issues/2))
+
+!!!danger "The tool's own warnings"
+    The README warns that raising the CPU frequency without undervolting leads to uncapped Vid scaling, and its author, @mrfrakes, reports permanently bricking one BC-250 that way. It says core voltage (Vid) must never exceed 1.325 V and advises staying below 1300 mV.
+
+### Running It
+
+```bash
+git clone https://github.com/bc250-collective/bc250_smu_oc.git
+cd bc250_smu_oc
+pipx install .                                   # or pip install ., depending on your distro
+
+sudo systemctl stop cyan-skillfish-governor-smu  # see the warning below
+bc250-detect --frequency 4000 --vid 1275 --keep  # writes overclock.conf in the current directory
+sudo systemctl start cyan-skillfish-governor-smu
+```
+
+`bc250-detect` steps the clock up from 3500 MHz under load, undervolts as needed to keep the measured Vid under `--vid`, and saves the last passing step. Without `--keep` it restores stock settings on exit. If the board crashes during detection, the README says to retry with `--vid 1300`, then lower the target frequency.
+
+`bc250-apply` does nothing, silently, unless it gets `--apply` or `--install`: `bc250-apply overclock.conf` on its own changes nothing ([bc250_smu_oc#4](https://github.com/bc250-collective/bc250_smu_oc/issues/4)). `--apply` applies the file now. `--install` copies it to `/etc/bc250-smu-oc.conf` and writes a systemd unit that applies it at boot, which you then enable with `sudo systemctl enable bc250-smu-oc`. `--uninstall` deletes both files but does not disable the unit, so disable it first.
+
+On OpenRC (Alpine, Artix, Gentoo) there is no unit: put an executable script ending in `.start` in `/etc/local.d/` that runs `bc250-apply --apply` on your config by its full path (`command -v bc250-apply` shows it; `pipx` and `pip --user` put it in your `~/.local/bin`, which is not on root's `PATH` at boot), and enable the `local` service with `rc-update add local default`.
+
+The tools refuse values outside the limits in `bc250_limits.py`: 3500-4500 MHz, a `--vid` of 950-1325 mV, a temperature limit of 0-100 °C, and a Vid curve scale of −50 to 0, so the curve can only be lowered.
+
+!!!danger "Stop the GPU governor before bc250-detect or a manual bc250-apply"
+    `cyan-skillfish-governor-smu` reaches the SMU through the same `0xB8`/`0xBC` index/data pair on `00:00.0` as these tools. Each program locks single register accesses, not an address/value pair and not a whole mailbox exchange, so the governor can land in the middle of the tool's message and one of them reads or writes the wrong SMN address ([bc250_smu_oc#8](https://github.com/bc250-collective/bc250_smu_oc/issues/8)). The [8-core unlock](../system/8core-unlock.md) page gives the same warning for its mailbox. Stop the service, run the tool, start it again.
+
+!!!note "Temperature limits: the last one written wins"
+    `bc250-detect` and `bc250-apply` set both the CPU and the GPU temperature limit (90 °C unless you pass `--temp` to `bc250-detect`, which saves it in the config; stock is 100 °C). The SMU governor, with its default `set-method = "smu"`, sets the GPU limit to 80 °C once, when it starts. Restarting the governor after `bc250-detect --keep` therefore puts the GPU back at 80 °C, and since nothing orders the `bc250-smu-oc` unit against the governor at boot, either value can end up in force.
+
+!!!warning "8-core boards"
+    `stress --cpu 12` loads every thread of a stock board but only 12 of 16 after the [8-core unlock](../system/8core-unlock.md), so `bc250-detect` validates under less load than the board can see. The open pull request [bc250_smu_oc#3](https://github.com/bc250-collective/bc250_smu_oc/pull/3) scales the workers to the CPU count. Until it lands, re-check the result under a full 16-thread load as the 8-core page's [re-validation steps](../system/8core-unlock.md#your-overclock-needs-re-validating) describe.
 
 !!!warning "Silicon Lottery"
     Not all BC-250 boards will reach 4 GHz. Use the tool's detection features to find your chip's safe limits. Always test stability under sustained load before committing settings.
