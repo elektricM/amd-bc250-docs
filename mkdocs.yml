@@ -153,6 +153,7 @@ nav:
     - 40 CU Unlock: system/40cu-unlock.md
     - 8 Core CPU Unlock: system/8core-unlock.md
     - Sensors & Monitoring: system/sensors.md
+    - Fan Control: system/fan-control.md
     - Power Management: system/power.md
 
   - Gaming & Performance:
