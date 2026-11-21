@@ -196,19 +196,62 @@ Alternative power connectors compatible with Molex Micro-Fit BMI [444280801](htt
 [ LED2 GND GND GND ]  [ GND GND GND GND ]
 ```
 
-| Pin | Purpose |
-|-----|---------|
-| `PGD` | `PGOOD` - 5V when PSU2 connected to rack chassis |
-| `LED1` | Status output - high (about 3 V) while the backplane LED is red |
-| `LED2` | Status output - high while the backplane LED is green, about 0 V while it is red |
+| Pin | Board net | Purpose |
+|-----|-----------|---------|
+| `PGD` (J2001 pin 4) | `PWR_SW` | Power-enable input. Pulled up to 12 V on the board through 300 kΩ: left open, the board powers up. Pulled to GND, it turns off the board's 12 V input switch and the board loses power at once. In the rack chassis this pin was driven by the PSU's power-good. |
+| `LED1` (J2000 pin 1) | `LED_M_G` | Green channel of the status LED, active-low: about 0 V while green is lit, about 3 V while it is off (red showing) |
+| `LED2` (J2000 pin 5) | `LED_M_R` | Red channel of the status LED, active-low: about 0 V while red is lit, about 3 V while it is off (green showing) |
 
-!!!note "How to read LED1 and LED2"
-    This table used to say "active-low, `LED1` mirrors green, `LED2` mirrors red", with no source behind it, and that was questioned in [#42](https://github.com/elektricM/amd-bc250-docs/issues/42). The rows above describe the pins by what they read instead, from @tfabris's measurements and the front-panel circuit built on them: about 3 V on `LED1` and about 0 V on `LED2` while the backplane LED is red, and `LED2` going high when it turns green. While only one colour is lit, the old wording predicts the same voltages (a pin that pulls one colour's LED low is high whenever the other colour is showing), but it is easy to read backwards, and "high while red" or "high while green" is what matters when the pin drives a transistor.
+!!!note "Where this comes from"
+    The nets and the driver circuit below are traced in the ASRock BC-250 boardview (r1.00). They match @tfabris's measurements for [#42](https://github.com/elektricM/amd-bc250-docs/issues/42): about 3 V on `LED1` and about 0 V on `LED2` while the status LED is red, and `LED2` going high when it turns green. The older wording "active-low, `LED1` mirrors green, `LED2` mirrors red" was correct.
 
-    Tested by: @tfabris, one board. The red-state levels are multimeter readings; the green state comes from the working circuit rather than a meter.
+    Tested by: @tfabris, one board (LED1/LED2 levels). Circuit: boardview.
 
-!!!danger "Do not hang an LED directly on LED1 or LED2"
-    These are logic-level status outputs. Their driver circuit and current limit are not documented anywhere, and connecting a bare LED to `LED1` dimmed the red backplane LED to orange on the board in #42, which shows the external LED loading the same output. Buffer them: let the pin switch a small transistor or MOSFET, and run the front-panel LED with its series resistor from the 5 V or 12 V rail through that. @tfabris's [LED controller](https://github.com/tfabris/BC-250/tree/master/LED%20Controller) is a worked example: each pin drives a BC548 through a 10 kΩ base resistor, and the LEDs run from the PSU's 5 V.
+**PGD is not a power button.** A momentary switch from `PGD` to GND acts like pulling the plug while it is pressed. To start the board, use the onboard power button or the `AUTO_PWRON1` jumper.
+
+#### How LED1 and LED2 are driven
+
+Both pins sit on the cathode side of the onboard status LED (`LED16`, the red/green side-view LED at the I/O edge between the LAN and USB 3.0 ports). A 2N7002 MOSFET pulls a pin to ground to light that colour:
+
+```
++5V ──┬── LED16 green ── 100 Ω ──┬── LED1 (J2000 pin 1)
+      │                          └── 2N7002 ── GND
+      └── LED16 red ──── 150 Ω ──┬── LED2 (J2000 pin 5)
+                                 └── 2N7002 ── GND
+```
+
+When its MOSFET is off, a pin floats at about 3 V: 5 V minus the forward voltage of the onboard LED.
+
+!!!danger "Never connect an LED from LED1 or LED2 to GND"
+    An LED from the pin to GND draws its current through the onboard LED of that colour. That is why the status LED turned orange in #42: the external LED lit the green half next to the red one. Two ways that work:
+
+    - **Sink the current:** connect the external LED with a 220-330 Ω series resistor between +5 V and the pin. It lights together with the onboard colour. Do not use 12 V for this: while the pin is off, the onboard LED would be reverse-biased by several volts.
+    - **Buffer it:** let the pin switch a small transistor or MOSFET, and power the front-panel LED from the PSU through that. @tfabris's [LED controller](https://github.com/tfabris/BC-250/tree/master/LED%20Controller) is a worked example: each pin drives a BC548 through a 10 kΩ base resistor, and the LEDs run from the PSU's 5 V.
+
+#### What the status LED shows
+
+The status LED shows the load on the memory rail, not a general power or activity state:
+
+| LED16 | Meaning |
+|-------|---------|
+| Red | Low current on the GDDR6 supply rail (idle) |
+| Green | High current on the GDDR6 supply rail (memory busy) |
+
+It is never both at once. The circuit, from the boardview:
+
+1. The memory VRM controller (Renesas ISL95712, `PUIO1`) reports its output current on `+VMEMIO_IMON` (pin 11). `+VMEMIO` feeds all eight GDDR6 chips and the APU's memory interface.
+2. An LM358 (`U4503`) amplifies that signal by 10.1 and compares it with 3.49 V (5 V through 1.5 kΩ / 3.48 kΩ, 1 MΩ hysteresis).
+3. The comparator drives the MOSFET pair above through a 10 kΩ / 1 µF filter (about 10-20 ms). One MOSFET lights green, a second one inverts that signal for red.
+
+The current threshold in amps depends on the ISL95712's current-monitor gain, which the boardview does not show.
+
+This fits two kinds of field reports, since each attempt to start the memory briefly loads the memory rail:
+
+- The LED reportedly cycles red/green/red on boards whose GDDR6 no longer trains at 1750 MHz (brain_cylinder in the BC250 Discord, September 2026; fix discussed [on Reddit](https://www.reddit.com/r/BC250Gaming/comments/1wb2izn/)).
+- Arieltune's BC-250 manual describes a regular red/green cycle as the heartbeat of a boot loop.
+
+!!!note "Not yet confirmed by observation"
+    The meaning above is derived from the circuit. To confirm it, watch the status LED at idle and during a memory-heavy GPU load such as `llama-bench`: it should change from red to green. Reports welcome.
 
 Use both J2000 and J2001 for redundancy when powering from these connectors.
 
