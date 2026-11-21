@@ -166,15 +166,17 @@ These connectors are compatible with 8-pin Molex Micro-Fit connectors ([44428080
 
 ```
    v                     v
-[ LED1 12V 12V 12V ]  [ 12V 12V 12V GND ]
-[ LED2 GND GND GND ]  [ GND GND GND PGD ]
+[ LED1 12V 12V 12V ]  [ 12V 12V 12V PGD ]
+[ LED2 GND GND GND ]  [ GND GND GND GND ]
 ```
 
 | Pin | Purpose |
 |-----|---------|
-| `PGD` | `PGOOD` - 5V when PSU2 is connected to rack chassis |
+| `PGD` | Power-enable input, pulled up to 12 V on the board. Left open, the board runs; pulled to GND, the board loses power. Not a power button. |
 | `LED1` | Active-low LED output - mirrors green backplane LED |
 | `LED2` | Active-low LED output - mirrors red backplane LED |
+
+What these pins do and how to wire them is on the [pinouts page](pinouts.md#j2000-and-j2001).
 
 If powering the BC-250 from these connectors, use both J2000 and J2001 for redundancy.
 
